@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: HKPD foundation health API
+  version: 0.1.0
+paths:
+  /health/live:
+    get:
+      responses:
+        "200":
+          description: API process responds; no business readiness implied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+  /health/ready:
+    get:
+      responses:
+        "200":
+          description: Local foundation configuration is valid, integrations remain deferred
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+        "503":
+          description: Runtime foundation check failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+components:
+  schemas:
+    Health:
+      type: object
+      additionalProperties: false
+      required: [status, service, environment]
+      properties:
+        status:
+          type: string
+          enum: [ok, foundation_ready, unavailable]
+        service:
+          const: api
+        environment:
+          type: string
+          enum: [dev, staging]
+        integrations:
+          const: deferred

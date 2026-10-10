@@ -1,0 +1,45 @@
+name: CI
+on:
+  push:
+  pull_request:
+  merge_group:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    name: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npm run env:init
+      - run: npm run check
+      - run: node scripts/smoke.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: foundation-build-${{ github.sha }}
+          path: |
+            apps/web/dist
+            apps/api/dist
+            apps/worker/dist
+          retention-days: 7
+  secrets:
+    name: secrets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npm run secret:scan
