@@ -100,3 +100,5 @@ Tab **Xác nhận kết quả** có bản thử nhập → xác nhận → sửa
 ## Rà soát liên nhóm trước I
 
 `@hkpd/integration` nối roster đã duyệt R → sơ đồ C → nguồn official K, DTO trận, global người lập lịch và consumer invalidation/rebuild B05. Xem [phản biện và lỗi đã sửa](docs/review/pre-i.md) cùng [hợp đồng adapter](docs/review/integration-contract.md). API nghiệp vụ, session, lưu bền và frontend online vẫn cần nối; nhóm I chưa được triển khai trong lượt rà soát này.
+
+Phần cơ bản [nhóm I](docs/group-i/README.md) bổ sung hàng đợi IndexedDB, inbox ngoại tuyến giữ xung đột và diễn tập dữ liệu tổng hợp. Mở tab **Ngoại tuyến** để thử lưu bản nhập. API nghiệp vụ/persistence và Drive/SQL/Netlify còn ở bước cuối; không tự xác nhận khi reconnect.

@@ -1,3 +1,4 @@
+import { OfflineWorkspace } from "./offline-ui.js";
 import { CompetitionWorkspace } from "./competition-ui.js";
 import { ResultsWorkspace } from "./results-ui.js";
 import { RegistrationWorkspace } from "./registration-ui.js";
@@ -24,6 +25,7 @@ const steps = [
   "Sơ đồ thi đấu",
   "Vòng tròn",
   "Lịch và phân làn",
+  "Ngoại tuyến",
   "Xác nhận kết quả",
   "Công khai",
 ] as const;
@@ -33,6 +35,7 @@ const outlines: Record<
     Step,
     | "Đăng ký VĐV"
     | "Kiểm tra đăng ký"
+    | "Ngoại tuyến"
     | "Xác nhận kết quả"
     | "Sơ đồ thi đấu"
     | "Vòng tròn"
@@ -503,6 +506,8 @@ export function App() {
             )}
           </section>
         </div>
+      ) : step === "Ngoại tuyến" ? (
+        <OfflineWorkspace />
       ) : step === "Xác nhận kết quả" ? (
         <ResultsWorkspace />
       ) : step === "Kiểm tra đăng ký" ? (

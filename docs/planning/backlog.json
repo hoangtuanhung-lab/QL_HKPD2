@@ -1171,7 +1171,7 @@
       "dependencies_source_text": "B04/K01/R08",
       "acceptance": "Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả.",
       "requirement_ids": ["QT32", "RQ-PDF-G21"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1189,7 +1189,7 @@
       "dependencies_source_text": "I01/K01",
       "acceptance": "Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.",
       "requirement_ids": ["QT33", "RQ-PDF-G21"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1207,7 +1207,7 @@
       "dependencies_source_text": "R09/B05",
       "acceptance": "Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được.",
       "requirement_ids": ["RQ-USER-001", "RQ-USER-002"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1225,7 +1225,7 @@
       "dependencies_source_text": "B07/I03",
       "acceptance": "Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng.",
       "requirement_ids": ["QT36", "RQ-USER-001", "RQ-PDF-G22"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1243,7 +1243,7 @@
       "dependencies_source_text": "K11/I02/I03",
       "acceptance": "Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0.",
       "requirement_ids": ["QT18", "QT34", "QT35"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1261,7 +1261,7 @@
       "dependencies_source_text": "K11/I02/I04",
       "acceptance": "7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1279,7 +1279,7 @@
       "dependencies_source_text": "B07/I04",
       "acceptance": "Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau.",
       "requirement_ids": ["RQ-USER-002"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1297,7 +1297,7 @@
       "dependencies_source_text": "I05/I06",
       "acceptance": "Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",

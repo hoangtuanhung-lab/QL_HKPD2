@@ -48,6 +48,7 @@ async function fixture() {
     "group-d",
     "group-r",
     "group-k",
+    "group-i",
   ])
     await symlink(join(repository, "docs", entry), join(root, "docs", entry));
   for (const entry of await readdir(join(repository, "scripts"))) {

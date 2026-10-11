@@ -1,0 +1,33 @@
+{
+  "purpose": "development-preview-only; synthetic data; real Chromium IndexedDB; not real-backend UAT",
+  "baselineCommit": "7f57850a70fc8de0a9acefa880d3a807b8797292",
+  "branch": "feat/group-i-offline",
+  "workingTreeChanges": true,
+  "viewport": {
+    "width": 1440,
+    "height": 1100
+  },
+  "verified": [
+    "loaded page saves two distinct revisions with browser network offline",
+    "first revision retained after second save",
+    "switch tabs retains data",
+    "online reload restores same operation IDs",
+    "zero business API requests and uncaught exceptions"
+  ],
+  "assets": [
+    {
+      "file": "index-B0cDcWaq.css",
+      "sha256": "1e9ccf1997088942d0b41df4ad6178468e04a8b4c3783c4a1ae54def7385027c"
+    },
+    {
+      "file": "index-BJ1B130s.js",
+      "sha256": "ef0951aa2bc892886ed4f77917f88284ca94a802de5315efbc2ca1e61da23b3c"
+    }
+  ],
+  "images": [
+    {
+      "file": "offline-retained.png",
+      "sha256": "a8e8397afcc4a1cf145ab5776ad904fd6423582d11b5a2f0fc292034e384dd73"
+    }
+  ]
+}

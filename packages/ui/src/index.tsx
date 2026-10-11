@@ -10,7 +10,8 @@ export function FormField({
   error,
   hint,
   ...input
-}: InputHTMLAttributes<HTMLInputElement> & {
+}: Omit<InputHTMLAttributes<HTMLInputElement>, "children"> & {
+  children?: never;
   label: string;
   error?: string;
   hint?: string;

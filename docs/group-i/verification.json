@@ -1,0 +1,98 @@
+{
+  "purpose": "group-I development verification; not real-backend UAT or release acceptance",
+  "recorded_date": "2026-10-11",
+  "recorded_timezone": "Asia/Saigon",
+  "baseline_commit": "7f57850a70fc8de0a9acefa880d3a807b8797292",
+  "tasks": {
+    "I01": "handover_prepared",
+    "I02": "handover_prepared",
+    "I03": "handover_prepared",
+    "I04": "handover_prepared",
+    "I05": "handover_prepared",
+    "I06": "handover_prepared",
+    "I07": "handover_prepared",
+    "I08": "handover_prepared"
+  },
+  "accepted_tasks": 0,
+  "regression_before_fix": {
+    "case": "I-REG-10",
+    "command": "vitest run tests/group-i-ui.test.ts -t I-REG-10",
+    "exit_code": 1,
+    "selected_failed": 1,
+    "filtered_skipped": 5,
+    "cause": "FormField received an input child; input cannot have children; React error #137"
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "tests_passed": 526,
+      "test_files": 40,
+      "group_i_tests": 63,
+      "group_i_files": 5,
+      "sql_static_tests": 28,
+      "actual_sql_executed": false
+    },
+    {
+      "command": "vitest run tests/group-i-ui.test.ts",
+      "exit_code": 0,
+      "tests_passed": 6
+    },
+    {
+      "command": "node scripts/smoke.mjs",
+      "exit_code": 0,
+      "verified": [
+        "dev API/web/worker",
+        "staging API/web/worker",
+        "managed shutdown ports released",
+        "single API child shutdown"
+      ]
+    },
+    {
+      "command": "npm run secret:scan",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run release:audit",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ready": false,
+      "meaning": "Real backend, UAT, restore and release evidence still pending; development tests do not close release gates"
+    },
+    {
+      "command": "node scripts/offline-browser-smoke.mjs",
+      "exit_code": 0,
+      "storage": "real Chromium IndexedDB in isolated synthetic profile",
+      "verified": [
+        "network-offline saves two additional revisions",
+        "prior revision retained",
+        "switch tabs and online reload preserve operation IDs",
+        "no business API requests or uncaught browser exceptions"
+      ],
+      "artifact_manifest": "docs/group-i/screenshots/manifest.json"
+    }
+  ],
+  "synthetic_drill": {
+    "schools": 7,
+    "athletes": 500,
+    "registrations": 500,
+    "logical_folders": 500,
+    "technical_events": 10,
+    "core_confirmed_matches": 490,
+    "real_backend": false,
+    "actual_drive_folders_created": 0,
+    "source_correction": "downstream stale preserved; no automatic re-confirmation",
+    "cancellation": "projection guard only; no real cancel command exercised"
+  },
+  "deferred": [
+    "live auth/session/CSRF",
+    "business API routes and durable inbox/match/assignment transaction adapter",
+    "offline application bootstrap cache and production CSP validator",
+    "leader inbox UI and re-submit/re-confirm workflow",
+    "SQL/Google/Drive/Netlify CR-004 integrations",
+    "actual backup scheduler, restore, migration and VPS cutover",
+    "real load/lease/idempotency limits and P0 targets",
+    "real-server T01-T12/TG01-TG08 and UAT/release sign-off"
+  ],
+  "cloud_config_change_needed": false
+}
