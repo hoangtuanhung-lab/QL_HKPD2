@@ -2,7 +2,7 @@
 
 Nền tảng phát triển theo plan nhóm 28 người, phiên bản 1.4. Phạm vi bàn giao hiện tại: **A02 (kiến trúc), B01 (repository/CI), B07 (môi trường)** do Codex đảm nhận ở vị trí O01 và phụ trách bổ sung A02.
 
-**Theo yêu cầu mới của người dùng, toàn bộ tích hợp Netlify, SQL và Google được thực hiện ở bước cuối dự án.** Bản hiện tại chỉ có giao diện khởi đầu, API kiểm tra tiến trình và worker nhàn rỗi; chưa đăng nhập, lưu hồ sơ, chạy tác vụ nghiệp vụ hay lưu kết quả.
+**Theo yêu cầu mới của người dùng, toàn bộ tích hợp Netlify, SQL và Google được thực hiện ở bước cuối dự án.** Bản hiện tại có phiếu đăng ký nháp của trường trên trình duyệt, API kiểm tra tiến trình và worker nhàn rỗi; chưa đăng nhập, lưu hồ sơ lên máy chủ hoặc lưu kết quả chính thức.
 
 ## Cài đặt
 
@@ -68,3 +68,7 @@ A03 cung cấp [OpenAPI lõi](docs/api/core.openapi.json), DTO TypeScript sinh t
 O01 có thể chạy `npm run github:audit` để kiểm cấu hình GitHub chỉ đọc. Xem [runbook bảo vệ nhánh](docs/runbooks/branch-protection.md) về reviewer, quyền quản trị và nghiệm thu PR lỗi.
 
 Nhóm có thể gửi mã từng nhiệm vụ để Codex kiểm tra, sửa và đẩy PR theo [quy trình tiếp nhận mã](docs/runbooks/code-intake.md). Không yêu cầu mua GitHub Team; chính sách PR/CI được mô tả trong runbook B01.
+
+## Phiếu đăng ký của nhà trường — A04
+
+Trường tự tạo phiếu theo kỳ giải, thêm/sửa/xóa VĐV và xuất/nhập JSON. Số lượng tính từ danh sách thực tế, không đặt trước số trường hoặc số người tham gia. Dữ liệu nháp lưu trên trình duyệt đang dùng; chưa gửi duyệt hoặc đồng bộ giữa các trường. Xem [hướng dẫn và phạm vi A04](docs/runbooks/A04-school-registration.md). Năm luồng còn lại đang ở mức phác thảo để nhóm phát triển tiếp.
