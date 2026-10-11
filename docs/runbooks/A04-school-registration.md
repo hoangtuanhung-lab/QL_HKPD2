@@ -24,7 +24,7 @@ Bản nháp lưu bằng localStorage của trình duyệt/origin hiện tại, k
 | Xác nhận kết quả | Trọng tài/tổ trưởng | Bản nhập → kiểm phiên bản → xác nhận; bản sửa chưa duyệt giữ kết quả cũ |
 | Công khai        | Người theo dõi      | Kỳ giải đã công bố → thành tích/bảng đã chốt → dữ liệu công khai        |
 
-Năm màn hình ngoài đăng ký chỉ là phác thảo luồng, chưa có thao tác nghiệp vụ. Không giả lập phân quyền hoặc công bố danh sách nháp. A04 chưa nghiệm thu đầy đủ với R02/R03/R04 và chủ module; cần bổ sung tương tác nghiệp vụ theo A01 và điều lệ được chốt.
+Phân công, Xác nhận kết quả và Công khai còn là phác thảo. Sơ đồ thi đấu, Vòng tròn, Lịch và phân làn đã có công cụ thử cục bộ nhóm C; dữ liệu thử mất khi đổi tab hoặc tải lại, chưa nối backend nghiệp vụ. Xem hướng dẫn tập huấn tại `docs/group-d/training.md`. Không giả lập phân quyền hoặc công bố danh sách nháp. A04 chưa nghiệm thu đầy đủ với R02/R03/R04 và chủ module; cần bổ sung tương tác nghiệp vụ theo A01 và điều lệ được chốt.
 
 ## Giao diện dữ liệu để phát triển tiếp
 

@@ -1,0 +1,27 @@
+{
+  "applicationCommit": "4b32052d5b7e32697d2cdc8bba64c3596e7f8604",
+  "purpose": "development-preview-only; no UAT acceptance",
+  "viewport": {
+    "width": 1440,
+    "height": 1100
+  },
+  "data": "empty or synthetic only",
+  "images": [
+    {
+      "file": "registration.png",
+      "sha256": "e6f7e03b58aa44a2d91ed56f301653bd273117d4b41f9ff4b3b99589f5d3eccd"
+    },
+    {
+      "file": "draw.png",
+      "sha256": "f4d506d9d37aab0ae90edbd2e1cf304ef376631e5053e2e4b4b4327ac5ca9b57"
+    },
+    {
+      "file": "round-robin.png",
+      "sha256": "ed40b2eab0b89283f33d42d73f8132ed4865500878452995ac6a3716f0ee0bab"
+    },
+    {
+      "file": "schedule.png",
+      "sha256": "412b4b08000543eab7924ac23fb2d5ab17c21a4ae6908f8bf32dfb414b6af6c7"
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "format": "hkpd-release-v1",
+  "commit": null,
+  "environment": "not_integrated",
+  "criticalDefects": null,
+  "evidence": {
+    "G0": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "G1": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "G2": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "G3": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "G4": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "G5": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "G6": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "data_reconciliation": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "backup_restore": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "migration_rollback": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "I07": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "manuals": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "on_call": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "user_acceptance": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    "quality_checks": {
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    }
+  },
+  "uat": [
+    {
+      "id": "T01",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T02",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T03",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T04",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T05",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T06",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T07",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T08",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T09",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T10",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T11",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "T12",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG01",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG02",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG03",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG04",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG05",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG06",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG07",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    },
+    {
+      "id": "TG08",
+      "status": "pending",
+      "commit": null,
+      "reviewedBy": null,
+      "path": null,
+      "sha256": null
+    }
+  ]
+}

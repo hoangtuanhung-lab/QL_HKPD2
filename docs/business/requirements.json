@@ -1925,13 +1925,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "acceptance",
       "owner_positions": ["L02", "Q03"],
       "wbs_ids": ["D01", "D05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-d/README.md",
+        "docs/group-d/uat-cases.json",
+        "scripts/release-readiness.mjs",
+        "tests/group-d.test.mjs"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1947,13 +1952,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "acceptance",
       "owner_positions": ["L02", "Q03"],
       "wbs_ids": ["D01", "D05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-d/README.md",
+        "docs/group-d/uat-cases.json",
+        "scripts/release-readiness.mjs",
+        "tests/group-d.test.mjs"
+      ],
       "change_ids": [],
       "superseded_by": []
     },

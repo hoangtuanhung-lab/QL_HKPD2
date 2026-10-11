@@ -41,7 +41,9 @@
     "fixtures:a05": "node scripts/export-a05.mjs",
     "db:check": "bash infra/db/tests/run_all.sh",
     "prebuild": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition",
-    "pretest": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition"
+    "pretest": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition",
+    "release:audit": "node scripts/release-readiness.mjs",
+    "data:reconcile": "node scripts/reconcile-data.mjs"
   },
   "dependencies": {
     "fastify": "5.12.5",
