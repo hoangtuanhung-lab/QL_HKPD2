@@ -38,6 +38,20 @@ for (const task of board.tasks) {
     task.primary_position !== original.owner_positions.split("/")[0]
   )
     fail(`A06 source drift: ${task.id}`);
+  const sourceCollaborators = original.owner_positions.split("/").slice(1);
+  const expectedCollaborators = sourceCollaborators.filter((position) =>
+    /^[LPSRCKFQO]\d{2}$/.test(position),
+  );
+  const expectedAdditionalCollaboration =
+    sourceCollaborators
+      .filter((position) => !expectedCollaborators.includes(position))
+      .join("/") || null;
+  if (
+    JSON.stringify(task.collaborating_positions) !==
+      JSON.stringify(expectedCollaborators) ||
+    task.additional_collaboration !== expectedAdditionalCollaboration
+  )
+    fail(`A06 collaboration drift: ${task.id}`);
   const expectedDependencies =
     original.dependencies_text === "Không"
       ? []
