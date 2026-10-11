@@ -46,15 +46,15 @@ async function fixture() {
   const board = JSON.parse(await readFile(path, "utf8"));
   return { root, board, save: () => writeFile(path, JSON.stringify(board)) };
 }
-function run(root) {
+function run(root, mode = "--check") {
   try {
     return {
       ok: true,
-      output: execFileSync(
-        process.execPath,
-        ["scripts/group-a.mjs", "--check"],
-        { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
-      ),
+      output: execFileSync(process.execPath, ["scripts/group-a.mjs", mode], {
+        cwd: root,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+      }),
     };
   } catch (error) {
     return { ok: false, output: error.stderr.toString() };
@@ -67,6 +67,42 @@ it("A06 rejects dropping a range dependency while accepting the current source-b
   task.dependencies.pop();
   await save();
   expect(run(root).output).toContain("dependency drift: K11");
+});
+it.each([
+  ["missing", []],
+  ["replacement with a valid roster position", ["Q02", "O01"]],
+  ["extra", ["Q02", "Q03", "O01"]],
+  ["duplicate", ["Q02", "Q03", "Q03"]],
+])(
+  "A06 rejects %s collaborators before checking or generating the table",
+  async (_, collaborators) => {
+    const { root, board, save } = await fixture();
+    board.tasks.find((task) => task.id === "A05").collaborating_positions =
+      collaborators;
+    await save();
+    const tablePath = join(root, "docs/planning/backlog.md");
+    const originalTable = await readFile(tablePath, "utf8");
+    for (const mode of ["--check", "--generate"]) {
+      const result = run(root, mode);
+      expect(result.ok).toBe(false);
+      expect(result.output).toContain("collaboration drift: A05");
+    }
+    expect(await readFile(tablePath, "utf8")).toBe(originalTable);
+  },
+);
+it.each([
+  ["removed", "I08", null],
+  ["invented", "A05", "các nhóm"],
+])("A06 rejects %s additional collaboration", async (_, taskId, value) => {
+  const { root, board, save } = await fixture();
+  board.tasks.find((task) => task.id === taskId).additional_collaboration =
+    value;
+  await save();
+  for (const mode of ["--check", "--generate"]) {
+    const result = run(root, mode);
+    expect(result.ok).toBe(false);
+    expect(result.output).toContain(`collaboration drift: ${taskId}`);
+  }
 });
 it("A06 prevents superseded requirements from reentering the active task backlog", async () => {
   const { root, board, save } = await fixture();

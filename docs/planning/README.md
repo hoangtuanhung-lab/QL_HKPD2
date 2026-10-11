@@ -1,6 +1,6 @@
 # A06 — Hồ sơ giao việc và môi trường
 
-`backlog.json` là board cục bộ có phiên bản, gồm 58 WBS và đủ 28 vị trí theo plan v1.4. `backlog.md` là bảng đọc sinh tự động; `group-a:check` chặn lệch tiêu chí, chủ trì, phụ thuộc và yêu cầu so với A01. Chưa tạo ticket trên dịch vụ ngoài. Giữ nguyên mã vị trí: ví dụ WBS R03 do vị trí R02/S03 chủ trì/phối hợp, không suy diễn người phụ trách từ tên WBS.
+`backlog.json` là board cục bộ có phiên bản, gồm 58 WBS và đủ 28 vị trí theo plan v1.4. `backlog.md` là bảng đọc sinh tự động; `group-a:check` chặn lệch tiêu chí, chủ trì, danh sách phối hợp, phạm vi “các nhóm”, phụ thuộc và yêu cầu so với A01. `group-a:generate` kiểm cùng các điều kiện trước khi ghi bảng, nên sinh lại tài liệu không bỏ qua được lỗi phân công. Chưa tạo ticket trên dịch vụ ngoài. Giữ nguyên mã vị trí: ví dụ WBS R03 do vị trí R02/S03 chủ trì/phối hợp, không suy diễn người phụ trách từ tên WBS.
 
 Codex nhận phần nhóm A và vai trò tích hợp theo yêu cầu người dùng. `hoangtuanhung-lab` là chủ repository, chưa phải tên thật của một trong 28 vị trí. Người dùng chưa cung cấp danh sách tên/GitHub nên roster để null; không tự gán mọi vị trí cho Codex hay tài khoản GitHub này. Khi nhận danh sách, cập nhật person_name, github_handle và backup_reviewer rồi sinh lại bảng. Phần nghiệm thu A06 “giao tên cho 28 vị trí” còn chờ dữ liệu này.
 

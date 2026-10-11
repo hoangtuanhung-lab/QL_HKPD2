@@ -1,6 +1,6 @@
 # Nhóm A — Trạng thái bàn giao
 
-Ngày ghi 11/10/2026 (Asia/Saigon), đối chiếu A01-v0.2. Các đầu ra đang ở PR chờ người dùng review, không tự coi đã nghiệm thu toàn phần.
+Ngày ghi 11/10/2026 (Asia/Saigon), đối chiếu A01-v0.2. Người dùng đã merge [PR #6](https://github.com/hoangtuanhung-lab/QL_HKPD2/pull/6) vào `main` tại commit `14b499a2880d544b328b2c86f05b650793f40050`. Các đầu ra nhóm A đã được tích hợp; nghiệm thu nghiệp vụ và phân công tên thật còn theo các giới hạn dưới đây.
 
 | WBS | Đầu ra có thể dùng                                                                 | Giới hạn / phần tiếp theo                                                       |
 | --- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
