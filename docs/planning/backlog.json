@@ -396,7 +396,7 @@
         "RQ-USER-002",
         "RQ-PDF-G02"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
