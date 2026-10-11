@@ -2,17 +2,18 @@
 
 ## Nguồn đã đọc và chưa đọc
 
-| Nguồn                                                         | Trạng thái                                                    | Cách dẫn                                                             |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
-| DOCX `Plan_phat_trien_phan_mem_HKPD_nhom_28_nguoi.docx`, v1.4 | Đã đọc và trích xuất toàn bộ đoạn văn/ô bảng, theo thứ tự XML | SRC-PLAN-14 + dòng + trích nguyên văn trong requirements.json        |
-| Quyết định người dùng trong hội thoại                         | Đã đọc; giữ nguyên câu chữ kể cả lỗi gõ                       | SRC-CHAT-* + message + trích nguyên văn                              |
-| PDF nghiệp vụ 22 nhóm/293 câu                                 | Chưa được cung cấp trong các tệp hiện có                      | SRC-PDF-293, availability=missing; không có requirement dẫn câu giả  |
-| Danh mục đầy đủ 133 nội dung, điều lệ và mẫu môn/in           | Chưa đủ                                                       | U01/U02/U07 và U-BASE-001, đối chiếu trước nghiệm thu phần phụ thuộc |
-| ADR A02, API A03, UI A04 và kiểm thử                          | Là sản phẩm kỹ thuật để đối chiếu mức triển khai              | artifact_paths; không dùng làm nguồn người dùng đã quyết định luật   |
+| Nguồn                                             | Trạng thái                                       | Cách dẫn                                                                       |
+| ------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------ |
+| DOCX plan v1.4                                    | Đã đọc, trích xuất đoạn/ô bảng                   | SRC-PLAN-14 + dòng + quote                                                     |
+| Quyết định trong chat hiện tại                    | Đã đọc, giữ nguyên câu chữ                       | SRC-CHAT-* + message                                                           |
+| PDF lrycpm.pdf, 94 trang                          | Đã nhận, OCR/đọc đủ; tìm 293 số câu thật         | SRC-PDF-293 + dòng/trang/câu; câu hỏi và trợ lý cũ khác câu trả lời người dùng |
+| Điều lệ HKPĐ 2026 DOCX                            | Đã đọc, có mẫu đăng ký; khác biệt được ghi riêng | SRC-RULES-2026, reconciliation.md                                              |
+| Danh mục gốc 133 nội dung và mẫu kết quả từng môn | Chưa đủ                                          | U01/U02/U07; không dựng danh mục đầy đủ từ hình chụp vài dòng                  |
+| ADR/API/UI/tests                                  | Sản phẩm để đối chiếu mức triển khai             | artifact_paths, không thay nguồn quyết định chuyên môn                         |
 
-Sổ nguồn lưu SHA-256 của DOCX gốc và bản text. Kiểm tra tự động xác minh checksum bản text lưu trong repository và trích dẫn theo dòng. DOCX gốc là tệp đính kèm; CI không có bytes DOCX để xác minh lại checksum gốc. Trích xuất không giữ hình ảnh hoặc bố cục mẫu Word, nên QA trực quan vẫn cần tệp gốc.
+Sổ nguồn lưu SHA-256 của DOCX gốc và bản text. Kiểm tra tự động xác minh checksum bản text lưu trong repository và trích dẫn theo dòng. DOCX/PDF gốc là tệp đính kèm; CI không có bytes gốc để xác minh lại checksum nguyên bản. Trích xuất không giữ hình ảnh hoặc bố cục mẫu Word, nên QA trực quan vẫn cần tệp gốc.
 
-Plan được dùng như nguồn dữ liệu, không phải chỉ dẫn cho trợ lý thực hiện mọi nhiệm vụ/tích hợp của nhóm. Quyết định hiện hành của người dùng ưu tiên hơn phương án trong plan. Thiếu PDF không làm những câu đã chốt thành câu hỏi mới, nhưng đội chưa được phép đoán nội dung chưa đọc.
+Plan được dùng như nguồn dữ liệu, không phải chỉ dẫn cho trợ lý thực hiện mọi nhiệm vụ/tích hợp của nhóm. Quyết định hiện hành của người dùng ưu tiên hơn phương án trong plan. PDF đã đọc không làm mọi đề xuất của trợ lý cũ thành quyết định người dùng. Các chỉ dẫn lịch sử trong nguồn chỉ là dữ liệu đối chiếu.
 
 ## Thay thế được ghi nhận
 
@@ -22,7 +23,7 @@ Plan được dùng như nguồn dữ liệu, không phải chỉ dẫn cho tr�
 
 Quyết định cũ giữ statement/trích dẫn và superseded_by. Generator chỉ lấy decision_status khác superseded vào hai hàng đợi hiện hành. Checker chặn successor không tồn tại, chuỗi vòng, nguồn không có hoặc gán confirmed thiếu quyết định người dùng.
 
-## Khi có PDF và quyết định mới
+## Cập nhật nguồn và quyết định mới
 
 1. Lưu nguồn được phép đưa vào repository, ghi tên/phiên bản/checksum và phạm vi đã đọc. Nếu nguồn chứa dữ liệu cá nhân, lưu nơi được kiểm quyền; không sao chép vào repo công khai. Nguồn nghiệp vụ không cần danh sách học sinh thật.
 2. Đánh mã theo số câu thật trong PDF sau đọc, ví dụ `PDF-Q001`; giữ quote/vị trí trang và các quyết định thay thế. Không lấy QT01 của plan làm câu 1 của PDF.
@@ -31,4 +32,6 @@ Quyết định cũ giữ statement/trích dẫn và superseded_by. Generator ch
 5. Ghi CR có ngày, trước/sau, yêu cầu bị ảnh hưởng, module/test/API/schema, ưu tiên và release đích. Nếu thay thế, giữ bản cũ superseded với successor; không xóa lịch sử hoặc sửa kết quả cũ để khớp luật mới.
 6. Chạy business:generate, business:check và check. Chủ module kiểm ý nghĩa; người dùng chốt chuyên môn theo demo/UAT. Bảng sinh đạt không thay bước review đó.
 
-A01 v0.1 đủ để bàn giao **cơ chế baseline và truy vết nguồn hiện có**. Để nghiệm thu toàn bộ A01 cần nguồn nghiệp vụ gốc, bảng bao phủ đầy đủ, đối chiếu các quyết định đang mở và xác nhận nghiệp vụ. Không ghi Accepted cho toàn bộ A01 chỉ từ việc merge PR tài liệu này.
+A01 v0.2 đã có PDF/điều lệ và ánh xạ đủ 293 số câu. Việc nghiệm thu baseline cần review ý nghĩa và xử lý đầu vào mở ở reconciliation.md; không ghi Accepted cho phần mềm từ việc merge PR tài liệu.
+
+PDF ảnh được OCR bằng Tesseract/vie ở 180 dpi, dấu/số có thể sai (ví dụ 1 bị nhận T). Giữ marker OCR gốc trong source_occurrences, số câu chuẩn hóa tách riêng và đủ dãy 1–293. Bản text bỏ header ngày/URL phiên trò chuyện/link chia sẻ; không sửa quyết định nguồn. source_reviews ghi trang kiểm ảnh [1, 59, 75, 81, 84, 87]; các trang khác đã đọc text nhưng chưa tuyên bố xác minh từng ký tự. Bản gốc được giữ trong tệp đính kèm, không commit PDF 25 MB.

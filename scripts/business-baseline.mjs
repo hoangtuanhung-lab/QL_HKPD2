@@ -51,6 +51,21 @@ const requirements = indexed(data.requirements, "Requirements");
 const issues = indexed(data.open_issues, "Issues");
 const wbs = indexed(data.wbs_catalog, "WBS");
 const scenarios = indexed(data.scenarios, "Scenarios");
+const questions = indexed(data.source_questions, "Source questions");
+const groups = indexed(data.question_groups, "Question groups");
+assert.equal(
+  questions.size,
+  data.coverage.pdf_questions_expected,
+  "PDF coverage: question missing.",
+);
+for (let n = 1; n <= data.coverage.pdf_questions_expected; n++) {
+  const q = questions.get(`PDF-Q${String(n).padStart(3, "0")}`);
+  assert.equal(
+    q?.question_number,
+    n,
+    `PDF coverage: missing or misnumbered ${n}.`,
+  );
+}
 const sourceTexts = new Map();
 async function localPath(path) {
   assert.ok(
@@ -107,6 +122,30 @@ function citation(ref) {
 }
 for (const item of [...wbs.values(), ...scenarios.values(), ...issues.values()])
   citation(item.source);
+for (const q of questions.values()) {
+  assert.ok(groups.has(q.group_id), `Unknown question group: ${q.id}`);
+  assert.ok(
+    q.source_occurrences.length && q.requirement_ids.length && q.wbs_ids.length,
+    `Unmapped question: ${q.id}`,
+  );
+  for (const ref of q.source_occurrences) {
+    citation(ref);
+    assert.ok(ref.pdf_page >= 1 && ref.pdf_page <= 94);
+  }
+  for (const id of q.requirement_ids)
+    assert.ok(
+      requirements.has(id),
+      `Unknown question requirement: ${q.id}:${id}`,
+    );
+  for (const id of q.wbs_ids)
+    assert.ok(wbs.has(id), `Unknown question WBS: ${q.id}:${id}`);
+  for (const owner of q.owner_positions) assert.ok(positions.has(owner));
+  for (const ref of q.later_decision_refs ?? [])
+    assert.ok(
+      questions.has(ref) || requirements.has(ref),
+      `Unknown later decision: ${q.id}:${ref}`,
+    );
+}
 for (const requirement of requirements.values()) {
   const id = requirement.id;
   assert.ok(
@@ -128,7 +167,42 @@ for (const requirement of requirements.values()) {
       requirement.wbs_ids.length,
     `Missing traceability: ${id}`,
   );
-  for (const ref of requirement.sources) citation(ref);
+  for (const ref of requirement.sources) {
+    citation(ref);
+    if (
+      ref.speaker === "user" &&
+      sources.get(ref.source_id).kind === "business_dialogue"
+    ) {
+      const q = questions.get(ref.context_question_id);
+      assert.ok(q, `Missing dialogue context: ${id}`);
+      const sourceText = sourceTexts.get(ref.source_id);
+      const context = q.source_occurrences[0];
+      const questionStart =
+        sourceText
+          .split("\n")
+          .slice(0, Number(context.locator.slice(5)) - 1)
+          .join("\n").length + 1;
+      const answerStart =
+        sourceText
+          .split("\n")
+          .slice(0, Number(ref.locator.slice(5)) - 1)
+          .join("\n").length + 1;
+      const between = sourceText.slice(
+        questionStart + context.quote.length,
+        answerStart,
+      );
+      assert.ok(
+        answerStart >= questionStart + context.quote.length &&
+          !/^Câu\s+[\dTIl]+\s*:/m.test(between),
+        `User quote outside answer context: ${id}`,
+      );
+    }
+  }
+  for (const id of requirement.source_question_ids ?? [])
+    assert.ok(
+      questions.has(id),
+      `Unknown source question: ${requirement.id}:${id}`,
+    );
   for (const owner of requirement.owner_positions)
     assert.ok(positions.has(owner), `Unknown position ${owner}: ${id}`);
   for (const [field, entries] of [
@@ -153,7 +227,14 @@ for (const requirement of requirements.values()) {
   if (requirement.decision_status === "confirmed")
     assert.ok(
       requirement.sources.some(
-        (ref) => sources.get(ref.source_id).kind === "user_message",
+        (ref) =>
+          sources.get(ref.source_id).kind === "user_message" ||
+          (sources.get(ref.source_id).kind === "business_dialogue" &&
+            ref.speaker === "user" &&
+            ["image_checked", "transcript_reviewed"].includes(
+              ref.verification,
+            ) &&
+            questions.has(ref.context_question_id)),
       ),
       `Missing user decision: ${id}`,
     );
@@ -227,18 +308,52 @@ const backlog = `# A01 — Phạm vi hiện hành và hàng đợi đối chiế
       list(r.wbs_ids),
       list(r.open_issue_ids),
     ]),
-)}\n\n## Đầu vào còn thiếu\n\n${table(
+)}\n\n## Đầu vào còn mở hoặc mới giải quyết một phần\n\n${table(
   ["Mã", "Nội dung", "Người cung cấp / mốc", "Trạng thái"],
-  data.open_issues.map((u) => [
-    u.id,
-    u.description,
-    u.owner_and_gate,
-    u.status,
-  ]),
+  data.open_issues
+    .filter((u) => u.status !== "resolved_source_received")
+    .map((u) => [u.id, u.description, u.owner_and_gate, u.status]),
 )}\n\nQuyết định superseded chỉ lưu trong bảng truy vết/lịch sử; không xuất hiện ở hai hàng đợi hiện hành phía trên.\n`;
+const coverage = `# A01 — Đối chiếu 293 câu PDF
+
+Đã đọc 94 trang, tìm đủ 293 số câu và ghi cả bản lặp/correction. 22 nhóm dưới đây do A01 tổ chức để giao việc, không phải tên chương có sẵn trong PDF. Trạng thái lịch sử ở cấp câu chỉ là cảnh báo đối chiếu; quyết định hiện hành được thể hiện trong sổ yêu cầu và lịch sử thay thế. Q293 đã rút, không thêm bảng phụ đối đầu chéo.
+
+${table(
+  [
+    "Câu",
+    "Nhóm",
+    "Trang",
+    "Module / chủ trì",
+    "WBS",
+    "Yêu cầu",
+    "Trạng thái / đối chiếu sau",
+  ],
+  data.source_questions.map((q) => [
+    q.id,
+    `${q.group_id}: ${groups.get(q.group_id).title}`,
+    q.source_occurrences.map((s) => s.pdf_page).join(", "),
+    `${q.module} / ${q.owner_positions.join(", ")}`,
+    list(q.wbs_ids),
+    list(q.requirement_ids),
+    `${q.decision_status}${q.later_decision_refs ? ": " + q.later_decision_refs.join(", ") : ""}`,
+  ]),
+)}
+`;
+const grouped = `# A01 — Tổng hợp 22 nhóm nghiệp vụ từ nguồn mới
+
+Sinh từ requirements.json. Mỗi nhóm dẫn câu PDF và WBS, gồm quyết định sau đã thay phần trước; các điểm chưa chốt vẫn theo U. Đây là bản đặc tả để chủ module review, chưa chứng minh các chức năng đã được lập trình.
+
+${data.question_groups
+  .map((g) => {
+    const r = requirements.get("RQ-PDF-" + g.id);
+    return `## ${g.id} — ${g.title}\n\n${r.statement}\n\nNguồn câu: ${r.source_question_ids.join(", ")}. WBS: ${r.wbs_ids.join(", ")}. Chủ trì/phối hợp: ${r.owner_positions.join(", ")}.\n`;
+  })
+  .join("\n")}`;
 for (const [filename, content] of [
   ["traceability.md", matrix],
   ["current-backlog.md", backlog],
+  ["pdf-coverage.md", coverage],
+  ["grouped-requirements.md", grouped],
 ]) {
   const target = resolve(root, business, filename);
   const formatted = await format(content, { parser: "markdown" });
@@ -251,5 +366,5 @@ for (const [filename, content] of [
     );
 }
 console.log(
-  `A01: ${requirements.size} requirements, ${wbs.size} WBS, ${scenarios.size} source scenarios; citations/replacements/current backlog verified. PDF-293 source remains missing; no complete-baseline claim.`,
+  `A01: ${requirements.size} requirements, ${wbs.size} WBS, ${scenarios.size} source scenarios; citations/replacements/current backlog verified. ${questions.size}/293 PDF questions mapped in ${groups.size} groups; source receipt is not feature acceptance.`,
 );

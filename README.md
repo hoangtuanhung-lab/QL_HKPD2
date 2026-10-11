@@ -75,4 +75,4 @@ Trường tự tạo phiếu theo kỳ giải, thêm/sửa/xóa VĐV và xuất/
 
 ## Baseline nghiệp vụ — A01
 
-[A01 v0.1](docs/business/README.md) ghi yêu cầu có nguồn, trạng thái, module/WBS và kịch bản; quyết định bị thay thế được giữ lịch sử và loại khỏi hàng đợi hiện hành. Chạy `npm run business:generate` sau khi sửa sổ yêu cầu, `npm run business:check` để kiểm trích dẫn và bảng truy vết. Baseline hiện dùng plan và quyết định người dùng; chưa đủ PDF nghiệp vụ gốc 293 câu để nghiệm thu toàn bộ A01.
+[A01 v0.2](docs/business/README.md) ghi yêu cầu có nguồn, trạng thái, module/WBS và kịch bản; quyết định bị thay thế được giữ lịch sử và loại khỏi hàng đợi hiện hành. Chạy `npm run business:generate` sau khi sửa sổ yêu cầu, `npm run business:check` để kiểm trích dẫn và bảng truy vết. Đã bổ sung điều lệ và PDF 94 trang, ánh xạ đủ 293 câu sang 22 nhóm công việc. Các quyết định bị sửa được đối chiếu theo nguồn sau; danh mục gốc 133 nội dung và các U còn mở vẫn chờ bổ sung/review.

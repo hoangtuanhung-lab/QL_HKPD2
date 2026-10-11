@@ -1,6 +1,6 @@
-# Đặc tả nền A01 v0.1
+# Đặc tả nền A01 v0.2
 
-Đọc cùng requirements.json và bảng truy vết. Nội dung từ plan được ghi nhận để đội có căn cứ đối chiếu; người dùng chưa duyệt lại toàn bộ nghiệp vụ này. Plan là tài liệu phân công và phương án kỹ thuật, không thay PDF/điều lệ gốc.
+Đọc cùng requirements.json và bảng truy vết. Nội dung từ plan có nguồn riêng; quyết định người dùng trong PDF/chat được đối chiếu ở bản cập nhật, chủ module review cách triển khai và các U còn mở. Plan là tài liệu phân công và phương án kỹ thuật. Đã nhận/đọc PDF 94 trang và điều lệ; xem [tổng hợp 22 nhóm](grouped-requirements.md) và [đối chiếu quyết định cuối](reconciliation.md) cho chi tiết nguồn mới.
 
 ## Quyết định hiện hành của người dùng
 
@@ -54,6 +54,6 @@ Các bước lấy từ mục 4, 5, 10, 16 và 19 của plan. Chi tiết có mã
 
 ## Đầu vào và cổng còn mở
 
-U01–U08 được giữ nguyên nội dung/đầu mối/mốc từ mục 13 của plan. U06 đã có quyết định stack ở A02, nhưng provider, chi phí và tích hợp thật vẫn hoãn; không đánh dấu U06 đóng toàn bộ. U07 ảnh hưởng mẫu in/bố cục, không chặn engine độc lập. U-BASE-001 bổ sung để theo dõi nguồn PDF/điều lệ chưa nhận, không ngụ ý người dùng chưa quyết định các câu trong PDF.
+U01–U08 được giữ nguyên nội dung/đầu mối/mốc từ mục 13 của plan. U06 đã có quyết định stack ở A02, nhưng provider, chi phí và tích hợp thật vẫn hoãn; không đánh dấu U06 đóng toàn bộ. U07 ảnh hưởng mẫu in/bố cục, không chặn engine độc lập. U-BASE-001 đã giải quyết khi nhận/đọc PDF và điều lệ; danh mục gốc đầy đủ còn U01.
 
-Giữ nguyên số và ví dụ trong T01–T12 dưới dạng trích dẫn, **không dùng làm golden test chuyên môn trước đối chiếu**: giới hạn môn/đội, 3–5/6+ người, 3 kg, fair-play, điểm 9/11, hệ số 3 và các ngoại lệ có thể thiếu ngữ cảnh từ PDF. Các nguồn còn thiếu chỉ khóa bước trực tiếp phụ thuộc; không khóa việc hoàn thiện tài liệu, hợp đồng hoặc phiếu nháp.
+Các quyết định cuối trong PDF đã được ánh xạ, gồm 3–5/6+ người, bảng điểm theo số thực tế, 3 kg, Fair-play, hệ số và ngoại lệ; xem sổ yêu cầu/bản đối chiếu. T01–T12 của plan vẫn là kịch bản cần review theo quyết định cuối, không tự chứng minh mọi expected result hoặc quy tắc ngoài phạm vi đã chốt. U chỉ khóa bước trực tiếp phụ thuộc.

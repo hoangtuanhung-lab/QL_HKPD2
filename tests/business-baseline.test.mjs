@@ -115,4 +115,25 @@ describe("A01 baseline guard", () => {
     await save();
     expect(run(root, "--generate").output).toContain("Replacement cycle");
   });
+  it("rejects missing PDF coverage and assistant question text falsely cited as a user answer", async () => {
+    const { root, data, save } = await fixture();
+    const removed = data.source_questions.pop();
+    await save();
+    expect(run(root, "--generate").output).toContain("PDF coverage");
+    data.source_questions.push(removed);
+    const requirement = data.requirements.find(
+      (r) => r.id === "RQ-PDF-TRANSFER",
+    );
+    requirement.sources[0] = {
+      ...data.source_questions.find((q) => q.id === "PDF-Q287")
+        .source_occurrences[0],
+      speaker: "user",
+      context_question_id: "PDF-Q287",
+      verification: "transcript_reviewed",
+    };
+    await save();
+    expect(run(root, "--generate").output).toContain(
+      "User quote outside answer context",
+    );
+  });
 });
