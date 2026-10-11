@@ -17,7 +17,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "build": "npm run build --workspaces --if-present",
-    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "check": "npm run contracts:check && npm run lint && npm run typecheck && npm test && npm run build",
     "env:init": "node scripts/environment.mjs init",
     "env:check": "node scripts/environment.mjs check",
     "dev:api": "node scripts/environment.mjs api dev",
@@ -29,7 +29,9 @@
     "secret:scan": "node scripts/secret-scan.mjs",
     "dev": "node scripts/services.mjs dev",
     "staging": "node scripts/services.mjs staging",
-    "doctor": "node scripts/doctor.mjs"
+    "doctor": "node scripts/doctor.mjs",
+    "contracts:generate": "openapi-typescript docs/api/core.openapi.json -o packages/contracts/src/generated.ts && prettier --write packages/contracts/src/generated.ts",
+    "contracts:check": "node scripts/contracts-check.mjs"
   },
   "dependencies": {
     "fastify": "5.12.5",
@@ -42,8 +44,11 @@
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "eslint": "10.12.0",
     "globals": "16.5.0",
+    "openapi-typescript": "7.13.0",
     "prettier": "3.9.10",
     "secretlint": "13.0.7",
     "typescript": "5.9.3",

@@ -1,0 +1,321 @@
+[
+  {
+    "name": "Tạo giải giả",
+    "schema": "CreateEdition",
+    "value": {
+      "name": "GIẢ LẬP — Giải thử nghiệm",
+      "year": 2026,
+      "organizer": "Đơn vị giả lập",
+      "starts_at": "2026-11-01T00:00:00Z",
+      "ends_at": "2026-11-03T00:00:00Z",
+      "registration_deadline": "2026-10-25T00:00:00Z"
+    }
+  },
+  {
+    "name": "Kỳ giải nháp",
+    "schema": "Edition",
+    "value": {
+      "name": "GIẢ LẬP — Giải thử nghiệm",
+      "year": 2026,
+      "organizer": "Đơn vị giả lập",
+      "starts_at": "2026-11-01T00:00:00Z",
+      "ends_at": "2026-11-03T00:00:00Z",
+      "registration_deadline": "2026-10-25T00:00:00Z",
+      "id": "00000000-0000-4000-8000-000000000001",
+      "version": 1,
+      "status": "draft",
+      "rule_snapshot_id": null
+    }
+  },
+  {
+    "name": "Sao chép cấu hình, không sao chép VĐV",
+    "schema": "CopyEdition",
+    "value": {
+      "source_edition_id": "00000000-0000-4000-8000-000000000001",
+      "source_version": 1,
+      "configuration_sections": ["sport_event_catalog", "rules"],
+      "new_edition": {
+        "name": "GIẢ LẬP — Giải thử nghiệm",
+        "year": 2026,
+        "organizer": "Đơn vị giả lập",
+        "starts_at": "2026-11-01T00:00:00Z",
+        "ends_at": "2026-11-03T00:00:00Z",
+        "registration_deadline": "2026-10-25T00:00:00Z"
+      }
+    }
+  },
+  {
+    "name": "VĐV giả giữ mã số 0",
+    "schema": "Athlete",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "school_id": "00000000-0000-4000-8000-000000000002",
+      "student_id": "00000000-0000-4000-8000-000000000003",
+      "display_name": "VĐV GIẢ LẬP 012",
+      "athlete_code": "01.012",
+      "version": 1
+    }
+  },
+  {
+    "name": "Nội dung giả chưa bắt đầu",
+    "schema": "Event",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000005",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "sport_id": "00000000-0000-4000-8000-000000000006",
+      "name": "NỘI DUNG GIẢ LẬP",
+      "group_label": "NHÓM THỬ",
+      "participant_kind": "athlete",
+      "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+      "status": "not_started",
+      "started_at": null,
+      "version": 1
+    }
+  },
+  {
+    "name": "Bản sửa mới giữ bản duyệt trước",
+    "schema": "Registration",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000013",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "school_id": "00000000-0000-4000-8000-000000000002",
+      "event_id": "00000000-0000-4000-8000-000000000005",
+      "version": 2,
+      "current_revision": {
+        "id": "00000000-0000-4000-8000-000000000014",
+        "version": 2,
+        "status": "draft",
+        "participant": {
+          "kind": "athlete",
+          "athlete_id": "00000000-0000-4000-8000-000000000004"
+        }
+      },
+      "approved_revision_id": "00000000-0000-4000-8000-000000000018"
+    }
+  },
+  {
+    "name": "Vị trí ảo không phải người",
+    "schema": "Match",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000008",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "event_id": "00000000-0000-4000-8000-000000000005",
+      "version": 1,
+      "slots": [
+        {
+          "kind": "participant",
+          "participant": {
+            "kind": "athlete",
+            "athlete_id": "00000000-0000-4000-8000-000000000004"
+          }
+        },
+        {
+          "kind": "ghost"
+        }
+      ],
+      "scheduled_at": null,
+      "started_at": null,
+      "official_result_id": null
+    }
+  },
+  {
+    "name": "Bản nhập chưa thay official",
+    "schema": "Submission",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000009",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "event_id": "00000000-0000-4000-8000-000000000005",
+      "match_id": "00000000-0000-4000-8000-000000000008",
+      "version": 2,
+      "base_official_version": 1,
+      "status": "pending_confirmation",
+      "payload": {
+        "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+        "entries": [
+          {
+            "participant": {
+              "kind": "athlete",
+              "athlete_id": "00000000-0000-4000-8000-000000000004"
+            },
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            }
+          }
+        ],
+        "file_ids": []
+      },
+      "created_by": "00000000-0000-4000-8000-000000000010",
+      "created_at": "2026-11-01T01:00:00Z"
+    }
+  },
+  {
+    "name": "Tạo bản nhập đầu tiên",
+    "schema": "CreateSubmission",
+    "value": {
+      "match_id": "00000000-0000-4000-8000-000000000008",
+      "base_official_version": 0,
+      "payload": {
+        "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+        "entries": [
+          {
+            "participant": {
+              "kind": "athlete",
+              "athlete_id": "00000000-0000-4000-8000-000000000004"
+            },
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            }
+          }
+        ],
+        "file_ids": []
+      }
+    }
+  },
+  {
+    "name": "Chỉ xác nhận bản nhập cụ thể",
+    "schema": "ConfirmSubmission",
+    "value": {
+      "submission_id": "00000000-0000-4000-8000-000000000009",
+      "submission_version": 2,
+      "base_official_version": 1
+    }
+  },
+  {
+    "name": "Official tham chiếu revision đã duyệt",
+    "schema": "OfficialResult",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000017",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "match_id": "00000000-0000-4000-8000-000000000008",
+      "version": 2,
+      "submission_id": "00000000-0000-4000-8000-000000000009",
+      "submission_version": 2,
+      "payload": {
+        "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+        "entries": [
+          {
+            "participant": {
+              "kind": "athlete",
+              "athlete_id": "00000000-0000-4000-8000-000000000004"
+            },
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            }
+          }
+        ],
+        "file_ids": []
+      },
+      "confirmed_by": "00000000-0000-4000-8000-000000000010",
+      "confirmed_at": "2026-11-01T02:00:00Z"
+    }
+  },
+  {
+    "name": "Thư mục logic trước tích hợp Google",
+    "schema": "AthleteFolder",
+    "value": {
+      "id": "00000000-0000-4000-8000-000000000011",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "athlete_id": "00000000-0000-4000-8000-000000000004",
+      "version": 1,
+      "logical_key": "00000000-0000-4000-8000-000000000001/00000000-0000-4000-8000-000000000004",
+      "storage_status": "deferred"
+    }
+  },
+  {
+    "name": "Projection công khai đã chốt",
+    "schema": "PublicResult",
+    "value": {
+      "publication_id": "00000000-0000-4000-8000-000000000012",
+      "edition_id": "00000000-0000-4000-8000-000000000001",
+      "event_label": "NỘI DUNG GIẢ LẬP",
+      "athlete_code": "01.012",
+      "display_name": "VĐV GIẢ LẬP 012",
+      "school_label": "TRƯỜNG GIẢ LẬP",
+      "value": {
+        "kind": "time",
+        "seconds": "12.340"
+      },
+      "publication_status": "finalized"
+    }
+  },
+  {
+    "name": "Đồng bộ operation, không ghi official",
+    "schema": "SyncSubmission",
+    "value": {
+      "operation_id": "00000000-0000-4000-8000-000000000015",
+      "base_version": 0,
+      "assignment_snapshot_id": "00000000-0000-4000-8000-000000000016",
+      "submission": {
+        "match_id": "00000000-0000-4000-8000-000000000008",
+        "base_official_version": 0,
+        "payload": {
+          "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+          "entries": [
+            {
+              "participant": {
+                "kind": "athlete",
+                "athlete_id": "00000000-0000-4000-8000-000000000004"
+              },
+              "value": {
+                "kind": "time",
+                "seconds": "12.340"
+              }
+            }
+          ],
+          "file_ids": []
+        }
+      }
+    }
+  },
+  {
+    "name": "Định dạng giả distance",
+    "schema": "ResultValue",
+    "value": {
+      "kind": "distance",
+      "metres": "5.010"
+    }
+  },
+  {
+    "name": "Định dạng giả points",
+    "schema": "ResultValue",
+    "value": {
+      "kind": "points",
+      "points": "-0.50"
+    }
+  },
+  {
+    "name": "Định dạng giả score",
+    "schema": "ResultValue",
+    "value": {
+      "kind": "score",
+      "scored": 2,
+      "conceded": 1
+    }
+  },
+  {
+    "name": "Định dạng giả sets",
+    "schema": "ResultValue",
+    "value": {
+      "kind": "sets",
+      "sets": [
+        {
+          "scored": 11,
+          "conceded": 9
+        }
+      ]
+    }
+  },
+  {
+    "name": "Định dạng giả cards",
+    "schema": "ResultValue",
+    "value": {
+      "kind": "cards",
+      "yellow": 1,
+      "red": 0
+    }
+  }
+]
