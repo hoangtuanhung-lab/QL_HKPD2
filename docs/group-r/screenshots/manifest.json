@@ -1,0 +1,37 @@
+{
+  "purpose": "development-preview-only; synthetic data; not UAT",
+  "baselineCommit": "bf89ac2",
+  "branch": "feat/group-r-registration",
+  "workingTreeChanges": true,
+  "viewport": {
+    "width": 1440,
+    "height": 1100
+  },
+  "verified": [
+    "CSV preview and import",
+    "create/submit/approve preview",
+    "old approved A while B pending",
+    "B switches only after approval",
+    "no uncaught browser exceptions"
+  ],
+  "assets": [
+    {
+      "file": "index-dBUNwUZW.css",
+      "sha256": "ec8db3d1d15dc0a479a69b1aa02e4d7053554f0c32a3f3373a5bb6ab85b903a0"
+    },
+    {
+      "file": "index-l0fnZQv3.js",
+      "sha256": "c2b0b4f54cdd1f5023fede56e49124744df686541af1be22dc548b7cd9047043"
+    }
+  ],
+  "images": [
+    {
+      "file": "pending-revision.png",
+      "sha256": "61e07bddcab954584208844b1484ec8111accbf33ff24fbe38eddeae4f7fe81d"
+    },
+    {
+      "file": "approved-revision.png",
+      "sha256": "cc6afa0f55afed4e9ca757938efa3f1524c2f08a182235badc416b4a70c2235b"
+    }
+  ]
+}

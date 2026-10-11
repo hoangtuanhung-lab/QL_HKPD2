@@ -32,6 +32,7 @@ jobs:
             apps/worker/dist
             packages/foundation/dist
             packages/competition/dist
+            packages/registration/dist
           retention-days: 7
   secrets:
     name: secrets

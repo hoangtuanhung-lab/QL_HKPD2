@@ -1,4 +1,5 @@
 import { CompetitionWorkspace } from "./competition-ui.js";
+import { RegistrationWorkspace } from "./registration-ui.js";
 import { ScheduleWorkspace } from "./schedule-ui.js";
 import { FormField } from "@hkpd/ui";
 import { useRef, useState, type FormEvent } from "react";
@@ -17,6 +18,7 @@ import {
 
 const steps = [
   "Đăng ký VĐV",
+  "Kiểm tra đăng ký",
   "Phân công",
   "Sơ đồ thi đấu",
   "Vòng tròn",
@@ -28,7 +30,11 @@ type Step = (typeof steps)[number];
 const outlines: Record<
   Exclude<
     Step,
-    "Đăng ký VĐV" | "Sơ đồ thi đấu" | "Vòng tròn" | "Lịch và phân làn"
+    | "Đăng ký VĐV"
+    | "Kiểm tra đăng ký"
+    | "Sơ đồ thi đấu"
+    | "Vòng tròn"
+    | "Lịch và phân làn"
   >,
   { role: string; steps: string[]; handoff: string }
 > = {
@@ -504,6 +510,8 @@ export function App() {
             )}
           </section>
         </div>
+      ) : step === "Kiểm tra đăng ký" ? (
+        <RegistrationWorkspace />
       ) : step === "Sơ đồ thi đấu" || step === "Vòng tròn" ? (
         <CompetitionWorkspace
           key={step}
