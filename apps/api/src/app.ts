@@ -1,3 +1,4 @@
+import { FoundationError, problem } from "@hkpd/foundation";
 import Fastify, { LogController } from "fastify";
 export function createApp(
   checkRuntime: () => Promise<void>,
@@ -12,6 +13,30 @@ export function createApp(
       ],
     },
     logController: new LogController({ disableRequestLogging: true }),
+  });
+  app.setErrorHandler((error, _request, reply) => {
+    const normalized =
+      error instanceof Error &&
+      ("validation" in error ||
+        ("code" in error &&
+          [
+            "FST_ERR_CTP_INVALID_JSON_BODY",
+            "FST_ERR_CTP_EMPTY_JSON_BODY",
+          ].includes(String(error.code))))
+        ? new FoundationError("VALIDATION_ERROR")
+        : error;
+    const response = problem(normalized);
+    return reply
+      .code(response.status)
+      .type("application/problem+json")
+      .send(response.body);
+  });
+  app.setNotFoundHandler((_request, reply) => {
+    const response = problem(new FoundationError("NOT_FOUND"));
+    return reply
+      .code(response.status)
+      .type("application/problem+json")
+      .send(response.body);
   });
   app.get("/health/live", async () => ({
     status: "ok",

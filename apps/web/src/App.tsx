@@ -1,3 +1,4 @@
+import { FormField } from "@hkpd/ui";
 import { useRef, useState, type FormEvent } from "react";
 import {
   clean,
@@ -294,24 +295,20 @@ export function App() {
               Tạo theo trường và kỳ giải. Số lượng tăng theo danh sách đăng ký.
             </p>
             <form onSubmit={addSchool}>
-              <label>
-                Tên kỳ giải
-                <input
-                  required
-                  value={editionName}
-                  onChange={(event) => setEditionName(event.target.value)}
-                  placeholder="Nhập kỳ giải muốn tham gia"
-                />
-              </label>
-              <label>
-                Tên trường
-                <input
-                  required
-                  value={schoolName}
-                  onChange={(event) => setSchoolName(event.target.value)}
-                  placeholder="Nhập tên trường"
-                />
-              </label>
+              <FormField
+                label="Tên kỳ giải"
+                required
+                value={editionName}
+                onChange={(event) => setEditionName(event.target.value)}
+                placeholder="Nhập kỳ giải muốn tham gia"
+              />
+              <FormField
+                label="Tên trường"
+                required
+                value={schoolName}
+                onChange={(event) => setSchoolName(event.target.value)}
+                placeholder="Nhập tên trường"
+              />
               <button type="submit">Tạo / mở phiếu nháp</button>
             </form>
             <div className="school-list">

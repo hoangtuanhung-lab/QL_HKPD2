@@ -16,4 +16,4 @@ for (const signal of ["SIGINT", "SIGTERM"] as const)
   process.once(signal, () => {
     clearInterval(timer);
   });
-// Skeleton only: no queue or business jobs until P03 delivers the worker contract.
+// Delivery port is available in @hkpd/foundation; polling/persistence and business handlers are deferred.

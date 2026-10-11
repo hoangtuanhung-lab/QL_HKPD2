@@ -428,7 +428,7 @@
         "RQ-USER-002",
         "RQ-PDF-G03"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -446,7 +446,7 @@
       "dependencies_source_text": "A03/B02",
       "acceptance": "Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần.",
       "requirement_ids": ["QT06", "QT20", "QT31"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -464,7 +464,7 @@
       "dependencies_source_text": "B02/B04",
       "acceptance": "Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng.",
       "requirement_ids": ["RQ-PDF-G20"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -482,7 +482,7 @@
       "dependencies_source_text": "A03/A04",
       "acceptance": "UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất.",
       "requirement_ids": ["QT28", "QT30", "RQ-PDF-G19"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -518,7 +518,7 @@
       "dependencies_source_text": "B03/B04",
       "acceptance": "API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version.",
       "requirement_ids": ["QT07", "QT13", "QT14"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",

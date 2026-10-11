@@ -30,6 +30,7 @@ jobs:
             apps/web/dist
             apps/api/dist
             apps/worker/dist
+            packages/foundation/dist
           retention-days: 7
   secrets:
     name: secrets
