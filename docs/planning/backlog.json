@@ -1315,7 +1315,7 @@
       "dependencies_source_text": "G5",
       "acceptance": "Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát.",
       "requirement_ids": ["QT39", "QT40"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1333,7 +1333,7 @@
       "dependencies_source_text": "D01",
       "acceptance": "Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1351,7 +1351,7 @@
       "dependencies_source_text": "D01/I07",
       "acceptance": "Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1369,7 +1369,7 @@
       "dependencies_source_text": "D01",
       "acceptance": "Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1387,7 +1387,7 @@
       "dependencies_source_text": "D02/D03/D04",
       "acceptance": "Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận.",
       "requirement_ids": ["QT39", "QT40"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",

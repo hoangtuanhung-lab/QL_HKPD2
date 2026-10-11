@@ -1,0 +1,14 @@
+# D03 — release candidate và rollback
+
+`release-manifest.json` là hồ sơ chờ. `npm run release:audit -- /path/manifest.json` kiểm các cổng G0–G6, D02, I07, backup/restore, migration/rollback, hướng dẫn, lịch trực, nghiệm thu người dùng, kiểm chất lượng và toàn bộ 20 ca nguồn. Mỗi bằng chứng phải passed, có reviewer, commit 40 ký tự, đường dẫn đọc được và SHA-256 đúng của file không rỗng. Mã thoát 0: đủ hồ sơ; 2: bị chặn; 1: không đọc được đầu vào. Công cụ kiểm tính đầy đủ và toàn vẹn byte; người duyệt vẫn phải đọc nội dung, xác minh nguồn, đúng phiên bản, đủ phạm vi và tính hợp lệ của người ký. Một file sai nội dung nhưng đúng hash không chứng minh nghiệm thu.
+
+1. O01 xác định commit RC đã review, chạy `npm ci`, `npm run check`, `npm run secret:scan`, smoke dev/staging và kiểm CI đúng SHA. Khóa phiên bản code/contract/rule/migration; ghi hash artifact và cấu hình không chứa secret. Không dùng ảnh hoặc kết quả test của commit trước làm bằng chứng commit mới.
+2. L02/Q03 kiểm G0–G6 theo QT40; D01 đã được người dùng rà soát, D02 đủ dữ liệu, I07 đã diễn tập chuyển VPS. G6 gồm UAT staging backend thật, dữ liệu/tài khoản thật, tài liệu/rollback, backup/restore có bằng chứng. Chuẩn bị migration SQL và Google/Netlify khi đến bước cuối CR-004; hiện chưa chạy migration hoặc deploy.
+3. O02 diễn tập backup và restore trên môi trường cách ly đúng RC. Trước restore chụp bản sao trạng thái hiện tại; kiểm checksum, số lượng bản ghi, version kết quả chính thức, audit, outbox, liên kết và quyền thư mục/tệp VĐV. Xác nhận không mất kết quả đã ghi; lưu thời gian phục hồi thực tế và người kiểm. Lịch backup theo I04: giờ/ngày, giữ 7/30 ngày và lưu cuối giải theo plan.
+4. Sau khi bằng chứng được người dùng duyệt và audit không còn chặn, mới tạo tag RC trên SHA đã chốt, build artifact từ tag và diễn tập phát hành. Việc xuất bản môi trường thật là hành động riêng cần người dùng chỉ định; PR này không tạo tag hoặc triển khai.
+
+## Khi cần rollback
+
+O01/O02 xác định lỗi, phiên bản đang chạy và kết quả phát sinh sau release; thông báo L01/L02. Đưa hệ thống vào chế độ bảo trì có kiểm chứng để chặn lệnh ghi, dừng worker theo quy trình không mất outbox, tạo backup mới và kiểm checksum trước mọi thao tác khôi phục. Ưu tiên quay binary về bản tương thích schema hiện tại hoặc sửa tiến; không chạy down-migration hay restore bản cũ làm mất điểm mới.
+
+Nếu bắt buộc khôi phục dữ liệu, O02 chuẩn bị kế hoạch bảo toàn và phát lại các lệnh/kết quả sau mốc backup trong môi trường cách ly, đối chiếu version/audit/idempotency/outbox và file refs; L01/L02 duyệt kế hoạch cụ thể trước khi tác động thật. Chỉ mở ghi lại sau khi kết quả chính thức, số lượng, quyền, lịch, outbox và thư mục VĐV được rà soát. Nếu chưa chứng minh bảo toàn dữ liệu, tiếp tục bảo trì và sửa tiến. Ghi toàn bộ sự cố, thời điểm, người thực hiện, kết quả phục hồi và test hồi quy. Quy trình này còn cần I04/I07 kiểm chứng; chưa phải rollback đã diễn tập.

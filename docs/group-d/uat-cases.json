@@ -1,0 +1,346 @@
+{
+  "format": "hkpd-uat-v1",
+  "environment_required": "staging-real-backend",
+  "cases": [
+    {
+      "id": "T01",
+      "description": "Đăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ.",
+      "owner_positions": "R/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:505",
+        "quote": "T01\nĐăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T02",
+      "description": "Quyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi.",
+      "owner_positions": "S/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:508",
+        "quote": "T02\nQuyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T03",
+      "description": "Sơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người.",
+      "owner_positions": "C/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:511",
+        "quote": "T03\nSơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T04",
+      "description": "Vòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo.",
+      "owner_positions": "C/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:514",
+        "quote": "T04\nVòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T05",
+      "description": "Hạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển.",
+      "owner_positions": "C/R/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:517",
+        "quote": "T05\nHạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T06",
+      "description": "Xác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:520",
+        "quote": "T06\nXác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T07",
+      "description": "Phân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:523",
+        "quote": "T07\nPhân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T08",
+      "description": "Huy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:526",
+        "quote": "T08\nHuy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T09",
+      "description": "Vắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:529",
+        "quote": "T09\nVắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T10",
+      "description": "Môn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:532",
+        "quote": "T10\nMôn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T11",
+      "description": "Ngoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission.",
+      "owner_positions": "F/S/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:535",
+        "quote": "T11\nNgoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "T12",
+      "description": "Công khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã.",
+      "owner_positions": "F/O/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:538",
+        "quote": "T12\nCông khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã."
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG01",
+      "description": "Admin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống",
+      "owner_positions": "Q02 và Q03",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1337",
+        "quote": "TG01 Tạo mới\nAdmin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG02",
+      "description": "Chỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập",
+      "owner_positions": "Q02 và Q03",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1340",
+        "quote": "TG02 Sao chép có chọn lọc\nChỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG03",
+      "description": "Giải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này",
+      "owner_positions": "Q02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1343",
+        "quote": "TG03 Dữ liệu không đi theo\nGiải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG04",
+      "description": "Tài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp",
+      "owner_positions": "Q02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1346",
+        "quote": "TG04 Phân quyền\nTài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG05",
+      "description": "Thiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký",
+      "owner_positions": "Q03 và L02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1349",
+        "quote": "TG05 Mở đăng ký\nThiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG06",
+      "description": "Có hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu",
+      "owner_positions": "Q02 và Q03",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1352",
+        "quote": "TG06 Cách ly giải\nCó hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG07",
+      "description": "Sao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn",
+      "owner_positions": "Q02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1355",
+        "quote": "TG07 Bảo toàn giải nguồn\nSao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    },
+    {
+      "id": "TG08",
+      "description": "Gửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản",
+      "owner_positions": "Q02 và P01",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1358",
+        "quote": "TG08 Giao dịch và lịch sử\nGửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản"
+      },
+      "status": "pending",
+      "actual_result": null,
+      "evidence": null,
+      "tested_by": null,
+      "reviewed_by": null,
+      "defect_ids": []
+    }
+  ]
+}
