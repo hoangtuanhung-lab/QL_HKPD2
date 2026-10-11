@@ -32,7 +32,8 @@
     "doctor": "node scripts/doctor.mjs",
     "contracts:generate": "openapi-typescript docs/api/core.openapi.json -o packages/contracts/src/generated.ts && prettier --write packages/contracts/src/generated.ts",
     "contracts:check": "node scripts/contracts-check.mjs",
-    "dev:mock": "node scripts/mock-api.mjs"
+    "dev:mock": "node scripts/mock-api.mjs",
+    "github:audit": "node scripts/github-audit.mjs"
   },
   "dependencies": {
     "fastify": "5.12.5",

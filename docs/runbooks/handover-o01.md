@@ -55,3 +55,11 @@ Ngày 11/10/2026: nền tảng được khôi phục sang `hoangtuanhung-lab/QL_
 A03 bổ sung mock GET đọc fixtures để frontend làm song song, chạy `npm run dev:mock`; hướng dẫn `docs/api/mock-api.md`. Mock tách khỏi backend và không là bằng chứng triển khai auth/policy/giao dịch. API nghiệp vụ và tệp/SQL/Google/Netlify chưa được nghiệm thu; lịch cuối dự án giữ nguyên.
 
 Kiểm chứng nhánh bổ sung mock: 49 tests passed; contracts/lint/typecheck/build/secret scan đều đạt. Test CLI kiểm HTTP thật và shutdown; không thay test quyền/giao dịch server. Phần bổ sung này chờ review qua PR riêng, không tự merge.
+
+## Cập nhật B01: kiểm tra repository mới
+
+Ngày 11/10/2026: QL_HKPD2 là repository public, CODEOWNERS không có lỗi theo API; CI main sau PR #2 merge (commit `0901aff55c863fff58ae09a5ffe704cea55df450`) success. API rulesets trả danh sách rỗng; classic branch protection trả 403 nên chưa rõ trạng thái. Kết luận giới hạn gói private ở phần lịch sử không áp dụng cho repository mới.
+
+Bổ sung `npm run github:audit` chỉ đọc, trả blocker khi thiếu ruleset/reviewer/bằng chứng quyền. Sau đó người dùng chọn workflow một đầu mối theo CR-007: Codex kiểm tra/chỉnh sửa/đẩy mã, không bắt buộc reviewer GitHub thứ hai. Ruleset đề xuất đã điều chỉnh approval count 0 và không bắt buộc code-owner/latest-push approval, giữ PR/checks/no bypass. Chưa nghiệm thu policy bằng PR lỗi thử nghiệm. Xem runbook branch-protection cho bước áp dụng và nghiệm thu.
+
+Đã thử POST ruleset workflow một đầu mối ngày 11/10/2026: 403 `Resource not accessible by integration`, không áp dụng được. Bàn giao công cụ audit/runbook/config đề xuất và tiếp tục quy trình PR/CI do Codex quản lý. Chưa có bằng chứng enforcement bằng PR lỗi; không đòi mua Team hoặc reviewer thứ hai.

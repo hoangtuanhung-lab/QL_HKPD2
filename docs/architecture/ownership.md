@@ -19,3 +19,5 @@ Người dùng đã chỉ định `@hoangtuanhung-lab` làm reviewer A02/B01/B07
 | `.github/`, `infra/`, script môi trường, runbooks | O01; O02 review phục hồi/môi trường                |
 
 Các module chưa triển khai sẽ được tách thư mục bên trong `apps/api/src/modules` theo hợp đồng sau A03. Không ghi trực tiếp bảng hoặc gọi repository của module khác. Giao tiếp bằng service nội bộ hoặc sự kiện đã thống nhất. A03 đã bổ sung hợp đồng lõi tại `docs/api/core.openapi.json` và DTO sinh tự động trong packages/contracts, kèm fixtures giả. Hợp đồng đang chờ review L01/P01/chủ module, chưa có API nghiệp vụ thật; xem `docs/api/A03-contracts.md`. Packages rules/ui còn là vị trí bàn giao.
+
+Theo CR-007, người dùng giao Codex làm đầu mối tiếp nhận/kiểm tra/chỉnh sửa và đẩy mã các thành viên gửi. Mã vị trí và quyền sở hữu module trong plan giữ nguyên; Codex điều phối tích hợp, không tự nhận mọi module đã hoàn thành. Workflow GitHub không yêu cầu reviewer tài khoản thứ hai; PR và CI vẫn bắt buộc theo cấu hình B01 đề xuất.

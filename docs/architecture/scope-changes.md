@@ -16,3 +16,7 @@ Ngày 11/10/2026; người dùng yêu cầu “Giao tôi A03: thiết kế hợp
 ## CR-006 — Tạo lại repository QL_HKPD2
 
 Ngày 11/10/2026; người dùng chỉ định `https://github.com/hoangtuanhung-lab/QL_HKPD2` và yêu cầu “tạo lại cho tôi”. Repository đích được kiểm tra đang trống và quyền push/admin hiện có. Khôi phục nền tảng A02/B01/B07 đã được duyệt ở repository cũ vào main; giữ A03 ở nhánh và PR riêng để review. Bảo toàn lịch sử commit, không sao chép credential/dữ liệu học sinh; cập nhật remote, đường dẫn vận hành và cấu hình môi trường. CI/ruleset/approval cũ không được xem là trạng thái đã nghiệm thu của repository mới.
+
+## CR-007 — Một đầu mối kiểm tra và đẩy mã
+
+Ngày 11/10/2026; người dùng cho biết không có gói Team và giao Codex phụ trách chính: nhận mã thành viên, kiểm tra, chỉnh sửa và đẩy GitHub. Workflow không yêu cầu reviewer GitHub thứ hai; điều chỉnh ruleset đề xuất thành approval count 0, không bắt buộc CODEOWNER/latest-push approval, giữ PR, quality/secrets, xử lý threads, no bypass, chống xóa/force push và cập nhật nhánh. Không coi review Codex là review độc lập/native GitHub approval. Không mua dịch vụ; SQL/Google/Netlify vẫn ở cuối. Module owners trong plan không đổi; Codex điều phối tích hợp. Cần kiểm quyền áp dụng ruleset và nghiệm thu enforcement riêng; chưa tự merge PR mới chỉ từ yêu cầu đẩy mã.
