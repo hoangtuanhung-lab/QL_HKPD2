@@ -54,7 +54,17 @@ try {
       `http://127.0.0.1:${values.WEB_PORT}${asset[1]}`,
     );
     assert.equal(script.status, 200);
-    assert.ok((await script.text()).includes("Hệ thống đang được xây dựng"));
+    let code = await script.text();
+    if (target === "dev") {
+      assert.ok(code.includes("/src/App.tsx"));
+      const app = await fetch(
+        `http://127.0.0.1:${values.WEB_PORT}/src/App.tsx`,
+      );
+      assert.equal(app.status, 200);
+      code = await app.text();
+    }
+    assert.ok(code.includes("Hệ thống đang được xây dựng"));
+    assert.ok(code.includes("Thêm VĐV"));
     assert.ok(output.get(target).includes('"status":"idle"'));
     console.log(`${target}: managed API/web/worker verified.`);
   }

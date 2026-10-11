@@ -20,3 +20,7 @@ Ngày 11/10/2026; người dùng chỉ định `https://github.com/hoangtuanhung
 ## CR-007 — Một đầu mối kiểm tra và đẩy mã
 
 Ngày 11/10/2026; người dùng cho biết không có gói Team và giao Codex phụ trách chính: nhận mã thành viên, kiểm tra, chỉnh sửa và đẩy GitHub. Workflow không yêu cầu reviewer GitHub thứ hai; điều chỉnh ruleset đề xuất thành approval count 0, không bắt buộc CODEOWNER/latest-push approval, giữ PR, quality/secrets, xử lý threads, no bypass, chống xóa/force push và cập nhật nhánh. Không coi review Codex là review độc lập/native GitHub approval. Không mua dịch vụ; SQL/Google/Netlify vẫn ở cuối. Module owners trong plan không đổi; Codex điều phối tích hợp. Cần kiểm quyền áp dụng ruleset và nghiệm thu enforcement riêng; chưa tự merge PR mới chỉ từ yêu cầu đẩy mã.
+
+## CR-008 — Tiếp tục nhóm A, đăng ký theo số lượng thực tế
+
+Người dùng giao Codex tiếp tục nhóm A và yêu cầu thiết lập phần cơ bản để các trường tự đăng ký khi có danh sách, chưa có số người tham gia. Ưu tiên A04 với biểu mẫu nháp và phác thảo sáu luồng, không cố định số trường/VĐV, không dùng quy mô fixture A05 làm quota nghiệp vụ. Giữ SQL, Google và Netlify ở cuối theo CR-004. Bản nháp localStorage và JSON không thay API đăng ký trực tuyến, phân quyền, duyệt hoặc thư mục kết quả chính thức. A01 chưa đủ tài liệu gốc; không tự đặt điều lệ để hoàn thành các phần phụ thuộc.
