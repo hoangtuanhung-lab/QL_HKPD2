@@ -8,3 +8,5 @@ A03: kiểu TypeScript dùng chung, sinh từ `docs/api/core.openapi.json`.
 - Đây là bản hợp đồng `0.1.0` cần review, chưa có endpoint nghiệp vụ thật. Xem `docs/api/A03-contracts.md` về scope, quyền, version, idempotency, các điểm cần chốt và người nhận bàn giao.
 
 SQL/Netlify/Google triển khai cuối dự án theo yêu cầu người dùng.
+
+Frontend có thể chạy `npm run dev:mock` để đọc fixtures qua HTTP theo cùng OpenAPI. Xem `docs/api/mock-api.md`; mock không có lệnh ghi/auth hoặc backend nghiệp vụ thật.

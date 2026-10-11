@@ -62,3 +62,5 @@ Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt ph�
 Repository hiện tại là [hoangtuanhung-lab/QL_HKPD2](https://github.com/hoangtuanhung-lab/QL_HKPD2), được người dùng yêu cầu tạo lại từ nền tảng đã duyệt. A03 được bàn giao qua PR riêng; bằng chứng CI/review của repository cũ là lịch sử, không thay kiểm tra trên repository mới.
 
 A03 cung cấp [OpenAPI lõi](docs/api/core.openapi.json), DTO TypeScript sinh tự động và [tài liệu bàn giao](docs/api/A03-contracts.md). Chạy `npm run contracts:generate` sau khi sửa OpenAPI; `npm run check` kiểm đồng bộ DTO. Endpoint nghiệp vụ mới là hợp đồng chờ review, backend hiện chỉ có health.
+
+Để frontend phát triển song song, chạy `npm run dev:mock` để đọc dữ liệu giả theo OpenAPI. Xem [hướng dẫn mock API chỉ đọc](docs/api/mock-api.md); mock không thực hiện lệnh ghi hoặc xác thực.

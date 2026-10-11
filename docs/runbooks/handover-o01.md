@@ -47,3 +47,11 @@ Không dùng tests Flask/SQLite trước đó làm bằng chứng của stack m�
 - Netlify/SQL/Google, cấu hình môi trường ngoài và tích hợp được hoãn theo người dùng; chưa có credential, chưa triển khai và chưa yêu cầu cung cấp ở bước này.
 
 O01 bàn giao ADR và nền tảng cho G1/P01/P02/P03/S01/F01/Q02/Q03/O02. Thư mục VĐV là yêu cầu của S03 phối hợp các chủ module, đã ghi ADR-002, chưa tạo thư mục/tệp thật.
+
+## Cập nhật sau khôi phục và A03
+
+Ngày 11/10/2026: nền tảng được khôi phục sang `hoangtuanhung-lab/QL_HKPD2`; PR #1 A03 đã merge vào main, commit `bab894237aa2d9c3c3af2d732b048f8f77d58aab`. CI main run 38103141458 success. Môi trường Published được khôi phục đúng commit, và kiểm lại 29 test/lint/typecheck/build/secret scan/smoke dev–staging đều đạt. Những mục “chờ review” phía trên là trạng thái lịch sử của bản bàn giao đầu, không phủ nhận merge sau đó. A01/các U và review chuyên môn của chủ module vẫn cần trước ổn định nghiệp vụ.
+
+A03 bổ sung mock GET đọc fixtures để frontend làm song song, chạy `npm run dev:mock`; hướng dẫn `docs/api/mock-api.md`. Mock tách khỏi backend và không là bằng chứng triển khai auth/policy/giao dịch. API nghiệp vụ và tệp/SQL/Google/Netlify chưa được nghiệm thu; lịch cuối dự án giữ nguyên.
+
+Kiểm chứng nhánh bổ sung mock: 49 tests passed; contracts/lint/typecheck/build/secret scan đều đạt. Test CLI kiểm HTTP thật và shutdown; không thay test quyền/giao dịch server. Phần bổ sung này chờ review qua PR riêng, không tự merge.
