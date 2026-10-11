@@ -17,6 +17,21 @@ const scripts = "infra/db/scripts";
 function workspace() {
   const root = mkdtempSync(join(tmpdir(), "hkpd-b02-test-"));
   temporary.push(root);
+  // A preinstalled PostgreSQL can be discovered by env.sh and prepended to PATH.
+  // Provide initdb as well as psql so mock tests keep every SQL tool isolated.
+  for (const tool of [
+    "initdb",
+    "psql",
+    "pg_ctl",
+    "pg_dump",
+    "pg_restore",
+    "pg_isready",
+  ])
+    writeFileSync(
+      join(root, tool),
+      "#!/bin/sh\necho 'Unmocked SQL tool refused' >&2\nexit 99\n",
+      { mode: 0o755 },
+    );
   return root;
 }
 afterEach(() => {

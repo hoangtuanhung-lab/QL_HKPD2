@@ -17,3 +17,5 @@ Ngày 11/10/2026 (Asia/Saigon), base main `14b499a`. Các phát hiện/sửa đ�
 - npm run secret:scan: đạt trên toàn bộ tệp được tiếp nhận. Bằng chứng lượt này trong evidence/intake-validation-20261011.txt.
 
 Database cycle, restore, SCRAM/password và domain concurrency chưa chạy trong lượt này. Evidence của người gửi không được cộng vào số test hiện tại. Runtime scripts đã chỉnh là phần chuẩn bị cần diễn tập lại ở giai đoạn cuối; chưa xác nhận đủ khả năng dùng production.
+
+CI lần đầu phát hiện mock chỉ cài psql sẽ bị env.sh thay PATH khi runner có sẵn PostgreSQL. Bộ thử được sửa để cung cấp sentinel cho tất cả công cụ SQL (kể cả initdb), từ chối mọi lệnh chưa mock. Không bỏ assertion hoặc bật DB thật để xử lý lỗi này.

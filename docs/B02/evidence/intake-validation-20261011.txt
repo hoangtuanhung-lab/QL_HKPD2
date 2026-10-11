@@ -1,4 +1,4 @@
-B02 intake validation — static/mocked only; no PostgreSQL installed or started.
+B02 intake validation — final local run after mock isolation correction; no PostgreSQL started.
 
 
 > hkpd-platform@0.1.0 check
@@ -38,7 +38,7 @@ npm notice
 > hkpd-platform@0.1.0 db:check
 > bash infra/db/tests/run_all.sh
 
-# B02 kiểm thử — 2026-10-11T05:31:04Z
+# B02 kiểm thử — 2026-10-11T05:34:27Z
 ## Bash syntax check_migrations.sh
 ## kết thúc (exit 0)
 
@@ -151,11 +151,11 @@ npm notice
 
  Test Files  13 passed (13)
       Tests  95 passed (95)
-   Start at  05:31:15
-   Duration  6.81s (tests 83%, import 8%, environment 5%, transform 3%)
+   Start at  05:34:39
+   Duration  6.93s (tests 84%, import 8%, environment 4%, transform 4%, worker 1%)
 
-    Isolate  13 workers spawned · ~161ms startup each (spawn + environment, per file)
-             at least ~888ms faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  13 workers spawned · ~162ms startup each (spawn + environment, per file)
+             at least ~891ms faster with isolate: false — reuses workers across files instead of one per file
 
 npm notice
 npm notice New major version of npm available! 11.9.0 -> 12.2.0
@@ -183,7 +183,7 @@ dist/index.html                   0.42 kB │ gzip:  0.30 kB
 dist/assets/index-CVDeWnLn.css    4.35 kB │ gzip:  1.47 kB
 dist/assets/index-BMx0e9Jq.js   233.77 kB │ gzip: 73.26 kB
 
-✓ built in 175ms
+✓ built in 138ms
 
 > @hkpd/worker@0.1.0 build
 > tsc -p tsconfig.build.json
