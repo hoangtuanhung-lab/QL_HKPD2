@@ -120,7 +120,7 @@ export async function executeCommand(
     )
       throw new FoundationError("VERSION_CONFLICT");
     const version = target.version + 1;
-    const result = await tx.apply(command, version);
+    const result = await tx.apply({ ...command, actor }, version);
     await tx.audit({
       id: randomUUID(),
       actorId,

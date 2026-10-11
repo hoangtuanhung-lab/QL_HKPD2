@@ -62,3 +62,5 @@ Giữ CR-004: chưa SQL thật, OAuth/Google Drive/Netlify. Thư mục VĐV vẫ
 - `npm run secret:scan`: đạt.
 - `npm run env:init` + `node scripts/smoke.mjs`: dev/staging API/web/worker đạt, dừng sạch, cổng được giải phóng và không để lại API child.
 - Không chạy SQL/Google/Netlify, API competition với dữ liệu duyệt thật hoặc nghiệm thu trình duyệt/mobile.
+
+Cầu nối snapshot R/C/K, global người lập lịch và DTO trận đã được bổ sung ở `@hkpd/integration`; xem [rà soát trước I](../review/pre-i.md). Chưa có adapter server/durable store hoặc frontend online.

@@ -96,3 +96,7 @@ Tab **Kiểm tra đăng ký** cung cấp bản thử danh mục/CSV/revision cá
 ## Kết quả và điểm nhóm K
 
 Tab **Xác nhận kết quả** có bản thử nhập → xác nhận → sửa chờ duyệt giữ kết quả cũ, lịch sử/in/CSV. Lõi `@hkpd/results` cung cấp lease/quyền/giao dịch, phân hạng, huy chương và quy đổi điểm. Xem [bàn giao K01–K11](docs/group-k/README.md): API/lưu bền, luật chưa chốt và nghiệm thu thật còn cần tích hợp; chưa công bố kết quả chính thức.
+
+## Rà soát liên nhóm trước I
+
+`@hkpd/integration` nối roster đã duyệt R → sơ đồ C → nguồn official K, DTO trận, global người lập lịch và consumer invalidation/rebuild B05. Xem [phản biện và lỗi đã sửa](docs/review/pre-i.md) cùng [hợp đồng adapter](docs/review/integration-contract.md). API nghiệp vụ, session, lưu bền và frontend online vẫn cần nối; nhóm I chưa được triển khai trong lượt rà soát này.

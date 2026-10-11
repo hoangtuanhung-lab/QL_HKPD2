@@ -20,7 +20,7 @@ Hạn mức trường và nội dung/môn bắt buộc cấu hình trước gử
 
 Tuổi = năm giải − năm sinh. Tuổi/lớp ngoài khoảng chỉ cảnh báo; giới tính, hai môn và quota chặn. Submission pending giữ suất; draft chưa giữ suất. Bản approved cũ còn giữ đăng ký của người/đội cũ khi bản sửa đang chờ; validator xét cả approved và submitted để không chiếm vượt suất/môn. Trả lại bản sửa không bỏ bản approved cũ. Danh sách xã rỗng: hồ sơ mới không tạo đề nghị chờ; khi có master thì profile pending, gửi có cảnh báo và duyệt thi đấu bị chặn tới khi duyệt profile.
 
-Lệnh trường kiểm mở đăng ký và deadline bằng clock server. Admin có thể xử lý bản đã gửi sau deadline; không dùng đó để cho trường tự sửa/gửi muộn. R06 chưa nối kiểm started_at/C/K: trước khi mount revision endpoint cần chính sách nội dung đã chốt/bắt đầu và giao dịch cập nhật bản duyệt → invalidation C/K có bằng chứng. Không tự sửa sơ đồ đã chốt hoặc kết quả cũ trong bước này.
+Lệnh trường kiểm mở đăng ký và deadline bằng clock server. Admin có thể xử lý bản đã gửi sau deadline; không dùng đó để cho trường tự sửa/gửi muộn. R06 hiện bắt buộc port `eventLifecycle` đọc C/K trong cùng transaction: chốt sơ đồ, started_at hoặc đã lưu bản kết quả chặn tạo/sửa/gửi/duyệt đăng ký. Adapter phải khóa R/C/K, không dùng default unlocked. Bản sửa khi C draft vẫn cần invalidation/tạo lại draft và lịch; đọc `docs/review/integration-contract.md`. Không tự sửa sơ đồ đã chốt hoặc kết quả cũ.
 
 ## Import, giấy tờ và tệp
 

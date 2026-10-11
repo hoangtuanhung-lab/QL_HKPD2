@@ -1,3 +1,4 @@
+import { apiError } from "@hkpd/integration";
 import { FoundationError, problem } from "@hkpd/foundation";
 import Fastify, { LogController } from "fastify";
 export function createApp(
@@ -25,7 +26,7 @@ export function createApp(
           ].includes(String(error.code))))
         ? new FoundationError("VALIDATION_ERROR")
         : error;
-    const response = problem(normalized);
+    const response = problem(apiError(normalized));
     return reply
       .code(response.status)
       .type("application/problem+json")
