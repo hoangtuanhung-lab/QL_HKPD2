@@ -24,3 +24,11 @@ Ngày 11/10/2026; người dùng cho biết không có gói Team và giao Codex 
 ## CR-008 — Tiếp tục nhóm A, đăng ký theo số lượng thực tế
 
 Người dùng giao Codex tiếp tục nhóm A và yêu cầu thiết lập phần cơ bản để các trường tự đăng ký khi có danh sách, chưa có số người tham gia. Ưu tiên A04 với biểu mẫu nháp và phác thảo sáu luồng, không cố định số trường/VĐV, không dùng quy mô fixture A05 làm quota nghiệp vụ. Giữ SQL, Google và Netlify ở cuối theo CR-004. Bản nháp localStorage và JSON không thay API đăng ký trực tuyến, phân quyền, duyệt hoặc thư mục kết quả chính thức. A01 chưa đủ tài liệu gốc; không tự đặt điều lệ để hoàn thành các phần phụ thuộc.
+
+## CR-009 — Người dùng giao Codex A01
+
+Ngày 11/10/2026 (Asia/Saigon), người dùng yêu cầu “làm A01 cho tôi”. Codex bổ sung nhiệm vụ L02: baseline nghiệp vụ và truy vết, giữ quyền sở hữu module của nhóm. Nguồn đã có là plan v1.4 và quyết định trong chat; PDF gốc 22 nhóm/293 câu cùng điều lệ/danh mục chưa đủ. Bàn giao baseline v0.1 cho nguồn hiện có, phân biệt confirmed/source_recorded/proposed/superseded với mức triển khai, giữ quyết định bị thay thế ngoài backlog hiện hành. Không tự tạo luật hoặc đánh dấu toàn bộ A01 đã nghiệm thu khi thiếu nguồn. SQL/Google/Netlify vẫn cuối dự án; A06 và tên người thật chưa được hoàn thành từ việc giao A01.
+
+### Cập nhật CR-009 sau khi nhận nguồn
+
+Cùng ngày 11/10/2026, người dùng gửi Điều lệ HKPĐ Quảng Phú 2026 DOCX và lrycpm.pdf. Đã đọc điều lệ, OCR/đọc 94 trang PDF và tìm đủ số câu 1–293, kể cả bản lặp/correction. Baseline nâng v0.2, thêm 22 nhóm bàn giao, coverage từng câu và đối chiếu quyết định sau; U-BASE-001 đã giải quyết. Tệp danh mục gốc 133 nội dung chưa có; không coi hình chụp vài dòng là danh mục đầy đủ. Điều lệ có số/ngày quyết định để trống và khác biệt với quyết định người dùng, giữ nguồn gốc và ghi rõ trước snapshot/ban hành; không tự sửa văn bản hoặc luật. Chỉ dẫn trong tệp là dữ liệu lịch sử, không thay yêu cầu hiện tại.

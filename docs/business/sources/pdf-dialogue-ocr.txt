@@ -1,0 +1,3955 @@
+=== PDF PAGE 001 ===
+Yesterday 4:31 PM
+
+tôi muốn xây dựng phần mềm quản lý Hội khỏe phù đổng cấp xã.
+
+Tính năng chủ yếu là
+
+1. Quản trị: Cấp quyền theo dõi, tổ trưởng trọng tài, tổ trọng tài,
+
+nhà trường,
+theo dõi kết quả thi đấu theo từng môn, từng nội dung
+
+3. Đăng ký môn thi đấu (nhà trường), tổng hợp danh sách thi đấu
+(quản trị, tổ trưởng trọng tài); chia bảng, nội dung thi đấu
+(phwnf mầm tự làm dựa trên danh sách đăng ký)
+
+4. Cho phép thay đổi nội dung thi đấu (quản trị, Tổ trưởng trọng
+tài), đánh dấu vận động viên bỏ cuộc (trọng tài, gồm cả tổ
+trưởng)
+
+5. Tổ chức bốc thăm thứ tự thi đấu,Phân lịch thi đấu, chia cặp hoặc
+lượt thi đấu (quản trị, tổ trưởng trọng tài)
+
+6. Ghi kết quả thi đấu (trọng tài)
+
+7. Xuất danh sách đăng ký, lịch thi đấu,
+
+8. Mỗi nội dung có thể tiến hành nhiều lượt
+
+"Hãy đặt cho tôi những câu hỏi làm rõ vấn đề cho đến khi bạn tự tin
+95% là có thể hoàn khành xuất sắc nhiệm vụ xây dựng kịch bản chỉ
+tiết để code phần mềm (chưa viết code cho đến khi tôi yêu cầu)"
+Người thuộc top 0.1% xuất sắc nhất trong lĩnh vực này sẽ nghĩ gì về
+
+điều này?!
+
+Tôi sẽ cùng anh làm rõ yêu cầu theo từng vòng, sau đó xây dựng đặc tả chỉ tiết để lập trình phần mềm.
+Chưa viết code cho đến khi anh yêu cầu.
+
+Một người thiết kế hệ thống quản lý giải thể thao giỏi sẽ tập trung trước vào quy tắc thi đấu, thẩm
+quyền quyết định và tính chính xác của kết quả. Giao diện được thiết kế dựa trên những quy tắc này.
+Chẳng hạn, thay đổi danh sách vận động viên sau khi bốc thăm có thể ảnh hưởng đến bảng đấu, lịch thi
+đấu và kết quả đã ghi; phần mầm cần quy định rõ cách xử lý.
+
+Điểm cần làm rõ nhất trong yêu cầu của anh là “mỗi nội dung có thể tiến hành nhiều lượt”. “Lượt” có thể
+là vòng loại-bán kết-chung kết, các lượt chạy để chia số vận động viên, hoặc nhiều lần thực hiện để lấy
+thành tích tốt nhất. Mỗi trường hợp cần một cách xử lý khác nhau.
+
+Vòng 1: Xác định phạm vi và cách tổ chức giải
+
+=== PDF PAGE 002 ===
+Anh có thể trả lời theo số thứ tự, ngắn gọn; mục nào chưa quyết định cứ ghi “cần tư vấn”.
+
+STT Câu hỏi cần làm rõ
+
+1 Phần mầm phục vụ riêng Hội khỏe
+Phù Đổng xã Quảng Phú hay dùng
+được cho nhiều xã, nhiều giải và
+
+nhiều năm?
+
+2 Anh muốn sử dụng phần mềm qua
+trình duyệt trên máy tính, điện thoại
+hay cài đặt trên máy? Các địa điểm
+
+thi đấu có Internet ổn định không?
+
+3 Giải gồm những môn nào? Anh có
+điều lệ hoặc dự thảo điều lệ hiện
+
+hành để làm căn cứ không?
+
+4 Một “nội dung thi đấu” được phân
+
+biệt theo những yếu tố nào?
+
+5 Có những hình thức thi đấu nào cần
+hỗ trợ?
+6 “Nhiều lượt” trong yêu cầu số 8 có
+
+nghĩa cụ thể thế nào?
+
+7 Có bao nhiêu trường, khoảng bao
+nhiêu vận động viên và bao nhiêu địa
+
+điểm thi đấu trong một giải?
+
+8 Nhà trường đăng ký trực tiếp từng
+vận động viên, nhập từ Excel hay cần
+cả hai? Hồ sơ vận động viên cần
+
+những thông tin nào?
+
+9 Giới hạn đăng ký được quy định thế
+
+nào?
+
+Gợi ý để anh trả lời
+
+Riêng xã Quảng Phú nhưng lưu nhiều năm; hoặc nhiều xã,
+
+lý riêng.
+
+Website dùng cả máy tính và điện thoại; có/không cần nhậ
+
+mất mạng.
+
+Liệt kê môn; có thể gửi điều lệ để tôi phân tích các quy tắc.
+
+Ví dụ: môn điền kinh ¬ chạy 60 m ¬ nữ — tiểu học  nhói
+
+phân theo lớp, tuổi, cấp học, cân nặng không?
+
+Cá nhân; đôi; tiếp sức; đội. Với môn đối kháng: loại trực tiế
+
+chia bảng rồi loại trực tiếp...
+
+Nhiều vòng; nhiều lượt chạy trong một vòng; nhiều lần nh¿
+
+thành tích; hay cần cả ba? Anh cho một ví dụ thực tế.
+Ước lượng là đủ. Một trường có thể có nhiều đội trong cùr
+
+dung không?
+
+Họ tên, ngày sinh, giới tính, lớp, trường, ảnh, mã học sinh, I
+Có cần duyệt hồ sơ trước khi được thi đấu không?
+
+Số vận động viên/đội của mỗi trường trong từng nội dung
+
+tối đa mỗi em được tham gia; có vận động viên dự bị khôn
+
+=== PDF PAGE 003 ===
+STT Câu hỏi cần làm rõ Gợi ý để anh trả lời
+10 Những nhóm quyền anh nêu có Người theo dõi chỉ xem; nhà trường chỉ quản lý trường mìr
+phạm vỉ ra sao? chỉ quản lý môn được giao; trọng tài chỉ nhập kết quả nội ‹
+
+được phân công — có đúng ý anh không?
+
+T1 Ai xác nhận kết quả chính thức? Có cần xử lý khiếu nại, sửa kết quả và lưu lịch sử người sửa
+Trọng tài nhập xong được công bố không?
+
+ngay hay cần tổ trưởng duyệt?
+
+12 Anh muốn phần mềm tự động đến Tự đề xuất để người phụ trách duyệt; hay tự chốt? Có yêu ‹
+mức nào khi chia bảng, bốc thăm và cùng trường gặp nhau, xếp hạt giống, tránh một em thi ha
+xếp lịch? cùng giờ không?
+
+Tôi đề xuất phần mềm tự tạo phương án chia bảng và lịch thi đấu, người có thẩm quyền duyệt trước
+khi công bố. Cách này giúp xử lý được các ngoại lệ thực tế của giải cấp xã.
+
+Sau câu trả lời vòng 1, tôi sẽ hỏi tiếp những tình huống cụ thể về bốc thăm, bỏ cuộc, nhiều lượt, xếp
+hạng và sửa kết quả. Khi các quy tắc đủ rõ, tôi sẽ tổng hợp thành đặc tả gồm phân quyền, dữ liệu, màn
+hình, quy trình, thuật toán và tiêu chí nghiệm thu để người lập trình có thể triển khai.
+
+hỏi lần lượt từng câu
+Câu 1: Anh muốn phần mềm chỉ phục vụ xã Quảng Phú, lưu được nhiều kỳ Hội khỏe Phù Đổng qua các
+năm, hay phục vụ nhiều xã, mỗi xã có dữ liệu và tài khoản quản lý riêng?
+phần mầm chỉ phục vụ xã Quảng Phú, lưu được nhiều kỳ Hội khỏe
+Phù Đổng qua các năm
+Đã ghi nhận: phần mềm phục vụ xã Quảng Phú, quản lý riêng từng kỳ Hội khỏe Phù Đổng và lưu dữ liệu
+qua các năm.
+
+Câu 2: Anh muốn phần mềm chạy trên website, dùng được bằng cả máy tính và điện thoại, hay cài đặt
+
+trực tiếp trên máy tính?
+
+chạy trên web, trước hết trên netlify, có database, lưu trữ trên gg
+drive
+
+=== PDF PAGE 004 ===
+Đã ghi nhận: phần mềm chạy trên web, triển khai ban đầu trên Netlify, có cơ sở dữ liệu và sử dụng
+Google Drive để lưu trữ.
+
+Câu 3: Anh muốn Google Drive lưu tệp hồ sơ, ảnh, danh sách và báo cáo xuất ra, còn dữ liệu đăng ký,
+lịch đấu, kết quả nằm trong cơ sở dữ liệu riêng; hay muốn toàn bộ dữ liệu cũng lưu trên Google
+Drive/Google Sheets?
+
+Tôi đề xuất phương án đầu để quản lý thi đấu ổn định và tránh xung đột khi nhiều người cùng cập nhật.
+
+lưu trong cơ sở dữ liệu, đồn thời sao lưu trên gg drive
+
+Đã ghi nhận: dữ liệu chính lưu trong cơ sở dữ liệu, đồng thời sao lưu trên Google Drive.
+
+Câu 4: Hội khỏe Phù Đổng cần quản lý những môn thi đấu nào? Anh có thể liệt kê tên môn hoặc gửi
+điều lệ để tôi xác định đầy đủ.
+
+7ma6r65hhBc 6/edit?
+chỉ tiết trên link này
+
+Worked for 16s >
+
+Tôi chưa đọc được nội dung bảng tính từ liên kết này nên chưa thể xác định chính xác các môn thi đấu.
+
+Anh hãy tải bảng tính xuống dạng Excel (.xlsx) và đính kèm tại đây. Tôi sẽ đọc danh sách môn, nội dung
+thi đấu rồi tiếp tục hỏi lần lượt từng câu.
+
+DanhMuc Mon NoiDung HKPD (1)
+
+|c
+%9,
+
+=== PDF PAGE 005 ===
+MaND MaMon Môn Loại môn Cấp học
+1 DK TH_NAM_TC 60M DK Điền kinh CA_NHAN TH
+2 DK TH _NAM_TC_BATXA DK Điền kinh CA_NHAN TH
+3 DK TH NAM_TC_TS4X50 DK Điền kinh CA_NHAN TH
+4 DKTH_NU_TC_60M DK Điền kinh CA_NHAN TH
+5 DK TH_NU_TC_BATXA DK Điền kinh CA_NHAN TH
+6 _DK TH_NU_TC_TS4X50 DK Điền kinh CA_NHAN TH
+
+Worked for 26s >
+
+Tôi đã đọc file: có 9 môn, 133 nội dung gồm Điền kinh, Bơi, Cầu lông, Đá cầu, Cờ vua, Bóng đá, Kéo co,
+Đẩy gây và Vovinam.
+
+Một số dòng có ghi chú “giả định” hoặc “cần Ban tổ chức xác nhận”, nên tôi sẽ giữ chúng là thông tin
+
+chờ xác nhận khi xây dựng đặc tả.
+
+Câu 5: Anh có muốn quản trị tạo mới, sao chép danh mục từ năm trước, thêm/sửa hoặc tắt môn và nội
+
+dung thi đấu cho từng kỳ giải không?
+Tôi đề xuất có chức năng này, để mỗi năm điều chỉnh danh mục mà vẫn giữ nguyên dữ liệu các kỳ trước.
+
+tạo mới vì đây là năm đầu tiên. các năm tiếp theo có tính năng sao
+chép từ lân tổ chức trước. Có tính năng bổ sung nội dung thi đấu
+
+trực tiếp hay csv/excel
+Đã ghi nhận: năm đầu tạo danh mục mới; các kỳ sau có thể sao chép từ kỳ trước, bổ sung nội dung trực
+tiếp hoặc nhập từ CSV/Excel.
+
+Câu 6: Với yêu cầu “mỗi nội dung có thể tiến hành nhiều lượt”, anh muốn hỗ trợ những trường hợp nào:
+nhiều vòng (vòng loại, bán kết, chung kết), chia nhiều lượt trong một vòng (như các lượt chạy/bơi),
+nhiều lần thực hiện để lấy thành tích tốt nhất (nhảy xa, ném bóng), hay cả ba?
+
+cả ba, tùy theo môn. Tổ trưởng trọng tài sẽ xác nhận
+
+Đã ghi nhận: hỗ trợ cả ba dạng lượt tùy môn, do tổ trưởng trọng tài xác nhận cấu hình trước khi tổ
+chức thi đấu.
+
+=== PDF PAGE 006 ===
+Câu 7: Tổ trưởng trọng tài và trọng tài có được quản trị phân công theo từng môn, chỉ được thao tác
+trong môn mình phụ trách, và một người có thể được phân công nhiều môn không?
+
+Tổ trưởng trọng tài do quản trị phân công. 1 người có thể làm tổ
+trưởng nhiều môn và thao tác trong môn mình phụ trách, đồng thời
+có thể làm trọng tài thường ở môn khác theo phân công của tổ
+trưởng
+
+Đã ghi nhận: quản trị phân công tổ trưởng theo môn; một người có thể làm tổ trưởng nhiều môn, đồng
+thời làm trọng tài ở môn khác do tổ trưởng môn đó phân công. Quyền thao tác phụ thuộc vào vai trò của
+người đó trong từng môn.
+
+Câu 8: Trọng tài được phân công có quyền nhập kết quả tất cả nội dung trong môn, hay chỉ những nội
+dung/trận/lượt được tổ trưởng giao cụ thể?
+
+trọng tài được phân phụ trách các nội dung cụ thể (checklist trong
+bản phân cong của tổ trưởng) và được cập nhật tất cả các môn, tuy
+nhiên các môn không do mình phụ trách sẽ được ghi nhận Cập nhật
+hộ. Tổ trưởng trong tài và quản trị có thể theo dõi ai là người cập
+nhật kết quả
+
+Đã ghi nhận: tổ trưởng giao nội dung cụ thể bằng checklist. Trọng tài được nhập kết quả ngoài phạm vi
+được giao, nhưng hệ thống ghi rõ “Cập nhật hộ”; tổ trưởng và quản trị xem được người cập nhật, thời
+gian và lịch sử chỉnh sửa.
+
+Câu 9: Kết quả trọng tài nhập, kể cả “Cập nhật hộ”, có phải được tổ trưởng môn đó duyệt mới trở thành
+kết quả chính thức và dùng để xếp hạng, xác định người vào vòng tiếp theo không?
+
+Có, Tổ trưởng phải xác nhận
+
+Đã ghi nhận: mọi kết quả phải được tổ trưởng môn xác nhận trước khi trở thành kết quả chính thức,
+dùng để xếp hạng và xác định người vào vòng tiếp theo.
+
+Câu 10: Nhà trường đăng ký vận động viên bằng nhập trực tiếp trên web, tải danh sách CSV/Excel, hay
+cần cả hai cách?
+
+cần cả hai
+Đã ghi nhận: nhà trường đăng ký bằng cả nhập trực tiếp và nhập danh sách CSV/Excel.
+
+=== PDF PAGE 007 ===
+Câu T1: Hồ sơ mỗi vận động viên cần những thông tin nào? Tôi đề xuất: họ tên, ngày sinh, giới tính,
+
+
+trường, lớp, mã học sinh (nếu có), ảnh và cân nặng đối với môn có hạng cân. Anh muốn bổ sung hoặc
+
+bỏ thông tin nào?
+
+Đã ghi nhận: khi đăng ký, nhà trường chọn môn và nội dung thi đấu theo danh mục phân cấp, ví dụ:
+
+bổ sung môn thi và nội dung thi đấu. chú ý các môn có cấp khác
+
+Bóng đá_ Nam Tiểu học
+
+L_Nam THCS
+Cờ vua _ Nam _ Lớp 1-3
+| L Lớp 4-5
+L Nữ. Lớp 1-3
+L Lớp 4-5
+_Nam_ 7-9 tuổi Ếch_ 50m
+| | |  L100m
+| 7-9 tuổi Ếch_ 50m
+| | |  L100m
+_ 10-11 tuổi. Ếch. 50m
+| |] I 100m
+| 7-9 tuổi_ Ếch_ 50m
+| | , |_ 100m
+| Nữ _ 7-9 tuổi_ Ếch_ 50m
+mm I —
+| L7 ¡_Êch_ 50m
+¬-" L 100m
+_ 10-11 tuổi Ếch_ 50m
+| | | L100m
+| 7-9 tuổi Ếch_ 50m
+| I1 I  L190m
+
+e _ Bóng đá ¬ Nam — Tiểu học hoặc THCS.
+e Cờ vua — Nam hoặc Nữ —¬ Nhóm lớp 1-3 hoặc 4-5.
+
+e_ Bơi ¬ Nam hoặc Nữ ¬ Nhóm tuổi ¬ Kiểu bơi ¬ Cự ly, có nội dung tiếp sức riêng.
+
+Mỗi môn có cấu trúc riêng; các lựa chọn trên web phụ thuộc vào danh mục đã cấu hình cho kỳ giải. Một
+
+vận động viên có một hồ sơ và có thể gắn với nhiều đăng ký nội dung.
+
+=== PDF PAGE 008 ===
+Câu 12: Phần mềm có phải tự kiểm tra điều kiện đăng ký theo ngày sinh, giới tính, lớp/cấp học, hạn mức
+mỗi trường và số nội dung tối đa mỗi vận động viên, rồi chặn đăng ký không hợp lệ; hay chỉ cảnh báo
+
+để người có thẩm quyền xem xét?
+
+Cảnh báo
+
+Đã ghi nhận: phần mềm cảnh báo khi đăng ký không đáp ứng điều kiện, vẫn cho phép gửi đăng ký và
+ghi rõ điều kiện chưa đáp ứng.
+
+Câu 13: Danh sách nhà trường gửi có cần được duyệt trước khi đưa vào bốc thăm, xếp lịch không? Nếu
+có, quản trị hay tổ trưởng từng môn sẽ duyệt?
+
+Quản trị sẽ duyệt đăng ký theo màn hình từng môn, tưng nội dung,
+cho phép ghép nội dung đối với các môn đẩy gậy và vovinam
+
+Bổ sung thêm cho câu 12: danh sách đăng ký cần làm nổi bật bằng
+chữ màu đỏ, đậm trong danh sách để quản trị và tổ trọng tài dễ theo
+dõi
+
+Các nội dung chia theo giới tính thì dựa vào giới tính để đăng ký. VD:
+học sinh nữ thì không thể đăng ký bơi ếch nam 50m
+
+Đã cập nhật:
+e - Quản trị duyệt đăng ký theo từng môn, từng nội dung, có quyền ghép nội dung ở môn Đẩy gậy và
+Vovinam.
+e - Đăng ký có cảnh báo được hiển thị chữ đỏ, đậm, kèm lý do để quản trị và tổ trọng tài theo dõi.
+e _ Riêng giới tính là điều kiện bắt buộc: không cho đăng ký sai giới tính; nội dung hỗn hợp kiểm tra
+theo cơ cấu nam-nữ được cấu hình.
+Câu 14: Khi ghép nội dung Đẩy gậy hoặc Vovinam, anh muốn phần mềm đề xuất ghép theo số lượng
+đăng ký và hạng cân để quản trị duyệt, hay quản trị tự chọn các nội dung cần ghép, phần mềm chỉ
+cảnh báo những trường hợp không phù hợp?
+
+Tổ trưởng trọng tài hoặc quản trị duyệt chuyển vân động viên ghép
+nội dung thi đấu hạng cân trên liền kề nếu nộ dung vđv đăng ký
+không đảm bảo điều kiện tham gia: có tối thiểu 3 vđv từ 2 trường
+đăng ký
+
+Đã ghi nhận: nội dung hạng cân đủ điều kiện tổ chức khi có ít nhất 3 vận động viên thuộc ít nhất 2
+trường. Nếu không đủ, tổ trưởng trọng tài hoặc quản trị duyệt chuyển vận động viên lên hạng cân
+
+trên liền kề.
+
+=== PDF PAGE 009 ===
+Câu 15: Nếu chuyển lên hạng liền kề vẫn không đủ điều kiện, có được tiếp tục chuyển lên hạng kế tiếp,
+
+hay chỉ được chuyển một hạng rồi hủy nội dung nếu vẫn thiếu?
+
+Không được chuyển nếu cân nặng của VĐV thiếu quá 3 kg đối với
+nội dung dự tính ghép. VD: học sinh 40 kg không được ghép với
+hạng cân 44 kg đến 47 kg
+
+Đã ghi nhận: việc ghép phải xét cân nặng thực tế của từng vận động viên; không được ghép nếu thiếu
+quá 3 kg so với hạng cân dự kiến.
+
+Câu 16: Mức thiếu 3 kg được tính so với cận dưới của hạng cân đích, đúng không anh? Ví dụ, VĐV 41 kg
+có thể ghép vào hạng trên 44 đến 47 kg vì chênh 3 kg, còn VĐV 40 kg thì không được.
+
+đúng
+
+Đã chốt: mức thiếu tối đa 3 kg tính từ cân nặng thực tế đến cận dưới hạng cân đích.
+
+Câu 17: Giới hạn 3 kg này áp dụng cho cả Đẩy gậy và Vovinam, hay chỉ Vovinam, còn Đẩy gậy chỉ được
+
+chuyển lên một hạng liền kề theo quy định riêng?
+
+áp dụng chung cho cả 2 môn
+Đã ghi nhận: giới hạn thiếu tối đa 3 kg so với cận dưới hạng cân đích áp dụng cho cả Đẩy gậy và
+Vovinam.
+
+Câu 18: Sau khi quản trị duyệt đăng ký, nhà trường có được tự sửa danh sách không, hay phải gửi yêu
+
+cầu thay đổi để quản trị duyệt lại?
+
+sửa danh sách và báo quản trị xác nhận
+Đã ghi nhận: nhà trường được sửa danh sách và gửi quản trị xác nhận lại; bản đã duyệt vẫn có hiệu lực
+cho đến khi thay đổi được xác nhận.
+
+Câu 19: Sau khi đã bốc thăm hoặc công bố lịch thi đấu, nhà trường có còn được gửi thay đổi vận động
+viên/nội dung đăng ký không, hay khóa chỉnh sửa từ thời điểm này?
+
+sau khi đã bốc thăm thi đấu thì không được thay người
+
+Đã ghi nhận: sau khi bốc thăm, không được thay vận động viên.
+
+=== PDF PAGE 010 ===
+Câu 20: Khi chia bảng và bốc thăm, anh có muốn phần mềm tránh các vận động viên/đội cùng trường
+
+gặp nhau ở trận đầu, còn các vị trí khác bốc thăm ngẫu nhiên, hay có thêm quy tắc ưu tiên nào?
+
+Tùy từng nội dung, cho phép Tổ trưởng trọng tài lựa chọn khi chia
+
+cặp
+
+Đã ghi nhận: tổ trưởng trọng tài lựa chọn quy tắc chia cặp cho từng nội dung, gồm tùy chọn tránh
+cùng trường gặp nhau ở trận đầu.
+
+Câu 21: Thể thức thi đấu của từng nội dung — loại trực tiếp, vòng tròn, chia bảng rồi loại trực tiếp, hệ
+
+Thụy Sĩ hoặc thi theo thành tích — có cho phép tổ trưởng lựa chọn, điều chỉnh trước khi bốc thăm, dựa
+trên số lượng đăng ký không?
+
+tổ trưởng quyết định. chia cặp cờ vua có phần mềm riêng
+
+Đã ghi nhận: tổ trưởng quyết định thể thức từng nội dung. Riêng cờ vua dùng phần mềm riêng để chia
+cặp.
+
+Câu 22: Với cờ vua, hệ thống này cần nhập cặp đấu và kết quả từng ván từ phần mềm riêng để theo
+dõi, hay chỉ cần nhập bảng xếp hạng cuối cùng?
+
+Nhập kết quả trực tiếp hoặc csv, excel STT, Mã vổy, họ và tên, nội
+
+dung, điểm, vị thứ trong nội dung
+
+Đã ghi nhận: cờ vua nhập kết quả tổng hợp trực tiếp hoặc từ CSV/Excel, gồm: STT, mã VĐV, họ và tên,
+
+nội dung, điểm, vị thứ trong nội dung. Kết quả vẫn cần tổ trưởng xác nhận.
+
+Câu 23: Khi xếp lịch các môn còn lại, anh muốn phần mềm tự đề xuất lịch theo sân/địa điểm, thời lượng
+thi đấu và tránh trùng giờ của VĐV, rồi tổ trưởng điều chỉnh, xác nhận; hay tổ trưởng tự nhập lịch, phần
+
+mềm chỉ cảnh báo trùng?
+
+câu 23: tổ trưởng xác nhận
+bổ sung câu 22: mỗi vđv đăng ký sẽ được phần mềm cấp 1 mã vở,
+việc xếp cặp hay xác nhận kết quả theo mã này để tránh trùng tên
+
+hoặc lỗi khi xử lý tiếng việt
+Đã bổ sung: mỗi VĐV có một mã duy nhất trong kỳ giải, dùng chung cho các nội dung đăng ký, chia cặp
+và nhập kết quả; họ tên chỉ để hiển thị, không dùng làm khóa đối chiếu.
+
+Về lịch thi đấu: phần mềm tự đề xuất, tổ trưởng điều chỉnh và xác nhận.
+
+=== PDF PAGE 011 ===
+Câu 24: Khi tự xếp lịch, phần mềm có cần bảo đảm thời gian nghỉ tối thiểu giữa hai lần thi của cùng
+
+một VĐV, do tổ trưởng cấu hình theo môn, ngoài việc tránh trùng giờ không?
+
+tổ trưởng quyết định
+Đã ghi nhận: tổ trưởng quyết định thời gian nghỉ tối thiểu, phần mềm dùng quy định đó để đề xuất lịch
+và cảnh báo xung đột.
+
+Câu 25: Khi VĐV hoặc đội bỏ cuộc, trọng tài cần phân biệt không có mặt trước khi thi đấu, bỏ cuộc khi
+
+đang thi đấu và bị truất quyền thi đấu, hay chỉ cần một trạng thái chung “Bỏ cuộc”?
+
+Có. Bỏ cuộc và Truất quyền thi đấu
+
+Đã ghi nhận hai trạng thái riêng: Bỏ cuộc và Truất quyền thi đấu.
+
+Câu 26: Sau khi tổ trưởng xác nhận trạng thái này, phần mềm tự xử lý kết quả theo quy tắc từng môn
+(đối thủ thắng, VĐV không được xếp hạng...), hay tổ trưởng quyết định kết quả và người được đi tiếp
+trong từng trường hợp?
+
+nếu khác điểm thì phần mềm quyết định. đồng điểm sẽ do Tổ trưởng
+trọng tài xác nhận
+Đã ghi nhận quy tắc xếp hạng: khi khác điểm/thành tích, phần mềm xác định thứ hạng theo quy tắc
+môn; khi bằng nhau, tổ trưởng xác nhận thứ hạng.
+
+Câu 27: Riêng trường hợp bỏ cuộc hoặc truất quyền thi đấu, anh có đồng ý để tổ trưởng xác nhận cách
+xử lý kết quả và người đi tiếp, kể cả khi điểm đang khác nhau không? Ví dụ, VĐV đang dẫn điểm nhưng
+bị truất quyền thi đấu.
+
+Trọng tài quyết định
+Đã ghi nhận: trọng tài quyết định cách xử lý kết quả và người đi tiếp khi bỏ cuộc hoặc bị truất quyền
+thi đấu; tổ trưởng xác nhận để kết quả trở thành chính thức.
+
+Câu 28: Nếu kết quả đã được xác nhận cần sửa, anh muốn trọng tài gửi bản sửa để tổ trưởng duyệt lại,
+hay chỉ tổ trưởng và quản trị được quyền sửa kết quả chính thức?
+
+Trọng tài vào sửa, tổ trưởng xác nhận, có ghi log và in đậm kq đó
+
+trên màn hình, khi xuất file excel có ghi thời gian sửa ở cột ghi chú
+
+=== PDF PAGE 012 ===
+Đã ghi nhận: trọng tài sửa, tổ trưởng xác nhận lại; lưu lịch sử trước-sau, người sửa và thời gian sửa. Kết
+quả đã sửa được in đậm trên màn hình; khi xuất Excel, cột Ghi chú ghi thời gian sửa.
+
+Câu 29: Nếu sửa kết quả làm thay đổi người đi tiếp, nhưng vòng sau đã có lịch hoặc đã thi đấu, phần
+mềm có phải cảnh báo và yêu cầu tổ trưởng quyết định cách xử lý các trận/lượt bị ảnh hưởng trước khi
+xác nhận không?
+
+Tổ trưởng sửa và xác định lại danh sách, thứ tự thi đấu vòng tiếp
+Đã ghi nhận: khi sửa kết quả ảnh hưởng vòng sau, tổ trưởng xác định lại danh sách và thứ tự thi đấu
+vòng tiếp theo; hệ thống lưu lịch sử thay đổi.
+
+Câu 30: Phần mềm có cần tổng hợp huy chương vàng-bạc-đồng, điểm và xếp hạng toàn đoàn theo
+từng trường, hay chỉ theo dõi thứ hạng trong từng nội dung thi đấu?
+
+@ Dieu_le_HKPD_xa....
+Document
+
+Có. theo điều lệ tôi gửi ở đây
+Worked for 25s >
+
+Đã ghi nhận: phần mềm tổng hợp huy chương, điểm từng môn và xếp hạng toàn đoàn riêng khối Tiểu
+học, THCS theo điều lệ; Bóng đá và Kéo co nhân hệ số 3 khi tính điểm toàn đoàn.
+
+Câu 31: Điều lệ yêu cầu tham gia đủ Bóng đá và Kéo co mới được xếp hạng toàn đoàn, nhưng Kéo co chỉ
+tổ chức ở THCS. Có đúng là khối Tiểu học chỉ cần tham gia Bóng đá, còn khối THCS phải tham gia cả
+
+Bóng đá và Kéo co mới đủ điều kiện xếp hạng toàn đoàn không anh?
+Yesterday 7:32 PM
+đúng
+Đã chốt: Tiểu học phải tham gia Bóng đá; THCS phải tham gia cả Bóng đá và Kéo co để đủ điều kiện
+xếp hạng toàn đoàn.
+
+Câu 32: Với THCS, “tham gia Kéo co” nghĩa là phải đăng ký đủ cả ba nội dung: đội nam, đội nữ, đội
+
+nam-nữ, hay chỉ cần tham gia ít nhất một nội dung?
+
+Tham gia đủ 3 nội dung
+
+=== PDF PAGE 013 ===
+Đã chốt: khối THCS phải tham gia Bóng đá và đủ 3 nội dung Kéo co: nam, nữ, nam-nữ mới đủ điều kiện
+
+xếp hạng toàn đoàn.
+
+Câu 33: Điều lệ có đoạn tính điểm loại trực tiếp chưa thống nhất. Anh xác nhận có dùng bảng hạng ï: 11
+điểm; 2: 9; 3: 8; 4: 7; đồng hạng 5-8: mỗi đội/VĐV 6 điểm; đồng hạng 9-16: mỗi đội/VĐV 2 điểm
+không?
+
+Yesterday 9:23 PM
+có
+Đã chốt bảng điểm loại trực tiếp: hạng 1: 11; hạng 2: 9; hạng 3: 8; hạng 4: 7; đồng hạng 5-8: 6; đồng
+hạng 9-16: 2 điểm cho mỗi VĐV/đội.
+
+Câu 34: Với nội dung có hai VĐV/đội đồng hạng ba, có đúng là mỗi VĐV/đội nhận một huy chương
+đồng và 8 điểm, không chia đôi điểm không anh?
+
+đúng
+
+Đã chốt: mỗi VĐV/đội đồng hạng ba nhận một huy chương đồng và 8 điểm, không chia đôi điểm.
+
+Câu 35: Điểm toàn đoàn có được tính bằng tổng điểm các nội dung của từng trường, trong đó điểm
+
+Bóng đá và Kéo co nhân hệ số 3, hay phải quy đổi thứ hạng từng môn thành điểm rồi mới cộng?
+
+đúng
+Tôi hiểu anh xác nhận cách thứ nhất: cộng điểm các nội dung của từng trường; riêng Bóng đá và Kéo
+co nhân hệ số 3, không quy đổi thứ hạng từng môn thành điểm.
+
+Câu 36: Khi các trường bằng điểm toàn đoàn, phần mềm lần lượt xét số huy chương vàng — bạc ¬ đồng
+¬ tổng số VĐV tham gia ¬ bốc thăm, đúng không anh?
+
+xác nhận lại câu 35: phải quy đổi thứ hạng thành điểm mới cộng
+Xác nhận câu 36
+Đã sửa câu 35: xếp hạng từng môn — quy đổi thứ hạng thành điểm — nhân hệ số 3 với Bóng đá, Kéo
+co — cộng điểm toàn đoàn.
+
+Câu 36 đã chốt: khi bằng điểm, xét vàng ¬ bạc ¬ đồng ¬ số VÐV tham gia bốc thăm.
+
+=== PDF PAGE 014 ===
+Câu 37: Bảng quy đổi thứ hạng từng môn sang điểm toàn đoàn có dùng: hạng 1 = T1, 2 = 9, 3 = 8, 4 =
+7,5=6,6=5,7=4,8=3,9= 2, 10 = 1; ngoài tốp 10 = 0 điểm không anh?
+
+đúng
+Đã chốt bảng quy đổi thứ hạng môn sang điểm toàn đoàn: T1, 9, 8, 7, 6, 5, 4, 3, 2, 1 điểm tương ứng
+hạng 1-10; ngoài tốp 10 được 0 điểm. Bóng đá và Kéo co nhân hệ số 3 sau quy đổi.
+
+Câu 38: “Tổng số VĐV tham gia” dùng để phân hạng khi bằng điểm có phải tính số người thực tế đã thi
+đấu, mỗi người chỉ tính một lần trong từng khối, dù tham gia nhiều nội dung, không anh?
+
+đúng
+Đã chốt: tính số VĐV thực tế đã thi đấu, mỗi người một lần trong từng khối, dù tham gia nhiều nội
+dung.
+
+Câu 39: Khi trường tự ý bỏ nội dung sau đăng ký chính thức, phần mềm có áp dụng trừ 11 điểm, nhân hệ
+số 3 với Bóng đá/Kéo co, và cho phép quản trị xác nhận miễn trừ nếu có lý do chính đáng không anh?
+
+Ghi lại, xác nhận sau
+
+Đã ghi mục xử lý bỏ nội dung là chờ xác nhận, chưa áp dụng tự động việc trừ điểm hoặc miễn trừ.
+
+Câu 40: Người có quyền “Theo dõi” phải đăng nhập bằng tài khoản được cấp, hay anh muốn có trang
+công khai để mọi người xem lịch thi đấu, kết quả chính thức và bảng xếp hạng mà không cần đăng
+
+nhập?
+
+đúng.khi vào chỉ theo dõi được lịch thi đấu và kết quả
+
+Đã ghi nhận: trang công khai không cần đăng nhập, chỉ xem lịch thi đấu và kết quả chính thức.
+
+Câu 4T: Với tài khoản quản trị, tổ trưởng, trọng tài và nhà trường, anh muốn quản trị tạo tài khoản bằng
+tên đăng nhập/mật khẩu, hay người dùng đăng nhập Google rồi được cấp quyền?
+
+cá nhân đăng nhập bằng Gmail, có khai báo tên và đơn vị
+
+Đã ghi nhận: cá nhân đăng nhập bằng tài khoản Google (Gmail) và khai báo họ tên, đơn vị.
+
+Câu 42: Sau lần đăng nhập đầu tiên, người dùng có phải chờ quản trị duyệt và cấp vai trò mới được thao
+
+tác không? Riêng quyền trọng tài theo môn vẫn do tổ trưởng môn đó phân công.
+
+=== PDF PAGE 015 ===
+có. Lưu ý: có cơ chế đối soát mã đơn vị để tránh trọng tài bắt trận
+đấu có vận đọng viên cùng trường
+
+Đã ghi nhận: người dùng chờ quản trị duyệt và cấp quyền. Hệ thống đối chiếu mã đơn vị của trọng tài
+
+với trường của VĐV/đội để phát hiện xung đột.
+
+Câu 43: Khi trùng đơn vị, phần mềm phải chặn phân công và nhập kết quả trận đó, hay cảnh báo và cho
+
+phép tổ trưởng duyệt ngoại lệ, có lưu lý do?
+chặn ngay từ giai đoanj phân công đồng thời Không cho trọng tài
+cùng trường nhập điểm, kể cả nhập hộ
+
+Đã chốt: chặn phân công trọng tài cho trận/lượt có VĐV hoặc đội cùng trường; đồng thời chặn nhập
+
+điểm, kể cả “Cập nhật hộ”.
+
+Câu 44: Nếu tổ trưởng trọng tài cùng trường với VĐV/đội, hệ thống có chặn người đó xác nhận kết quả
+và chuyển cho quản trị hoặc một tổ trưởng khác được chỉ định xác nhận không?
+
+không cần
+Đã ghi nhận: tổ trưởng vẫn được xác nhận kết quả có VĐV/đội cùng trường; quy định chặn áp dụng khi
+phân công bắt trận và nhập điểm.
+
+Câu 45: Với nội dung thi đấu đôi, tiếp sức hoặc đồng đội, anh có muốn mỗi đội được cấp mã đội riêng,
+đồng thời lưu danh sách thành viên bằng mã VĐV để chia cặp, ghi kết quả và kiểm tra trùng lịch không?
+
+dùng mã trường. Làm rõ hơn, mã VĐV = mã trường + STT, VD:
+01.012
+
+m
+
+Đã làm rõ: mã VĐV = mã trường + “* + STT, ví dụ 01.012; giữ nguyên số 0 đầu và dùng chung mã khi
+VĐV đăng ký nhiều nội dung. Nội dung đôi, tiếp sức, đồng đội dùng mã trường, gắn với nội dung thi đấu
+và danh sách thành viên.
+
+Câu 46: Trong cùng một nội dung, mỗi trường chỉ được đăng ký một đôi/đội, hay có thể đăng ký nhiều
+đôi/đội? Nếu có nhiều, cần thêm ký hiệu để phân biệt, ví dụ 01-A, 01-B.
+
+mỗi trường chỉ có 1 đôi hoặc 1 đội
+
+=== PDF PAGE 016 ===
+Đã chốt: mỗi trường chỉ có một đôi hoặc một đội trong mỗi nội dung, nhận diện bằng mã trường + mã
+
+nội dung.
+
+Câu 47: Trường có cả Tiểu học và THCS dùng một mã trường chung, nhưng phần mềm tách đăng ký, kết
+
+quả và xếp hạng theo cấp học, đúng không anh?
+
+đúng rồi
+Đã chốt: trường có hai cấp học dùng một mã trường chung, tách đăng ký, kết quả và xếp hạng theo Tiểu
+học/THCS.
+
+Câu 48: STT trong mã VĐV có được phần mềm tự cấp liên tục trong từng trường, dùng chung cho cả
+hai cấp học trong kỳ giải, và không cấp lại số đã dùng khi xóa hoặc rút đăng ký không anh?
+
+mã vẩy lấy số liên tục từ 001. vẩv bỏ cuộc vẫn giữ mã, vđv thay thế
+thì thêm mã
+Đã chốt: mã VĐV được cấp liên tục từ 001 trong từng trường, từng kỳ giải. VĐV bỏ cuộc vẫn giữ mã;
+VĐV thay thế được cấp mã mới, chỉ được thay trước khi bốc thăm.
+
+Câu 49: Anh cần xuất Excel, CSV, PDF hay Word cho các loại danh sách đăng ký, lịch thi đấu và kết quả?
+Có thể chọn nhiều định dạng.
+
+ưu tiên xuất từ trình duyệt
+Đã ghi nhận: ưu tiên bản in trực tiếp từ trình duyệt, bố trí gọn để in giấy hoặc lưu PDF; vẫn giữ xuất
+Excel kết quả với thời gian sửa ở cột Ghi chú như anh đã yêu cầu.
+
+Câu 50: Anh có muốn các bản in danh sách đăng ký, lịch thi đấu và kết quả có phần đầu ghi tên giải,
+môn, nội dung, cùng phần cuối để người lập và người xác nhận ký không?
+
+có, sẽ cung cấp các biểu mẫu sau
+Đã ghi nhận: bản in có thông tin giải, môn, nội dung và phần ký xác nhận; mẫu trình bày sẽ theo các
+biểu mẫu anh cung cấp sau.
+
+Câu 51: Tại các địa điểm thi đấu, Internet có ổn định không? Phần mềm có cần cho trọng tài nhập kết
+
+quả khi mất mạng, rồi đồng bộ khi có mạng trở lại không?
+
+có
+
+=== PDF PAGE 017 ===
+Đã ghi nhận: cần nhập kết quả khi mất mạng và đồng bộ khi có mạng trở lại.
+
+Câu 52: Nếu hai trọng tài nhập kết quả khác nhau cho cùng một trận/lượt, anh có đồng ý để phần mềm
+giữ cả hai bản, cảnh báo xung đột và yêu cầu tổ trưởng chọn hoặc sửa bản đúng, thay vì tự ghi đè
+không?
+
+chỉ có 1 người thao tác 1 lúc, người thứ 2 nhập thì sẽ báo: trọng tài
+{tên} đang nhập kết quả.
+Đã ghi nhận: khi có mạng, mỗi trận/lượt chỉ một người được nhập tại một thời điểm. Người thứ hai
+nhận thông báo: “Trọng tài {tên} đang nhập kết quả.”
+
+Câu 53: Khi mất mạng, hệ thống không thể kiểm tra ai đang nhập trên thiết bị khác. Anh có đồng ý chỉ
+trọng tài được phân công cho trận/lượt đó được nhập ngoại tuyến, còn “Cập nhật hộ” phải có mạng
+không?
+
+có
+
+Đã chốt: nhập ngoại tuyến chỉ dành cho trọng tài được phân công; “Cập nhật hộ” phải có mạng.
+
+Câu 54: Một nội dung có thể được giao cho nhiều trọng tài. Anh có đồng ý chỉ định một người nhập kết
+quả chính cho từng trận/lượt, để xác định rõ người được nhập khi mất mạng không?
+
+trọng tài nào cũng được quyền nhập
+Đã rõ: không chỉ định người nhập chính; mọi trọng tài được phân công đều có thể nhập, vẫn chặn người
+cùng trường với VĐV/đội.
+
+Câu 55: Nếu hai trọng tài cùng nhập ngoại tuyến cho một trận/lượt, khi có mạng trở lại anh có đồng ý để
+hệ thống giữ cả hai bản và yêu cầu tổ trưởng xác nhận bản đúng, vì lúc mất mạng không thể khóa thao
+tác giữa các thiết bị không?
+
+trọn tài phải tải biên bản lên. Tổ trưởng căn cứ biên bản để xác định.
+
+biên bản có thể cập nhật sau
+Đã ghi nhận: trọng tài phải tải biên bản lên, có thể bổ sung sau khi nhập kết quả. Khi có kết quả xung
+đột, tổ trưởng căn cứ biên bản để xác định bản đúng; hệ thống giữ các bản nhập và lịch sử xử lý.
+
+Câu 56: Tổ trưởng có được xác nhận kết quả chính thức khi chưa có biên bản, hay phải chờ tải biên bản
+lên mới được xác nhận?
+
+=== PDF PAGE 018 ===
+được phép xác nhận , đồng thời được phép thay đổi kết quả khi có
+biên bản, phải ghi log
+
+Đã chốt: tổ trưởng được xác nhận khi chưa có biên bản, và được sửa kết quả sau khi đối chiếu biên bản.
+Mọi thay đổi lưu người sửa, thời gian, lý do và kết quả trước-sau.
+
+Câu 57: Biên bản cần hỗ trợ tải ảnh chụp và PDF, đồng thời cho phép nhiều tệp cho một trận/lượt hoặc
+một biên bản dùng chung cho nhiều trận/lượt, đúng nhu cầu của anh không?
+
+đúng
+Đã chốt: biên bản hỗ trợ ảnh và PDF, nhiều tệp cho một trận/lượt, hoặc một biên bản liên kết với nhiều
+trận/lượt.
+
+Câu 58: Anh muốn sao lưu lên Google Drive tự động hằng ngày, kèm nút “Sao lưu ngay” cho quản trị,
+hay theo tần suất khác?
+
+chấp nhận
+
+Đã chốt: sao lưu tự động hằng ngày lên Google Drive, kèm nút “Sao lưu ngay” dành cho quản trị.
+
+Câu 59: Các tệp biên bản, ảnh và hồ sơ có lưu trực tiếp trong một thư mục Google Drive do quản trị kết
+nối, còn cơ sở dữ liệu lưu thông tin và liên kết đến tệp không anh?
+
+có
+Đã chốt: biên bản, ảnh và hồ sơ lưu trong thư mục Google Drive do quản trị kết nối; cơ sở dữ liệu lưu
+thông tin và liên kết tệp.
+
+Câu 60: Mỗi trường có thể có nhiều tài khoản cùng quản lý danh sách đăng ký của trường mình, hay
+chỉ một tài khoản đại diện?
+
+mỗi trường có 1 tài khoản, đăng ký bằng gmail
+
+Đã chốt: mỗi trường có một tài khoản Gmail đại diện, được quản trị duyệt và gắn với mã trường.
+
+Câu 61: Phần mềm cần quản lý khoảng bao nhiêu trường và bao nhiêu VĐV trong một kỳ giải? Anh có
+thể cho số ước tính để xác định quy mô hệ thống.
+
+=== PDF PAGE 019 ===
+có 7 trường, trong đó có 1 trường liên cấp TH và THCS; số lượng vân
+động viên tầm 500
+
+Đã ghi nhận quy mô: 7 trường, trong đó 1 trường liên cấp Tiểu học-THCS; khoảng 500 VĐV mỗi kỳ giải.
+
+Câu 62: Khi nhập kết quả, anh có đồng ý dùng biểu mẫu riêng theo môn — thời gian cho chạy/bơi,
+khoảng cách cho nhảy/ném, điểm cho quyền, tỷ số từng hiệp/set cho môn đối kháng và bóng đá — thay
+
+vì chỉ một ô “điểm” chung không?
+
+biểu mẫu theo môn. tôi sẽ cung cấp biểu mẫu sau
+
+Đã ghi nhận: nhập kết quả bằng biểu mẫu riêng theo môn; anh sẽ cung cấp mẫu sau để chốt các trường
+dữ liệu và cách trình bày.
+
+Câu 63: Với môn có nhiều vòng, anh muốn tổ trưởng cấu hình số VĐV/đội đi tiếp và cách chọn (theo thứ
+hạng từng bảng/lượt hoặc thành tích chung), rồi phần mềm tự lập danh sách vòng sau để tổ trưởng xác
+nhận không?
+
+@ BANG DIEU KHIEN...
+Spreadsheet
+
+đối với các môn tập thể đấu vòng tròn 1 lượt. môn cá nhân đối
+kháng thì chia cặp theo quy định. sơ đồ chia cặp đấu theo số lượng
+vận động viên theo sơ đồ này
+
+Worked for 22s >
+
+Đã ghi nhận:
+e _ Môn tập thể: đấu vòng tròn một lượt.
+e _ Cá nhân đối kháng: chia cặp theo số lượng VĐV, tham chiếu sơ đồ anh gửi.
+e _ File có các mẫu cho 8, T116, 19-28 và 32 VĐV, theo thể thức loại trực tiếp một lần thua, có hai vị trí
+đồng hạng ba.
+
+Câu 64: Với số lượng chưa có mẫu trong file, như 3~7, 9-10 hoặc 17-18 VĐV, phần mềm có được tự tạo
+
+sơ đồ loại trực tiếp, bố trí suất miễn đấu vòng đầu để đủ nhánh, rồi tổ trưởng kiểm tra và xác nhận
+không?
+
+số vận động viên lẻ thì có nhánh theo số thứ tự của vđv cuối. ai bốc
+thăm vị trí này không cần đấu và coi như thắng. Tuy nhiên, nếu có
+vöv bỏ cuộc lượt đầu thì stt được dồn lên vd: VĐV số 6 bỏ cuộc thì
+
+=== PDF PAGE 020 ===
+väv số 7 được đôn lên vị trí 6. các lượt sau nếu vđv vắng thì vẩv kia
+
+được xử thắng cuộc và đi tiếp
+
+Đã ghi nhận: số vị trí bốc thăm khác mã VĐV. Khi số VĐV lẻ, người bốc thăm vị trí cuối được miễn đấu,
+tính thắng và đi tiếp. Vòng đầu có người bỏ cuộc thì dồn vị trí; các vòng sau có người vắng thì đối thủ
+được xử thắng.
+
+Câu 65: Việc dồn vị trí ở vòng đầu chỉ thực hiện trước khi bất kỳ trận nào của nội dung đó bắt đầu,
+đúng không anh? Nếu đã có trận diễn ra, tôi đề xuất giữ sơ đồ và xử đối thủ thắng để không ảnh hưởng
+kết quả đã thi đấu.
+
+Đúng
+Đã chốt: chỉ dồn vị trí trước khi trận đầu tiên của nội dung bắt đầu. Khi đã có trận diễn ra, giữ nguyên
+sơ đồ và xử đối thủ thắng nếu VĐV bỏ cuộc.
+
+Câu 66: Với 6 VĐV, anh muốn vòng đầu đấu 3 cặp, sau đó 3 người thắng vào vòng tiếp và người ở vị trí
+
+cuối được miễn đấu; hay bố trí ngay sơ đồ 8 vị trí với 2 suất miễn đấu vòng đầu?
+với 6 vđv đấu 3 cặp, sau đó 2 người thắng nhánh 1- 2 và 3 -4 đấu
+lượt 2, người thắng nhánh 5-6 được miễn đấu
+Đã rõ: với 6 VĐV, vòng đầu đấu 1-2, 3-4, 5-6. Vòng hai, người thắng cặp 1-2 gặp người thắng cặp 3-4;
+người thắng cặp 5—6 được miễn đấu, vào chung kết.
+
+Câu 67: Quy tắc này có áp dụng ở mọi vòng không: ghép lần lượt các vị trí còn lại 1-2, 3-4..., nếu số
+người lẻ thì người cuối danh sách được miễn đấu, giữ thứ tự nhánh và không bốc thăm lại?
+
+đúng, nhánh cuối của mỗi vonhf đấu sẽ được miễn nếu nhánh lẻ
+Đã chốt: mỗi vòng ghép lần lượt theo thứ tự nhánh; nếu số người còn lại lẻ, nhánh cuối được miễn
+đấu và đi tiếp, không bốc thăm lại.
+
+Câu 68: Với sơ đồ 6 VĐV trên, chỉ có một người thua ở vòng ngay trước chung kết. Anh muốn trao một
+huy chương đồng, hay tổ chức thêm trận để xác định người nhận huy chương đồng thứ hai?
+
+người đó sẽ đoạt huy chương đồng.
+Đã chốt: với sơ đồ 6 VĐV này, người thua ở vòng ngay trước chung kết nhận huy chương đồng và 8
+
+điểm; không tổ chức thêm trận để có huy chương đồng thứ hai.
+
+=== PDF PAGE 021 ===
+Câu 69: Với nội dung chỉ có 3 VĐV, người ở vị trí cuối được miễn đấu vào chung kết; người thua cặp 1-2
+nhận huy chương đồng và 8 điểm, đúng không anh?
+
+không có huy chương. chỉ 2 người vào chung kết được huy chương
+
+vàng, bạc
+Đã chốt: nội dung có 3 VĐV chỉ trao huy chương vàng và bạc cho hai người vào chung kết; người thua
+trận 1-2 không nhận huy chương.
+
+Câu 70: Người thua trận 1-2 trong trường hợp này có vẫn được xếp hạng ba và tính 8 điểm cho trường,
+dù không nhận huy chương đồng, không anh?
+
+không được tính điểm
+Đã chốt: nội dung có 3 VĐV, người thua trận đầu không nhận huy chương và không được tính điểm; hai
+người vào chung kết nhận vàng/bạc và điểm tương ứng.
+
+Câu 71: Quy tắc không trao đồng, không tính điểm cho người thua trận đầu này chỉ áp dụng khi nội
+dung có 3 VĐV, còn từ 4 VĐV trở lên, người thua ở vòng ngay trước chung kết được nhận đồng và 8
+điểm, đúng không anh?
+
+đối với 4 vđv, 2 người thắng vòng 2 sẽ được huy chương vàng, bạc (
+nội dung có 3 vđv coi như có 1 vđv ảo mà người được miễn đấu
+thắng vởv ảo đó)
+
+Tôi hiểu: nội dung có 3 VÐV được xem như sơ đồ 4 vị trí, trong đó một vị trí là VĐV ảo; người gặp vị trí
+đó được tính thắng. Hai người vào chung kết tranh vàng và bạc.
+
+Câu 72: Với nội dung có 4 VĐV thật, hai người thua vòng đầu có được huy chương đồng và 8 điểm mỗi
+người, hay cũng không có huy chương, không tính điểm?
+
+không được huy chương, không tính điểm
+Đã chốt: nội dung có 3 hoặc 4 VĐV chỉ trao vàng, bạc và tính điểm cho hai người vào chung kết; người
+thua vòng đầu không nhận huy chương, không tính điểm.
+
+Câu 73: Với 5 VĐV, vòng đầu đấu 1-2, 3-4; VĐV số 5 miễn đấu. Vòng tiếp theo, hai người thắng đấu với
+nhau, số 5 tiếp tục miễn đấu vào chung kết. Người thua vòng tiếp theo có nhận huy chương đồng và 8
+điểm như trường hợp 6 VĐV không anh?
+
+=== PDF PAGE 022 ===
+không có vđv nào được miễn 2 trận liên tiếp. lúc này thắng nhánh 1-
+2 được miễn
+
+Đã sửa quy tắc: không VĐV nào được miễn đấu hai vòng liên tiếp.
+
+Với 5 VĐV: vòng đầu đấu 1-2, 3-4, số 5 được miễn; vòng tiếp theo người thắng nhánh 1-2 được miễn,
+người thắng nhánh 3-4 đấu với số 5.
+
+Câu 74: Người thua trận ở vòng tiếp theo này có được huy chương đồng và 8 điểm không anh?
+
+Quy định lại: 3- 6 vận động viên thi đấu vòng tròn, từ 7 vđv mới chia
+cặp loại trực tiếp
+
+Đã cập nhật, thay thế các phương án trước cho nhóm 3-6 VĐV:
+e_ 3-6 VĐV: thi đấu vòng tròn.
+e_ Từ 7 VĐV: chia cặp loại trực tiếp; không được miễn đấu hai vòng liên tiếp.
+
+Câu 75: Với nhóm 3-6 VĐV đấu vòng tròn, có phải mỗi người gặp tất cả người còn lại đúng một lần
+không anh?
+
+Đúng. giữ quy tắc cố định vận động viên số 1 và lựa chọn đối thủ
+theo chiều kim đồng hồ:
+
+Lượt 1: 1 gặp 2, 3 gặp 4
+
+Lượt 2: 1 gặp 3, 2 gặp 4
+
+nếu nôi dung có số lẻ väv thì tạo 1 đấu thủ ảo. vđv nào gặp đối thủ
+ảo được miễn đấu nhưng không được tính điểm
+
+Mỗi vđv được miễn đấu 1 và chỉ 1 lần
+
+Đã chốt: vòng tròn một lượt, cố định VĐV số 1, xoay các vị trí còn lại. Với 4 VĐV: lượt 1 1-2, 3-4; lượt 2 1-
+3, 2-4; lượt 3 1-4, 2-3.
+
+Nếu số VĐV lẻ, thêm đối thủ ảo; mỗi VĐV gặp đối thủ ảo đúng một lần, được nghỉ và không tính điểm.
+
+Câu 76: Trong các nội dung cá nhân đối kháng đấu vòng tròn, một trận thắng, thua được tính bao nhiêu
+điểm? Có cho phép kết quả hòa không anh?
+
+Sửa lại: 3-5 vđv mới đấu vòng tròn, 6 trở lên loại trực tiếp.
+cách tính điểm
+
+e - Nhóm T: Các môn có kết quả HÒA (Bóng đá)
+
+=== PDF PAGE 023 ===
+o_ Thắng: Được 3 điểm.
+o_ Hòa: Được 1 điểm.
+o_ Thua: Được 0 điểm. [1, 2, 3]
+e Nhóm 2: Các môn KHÔNG có kết quả hòa (Kéo co, Cầu lông,
+đá cầu...)
+o_ Thắng được 2 điểm, Thua được 1 điểm (bỏ cuộc 0 điểm).
+
+Đã cập nhật, thay thế ngưỡng trước: cá nhân đối kháng có 3-5 VĐV đấu vòng tròn một lượt; từ 6 VĐV
+loại trực tiếp. Môn tập thể vẫn vòng tròn một lượt.
+
+Điểm vòng tròn:
+
+e _ Bóng đá: thắng 3, hòa 1, thua 0.
+e - Môn không hòa: thắng 2, thua 1, bỏ cuộc 0.
+e _ Gặp đối thủ ảo: nghỉ lượt, không tính điểm.
+
+Câu 77: Với môn không hòa, khi hai hoặc nhiều VĐV/đội bằng tổng điểm vòng tròn, phần mềm có tự xét
+
+kết quả đối đầu, rồi mới chuyển tổ trưởng quyết định nếu vẫn bằng nhau không anh?
+
+có xét kết quả đối đầu
+
+Đã chốt: khi bằng tổng điểm vòng tròn, xét kết quả đối đầu trước; nếu vẫn chưa phân hạng được thì tổ
+
+trưởng xác nhận.
+
+Câu 78: Nếu từ 3 VĐV/đội trở lên bằng điểm, phần mềm có lập bảng phụ chỉ tính điểm các trận giữa
+những người/đội bằng điểm đó để phân hạng không anh?
+
+Xác định câu 77, 78:
+
+Đối với môn Bóng đá
+
+1. Thành tích đối đầu trực tiếp: Xét kết quả trận đấu giữa các đội
+đang bằng điểm với nhau. Đội nào thắng trận đối đầu sẽ xếp trên.
+
+2. Hiệu số bàn thắng - bàn thua: Tính trong toàn bộ các trận đấu của
+giải (Tổng bàn thắng trừ tổng bàn thua). Đội nào có hiệu số cao hơn
+sẽ xếp trên.
+
+3. Tổng số bàn thắng: Đội nào ghi được nhiều bàn thắng hơn sẽ xếp
+trên.
+
+4. Điểm Fair-play: Dựa trên số lượng thẻ phạt (Trừ điểm cho thẻ vàng,
+thẻ đỏ).
+
+5. Bốc thăm: Nếu tất cả các chỉ số trên đều bằng nhau.
+
+=== PDF PAGE 024 ===
+Đối với môn Cầu lông / đá cầu:
+
+1. Thành tích đối đầu trực tiếp.
+
+2. Hiệu số hiệp thắng - hiệp thua (Set đấu): Tổng số hiệp thắng trừ
+tổng số hiệp thua trong giải.
+
+3. Hiệu số tổng điểm thắng - tổng điểm thua (Điểm số từng quả): Áp
+dụng nếu hiệu số hiệp vẫn bằng nhau.
+
+Đã cập nhật thứ tự phân hạng khi bằng điểm:
+
+e _ Bóng đá: đối đầu — hiệu số bàn thắng toàn giải ¬ tổng bàn thắng ¬ Fair-play ¬> bốc thăm.
+
+e _ Cầu lông/Đá cầu: đối đầu — hiệu số hiệp toàn giải ¬ hiệu số điểm từng quả.
+Câu 79: Nếu 3 đội/VĐV bằng điểm và thắng đối đầu vòng nhau (A thắng B, B thắng C, C thắng A), phần
+mềm chuyển sang tiêu chí hiệu số tiếp theo để phân hạng, đúng không anh?
+
+xem thứ ttự ưu tiên ở trên
+Đã rõ: phần mềm xét đúng thứ tự ưu tiên anh đã nêu; tiêu chí trước chưa phân hạng được thì chuyển
+sang tiêu chí tiếp theo.
+
+Câu 80: Với Cầu lông/Đá cầu, nếu vẫn bằng nhau sau hiệu số hiệp và hiệu số điểm từng quả, tổ trưởng
+quyết định thứ hạng hay tổ chức bốc thăm?
+
+tổ chức đấu 1 hiệp để xác định kết quả
+Đã chốt: Cầu lông/Đá cầu vẫn bằng nhau sau các tiêu chí phụ thì thi đấu thêm một hiệp để xác định
+thứ hạng.
+
+Câu 81: Nếu còn 3 VĐV/đội trở lên bằng nhau, có tổ chức vòng tròn phụ giữa các bên đó, mỗi trận một
+
+hiệp, hay để tổ trưởng quyết định cách ghép trận phụ?
+
+ghỉ lại câu 81, sẽ xác định sau
+
+Đã ghi câu 81 là chờ xác nhận: cách tổ chức hiệp phụ khi có từ 3 VĐV/đội vẫn bằng nhau.
+
+Câu 82: Với Kéo co, Đẩy gậy và Vovinam đối kháng khi đấu vòng tròn, nếu bằng tổng điểm và kết quả
+đối đầu chưa phân hạng được, anh muốn đấu thêm để xác định, hay để tổ trưởng quyết định cách xử
+lý?
+
+ghi lại, sẽ xác định sau
+
+=== PDF PAGE 025 ===
+Đã ghi câu 82 là chờ xác nhận, cùng câu 81; chưa tự động áp dụng cách phân hạng cho các trường hợp
+này.
+
+Câu 83: Với nội dung đấu vòng tròn có 3-5 VĐV, anh muốn trao vàng, bạc, đồng cho ba vị trí đầu, hay
+có quy định số lượng huy chương khác theo số VĐV tham gia?
+
+3-4 väv chỉ trao vàng và bạc, 5vdv trao vàng bạc đồng
+Đã chốt số huy chương khi đấu vòng tròn:
+
+e 3-4 VĐV: chỉ trao vàng, bạc.
+e5 VĐV: trao vàng, bạc, một đồng.
+
+Câu 84: Với 5 VĐV, người xếp thứ 4 và 5 có được tính 7 và 6 điểm cho trường theo bảng điểm, dù không
+nhận huy chương, không anh?
+
+có
+
+Đã chốt: nội dung 5 VĐV, hạng 4 được 7 điểm, hạng 5 được 6 điểm, dù không nhận huy chương.
+
+Câu 85: Với 3-4 VĐV đấu vòng tròn, các vị trí ngoài vàng, bạc vẫn không được tính điểm như anh đã xác
+nhận trước, đúng không?
+
+tính điểm bằng thứ 4 và thứ 5 như câu 84
+
+Đã cập nhật: với 3-4 VĐV, các vị trí ngoài vàng, bạc vẫn được tính điểm.
+
+Câu 86: Ý anh là hạng 3 được 7 điểm, hạng 4 được 6 điểm — tương đương điểm hạng 4 và 5 ở câu 84
+— đúng không anh?
+
+đúng
+Đã chốt: nội dung 3-4 VĐV, hạng 1 được 11 điểm, hạng 2 9 điểm, hạng 3 7 điểm, hạng 4 (nếu có) 6 điểm;
+chỉ trao vàng và bạc.
+
+Câu 87: Quy tắc huy chương và điểm đặc biệt theo số lượng này chỉ áp dụng cho cá nhân đối kháng, hay
+cả nội dung đôi và đồng đội khi có 3-5 đôi/đội tham gia?
+
+câu 81 và 87 ghi lại, sẽ phản hồ sua
+
+Đã ghi câu 81 và 87 chờ anh phản hồi sau, không
+
+=== PDF PAGE 026 ===
+câu 81 đến 87
+Đã ghi toàn bộ câu 81-87 là chờ anh xác nhận lại. Các câu trả lời trước trong nhóm này được giữ làm
+tham khảo, chưa chốt thành quy tắc phần mềm.
+
+Câu 88: Phần mềm có cần thông báo trong hệ thống khi có đăng ký chờ duyệt, thay đổi lịch, kết quả chờ
+
+xác nhận hoặc kết quả bị sửa không anh?
+
+có. cần có liên kết đên nội dung tương ứng
+Đã chốt: thông báo trong hệ thống có liên kết mở đúng nội dung cần xử lý, theo quyền của người
+nhận.
+
+Câu 89: Sau khi kết thúc kỳ giải, anh có muốn quản trị khóa dữ liệu, mọi người chỉ được xem/in; nếu cần
+sửa thì quản trị phải mở khóa và ghi lý do không?
+
+có
+
+Đã chốt: quản trị khóa dữ liệu khi kết thúc kỳ giải; muốn sửa phải mở khóa, ghi lý do và lưu lịch sử.
+
+Câu 90: Với môn chạy, bơi, nhảy, ném và Vovinam quyền, số huy chương có áp dụng quy tắc theo số
+người tham gia, hay luôn trao vàng-bạc-đồng cho ba vị trí đầu khi nội dung đủ điều kiện tổ chức?
+
+luôn áp dụng quy tắc: 3-4 người trao vàng, bạc; 5 trở lên mới có
+
+đồng
+Đã chốt quy tắc huy chương cho chạy, bơi, nhảy, ném và Vovinam quyền: 3-4 người chỉ trao vàng, bạc;
+từ 5 người trở lên mới trao thêm đồng. Quy tắc tính điểm ở câu 81-87 vẫn chờ xác nhận.
+
+Câu 91: Số người dùng để xác định số huy chương là số VĐV được duyệt đăng ký, hay số VÐV thực tế
+tham gia thi đấu, không tính người bỏ cuộc trước khi bắt đầu?
+
+số väv thực tế thi đấu
+
+Đã chốt: số huy chương căn cứ vào số VĐV thực tế thi đấu, không tính người bỏ cuộc trước khi bắt đầu.
+
+Câu 92: Nếu đến lúc thi đấu chỉ còn dưới 3 VĐÐV hoặc không đủ 2 trường, phần mềm phải tạm dừng nội
+dung để tổ trưởng/quản trị quyết định ghép hoặc hủy, hay vẫn cho thi đấu nhưng không trao huy
+chương?
+
+=== PDF PAGE 027 ===
+hủy nộ dung trừ trường hợp có thể ghép như đẩy gậy và vovinam
+Đã chốt: hủy nội dung nếu không đủ số VĐV hoặc số trường thực tế tham gia; riêng Đẩy gậy và
+Vovinam có thể ghép nếu đáp ứng quy tắc hạng cân đã thống nhất.
+
+Câu 93: Nếu sau khi bốc thăm mới phải ghép hạng cân, anh có cho phép tổ trưởng/quản trị hủy sơ đồ
+cũ và bốc thăm lại nội dung ghép, với điều kiện chưa có trận nào của các nội dung liên quan bắt đầu,
+đồng thời lưu lý do và lịch sử không?
+
+cho phép
+Đã chốt: được ghép hạng cân và bốc thăm lại sau lần bốc thăm đầu, nếu chưa có trận nào của các nội
+dung liên quan bắt đầu; lưu lý do và lịch sử.
+
+Câu 94: Điều kiện đồng đội có ít nhất 3 trường tham gia trong điều lệ có áp dụng cho cả đôi, tiếp sức
+và đội, hay đôi/tiếp sức chỉ cần ít nhất 3 đôi/đội thuộc 2 trường?
+
+tất cả
+
+Đã chốt: nội dung đôi, tiếp sức và đội đều phải có ít nhất 3 trường tham gia mới đủ điều kiện tổ chức.
+
+Câu 95: Anh có muốn quản trị cấu hình cho từng kỳ giải ngày mở đăng ký, hạn đăng ký và thời điểm
+khóa danh sách, hết hạn thì nhà trường không được tự thêm/sửa, trừ khi quản trị mở lại không?
+
+có. quản trị thiết lập
+Đã chốt: quản trị thiết lập thời gian mở đăng ký, hạn đăng ký và khóa danh sách; có quyền mở lại,
+nhưng vẫn giữ quy định không thay VĐV sau bốc thăm.
+
+Câu 96: Khi bốc thăm, anh muốn hỗ trợ cả bốc thăm ngẫu nhiên trên phần mềm và nhập số bốc thăm
+giấy thực tế, hay chỉ dùng một cách?
+
+bốc thăm ngẫu nhiên bằng phần mềm.Tuy nhiên, cho phép tổ
+trưởng trọng tài gán hạt giống. 2 hạt giống này phải ở 2 nhánh khác
+nhau
+
+Đã chốt: bốc thăm ngẫu nhiên trên phần mềm, tổ trưởng được chỉ định 2 hạt giống.
+
+Câu 97: “Hai nhánh khác nhau” có nghĩa là hai nửa sơ đồ, để hai hạt giống chỉ có thể gặp nhau ở chung
+kết nếu cùng đi tiếp, đúng không anh?
+
+=== PDF PAGE 028 ===
+đúng.
+Giải thích cụ thể hơn, phần mềm tạo sơ đồ và có nút tích: có hạt
+
+giống. Lúc này tổ trưởng nhấp nhánh được phép mở để gán vdy.
+Đã rõ: phần mềm tạo sơ đồ và có ô chọn “Có hạt giống”. Khi bật, tổ trưởng nhấp vào vị trí được phép để
+gán VĐV; hệ thống bảo đảm hai hạt giống chỉ có thể gặp nhau ở chung kết.
+
+Câu 98: Sau khi gán hai hạt giống, phần mềm có bốc thăm ngẫu nhiên các VĐV còn lại vào vị trí trống,
+đồng thời tuân thủ tùy chọn tránh cùng trường gặp nhau trận đầu nếu tổ trưởng đã bật, đúng không
+anh?
+
+phần mềm có bốc thăm ngẫu nhiên các VĐV còn lại vào vị trí trống,
+đồng thời tuân thủ tùy chọn tránh cùng trường gặp nhau trận đầu
+nếu tổ trưởng đã bật
+
+Đã chốt: sau khi gán hạt giống, phần mềm bốc thăm các vị trí còn lại, tuân thủ tùy chọn tránh cùng
+trường gặp nhau trận đầu.
+
+Câu 99: Nếu số lượng VĐV từng trường khiến việc tránh cùng trường gặp nhau trận đầu không thể thực
+hiện, phần mềm có cảnh báo và yêu cầu tổ trưởng tắt tùy chọn hoặc xác nhận ngoại lệ trước khi chốt
+bốc thăm không?
+
+có
+Đã chốt: nếu không thể tránh cùng trường gặp nhau trận đầu, phần mềm cảnh báo và yêu cầu tổ trưởng
+xác nhận ngoại lệ hoặc tắt tùy chọn trước khi chốt.
+
+Câu 100: Sau khi bốc thăm nhưng chưa có trận nào bắt đầu, tổ trưởng có được bốc thăm lại với lý do
+bắt buộc và lưu sơ đồ cũ, hay chỉ được bốc thăm lại khi ghép nội dung hoặc có VĐV bỏ cuộc?
+
+được phép
+
+Đã chốt: trước khi trận đầu tiên bắt đầu, tổ trưởng được bốc thăm lại, phải ghi lý do; hệ thống lưu sơ đồ
+cũ và lịch sử.
+
+Câu 101: Danh sách địa điểm, sân thi đấu, khung giờ hoạt động và thời lượng dự kiến mỗi trận/lượt sẽ
+do quản trị thiết lập chung, tổ trưởng điều chỉnh cho môn mình phụ trách, đúng không anh?
+
+Đúng
+
+=== PDF PAGE 029 ===
+Đã chốt: quản trị thiết lập địa điểm, sân, khung giờ và thời lượng dự kiến; tổ trưởng điều chỉnh trong
+môn phụ trách.
+
+Câu 102: Khi tổ trưởng đổi lịch đã công bố, phần mềm có phải kiểm tra trùng sân, trùng VĐV và trùng
+
+trọng tài giữa tất cả các môn, rồi yêu cầu xử lý xung đột trước khi xác nhận lịch mới không anh?
+
+có
+Đã chốt: đổi lịch phải kiểm tra và xử lý trùng sân, VĐV, trọng tài trên toàn giải trước khi xác nhận; thông
+báo thay đổi liên kết đến lịch mới.
+
+Câu 103: Với chạy, bơi, nhảy, ném và Vovinam quyền, anh muốn tổ trưởng cấu hình số lượt/lần thực
+hiện, cách lấy thành tích và số người đi tiếp cho từng nội dung, rồi phần mềm tính theo cấu hình đó,
+đúng không anh?
+
+tổ trưởng nhấp vào vị trí ô điểm để nhập điểm. căn cứ tỷ số, phần
+
+mềm chuyển người thắng sang vòng tiếp theo.
+
+Đã ghi nhận: trên sơ đồ đối kháng, tổ trưởng nhấp vào ô điểm/tỷ số để nhập; phần mềm xác định người
+thắng và đưa sang vòng tiếp theo khi kết quả được xác nhận. Trọng tài vẫn được nhập theo quyền đã
+thống nhất.
+
+Ảnh đính kèm hiện chưa mở được, nhưng mô tả của anh đủ để ghi nhận thao tác này.
+
+Câu 104: Khi tổ trưởng trực tiếp nhập tỷ số, thao tác lưu có được coi là xác nhận kết quả chính thức và
+chuyển người thắng ngay, hay vẫn cần nhấn nút “Xác nhận” riêng?
+
+Tổ trưởng không bao giờ được nhập kết quả
+Đã sửa: tổ trưởng không được nhập kết quả. Trọng tài nhấp ô điểm/tỷ số để nhập; tổ trưởng xác nhận,
+sau đó phần mềm chuyển người thắng sang vòng tiếp theo.
+
+Câu 105: Quy định này có đồng thời hủy quyền sửa kết quả của tổ trưởng đã thống nhất trước đó —
+nghĩa là mọi kết quả phải do trọng tài nhập/sửa, tổ trưởng chỉ xác nhận hoặc yêu cầu sửa — đúng không
+anh?
+
+=== PDF PAGE 030 ===
+Chấp nhận, nếu phát hiện sai tổ trưởng yêu cầu trọng tài nhập lại, tổ
+trưởng xác nhận
+
+Đã chốt: trọng tài nhập và sửa kết quả; tổ trưởng chỉ xác nhận hoặc yêu cầu nhập lại, không trực tiếp
+sửa điểm.
+
+Câu 106: Nếu một người là tổ trưởng môn A nhưng được phân công làm trọng tài môn B, người đó vẫn
+được nhập kết quả môn B theo vai trò trọng tài, còn không được nhập kết quả môn A, đúng không anh?
+
+đúng
+
+Đã chốt: quyền phụ thuộc từng môn — tổ trưởng môn A không nhập kết quả môn A; khi làm trọng tài
+môn B thì được nhập kết quả môn B, vẫn áp dụng kiểm tra cùng trường.
+
+Câu 107: Để tính đúng quy tắc miễn đấu và số VĐV thực tế, anh có muốn trọng tài điểm danh Có
+mặt/Vắng trước lượt đầu, rồi tổ trưởng xác nhận danh sách trước khi phần mềm dồn vị trí và chốt sơ đồ
+thi đấu không?
+
+không cần. Trọng tài nhấp vào tên của vđv trên nhánh đấu đê gán
+trạng thái bỏ cuộc (modal: xác nhận vắng mặt nút: Có/Không), lục
+này tên vđv chuyển màu xám. Nhấp lại để phục hồi tráng thái bình
+thường
+
+Nói thêm:
+
+Tên vđv hiển thị màu xanh, vđv thắng trong nhánh của vòng đó
+
+chuyển màu đỏ
+
+Đã ghi nhận thao tác trên sơ đồ:
+e Tên VĐV bình thường màu xanh; người thắng tại vòng đó màu đỏ.
+e _ Trọng tài nhấp tên ¬ hộp thoại “Xác nhận vắng mặt?”, nút Có/Không. Chọn Có thì gán bỏ cuộc, tên
+chuyển màu xám.
+e - Nhấp lại để phục hồi trạng thái bình thường; không cần bước điểm danh riêng.
+Câu 108: Nếu phục hồi VĐV sau khi đối thủ đã được xác nhận thắng và chuyển vòng, có phải chờ tổ
+trưởng xác nhận lại trước khi thay đổi kết quả và danh sách vòng sau không anh?
+
+Chỉ được sửa trạng thái vđv khi vòng sau chưa có trận đấu nào có kết
+quả.
+
+=== PDF PAGE 031 ===
+Đã chốt: chỉ được sửa trạng thái VĐV khi vòng kế tiếp chưa có bất kỳ trận nào có kết quả. Khi đã có kết
+quả, hệ thống khóa thao tác này.
+
+Câu 109: “Có kết quả” ở đây tính ngay khi trọng tài lưu kết quả, kể cả chưa được tổ trưởng xác nhận, hay
+chỉ tính kết quả đã xác nhận?
+
+Chỉ cần trọng tài lưu kết quả
+
+Đã chốt: chỉ cần trọng tài lưu kết quả của bất kỳ trận nào ở vòng kế tiếp, hệ thống khóa việc sửa trạng
+thái VĐV ở vòng trước, dù kết quả chưa được xác nhận.
+
+Ai“
+
+Câu T10: Việc gán trạng thái “Truất quyền thi đấu” có thực hiện bằng cách nhấp tên VĐV, chọn trạng thái
+và bắt buộc nhập lý do, đồng thời áp dụng điều kiện khóa như “Bỏ cuộc” không anh?
+
+đồng ý. sửa lại: Modal có các option: Có mặt ( mặc định), Vắng mặt,
+
+Truất quyền thi đấu và 2 nút Đồng ý (xác nhận)/ Thoát
+
+Đã cập nhật: nhấp tên VĐV mở hộp thoại gồm Có mặt (mặc định), Vắng mặt, Truất quyền thi đấu, với
+hai nút Đồng ý / Thoát. Chọn truất quyền phải nhập lý do; việc sửa trạng thái bị khóa khi vòng sau đã có
+kết quả được lưu.
+
+Câu T11: Truất quyền thi đấu áp dụng chỉ trong nội dung hiện tại, hay loại VÐV khỏi tất cả nội dung của
+kỳ giải?
+
+nội dung hiện tại
+Đã chốt: truất quyền thi đấu chỉ áp dụng trong nội dung hiện tại, không ảnh hưởng các nội dung khác
+của VĐV.
+
+Câu T12: Tổ trưởng xác nhận kết quả từng trận/lượt ngay khi trọng tài lưu, hay có thể chọn nhiều
+trận/lượt và xác nhận hàng loạt?
+
+cho phép xác nhận 1 loạt sau lượt đấu
+
+Đã chốt: tổ trưởng được chọn nhiều kết quả và xác nhận hàng loạt sau lượt đấu.
+
+Câu T13: Trước khi tổ trưởng xác nhận, phần mềm có hiển thị người thắng ở nhánh vòng sau dưới trạng
+thái “Tạm thời”, hay chỉ đưa người thắng sang vòng sau khi đã xác nhận?
+
+hiển thị trạng thái tạm thời
+
+=== PDF PAGE 032 ===
+Đã chốt: người thắng được đưa sang nhánh vòng sau với trạng thái “Tạm thời”; khi tổ trưởng xác nhận,
+trạng thái chuyển thành chính thức.
+
+Câu T14: Trọng tài có được nhập kết quả vòng sau khi danh sách vẫn tạm thời, hay phải chờ tổ trưởng
+
+xác nhận các kết quả liên quan ở vòng trước?
+
+Tổ trưởng xác nhận thì mới nhập điểm
+
+Đã chốt: chỉ được nhập điểm vòng sau khi tổ trưởng đã xác nhận các kết quả xác định VĐV/đội tham
+gia trận đó.
+
+^n”
+
+Câu T15: Trang công khai có hiển thị kết quả tạm thời, ghi rõ “Chưa xác nhận”, hay chỉ hiển thị kết quả
+chính thức đã được tổ trưởng xác nhận?
+
+Ghi "Chờ xác nhận"
+
+Đã chốt: trang công khai được hiển thị kết quả tạm thời, gắn nhãn “Chờ xác nhận”.
+
+Câu 116: Với bơi/chạy chia nhiều lượt, tổ trưởng có cấu hình số làn hoặc số VĐV tối đa mỗi lượt, rồi
+
+phần mềm tự chia lượt và bốc thăm vị trí thi đấu không anh?
+
+Tổ trưởng tự phân công, trọng tài chỉ ghi thành tích vđv
+
+Đã chốt: với chạy/bơi, tổ trưởng tự bố trí lượt và vị trí thi đấu; trọng tài chỉ ghi thành tích từng VĐV.
+
+Câu T17: Nếu tổ chức vòng loại rồi chung kết, tổ trưởng có cấu hình số người đi tiếp và cách chọn theo
+thành tích, để phần mềm đề xuất danh sách cho tổ trưởng xác nhận, hay tổ trưởng tự chọn danh sách đi
+
+tiếp?
+
+Màn hình kết quả dạng lưới với các cột: STT, họ và tên, trường, lượt,
+làn, thành tích, vào vòng trong
+
+Phần mềm tích sẵn ô Vào vòng trong
+
+Tổ trưởng kiểm tra và yêu cầu trọng tài sửa nếu cần; nhấp xác định
+để đưa vớv vào vòng trong
+
+Đã ghi nhận: màn hình kết quả dạng lưới gồm STT, họ tên, trường, lượt, làn, thành tích, Vào vòng trong.
+
+Phần mềm tích sẵn người được đề xuất, tổ trưởng kiểm tra, yêu cầu trọng tài sửa nếu cần và nhấn “Xác
+
+nhận” để chuyển vòng.
+
+=== PDF PAGE 033 ===
+Câu T18: Phần mềm tích “Vào vòng trong” theo số suất và cách chọn do tổ trưởng thiết lập trước — ví
+dụ lấy 8 thành tích tốt nhất toàn vòng, hoặc 2 người đầu mỗi lượt cộng các suất thành tích tốt nhất còn
+
+lại — đúng không anh?
+
+đúng. Thiết lập từ đầu
+Đã chốt: tổ trưởng thiết lập số suất và cách chọn từ đầu; phần mềm dựa vào đó tích sẵn “Vào vòng
+trong”.
+
+Câu 119: Nếu nhiều VĐV bằng thành tích ở suất cuối cùng, phần mềm có để trạng thái “Cần quyết định”,
+chờ tổ trưởng chọn người đi tiếp hoặc cho tất cả cùng đi tiếp không anh?
+
+Tổ trưởng quyết định (tick hay bỏ tíck) trước khi nhấp Xác nhận
+Đã chốt: khi bằng thành tích ở suất cuối, tổ trưởng quyết định bằng cách tích/bỏ tích “Vào vòng trong”
+trước khi nhấn Xác nhận.
+
+Câu 120: Với nhảy, ném có nhiều lần thực hiện, phần mềm có lưu thành tích từng lần, đánh dấu lần
+phạm quy và tự lấy thành tích tốt nhất hợp lệ để xếp hạng không anh?
+
+Trọng tài nhập thành tích tốt nhất
+
+Đã chốt: với nhảy/ném, trọng tài chỉ nhập thành tích tốt nhất, không nhập từng lần thực hiện.
+
+Câu 121: Với Vovinam quyền, trọng tài nhập điểm tổng cuối cùng, hay phần mềm cần nhập điểm của
+từng giám khảo rồi tự tính tổng?
+
+Nhập tổng điểm
+
+Đã chốt: với Vovinam quyền, trọng tài nhập tổng điểm cuối cùng; tổ trưởng xác nhận.
+
+Câu 122: Để tính Fair-play trong Bóng đá, phần mềm có cần cho trọng tài nhập số thẻ vàng, thẻ đỏ do
+hai thẻ vàng, thẻ đỏ trực tiếp và trường hợp một thẻ vàng kèm thẻ đỏ trực tiếp theo từng trận không
+anh?
+
+Có, để xếp hạng trường hợp nhiều đội bằng điểm
+
+Đã chốt: trọng tài nhập thẻ phạt từng trận Bóng đá để phần mềm tính Fair-play khi các đội bằng nhau ở
+
+các tiêu chí trước.
+
+=== PDF PAGE 034 ===
+Câu 123: Có dùng mức điểm phạt trong điều lệ: thẻ vàng = 1; thẻ đỏ do hai thẻ vàng = 3; thẻ đỏ trực
+tiếp = 3; một thẻ vàng kèm thẻ đỏ trực tiếp = 4, đội có tổng điểm phạt thấp hơn xếp trên không anh?
+
+có
+
+Đã chốt mức điểm Fair-play 1-3-3—4 như trên; đội có tổng điểm phạt thấp hơn xếp trên.
+
+Câu 124: Khi vẫn bằng nhau và phải bốc thăm phân hạng, anh muốn phần mềm bốc thăm ngẫu nhiên rồi
+
+người có thẩm quyền xác nhận, hay nhập kết quả bốc thăm thực tế bên ngoài?
+
+Bốc thăm thực tế
+
+Đã chốt: bốc thăm phân hạng thực tế bên ngoài, sau đó ghi kết quả vào phần mềm và lưu lịch sử.
+
+Câu 125: Kết quả bốc thăm phân hạng trong môn do tổ trưởng nhập/xác nhận, còn bốc thăm xếp hạng
+
+toàn đoàn do quản trị nhập/xác nhận, đúng không anh?
+
+đúng. quản trị thực hiện
+
+Đã ghi nhận: quản trị nhập và xác nhận kết quả bốc thăm phân hạng thực tế, có lưu lịch sử.
+
+Câu 126: Quản trị có được nhập/sửa điểm thi đấu, hay cũng không được nhập điểm, chỉ quản lý hệ
+thống, đăng ký và các quyết định xếp hạng?
+
+Quản trị có thể xác nhận điểm trong trường hợp Tổ trưởng không có
+mặt thực tế trên sân
+Đã ghi nhận: quản trị được xác nhận kết quả thay tổ trưởng khi tổ trưởng không có mặt tại sân; hệ
+thống ghi rõ người xác nhận.
+
+Câu 127: Anh xác nhận thêm: quản trị không được trực tiếp nhập hoặc sửa điểm, nếu phát hiện sai thì
+yêu cầu trọng tài sửa rồi xác nhận lại, đúng không?
+
+xác nhận
+Đã chốt: chỉ trọng tài nhập/sửa điểm; tổ trưởng xác nhận, quản trị có thể xác nhận thay khi tổ trưởng
+vắng mặt.
+
+Câu 128: Khi sao chép kỳ giải năm trước, anh muốn sao chép danh mục môn/nội dung, quy tắc, trường
+và cấu hình, nhưng không sao chép đăng ký VĐV, bốc thăm, lịch và kết quả, đúng không anh?
+
+=== PDF PAGE 035 ===
+đúng
+Đã chốt: sao chép kỳ trước gồm danh mục, quy tắc, trường và cấu hình; kỳ mới bắt đầu với danh sách
+đăng ký, bốc thăm, lịch và kết quả trống.
+
+Câu 129: Biên bản thi đấu chỉ trọng tài, tổ trưởng và quản trị được xem, hay tài khoản nhà trường cũng
+được xem biên bản các trận/lượt có VĐV của trường mình?
+
+được ơhép
+
+Đã ghi nhận: tài khoản nhà trường được xem biên bản các trận/lượt có VĐV hoặc đội của trường mình.
+
+Câu 130: Trang công khai chỉ hiển thị mã VÐV, họ tên, trường, nội dung, lịch và kết quả; còn ngày sinh,
+mã học sinh, ảnh hồ sơ và giấy tờ chỉ người có quyền mới xem, đúng không anh?
+
+đúng
+
+Đã chốt phạm vi thông tin công khai như trên; hồ sơ cá nhân và giấy tờ chỉ người có quyền được xem.
+
+Câu 131: Danh mục Cờ vua trong CSV chia theo nhóm tuổi, nhưng anh mô tả chia theo lớp 1-3 và lớp 4-
+5. Với Tiểu học, có chốt dùng nhóm lớp thay cho nhóm tuổi không anh?
+
+không, giữ nguyên cho tôi, nhưng khi kiểm tra điều kiện thì kiểm tra
+theo lớp thay vì tuổi
+Đã ghi nhận: giữ nguyên tên và nhóm nội dung Cờ vua trong danh mục, nhưng kiểm tra điều kiện đăng
+ký theo lớp thay vì tuổi.
+
+Câu 132: Có dùng bảng tương ứng: nhóm 7-9 tuổi — lớp 1-3; 10-11 tuổi ¬ lớp 4-5; 12-13 tuổi ¬ lớp 6-
+7, 14-15 tuổi ¬ lớp 8-9 cho Cờ vua không anh?
+
+không
+
+Đã ghi nhận: không dùng bảng tương ứng vừa đề xuất, vẫn giữ nguyên danh mục.
+
+Câu 133: Anh muốn quy định lớp được phép đăng ký cho từng nhóm nội dung Cờ vua như thế nào?
+Nếu chưa chốt, tôi sẽ ghi mục này chờ xác nhận.
+
+1A2-> nhóm lớp 1-3
+8B->nhóm 8-9
+
+=== PDF PAGE 036 ===
+Đã hiểu: phần mềm lấy số khối ở đầu tên lớp để kiểm tra nhóm lớp. Ví dụ 1A2 ¬ khối 1 ¬ nhóm lớp 1-3;
+8B —¬ khối 8 ¬ nhóm lớp 8-9.
+
+Câu 134: Quy tắc kiểm tra theo lớp thay vì tuổi này áp dụng chỉ môn Cờ vua, hay cho tất cả môn có nội
+dung chia nhóm?
+
+chỉ nhóm cờ vua, các nhóm khác theo tuổi:
+ngày sinh 12/5/2014=> nhóm 11-12 tuổi
+Đã chốt: Cờ vua kiểm tra theo khối lớp, lấy từ tên lớp; các môn khác kiểm tra theo tuổi từ ngày sinh.
+
+Câu 135: Tuổi được tính bằng năm tổ chức giải trừ năm sinh, hay tuổi tròn tại một ngày mốc? Ví dụ,
+sinh 12/5/2014 thì trong giải tháng 10/2026 là 12 tuổi theo cả hai cách, nhưng người chưa đến sinh nhật
+sẽ có khác biệt.
+
+theo năm sinh
+
+Đã chốt: tuổi = năm tổ chức giải - năm sinh, không xét ngày, tháng sinh.
+
+Câu 136: Khi nhập danh sách CSV/Excel, phần mềm có cần hiển thị bản xem trước, đánh dấu lỗi/cảnh
+báo từng dòng để nhà trường sửa trước khi lưu, thay vì nhập ngay toàn bộ không anh?
+
+có
+
+Đã chốt: nhập CSV/Excel có bản xem trước, đánh dấu lỗi/cảnh báo từng dòng để sửa trước khi lưu.
+
+Câu 137: Để tránh cấp hai mã VĐV cho cùng một học sinh khi nhập nhiều lần hoặc đăng ký nhiều nội
+dung, có dùng mã học sinh trong trường để nhận diện; nếu thiếu mã thì đối chiếu họ tên + ngày sinh +
+giới tính + trường và yêu cầu nhà trường xác nhận không anh?
+
+Một học sinh được tham gia tối đa 2 môn thi
+
+Đã bổ sung: mỗi học sinh tham gia tối đa 2 môn thi; các đăng ký dùng chung một mã VĐV.
+
+Câu 138: Nếu học sinh đăng ký môn thứ ba, phần mềm phải chặn đăng ký, hay chỉ cảnh báo đỏ, đậm để
+quản trị xét duyệt như các điều kiện khác?
+
+chặn đăng ký, thông báo để trường kiểm tra lại
+
+=== PDF PAGE 037 ===
+Đã chốt: chặn đăng ký môn thứ ba, thông báo để nhà trường kiểm tra lại; nhiều nội dung thuộc cùng
+
+một môn vẫn chỉ tính là một môn.
+
+Câu 139: Mã học sinh có bắt buộc khi đăng ký không, để phần mềm nhận diện cùng một học sinh và
+
+kiểm soát giới hạn 2 môn, kể cả khi nhập danh sách nhiều lần?
+
+Đồng ý để nhà trường gán mã học sinh với điều kiện mỗi hs chỉ có 1
+mã. Phần mềm đối chiếu thông tin cơ bản: họ và tên, ngày sinh, giới
+tính để xác định có trùng hs không
+
+Đã chốt: nhà trường gán một mã học sinh duy nhất cho mỗi em. Phần mềm đối chiếu thêm họ tên, ngày
+sinh, giới tính trong cùng trường để phát hiện khả năng đăng ký trùng.
+
+Câu 140: Nếu thông tin cơ bản trùng nhưng mã học sinh khác, phần mềm có tạm dừng cấp mã VĐV mới,
+yêu cầu nhà trường xác nhận “Cùng học sinh” hoặc “Hai học sinh khác nhau” không anh?
+
+Không thể xảy ra
+
+Đã ghi nhận: coi họ tên + ngày sinh + giới tính trùng trong cùng trường là cùng một học sinh; dùng lại
+hồ sơ và mã VĐV, không cấp mã mới.
+
+Câu 141: Ngoài thông tin đã chốt, phần mềm có cần quản lý các trường trong biểu mẫu điều lệ như dân
+
+tộc, xếp loại học tập, xếp loại rèn luyện, số định danh cá nhân và giấy cam kết sức khỏe không anh?
+
+có, tuy nhiên, khi nhập ds vào phần mềm, cần mã hóa số CCCD của
+học sinh. Chỉ trường đăng ký và Quản trị mới thấy được thông tin
+đầy đủ
+
+Đã chốt: lưu các thông tin theo biểu mẫu điều lệ; số CCCD/định danh cá nhân được mã hóa khi lưu, chỉ
+tài khoản trường đăng ký và quản trị được xem đầy đủ. Tổ trưởng, trọng tài và người xem công khai
+không được truy cập số đầy đủ.
+
+Câu 142: Với ảnh hồ sơ, giấy cam kết sức khỏe và giấy tờ cá nhân, anh muốn cũng chỉ trường đăng ký
+và quản trị được xem, hay tổ trưởng/trọng tài được xem để kiểm tra tư cách VĐV?
+
+Mỗi nội dung thi có mục hiển thị thông tin cá nhân của VĐV, bao
+gồm cả ảnh. Trọng tài có thể xem tất cả thông ting, trừ CCCD có
+dạng 066xxxxxxxx123 (các số ở giữa bị che)
+
+=== PDF PAGE 038 ===
+Đã cập nhật: mỗi nội dung có mục hồ sơ VĐV kèm ảnh. Trọng tài được xem thông tin hồ sơ; CCCD chỉ
+hiển thị 3 số đầu và 3 số cuối, che phần giữa. Trường đăng ký và quản trị được xem đầy đủ.
+
+Câu 143: Tổ trưởng được xem hồ sơ với cùng phạm vi như trọng tài, tức CCCD cũng bị che, đúng không
+
+anh?
+
+đúng
+Đã chốt: tổ trưởng và trọng tài xem hồ sơ VĐV, nhưng CCCD bị che phần giữa; chỉ trường đăng ký và
+quản trị thấy đầy đủ.
+
+Câu 144: Tổ trưởng và trọng tài được xem hồ sơ chỉ trong các môn được phân công, hay tất cả các môn
+của kỳ giải để phục vụ “Cập nhật hộ”?
+
+chỉ trong môn được phân công. Bỏ quyền cập nhật hộ. Chỉ có
+
+trọngtài của môn đó mới được nhập điểm
+Đã cập nhật: bỏ hoàn toàn quyền “Cập nhật hộ”. Trọng tài chỉ nhập điểm và xem hồ sơ trong môn được
+phân công; tổ trưởng chỉ xem hồ sơ trong môn phụ trách.
+
+Câu 145: Trong môn được phân công, trọng tài chỉ được nhập điểm các nội dung được tích trong
+
+checklist phân công, hay được nhập mọi nội dung của môn đó?
+
+nhập nội dung được tick trong checklist
+Đã chốt: trọng tài chỉ được nhập/sửa kết quả các nội dung được tích trong checklist phân công, đồng
+thời vẫn bị chặn ở trận/lượt có VĐV hoặc đội cùng trường.
+
+Câu 146: Tổ trưởng được thay đổi checklist phân công trong khi giải đang diễn ra, có lưu lịch sử và
+thông báo cho trọng tài liên quan, đúng không anh?
+
+Tổ trưởng có 1 bảng dạng lưới gồm STT, nội dung, địa điểm, thời
+gian và Trọng tài. Nhấp vào ô trọng tài sẽ hiện danh sách trọng tài
+
+thuộc môn thi để tick
+Đã ghi nhận: bảng phân công của tổ trưởng gồm STT, nội dung, địa điểm, thời gian, trọng tài. Nhấp ô
+Trọng tài mở danh sách trọng tài thuộc môn để tích chọn; có thể chọn nhiều người.
+
+Câu 147: Vì phân công ở cấp nội dung, còn xung đột cùng trường xảy ra ở cấp trận/lượt, anh có đồng ý
+cho trọng tài phụ trách nội dung nhưng chặn riêng các trận/lượt có VĐV cùng trường, còn các trận/lượt
+
+=== PDF PAGE 039 ===
+khác vẫn được nhập điểm không?
+
+đồng ý
+Đã chốt: trọng tài được phân công theo nội dung, nhưng hệ thống chặn riêng việc nhập điểm ở
+trận/lượt có VĐV hoặc đội cùng trường.
+
+Câu 148: Với chạy, bơi, nhảy, ném hoặc quyền, trọng tài có được nhập thành tích của VĐV trường khác
+trong cùng lượt, hay bị chặn toàn bộ lượt nếu lượt đó có một VĐV cùng trường?
+
+được nhập
+Đã chốt: với môn ghi thành tích cá nhân, trọng tài được nhập cho VĐV trường khác trong cùng lượt, chỉ
+khóa dòng VĐV cùng trường mình.
+
+Câu 149: Nếu một trận hoặc VĐV không có trọng tài nào đủ điều kiện nhập điểm do trùng trường, phần
+mềm có cảnh báo để tổ trưởng bổ sung trọng tài thuộc trường khác hoặc đơn vị ngoài trường không
+
+anh?
+
+chặn ngay từ khi Tổ trưởng phan công.
+Đã chốt: ngay khi lưu phân công, hệ thống chặn nếu còn trận hoặc VĐÐV không có trọng tài đủ điều kiện
+nhập kết quả, đồng thời chỉ rõ chỗ thiếu để tổ trưởng bổ sung.
+
+Câu 150: Với trận vòng sau chưa biết VĐV nào đi tiếp, hệ thống có kiểm tra lại phân công khi danh sách
+được xác nhận và yêu cầu bổ sung trọng tài nếu phát sinh trùng trường không anh?
+
+Có
+Đã chốt: khi xác nhận danh sách vòng sau, phần mềm kiểm tra lại xung đột trường và yêu cầu bổ sung
+trọng tài nếu cần.
+
+Câu 151: Tổ trưởng chọn trọng tài của môn mình từ danh sách tài khoản đã được quản trị duyệt, hay
+phải chờ quản trị gán sẵn họ vào môn đó mới được phân công nội dung?
+
+Trong mục thiết lập nộ dung thi đấu, Tổ trưởng phải gán trọng tài
+vào tổ mình
+Đã chốt: trong phần thiết lập nội dung thi đấu, tổ trưởng chọn tài khoản đã được duyệt để gán vào tổ
+trọng tài của môn, sau đó phân công từng nội dung.
+
+=== PDF PAGE 040 ===
+Câu 152: Một trọng tài có thể thuộc nhiều tổ trọng tài ở các môn khác nhau, miễn lịch phân công không
+
+trùng nhau, đúng không anh?
+
+đúng
+
+Đã chốt: một trọng tài có thể thuộc nhiều tổ ở các môn khác nhau, nhưng lịch phân công không được
+
+trùng.
+
+Câu 153: Khi nhà trường đăng ký đôi, tiếp sức hoặc đội, có phải chọn thành viên từ hồ sơ VĐV đã tạo
+của trường, phân biệt chính thức/dự bị theo nội dung, để mỗi học sinh vẫn dùng một mã VĐV và được
+kiểm tra giới hạn 2 môn không anh?
+
+đúng. Đối với đôi và tiếp sức, VĐV phải đăng ký nội dung cá nhân
+của môn đó, và có thêm ô tick để tham gia nội dung đôi hoặc tiêp
+
+sức
+
+Đã chốt: với đôi và tiếp sức, VĐV phải đăng ký nội dung cá nhân của cùng môn trước, rồi tích thêm tham
+gia đôi/tiếp sức. Thành viên dùng lại hồ sơ và mã VĐV.
+
+Câu 154: Sau khi tích chọn, nhà trường tự ghép các VĐV thành đôi hoặc đội tiếp sức, hay phần mềm tự
+ghép để nhà trường xác nhận?
+
+phần mềm tự ghép để nhà trường xác nhận
+
+Đã chốt: phần mềm tự đề xuất ghép đôi/đội tiếp sức, nhà trường kiểm tra và xác nhận.
+
+Câu 155: Nếu số VĐV được tích chọn nhiều hơn số thành viên cần thiết, phần mềm để nhà trường chọn
+thành viên chính thức và dự bị, hay tự chọn theo một tiêu chí cụ thể?
+
+Cập nhật sơ đồ đăng ký của trường:
+
+e_ Tab 1: Trường cập nhật danh sách đăng ký (chưa đăng ký môn),
+phần mềm kiểm tra, cập nhật
+e _ Đăng ký thi đấu: cập nhật ảnh, chọn môn thi đấu và nội dung:
+
+Bảng đăng ký dạng lưới, gồm
+
+STTỊ Môn thi nội dung|chi tiết| Ghi chú
+
+01| Bơi| Ếch|50m|[v] thi tiếp sức
+
+02|Kéo co| | | [⁄] Nội dung Nam - nữ
+
+Mặc định chỉ hiện hàng 1, phần ghi chú cho nội dung đôi/tiếp sức..
+
+chỉ hiện khi chọn môn (phải chọn trong 1 môn danh sách dropdown,
+
+=== PDF PAGE 041 ===
+không cho nhập thủ công)
+Có nút Thêm 1 hàng để đk môn thứ 2
+
+Đã cập nhật luồng đăng ký:
+e - Tab 1- Danh sách VĐV: nhà trường nhập hồ sơ, chưa đăng ký môn; phần mềm kiểm tra trùng và cấp
+mã.
+e _ Đăng ký thi đấu: cập nhật ảnh, chọn môn/nội dung bằng dropdown, không nhập tự do.
+e Lưới gồm STT | Môn thi | Nội dung | Chỉ tiết | Ghi chú. Ban đầu có một hàng; nút “Thêm 1 hàng”
+đăng ký môn thứ hai.
+e_ Các ô tích đôi, tiếp sức, nam-nữ... chỉ hiện theo môn đã chọn.
+Câu 156: Nếu một VĐV đăng ký nhiều nội dung cá nhân trong cùng môn, ví dụ Bơi ếch 50 m và 100 m,
+
+anh muốn chọn nhiều nội dung ngay trong một hàng của môn đó, đúng không?
+
+Câu 155: Mã hs do nhà trường đặt.
+
+Nếu số vđv đăng ký vượt quá số lượng quy định, phần mềm báo lỗi
+và không cho lưu. VD: đã có 3 em thi bơi ấch nam 50 m thì nếu nhập
+em thứ 4 sẽ báo lỗi: đã đk đủ Vận động viên, vui lòng sửa đăng ký
+hoặc chọn môn khác.
+
+Nếu sửa đăng ký thì quay lại trang danh sách, nhấp đôi vào tên học
+sinh để đăng ký, sửa đăng ký
+
+Nhập ds đăng ký thủ công: Nếu pm có ds chung toàn xã; khi trường
+nhập cccd, các thôgs tin còn lại được tự động điền. Khi trường
+upload file csv, các thông tin không trùng khớp với DS hiện có sẽ
+hiện màu đỏ để trường kiểm tra lại
+
+Số lượng đăng ký co trong file Điều lệ
+
+Đã cập nhật:
+se - Mã học sinh do nhà trường đặt; mã VĐV do phần mềm cấp riêng.
+e - Vượt hạn mức đăng ký theo điều lệ thì báo lỗi và không cho lưu.
+e _ Nhấp đôi tên học sinh trong danh sách để đăng ký hoặc sửa đăng ký.
+e . Nếu có danh sách học sinh toàn xã, nhập CCCD sẽ tự điền hồ sơ; nhập CSV có thông tin không khớp
+thì tô đỏ để trường kiểm tra.
+
+Câu 157: Danh sách học sinh chung toàn xã sẽ do quản trị nhập từ CSV/Excel, và mỗi tài khoản trường
+chỉ được tra cứu, tự điền hồ sơ học sinh thuộc trường mình, đúng không anh?
+
+=== PDF PAGE 042 ===
+đúng
+Đã chốt: quản trị nhập danh sách học sinh toàn xã từ CSV/Excel; tài khoản trường chỉ tra cứu và tự điền
+hồ sơ học sinh thuộc trường mình.
+
+Câu 158: Khi thông tin nhà trường nhập khác danh sách chung, nhà trường có được sửa và gửi quản trị
+
+xác nhận, hay phải dùng nguyên thông tin trong danh sách chung?
+
+báo cho quản trị để kiểm tra và sửa
+Đã chốt: nếu thông tin không khớp danh sách chung, nhà trường báo quản trị kiểm tra và sửa dữ liệu
+gốc, không tự sửa.
+
+Câu 159: Nếu học sinh chưa có trong danh sách chung, nhà trường có được tạo hồ sơ mới để quản trị
+duyệt, hay phải báo quản trị bổ sung trước rồi mới đăng ký thi đấu?
+
+tạo hồ sơ đề nghị duyệt (trường hợp xã không có danh sách chung
+thì không tạo hồ sơ). Quản trị xã sẽ theo dõi ở mục Danh sách mới
+
+chờ duyệt. Nếu kiểm tra đúng thì thêm vào ds chung toàn xã
+Đã chốt: khi có danh sách chung, học sinh chưa có trong đó được nhà trường tạo hồ sơ đề nghị duyệt.
+Quản trị xử lý tại “Danh sách mới chờ duyệt”; nếu đúng thì bổ sung vào danh sách toàn xã.
+
+Câu 160: Khi xã chưa có danh sách chung, ý anh là nhà trường vẫn nhập danh sách VĐV và đăng ký bình
+thường, nhưng không phát sinh bước đề nghị bổ sung vào danh sách chung, đúng không?
+
+đúng. nếu đếm số hs trong ds chung = 0 thì không cần đề ngị bổ
+
+sung
+Đã chốt: nếu danh sách chung có 0 học sinh, nhà trường nhập hồ sơ và đăng ký bình thường, không cần
+đề nghị bổ sung. Nếu danh sách chung đã có dữ liệu, học sinh chưa có phải chờ quản trị duyệt bổ sung.
+
+Câu 161: Trong lúc hồ sơ mới chờ duyệt bổ sung, nhà trường có được chọn sẵn môn/nội dung nhưng
+chưa gửi đăng ký chính thức, hay phải chờ hồ sơ được duyệt mới chọn môn?
+
+Được đang ký bình thường
+
+Đã chốt: học sinh có hồ sơ chờ duyệt bổ sung vẫn được đăng ký môn/nội dung bình thường; trạng thái
+hồ sơ được hiển thị để quản trị theo dõi.
+
+=== PDF PAGE 043 ===
+Câu 162: Trước khi quản trị duyệt đăng ký thi đấu để đưa vào bốc thăm, hồ sơ học sinh mới có bắt buộc
+được duyệt bổ sung vào danh sách chung trước không anh?
+
+Bắt buộc.
+
+Đã chốt: nhà trường được đăng ký trong lúc hồ sơ chờ duyệt, nhưng quản trị chỉ được duyệt đăng ký thi
+đấu sau khi hồ sơ mới đã được duyệt bổ sung vào danh sách chung.
+
+Câu 163: Một VĐV đăng ký nhiều nội dung cá nhân trong cùng môn, như Bơi ếch 50 m và 100 m, sẽ chọn
+nhiều nội dung trong cùng một hàng môn thi, đúng không anh?
+
+Một VĐV được chọn không quá 2 nội dung cá nhân và 1 nội dung
+đồng đội của môn. Bước thêm 1 hàng để đăng ký thêm nội dung
+(Mỗi môn có thể có nhiều hàng, mỗi hàng 1 nội dung; nội dung đôi,
+
+tiếp sức... chỉ hiện ở hàng đầu tiên của môn)
+
+Đã cập nhật: mỗi hàng là một nội dung cá nhân; nút “Thêm 1 hàng” thêm nội dung cùng môn hoặc môn
+thứ hai. Mỗi VĐV tối đa 2 môn, mỗi môn tối đa 2 nội dung cá nhân và 1 nội dung đồng đội. Ô chọn
+đôi/tiếp sức... chỉ hiện ở hàng đầu tiên của môn.
+
+Câu 164: Với môn chỉ có nội dung tập thể như Bóng đá, Kéo co, VĐV có được đăng ký trực tiếp đội thi
+đấu, không cần nội dung cá nhân, đúng không anh?
+
+đúng
+
+Đã chốt: Bóng đá và Kéo co đăng ký trực tiếp nội dung đội, không cần đăng ký cá nhân.
+
+Câu 165: Giới hạn 1 nội dung đồng đội mỗi VĐV trong một môn có áp dụng cả Kéo co không — tức một
+em đã đăng ký đội nam hoặc đội nữ thì không được đăng ký thêm đội nam-nữ?
+
+Câu 164: nội dung Kéo co có chia 2 nội dung nam và nữ, được đăng
+ký tối đa 12 người. VĐV được chọn thêm nội dung nam-nữ ở phần
+ghi chú. Tối đa có 6 vđv nam và 6 vđv nữ được đăng ký thêm nội
+dung này (4 người chính thức và 2 dự bị cho mỗi giới tính)
+
+Đã cập nhật riêng Kéo co:
+e - Nội dung nam và nữ: mỗi đội tối đa 12 VĐV.
+e - VĐV được tích thêm nam-nữ ở cột Ghi chú; đây là ngoại lệ cho phép tham gia thêm nội dung đồng
+đội.
+
+=== PDF PAGE 044 ===
+se Đội nam-nữ tối đa 6 nam + 6 nữ, mỗi giới tính gồm 4 chính thức + 2 dự bị.
+
+Câu 166: Đội Kéo co nam và đội nữ, mỗi đội 12 người được chia thành 8 chính thức + 4 dự bị, đúng
+không anh?
+
+đúng
+Đã chốt: đội Kéo co nam/nữ tối đa 12 VĐV: 8 chính thức + 4 dự bị; đội nam-nữ tối đa 12 VÐV: mỗi giới
+tính 4 chính thức + 2 dự bị.
+
+Câu 167: Nhà trường có phải đánh dấu chính thức/dự bị ngay khi đăng ký, và phần mềm kiểm tra đủ cơ
+cấu trước khi gửi duyệt không anh?
+
+Không, đăng ký đủ 12 ngươi flà được\
+Đã ghi nhận: không phân biệt chính thức/dự bị khi đăng ký; đội Kéo co nam-nữ vẫn kiểm tra cơ cấu 6
+nam, 6 nữ.
+
+Câu 168: Mỗi đội Kéo co bắt buộc đăng ký đủ 12 người, hay được đăng ký từ 8 đến 12 người như mức
+
+tối đa anh nêu trước đó?
+
+đăng ký tối thiểu 8 người
+
+Đã chốt: mỗi đội Kéo co đăng ký từ 8 đến 12 VĐV, không phân biệt chính thức/dự bị lúc đăng ký.
+
+Câu 169: Riêng đội nam-nữ, có bắt buộc từ 4 đến 6 nam và từ 4 đến 6 nữ, nhưng không nhất thiết số
+nam bằng số nữ, đúng không anh?
+
+tối thiểu 4 nam và 4 nữ, mỗi giới tính không vượt quá 6
+Đã chốt: đội Kéo co nam-nữ có 4-6 nam và 4-6 nữ, tổng 8-12 người; không bắt buộc số nam bằng số
+nữ.
+
+Câu 170: Giới hạn tổng cân Kéo co 460 kg đội nam, 420 kg đội nữ, 440 kg đội nam-nữ có được kiểm tra
+theo 8 VĐV thực tế ra thi đấu, thay vì toàn bộ danh sách đăng ký, không anh?
+
+khi thi đấu sẽ kiểm tra
+
+Đã chốt: kiểm tra tổng cân Kéo co khi thi đấu, không dùng tổng cân danh sách đăng ký để chặn đăng
+ký.
+
+=== PDF PAGE 045 ===
+Câu 171: Phần mềm có cần lưu 8 VĐV thực tế thi đấu và tổng cân của đội trong từng trận Kéo co, hay
+
+việc kiểm tra này chỉ ghi trong biên bản, phần mềm chỉ lưu kết quả trận?
+
+chỉ ghi kết quả trận
+Đã chốt: Kéo co chỉ nhập kết quả trận; danh sách ra thi đấu và kiểm tra tổng cân được ghi trong biên
+bản.
+
+Câu 172: Với Bóng đá, nhà trường đăng ký đội tối thiểu 5, tối đa 12 VĐV, không phân biệt chính thức/dự
+bị khi đăng ký, đúng không anh?
+
+đúng
+
+Đã chốt: đội Bóng đá đăng ký 5-12 VĐV, không phân biệt chính thức/dự bị khi đăng ký.
+
+Câu 173: Với đôi và tiếp sức, phần mềm có chặn lưu khi chưa đủ số thành viên hoặc sai cơ cấu giới tính
+— ví dụ đôi cần 2 người, tiếp sức hỗn hợp 4 người cần 2 nam + 2 nữ — không anh?
+
+có
+
+Đã chốt: chặn lưu đăng ký đôi/tiếp sức nếu thiếu thành viên hoặc sai cơ cấu giới tính theo nội dung.
+
+Câu 174: Nhà trường có được lưu bản nháp chưa đủ thành viên để bổ sung sau, nhưng chỉ được gửi
+duyệt khi đủ điều kiện, không anh?
+
+có
+Đã chốt: được lưu bản nháp khi chưa đủ thành viên, nhưng chỉ gửi duyệt khi đủ số lượng và đúng cơ
+cấu giới tính.
+
+Câu 175: Khi xét đủ môn bắt buộc để xếp hạng toàn đoàn, trường phải thực tế thi đấu Bóng đá và các
+nội dung Kéo co bắt buộc, hay chỉ cần đăng ký được duyệt, kể cả sau đó bỏ cuộc?
+
+bắt buộc phải thi đấu. nếu bỏ cuộc thì không tính thành tích của nội
+dung đó
+Đã chốt: môn/nội dung bắt buộc phải thực tế thi đấu; bỏ cuộc thì không tính thành tích nội dung đó.
+
+Câu 176: Nếu trường bỏ cuộc Bóng đá hoặc một trong ba nội dung Kéo co bắt buộc, trường đó có bị
+
+loại khỏi xếp hạng toàn đoàn, còn thành tích các nội dung khác vẫn giữ, đúng không anh?
+
+=== PDF PAGE 046 ===
+vẫn xếp hạng các môn có thi đấu
+
+Đã chốt: trường vẫn được xếp hạng từng môn đã thi đấu.
+
+Câu 177: Riêng xếp hạng toàn đoàn, nếu trường không thi đấu đủ môn/nội dung bắt buộc thì không
+được xếp hạng toàn đoàn, đúng không anh?
+
+đúng. làm rox thêm câu 176: nếu bỏ cuộc sẽ không được xếp hạng
+toàn đoàn
+Đã chốt: bỏ cuộc môn/nội dung bắt buộc thì không được xếp hạng toàn đoàn; vẫn giữ xếp hạng các
+môn khác đã thi đấu.
+
+Câu 178: Nếu một nội dung bắt buộc bị Ban tổ chức hủy vì không đủ đơn vị tham gia, các trường đã
+đăng ký hợp lệ có được miễn điều kiện tham gia nội dung đó khi xét toàn đoàn không anh?
+
+có
+Đã chốt: nội dung bắt buộc bị Ban tổ chức hủy vì không đủ đơn vị thì các trường đã đăng ký hợp lệ
+được miễn điều kiện đó khi xét toàn đoàn.
+
+Câu 179: Sau khi bốc thăm, việc không được thay VĐV có áp dụng cả thành viên đôi, tiếp sức và đội,
+nhưng vẫn cho phép sử dụng người dự bị đã có trong danh sách được duyệt, đúng không anh?
+
+đồng ý
+Đã chốt: sau bốc thăm không bổ sung hoặc thay người ngoài danh sách đã duyệt; được sử dụng thành
+viên dự bị đã đăng ký hợp lệ.
+Câu 180: Với đôi và tiếp sức, anh có cho phép đăng ký thêm người dự bị không? Nếu có, mỗi đôi/đội
+tiếp sức được tối đa bao nhiêu người dự bị?
+
+không, chỉ lấy trong số vđv đăng ký. Nếu người đó bỏ cuộc thì HLV
+được phép chọn 1 vẩv còn lại trong đội để thi đấu đôi/tiếp sức
+
+Đã cập nhật: đôi/tiếp sức không đăng ký dự bị riêng. Khi một thành viên bỏ cuộc, HLV được chọn người
+thay từ danh sách VĐV đã đăng ký của trường, vẫn phải đúng điều kiện nội dung.
+
+Câu 181: Người thay có bắt buộc đã đăng ký nội dung cá nhân của cùng môn, hay có thể là bất kỳ VĐV
+nào đã đăng ký trong đoàn trường?
+
+=== PDF PAGE 047 ===
+cùng môn
+Đã chốt: người thay trong đôi/tiếp sức phải đã đăng ký nội dung cá nhân cùng môn, thuộc cùng trường
+và đáp ứng điều kiện nội dung.
+
+Câu 182: Việc thay thành viên này do tài khoản nhà trường gửi yêu cầu để tổ trưởng xác nhận trước khi
+thi đấu, hay do trọng tài cập nhật theo đề nghị trực tiếp của HLV?
+
+HLV báo với trọng tài
+Đã ghi nhận: HLV báo trực tiếp cho trọng tài, trọng tài cập nhật thành viên thay thế từ danh sách VĐV đã
+đăng ký cá nhân cùng môn.
+
+Câu 183: Việc thay thành viên có cần tổ trưởng xác nhận trước khi đôi/đội thi đấu, hay trọng tài xác
+nhận là đủ và hệ thống lưu lịch sử?
+
+Trọng tài xác nhận và điều chỉnh danh sách thi đấu
+Đã chốt: trọng tài xác nhận và điều chỉnh thành viên đôi/tiếp sức theo đề nghị của HLV; hệ thống lưu
+người thay, người được thay, thời gian và lý do.
+
+Câu 184: Người thay có phải vẫn đáp ứng giới hạn tối đa 1 nội dung đôi/tiếp sức trong môn, hay được
+phép tham gia thêm nội dung để thay người bỏ cuộc?
+
+Câu 183: trọng tài nhấp tên người trong danh sách thi đấu đôi/tiếp
+sức để chọn người thay thế
+Mỗi môn chỉ có 1 nội dung "đặc biệt" nên không cần quy định
+
+Đã cập nhật: trọng tài nhấp tên thành viên trong danh sách đôi/tiếp sức để chọn người thay thế. Mỗi
+môn chỉ có một nội dung “đặc biệt”, nên không cần kiểm tra thêm giới hạn này.
+
+Câu 185: Danh sách chọn người thay có chỉ hiển thị VĐV cùng trường, đã đăng ký cá nhân cùng môn,
+đúng giới tính/nhóm thi đấu, chưa có trong đội và chưa bị truất quyền ở nội dung đó, đúng không
+
+anh?
+
+Chính xác. bạn thật tuyệt vời
+
+Đã chốt: danh sách thay thế chỉ hiện VĐV đáp ứng đầy đủ các điều kiện trên.
+
+=== PDF PAGE 048 ===
+Câu 186: Với các môn cá nhân đối kháng từ 6 VĐV trở lên, phần mềm dùng quy tắc ghép tuần tự từng
+
+vòng và không miễn hai vòng liên tiếp đã thống nhất, quy tắc này được ưu tiên nếu khác sơ đồ trong
+
+file Excel, đúng không anh?
+
+hãy cho tôi một ví dụ cụ thể
+
+Ví dụ nội dung Đẩy gậy có 10 VĐV, số 1-10 là vị trí bốc thăm, không phải mã VĐV.
+
+Vòng Các cặp thi đấu Miễn đấu
+
+1— 10 người 1-2, 3-4, 5—6, 7-8, 9-10 Không
+
+2— 5 người Thắng 1-2 gặp thắng 3-4; thắng 5-6 gặp thắng 7-8 Thắng 9-10
+
+3 —3 người Thắng cặp thứ hai vòng 2 gặp thắng 9-10 Thắng cặp thứ nhất vòng 2
+Chung kết Hai người đi tiếp từ vòng 3 gặp nhau Không
+
+Giả sử vòng 1 các VĐV 1, 3, 5, 7, 9 thắng:
+e_ Vòng 2: 1 gặp 3; 5 gặp 7; số 9 được miễn. Giả sử số 1 và 5 thắng.
+
+e _ Vòng 3: số 9 không được miễn lần nữa, nên đấu với số 5; số 1 được miễn. Giả sử số 9 thắng.
+
+e Chung kết: số 1 gặp số 9.
+
+Điểm khác biệt cần chốt ở câu 186 là: nếu sơ đồ Excel bố trí suất miễn đấu khác ví dụ này, phần mềm sẽ
+
+ưu tiên quy tắc anh đã thống nhất: không miễn hai vòng liên tiếp; khi nhánh cuối vừa được miễn thì
+
+chuyển suất miễn sang nhánh đầu đủ điều kiện.
+
+Anh có đồng ý lấy cách chia trong ví dụ này làm quy tắc ưu tiên không?
+
+cho tôi ví dụ 1 tình huống mà vđv được miễn 2 vòng liên tiếp mà
+
+không phải do có vđv bỏ cuộc
+
+Ví dụ 10 VĐV, nếu luôn cho nhánh cuối được miễn khi số người còn lại lẻ:
+
+Vòng Thi đấu VĐV được miễn
+Vòng 1: 10 người 1-2, 3-4, 5—6, 7-8, 9-10. Giả sử 1, 3, 5, 7, 9 thắng. Không
+Vòng 2: 5 người 1~3, 5—7. Giả sử 1 và 5 thắng. Số 9
+
+=== PDF PAGE 049 ===
+Vòng Thi đấu VĐV được miễn
+Vòng 3: 3 người 1-5 Số 9 tiếp tục được miễn, vào chung kết
+Như vậy, số 9 chỉ thi đấu vòng đầu nhưng được miễn cả vòng 2 và vòng 3, dù không có ai bỏ cuộc.
+Nguyên nhân là số người giảm từ 10 ¬ 5 ¬ 3, hai vòng liên tiếp đều lẻ.
+Theo quy tắc anh đã đặt, ở vòng 3 phải đổi suất miễn sang số 1, còn số 5 đấu số 9.
+
+Xem xét vđv ảo ở vị trí số 0 xếp vị trí nhánh 2 có xử lý được không?
+Có thể xử lý, nếu vị trí VĐV ảo được điều chỉnh theo từng vòng. Chỉ đặt số 0 cố định ở nhánh 2 từ đầu
+thì chưa bảo đảm tránh miễn hai vòng liên tiếp.
+
+Với ví dụ 10 VĐV, sau vòng đầu còn 1, 3, 5, 7, 9:
+
+Vòng Bố trí cặp, dùng 0 là VÐV ảo Kết quả giả định
+
+2 1-3; 5—7; 9-0 1, 5 thắng; 9 được miễn
+
+3 1-0; 5-9 1 được miễn, 5 và 9 phải đấu
+Chung kết 1 gặp người thắng 5—9 Xác định vàng, bạc
+
+Ở vòng 3, đưa 0 vào vị trí thứ hai, ghép với số 1 sẽ giải quyết tình huống này: số 9 không được miễn tiếp.
+
+Quy tắc có thể viết thành: mỗi vòng lẻ thêm một VĐV ảo số 0; ghép số 0 với người chưa được miễn ở
+vòng ngay trước, giữ thứ tự tương đối của những người còn lại. Số 0 không phải hồ sơ VĐV thật và
+không được tính vào số người tham gia.
+
+Ý anh “nhánh 2” là vị trí thứ hai của danh sách vòng đó, tức cặp đầu tiên là VĐV thật-0, đúng không?
+trường hợp 10 väy thì có thể có 2 vđv ảo cho nhánh đầu và nhánh
+cuối
+
+Có thể bố trí 2 VÐV ảo ở nhánh đầu và nhánh cuối cho 10 VĐV thật. Ví dụ:
+
+Vòng Các cặp thi đấu Miễn đấu
+
+L 1-ảo, 2-3, 4-5, 6-7, 8-9, 10-ảo Số 1 và 10
+
+=== PDF PAGE 050 ===
+Vòng
+
+Chung kết
+
+
+Các cặp thi đấu
+Giả sử còn 1, 2, 4, 6, 8, 10: đấu 1-2, 4—6, 8-10
+Giả sử còn 1, 4, 10: đấu 1¬4, 10-ảo
+
+Thắng 1—4 gặp số 10
+
+Miễn đấu
+
+Cách này không có ai miễn hai vòng liên tiếp: số 10 miễn vòng 1, phải đấu vòng 2, rồi mới được miễn
+
+vòng 3. Tuy nhiên, có thể có người được miễn hai lần trong cả giải, như số 10 trong ví dụ.
+
+Anh muốn cho phép miễn nhiều lần trong giải, miễn là không ở hai vòng liên tiếp, đúng không?
+
+Ví dụ 10 VĐV thật, thêm 2 VĐV ảo ở đầu và cuối, không có ai bỏ cuộc:
+
+Vòng
+Vòng 1
+Vòng 2
+Vòng 3
+Chung kết
+
+Đường đi của VĐV số 10:
+
+se Vòng 1: miễn đấu.
+
+Cặp đấu và kết quả giả định
+
+đưa ra tình huống cụ thể
+
+1-ảo: 1 miễn đấu; 2 thắng 3; 4 thắng 5; 6 thắng 7; 8 thắng 9; 10-ảo: 10 miễn đấu
+
+1 thắng 2; 4 thắng 6; 10 thắng 8
+
+1 thắng 4; 10-ảo: 10 miễn đấu
+
+1 gặp 10
+
+e_ Vòng 2: thi đấu và thắng số 8.
+
+e _ Vòng 3: miễn đấu lần thứ hai.
+se Chung kết: thi đấu với số 1.
+
+Như vậy, số 10 được miễn hai lần nhưng không liên tiếp, chỉ cần thắng một trận thực tế để vào chung
+
+kết. Số 1 phải thắng hai trận thực tế để vào chung kết. Đây là tình huống cần cân nhắc về mức độ công
+bằng khi dùng hai VĐV ảo.
+
+bố trí 4 vở viên ảo chia đều trên dưới thì dao?
+
+Nếu 10 VĐV thật + 4 VĐV ảo, chia đều nửa trên và nửa dưới, vòng đầu có thể bố trí:
+
+=== PDF PAGE 051 ===
+Nửa sơ đồ Cặp đấu Đi tiếp giả định
+Trên 1-ảo; 2-3; 4-ảo; 5—6 1,2,4, 5
+Dưới 7-ảo, 8-9, 10-ảo 7, 8, 10
+
+Sau vòng đầu còn 7 người. Vòng hai vẫn phải có một suất miễn đấu.
+
+Nếu tiếp tục miễn cho nhánh cuối, số 10 sẽ được miễn hai vòng liên tiếp. Có thể chuyển suất miễn cho
+
+số 2 hoặc số 5 vì họ đã đấu vòng đầu, nhưng sơ đồ phải điều chỉnh.
+
+Vì vậy, 4 VÐV ảo chưa giải quyết triệt để. Nếu muốn sơ đồ cố định, các vòng sau không phát sinh suất
+miễn, thì với 10 VÐV cần 6 vị trí ảo để đủ sơ đồ 16 vị trí:
+
+e _ Vòng đầu: 2 trận thực tế + 6 suất miễn, còn 8 người.
+
+e_ Các vòng sau: 8 ¬ 4 ¬ 2 ¬ 1, không còn miễn đấu.
+
+Anh muốn ưu tiên sơ đồ cố định đủ 16 vị trí, hay ít suất miễn vòng đầu và điều chỉnh suất miễn ở các
+
+vòng sau?
+
+nghiên cứu bố trí 2 vđv ảo ở giữa nhánh, 2vđv này không gặp nhau
+Có thể bố trí 2 VĐV ảo ở giữa hai nửa sơ đồ, mỗi VÐV ảo gặp một VĐV thật. Với 10 VĐV, cách này tạo
+6 nhánh đi tiếp sau vòng đầu.
+
+Ví dụ dưới đây dùng số 1-10 là vị trí bốc thăm:
+
+Vòng Cặp đấu Kết quả giả định
+Vòng 1 1-2; 3-ảo; 4-5; 6-7; 8-ảo; 9—10 1,3, 4, 6, 8, 9 đi tiếp
+Vòng 2 1-3; 4-6; 8-9 1, 4, 8 thắng
+
+Vòng 3 1~4, 8-ảo 1 thắng; 8 miễn đấu
+Chung kết 1-8 Tranh vàng, bạc
+
+Hai vị trí ảo vòng đầu nằm trong cặp thứ 2 và cặp thứ 5, đối xứng quanh giữa sơ đồ, không gặp nhau.
+
+Cách này bảo đảm không miễn hai vòng liên tiếp: số 3 và số 8 được miễn vòng đầu nhưng đều phải đấu
+
+vòng hai. Tuy nhiên, số 8 vẫn có thể được miễn hai lần cách nhau một vòng, như ví dụ.
+
+=== PDF PAGE 052 ===
+Anh có chấp nhận một VĐV được miễn nhiều lần, miễn không ở hai vòng liên tiếp, để chốt cách bố trí
+
+này không?
+
+bố trí 4 vđv ảo,1 trên, 1 dưới và 2 giữa
+
+Với 10 VĐV thật và 4 VĐV ảo, bố trí 1 trên, 1 dưới, 2 giữa, ta có thể xếp như sau:
+
+Nhánh vòng đầu Cặp đấu
+1 — trên T-ảo
+
+2 2¬3
+3— giữa 4-ảo
+4—giữa s-ảo
+
+5 6-7
+
+6 8-9
+7— dưới 10-ảo
+
+Sau vòng đầu còn 7 người: 1, 2, 4, 5, 6, 8, 10.
+
+Nếu ghép tuần tự 1-2, 4-5, 6-8, số 10 được miễn tiếp, vi phạm quy tắc không miễn hai vòng liên tiếp.
+
+Người đi tiếp giả định
+
+1 miễn đấu
+
+2 thắng
+
+4 miễn đấu
+
+5 miễn đấu
+
+6 thắng
+
+8 thắng
+
+10 miễn đấu
+
+Có thể xử lý bằng cách chuyển suất miễn vòng hai sang số 2, vì số 2 đã thi đấu vòng đầu:
+
+Vòng Các cặp
+
+Vòng 2 2 miễn đấu; 1-4; 5-6; 8-10
+Vòng 3 Còn 4 người, đấu 2 cặp
+Chung kết Còn 2 người
+
+Cách bố trí của anh thực hiện được, nhưng phải cho phép điều chỉnh ghép cặp vòng hai để suất miễn
+
+thuộc về người đã thi đấu vòng trước.
+
+Anh có đồng ý phần mềm tự điều chỉnh như vòng hai trong ví dụ này không?
+
+=== PDF PAGE 053 ===
+đồng ý tạo vđv ảo vòng 2 như đề xuất
+
+Đã chốt cho trường hợp 10 VĐV: vòng đầu bố trí 4 vị trí ảo — 1 trên, 1 dưới, 2 giữa; vòng hai thêm vị trí
+ảo và điều chỉnh cặp để người được miễn đã thi đấu vòng trước. Vị trí ảo không có hồ sơ hay mã VĐV
+thật.
+
+Câu 187: Với số lượng VĐV khác, anh muốn phần mềm tự đề xuất sơ đồ để tổ trưởng kiểm tra, xác
+nhận, bảo đảm không có hai vị trí ảo gặp nhau và không ai được miễn hai vòng liên tiếp, đúng không?
+
+đồng ý. sơ đồ nhánh phải thể hiện đủ các vòng đấu.
+Đã chốt: phần mềm đề xuất sơ đồ đầy đủ từ vòng đầu đến chung kết, gồm vị trí ảo và các suất miễn
+đấu dự kiến; tổ trưởng kiểm tra, xác nhận trước khi công bố.
+
+Câu 188: Với các vòng chưa có kết quả, sơ đồ có hiển thị “Thắng trận 1”, “Thắng trận 2”..., rồi tự thay
+bằng mã và tên VĐV khi có kết quả, đúng không anh?
+
+có. render giúp tôi sơ đồ trường hợp có 14 vđv
+
+Với 14 VĐV, tôi đề xuất thêm 2 vị trí ảo ở đầu và cuối để đủ 16 vị trí. Sau vòng đầu còn 8 người, các vòng
+
+sau không cần miễn đấu. Số 1-14 dưới đây là vị trí bốc thăm.
+
+=== PDF PAGE 054 ===
+VĐV 1 và 14 chỉ được miễn vòng đầu, sau đó phải đấu tứ kết. Toàn bộ giải có 13 trận thực tế, không có
+
+hai vị trí ảo gặp nhau và không ai miễn hai vòng liên tiếp.
+
+Khi trọng tài lưu tỷ số, tên người thắng xuất hiện ở vòng sau với nhãn “Chờ xác nhận”; tổ trưởng xác
+nhận thì mới được nhập điểm trận tiếp theo.
+
+tạo sơ đồ sao cho cân đối, canh giữa màn hình
+
+Worked for 45s >
+
+rất đẹp, tuy nhiên tôi chưa thấy ô nhập điểm
+
+Worked for 31s >
+
+Đã bổ sung hai ô nhập điểm trong mỗi trận. Anh có thể thử nhập ở vòng đầu; ô vòng sau được khóa để
+
+thể hiện yêu cầu chờ tổ trưởng xác nhận.
+
+=== PDF PAGE 055 ===
+chưa đúng yêu cầu của tôi. ô nhập điểm thiết kế cuối tên đối với
+nhánh trái và đầu tên đối với nhánh phải, ngay sát chỗ giao nhánh.
+
+mỗi vđv, mỗi vòng có 1 ô nhập điểm theo quy tắc trên
+
+Worked for 42s >
+
+Đã sửa: mỗi VĐV một dòng, một ô điểm mỗi vòng; nhánh trái đặt điểm sau tên, nhánh phải đặt điểm
+trước tên, sát phía đường nối nhánh.
+
+giả sửa trận 2 có kết quả 3-2, vđv nào được chuyển vào Tứ kết
+
+Trận 2 là VĐV số 2 gặp VĐV số 3. Tỷ số 3-2 tương ứng:
+
+e_ VĐV số 2:3 điểm.
+
+e_ VĐVsốõ3: 2 điểm.
+VĐV số 2 thắng, được đưa vào Tứ kết 1 gặp VĐV số 1, với nhãn “Chờ xác nhận”. Sau khi tổ trưởng xác
+nhận, trọng tài mới được nhập điểm trận tứ kết này.
+
+=== PDF PAGE 056 ===
+phần mềm có đảm bảo vẽ được nhánh như thế này không? với điều
+kiện không dùng AI
+
+Có, phần mềm hoàn toàn có thể vẽ và cập nhật sơ đồ như vậy mà không dùng AI. Đây là chức năng lập
+trình theo quy tắc xác định.
+
+Hệ thống gồm hai phần:
+e Tạo sơ đồ: tính các vòng, cặp đấu, vị trí ảo, hạt giống và suất miễn theo quy tắc đã chốt.
+e_ Vẽ sơ đồ: dùng SVG để đặt tên, ô điểm, đường nối đối xứng và căn giữa màn hình. Mỗi trận có liên
+kết rõ người thắng sẽ vào vị trí nào ở vòng sau.
+
+Ví dụ trận 2 có tỷ số 3-2, phần mềm so sánh điểm, đưa VĐV số 2 vào đúng vị trí của Tứ kết 1, hiển thị
+“Chờ xác nhận”. Khi tổ trưởng xác nhận, ô nhập điểm trận tiếp theo được mở.
+
+Điều cần chốt kỹ là quy tắc tạo nhánh cho mọi số lượng VĐV, đặc biệt việc thêm vị trí ảo và đổi suất
+miễn. Sau đó có thể kiểm thử từng trường hợp để bảo đảm không mất/trùng VĐV, không có hai vị trí ảo
+gặp nhau và không miễn hai vòng liên tiếp. Việc vẽ sơ đồ sẽ thực hiện tự động, nhất quán theo các quy
+
+tắc đó.
+tiếp tục
+Câu 189: Nếu sơ đồ cần đổi người được miễn ở vòng sau để tránh miễn hai vòng liên tiếp, anh có đồng ý
+
+sơ đồ ban đầu ghi “Suất miễn: xác định theo kết quả vòng trước”, rồi phần mềm tự cập nhật đường
+nhánh khi biết người thắng, trước khi tổ trưởng xác nhận vòng tiếp theo không?
+
+Phần mềm phải tính toán từ ban đầu, không được vẽ lại sơ đồ khi đã
+tổ chức nội dung thi đấu
+Đã chốt: phần mềm phải tính đủ các vòng, vị trí ảo và suất miễn trước khi tổ chức. Khi thi đấu, chỉ cập
+nhật tên, trạng thái và điểm vào các vị trí có sẵn, không đổi đường nối hoặc ghép lại nhánh.
+
+Vì vậy, cách chuyển suất miễn tùy người thắng đã đề xuất trước đây sẽ không áp dụng. Mỗi sơ đồ phải
+được kiểm tra từ đầu để bảo đảm không ai có thể được miễn hai vòng liên tiếp.
+
+Câu 190: Anh có đồng ý dùng sơ đồ đủ 8, 16, 32... vị trí, bổ sung vị trí ảo ở vòng đầu, để mọi vòng sau có
+nhánh cố định và không phát sinh suất miễn mới không? Ví dụ 10 VĐV dùng sơ đồ 16 vị trí với 6 vị trí ảo.
+
+hãy đưa ra tối thiểu 3 phương án sắp xếp, thực hiện phản biện sâu và
+đề xuất phương án tối ưu nhất để tôi chốt cho câu này
+
+=== PDF PAGE 057 ===
+Tôi đề xuất sơ đồ chuẩn đủ 8, 16, 32... vị trí, chỉ bố trí suất miễn ở vòng đầu. Đây là phương án đáp ứng
+
+chắc chắn cả hai yêu cầu anh vừa chốt: sơ đồ cố định từ đầu và không ai được miễn hai vòng liên tiếp.
+
+Tôi cũng điều chỉnh nhận định trước: phương án 10 VĐV thêm 4 vị trí ảo rồi đổi suất miễn vòng hai
+
+không phù hợp với yêu cầu không thay đổi nhánh khi đã thi đấu.
+
+Để so sánh rõ, cả ba phương án dưới đây đều lấy ví dụ 10 VĐV thật, không có người bỏ cuộc. “Vị trí ảo”
+chỉ là suất trống, không tạo hồ sơ VĐV.
+
+Tiêu chí
+
+Vòng đầu
+
+Số người sau vòng đầu
+
+Đường vào chung kết
+
+Miễn hai vòng liên tiếp
+
+Số trận thực tế toàn giải
+Cân đối hai nửa sơ đồ
+
+Dễ hiểu, dễ in, dễ kiểm
+
+tra
+
+Hỗ trợ nhiều số lượng
+VĐV
+
+1. Sơ đồ chuẩn 16 vị
+trí
+
+2 trận, 6 suất miễn
+
+Cố định
+
+Có
+
+Cao
+
+Một quy tắc chung
+
+Phương án 1 — Sơ đồ chuẩn 16 vị trí
+
+Bố trí sáu suất miễn phân bố cân đối, không để hai vị trí ảo gặp nhau:
+
+Nửa trên
+
+1-Ảo
+
+2. Sơ đồ cố định 12 vị
+trí
+
+4 trận, 2 suất miễn
+
+Cố định nhưng có
+nhánh đi tắt
+
+Có thể tránh bằng cấu
+
+trúc riêng
+
+Có thể cân đối
+
+Thấp hơn
+
+Cần thiết kế, kiểm tra
+
+từng cấu trúc
+
+Nửa dưới
+
+6-Ảo
+
+3. Vòng sơ loại rồi vào sơ đồ 8
+người
+
+2 trận sơ loại; 6 người vào thẳng vòng
+chính
+
+Cố định
+
+Có
+
+Cao
+
+Một quy tắc chung
+
+=== PDF PAGE 058 ===
+Nửa trên Nửa dưới
+2-3 78
+
+4-Ảo 9-Ảo
+5-Ảo 10-Ảo
+
+Sau vòng đầu, mỗi nửa còn 4 người. Các vòng tiếp theo luôn là 8 ¬ 4 ¬ 2 ¬ 1. Tất cả đường nối được vẽ
+và khóa từ đầu.
+
+Phản biện: Sáu người được miễn vòng đầu, chỉ bốn người phải thi đấu. Người được miễn cần thắng ba
+trận để vô địch, người không được miễn cần thắng bốn trận. Có chênh lệch về số trận, nhưng được xác
+
+định minh bạch bằng bốc thăm hoặc quy tắc hạt giống.
+
+Ưu điểm quyết định: Sau vòng đầu, mọi người đi tiếp có cùng số vòng còn lại. Không phải tính lại nhánh
+theo danh tính người thắng. Với 14 VĐV, phương án này chính là sơ đồ 16 vị trí, 2 suất miễn anh vừa
+
+xem.
+
+Phương án 2 — Sơ đồ 12 vị trí, suất miễn các vòng sau cố định từ đầu
+Chia mỗi nửa thành 5 VĐV thật + 1 vị trí ảo. Ví dụ nửa trên:
+
+e_ Vòng đầu: 1-Ảo, 2-3, 4-5.
+
+e _ Vòng tiếp: 1 gặp người thắng 2-3; người thắng 4-5 được miễn.
+
+e _ Sau đó, hai người còn lại đấu để xác định người vào chung kết toàn nội dung.
+Nửa dưới bố trí tương tự. Người được miễn vòng đầu phải đấu vòng tiếp; nhánh được miễn vòng tiếp đã
+có trận thực tế ở vòng đầu. Không cần đổi đường nối và không có miễn liên tiếp.
+Phản biện sâu: Đây là phương án khả thi cho 10 VĐV, nhưng vị trí bốc thăm quyết định cả thời điểm
+được nghỉ. Có người được nghỉ sau khi đối thủ đã phải thi đấu thêm một vòng. Sơ đồ có nhánh đi tắt
+nên khó đọc hơn; việc gọi tên vòng “tứ kết”, “bán kết” cũng kém thống nhất.
+
+Quan trọng hơn, bố trí đúng cho 10 VĐV không chứng minh được quy tắc đúng cho mọi số lượng. Phải
+
+thiết kế và kiểm tra thêm từng cấu trúc, đồng thời bảo đảm hai hạt giống chỉ gặp ở chung kết. Đây là
+phần dễ phát sinh lỗi khi lập trình và vận hành.
+
+Phương án 3 — Sơ loại để chọn đủ 8 người
+
+Bốc thăm 4 VĐV đấu hai trận sơ loại, sáu người còn lại vào thẳng vòng chính:
+e_ Sơ loại: A-B và C-D.
+
+e _ Hai người thắng cùng sáu người vào thẳng tạo thành 8 người.
+
+=== PDF PAGE 059 ===
+se Tiếp tục tứ kết ¬ bán kết ¬ chung kết.
+
+Ngay từ đầu, sơ đồ vòng chính ghi “Thắng sơ loại 1”, “Thắng sơ loại 2” tại các vị trí cố định.
+
+Phản biện: Về số trận và lợi thế bốc thăm, phương án này tương đương phương án 1. Nó chỉ tách vòng
+đầu thành một giai đoạn có tên “Sơ loại”, giúp bản in gọn hơn. Đổi lại, nếu chỉ nhìn vòng chính sẽ dễ bỏ
+
+sót bốn VĐV dự sơ loại; màn hình phải thể hiện đầy đủ cả hai giai đoạn.
+
+Đề xuất để anh chốt
+
+Chọn phương án †, với quy tắc:
+
+Lấy số vị trí là lũy thừa của 2 nhỏ nhất không thấp hơn số VĐV.
+Số vị trí ảo bằng số vị trí sơ đồ trừ số VĐV thật.
+
+Chỉ đặt vị trí ảo ở vòng đầu; mỗi vị trí ảo phải gặp một VĐV thật.
+
+Phân bố suất miễn cân đối giữa hai nửa; hai hạt giống nằm ở hai nửa khác nhau.
+
+mm +® 8mm
+
+Tổ trưởng kiểm tra, xác nhận; khi nội dung bắt đầu thì khóa cấu trúc và đường nối.
+
+6. Nếu về sau có người bỏ cuộc, ghi xử thắng trên nhánh hiện có, không dồn lại sơ đồ.
+
+Phương án này có thể tạo hoàn toàn bằng thuật toán, không cần AI, và dễ kiểm thử cho mọi quy mô
+đăng ký của giải.
+
+Anh chốt phương án 1, hay muốn chọn phương án 2 hoặc 3?
+
+Chốt phương án 1
+
+Đã chốt phương án †: sơ đồ đủ 8, 16, 32... vị trí, suất miễn chỉ ở vòng đầu, phân bố cân đối, khóa đường
+nối khi bắt đầu thi đấu. Quy tắc này thay thế các phương án bố trí VĐV ảo trước đó.
+
+Câu 191: Khi có hai hạt giống, họ có được ưu tiên nhận suất miễn vòng đầu nếu có, hay suất miễn vẫn
+được bốc thăm ngẫu nhiên như các VĐV khác?
+
+hạt giống được miễn vòng đầu và đảm bảo họ không gặp nhau cho
+đến bán kết. trong mục thiết lập nội dung thi, có nút chọn [ ] Có hạt
+giống, nếu tích thì hiện ô số lượng, tổ trưởng nhập và phần mềm quy
+định vị trí gán hạt giống trước khi bốc thăm các vị trí còn lại. Bốc
+thăm cần có 2 chế độ: tự động và thủ công. Tổ trưởng xác định danh
+sách bốc thăm trước khi nhấp Tạo vòng đấu
+
+Đã cập nhật: bật “Có hạt giống” sẽ hiện ô số lượng; phần mềm xác định vị trí để tổ trưởng gán hạt giống
+trước. Có bốc thăm tự động hoặc thủ công; tổ trưởng chốt danh sách rồi nhấn “Tạo vòng đấu”. Hạt
+giống được ưu tiên miễn vòng đầu nếu có suất.
+
+=== PDF PAGE 060 ===
+Câu 192: Anh vừa đổi điều kiện từ “chỉ gặp ở chung kết” thành “không gặp trước bán kết”. Có chốt tối
+đa 4 hạt giống, mỗi người ở một phần tư sơ đồ; nếu chỉ có 2 thì đặt ở hai nửa để chỉ gặp nhau ở chung
+kết không anh?
+
+đúng
+Đã chốt: tối đa 4 hạt giống, ở các phần tư khác nhau nên không gặp trước bán kết; 2 hạt giống ở hai
+nửa, chỉ có thể gặp tại chung kết.
+
+Câu 193: Nếu số suất miễn ít hơn số hạt giống — ví dụ 14 VĐV chỉ có 2 suất miễn nhưng chọn 4 hạt
+giống — có ưu tiên miễn cho hạt giống số 1 và 2, còn số 3 và 4 phải đấu vòng đầu không anh?
+
+đúng, miễn là số 1 và số 2 phải ở 2 nửa khác nhau
+Đã chốt: khi thiếu suất miễn, ưu tiên hạt giống †1 rồi 2; hai người luôn ở hai nửa khác nhau. Hạt giống 3
+và 4 ở hai phần tư còn lại.
+
+Câu 194: Chế độ bốc thăm thủ công có nghĩa là tổ trưởng nhập số vị trí đã bốc thăm thực tế cho từng
+VĐV, phần mềm kiểm tra trùng vị trí và các điều kiện trước khi cho nhấn “Tạo vòng đấu”, đúng không
+anh?
+
+đúng.
+Đã chốt: bốc thăm thủ công nhập vị trí thực tế của từng VĐV; phần mềm kiểm tra đủ danh sách, không
+trùng vị trí và đúng quy tắc trước khi tạo vòng đấu.
+
+Câu 195: Sau khi tạo sơ đồ, nhưng chưa có trận nào bắt đầu, nếu VĐV bỏ cuộc thì giữ nguyên vị trí và
+cho đối thủ thắng, hay vẫn dồn vị trí rồi tạo lại sơ đồ như quy tắc trước đây?
+
+Nguyên tắc không vẽ lại sơ đồ sau khi đã bốc thăm
+Đã chốt: khóa cấu trúc sơ đồ ngay sau khi chốt bốc thăm, kể cả chưa thi đấu. VĐV bỏ cuộc vẫn giữ vị trí,
+đối thủ được xử thắng; không dồn vị trí, không vẽ lại sơ đồ.
+
+Câu 196: Quy tắc này có hủy cả quyền bốc thăm lại và ghép hạng cân sau bốc thăm đã cho phép trước
+đây không? Nghĩa là mọi việc ghép hạng, chỉnh danh sách và bốc thăm lại phải hoàn tất trước khi chốt
+bốc thăm.
+
+đúng
+
+=== PDF PAGE 061 ===
+Đã chốt: sau khi chốt bốc thăm, không ghép hạng cân, bốc thăm lại, dồn vị trí hoặc thay đổi cấu trúc
+sơ đồ. Quy định này thay thế các quyền đã cho phép trước đó.
+
+Câu 197: Nếu cả hai VĐV trong một trận đều vắng mặt hoặc bị truất quyền, có để trống suất đi tiếp, và
+người gặp suất trống ở vòng sau được xử thắng không anh?
+
+đúng
+Đã chốt: nếu cả hai VĐV đều vắng hoặc bị truất quyền, không có người đi tiếp từ trận đó; giữ nguyên
+nhánh trống, đối thủ ở vòng sau được xử thắng.
+
+Câu 198: Nếu chung kết chỉ còn một VĐV đủ điều kiện, người đó có được huy chương vàng và 11 điểm,
+còn huy chương bạc không trao không anh?
+
+Nếu vào chung kết mà có 1 vđv thì phải chọn 1 vổv thua vòng trước
+có thành tích tốt nhất để thay vị trí vđv kia, đảm bảo có 2 väv thi đấu
+chung kết để trao huy chương vàng, bạc
+
+Đã ghi nhận: nếu chung kết chỉ có một VĐV, chọn người thua vòng ngay trước có thành tích tốt nhất để
+bổ sung vào vị trí trống, giữ nguyên đường nhánh, bảo đảm hai người thi đấu tranh vàng-bạc.
+
+Câu 199: “Thành tích tốt nhất” được xác định theo tiêu chí riêng từng môn do tổ trưởng thiết lập, phần
+mềm đề xuất người thay để tổ trưởng xác nhận, hay tổ trưởng trực tiếp chọn trong danh sách người
+thua vòng trước?
+
+Do tổ trưởng hội ý tổ vđv và quyết định
+Đã chốt: tổ trưởng hội ý và quyết định người được bổ sung vào chung kết, phần mềm không tự chọn,
+chỉ cập nhật vị trí trống và lưu quyết định.
+
+Câu 200: Danh sách được chọn có loại trừ VĐV đã vắng mặt hoặc bị truất quyền trong nội dung đó, chỉ
+gồm người thực tế thi đấu và thua ở vòng ngay trước, đúng không anh?
+
+đúng
+Đã chốt: chỉ được chọn VĐV thực tế thi đấu và thua vòng ngay trước, không vắng mặt hoặc bị truất
+quyền trong nội dung đó.
+
+Câu 201: Nếu VĐV được bổ sung vào chung kết vốn thuộc diện nhận huy chương đồng, người đó chỉ
+
+nhận vàng hoặc bạc theo kết quả chung kết, không nhận thêm đồng; vị trí đồng bỏ trống, đúng không
+
+=== PDF PAGE 062 ===
+anh?
+
+đôn väy kế tiếp lên nếu có đủ đk. thiết kế thêm trận Tranh HC đồng
+nếu tổ trưởng không tick Đồng hạng 3 ở khi thiết lập nội dung thi
+đấu
+
+Đã cập nhật: trong thiết lập nội dung có ô “Đồng hạng 3”. Nếu không tích, sơ đồ có thêm trận tranh huy
+chương đồng, được bố trí ngay từ đầu. Khi người thuộc diện nhận đồng được bổ sung vào chung kết,
+đôn VĐV kế tiếp đủ điều kiện.
+
+Câu 202: “VĐV kế tiếp” có phải do tổ trưởng chọn và xác nhận, tương tự cách bổ sung người vào chung
+kết, thay vì phần mềm tự quyết định không anh?
+
+Thế này nhé: Vonhf bán kết có 4 vdv, 2 người thắng vào chung kết, 2
+người thua tranh hc đồng
+
+vòng chung kết có VĐV vắng có lí do: được trao hcb, vắng không lí
+do hoặc bị truất quyền thi đấu thì bị tước điểm và hc
+
+Lý do: trận tranh HCĐ đã diễn ra trước trận CK nên không thay đổi
+được
+
+Đã sửa, bỏ phương án bổ sung người thua vào chung kết và đôn người tranh đồng:
+e _ Bán kết: 2 người thắng vào chung kết, 2 người thua tranh đồng nếu không chọn “Đồng hạng 3”.
+e _ Trận tranh đồng diễn ra trước chung kết, kết quả không thay đổi vì có người vắng ở chung kết.
+e _ VĐV vắng chung kết có lý do: nhận bạc; không có lý do hoặc bị truất quyền: bị tước huy chương và
+điểm.
+Câu 203: Nếu chỉ một VĐV có mặt ở chung kết, người đó được xử thắng, nhận vàng và 11 điểm, không
+
+cần thi đấu; người vắng có lý do nhận bạc và 9 điểm, đúng không anh?
+
+đúng
+Đã chốt: người có mặt được xử thắng, nhận vàng và T1 điểm; người vắng có lý do nhận bạc và 9 điểm.
+Người vắng không lý do hoặc bị truất quyền không nhận huy chương, điểm.
+
+Câu 204: Khi chọn “Vắng mặt”, trọng tài có phải nhập lý do và chọn “Có lý do chính đáng / Không có lý
+
+do chính đáng”, sau đó tổ trưởng xác nhận phân loại này không anh?
+
+Trọng tài nhập là xác định luôn. cách nhập thống nhất:
+Ở danh sách chung: nhấp tên vđv sẽ hiện nút Đăng ký thi đấu/Thoát
+
+=== PDF PAGE 063 ===
+trong nhánh đấu: nhấp để gán trạng thái Phép/Truất quyền thi đấu;
+truuất quyền gồm lý do vắng không phép
+
+Đã cập nhật cách thao tác:
+e - Danh sách chung: nhấp tên VĐV ¬ Đăng ký thi đấu / Thoát.
+e _ Nhánh đấu: nhấp tên ¬ gán Phép hoặc Truất quyền thi đấu; truất quyền gồm trường hợp vắng
+không phép.
+e _ Trọng tài xác định trạng thái ngay, không cần tổ trưởng duyệt riêng.
+Câu 205: Trong hộp thoại trạng thái nhánh đấu, có giữ lựa chọn “Có mặt” mặc định để phục hồi trạng
+thái, cùng “Phép”, “Truất quyền thi đấu” và hai nút Đồng ý / Thoát, đúng không anh?
+
+có, tối đã quy định nhưng quên. Lụa chọn này dùng để phục hồi
+
+quyết định sai của trọng tài
+
+Đã chốt: hộp thoại có Có mặt (mặc định) / Phép / Truất quyền thi đấu, nút Đồng ý / Thoát. Chọn “Có
+mặt” để phục hồi quyết định sai; mọi thay đổi lưu lịch sử và vẫn bị khóa khi vòng sau đã có kết quả được
+lưu.
+
+Câu 206: Với VĐV vắng có phép ở các vòng trước chung kết, người đó có được giữ thành tích và điểm
+theo vòng đã đạt, còn đối thủ được xử thắng đi tiếp, không anh?
+
+đúng
+
+Đã chốt: VĐV vắng có phép giữ thành tích và điểm theo vòng đã đạt, đối thủ được xử thắng đi tiếp.
+
+Câu 207: Nếu cả hai VÐV chung kết đều vắng có phép, hoặc đều bị truất quyền, việc quyết định huy
+chương và điểm có để tổ trưởng/quản trị xử lý riêng, nhập quyết định kèm lý do, thay vì phần mềm tự
+
+trao không anh?
+
+Tổ trưởng quyết định
+Đã chốt: khi cả hai VĐV chung kết đều không thi đấu, tổ trưởng quyết định huy chương và điểm; hệ
+thống lưu quyết định, lý do và người thực hiện.
+
+Câu 208: Việc truất quyền thi đấu có hủy toàn bộ thành tích, điểm và huy chương của VĐV trong nội
+dung đó, kể cả các vòng trước, đúng không anh?
+
+Truất quyền thi đấu chỉ ảnh hưởng đến nội dung thi có liên quan
+
+=== PDF PAGE 064 ===
+Đã chốt: truất quyền chỉ ảnh hưởng nội dung liên quan, không ảnh hưởng các nội dung khác của VĐV.
+
+Câu 209: Trong nội dung bị truất quyền, phần mềm hủy toàn bộ điểm và huy chương, nhưng vẫn giữ kết
+quả các trận trước trong lịch sử để đối chiếu, đúng không anh?
+
+đúng
+Đã chốt: trong nội dung bị truất quyền, hủy điểm và huy chương của VĐV, nhưng giữ kết quả các trận
+trước và lịch sử xử lý để đối chiếu.
+
+Câu 210: Khi một VĐV bị truất quyền ở vòng sau, kết quả các trận trước vẫn giữ nguyên, không đưa
+những người đã thua VĐV đó trở lại thi đấu, đúng không anh?
+
+đúng, thực hiện đúng theo sơ đồ đã vẽ
+Đã chốt: giữ nguyên sơ đồ và kết quả các trận trước; không đưa VĐV đã bị loại trở lại khi người thắng
+họ bị truất quyền ở vòng sau.
+
+Câu 211: Với đôi, tiếp sức và đội, trạng thái Có mặt / Phép / Truất quyền thi đấu có áp dụng cho cả đôi/
+đội khi trọng tài nhấp tên trường trên sơ đồ, tương tự VĐV cá nhân không anh?
+
+1 người vắng hoặc bị mất quyền thi đấu thì HLV có quyền chọn
+người trong đội hợp lệ để thay thế. không đủ người thì bị xử thua 2-
+0
+
+Đã cập nhật: nếu một thành viên vắng hoặc bị truất quyền, HLV chọn người thay hợp lệ, trọng tài cập
+nhật danh sách. Không đủ người thì đôi/đội bị xử thua 0-2.
+
+Câu 212: Tỷ số xử thua 0-2 chỉ áp dụng cho môn tính tỷ số hiệp như Cầu lông, Đá cầu, Kéo co, còn Bóng
+
+đá, tiếp sức và quyền đồng đội dùng kết quả xử thua riêng theo môn, đúng không anh?
+
+đúng
+
+Đã chốt: xử thua 0-2 áp dụng cho Cầu lông, Đá cầu và Kéo co; các môn còn lại dùng cách xử lý riêng.
+Câu 213: Với Bóng đá, đội không đủ người thi đấu được xử thua 0-3, hay anh muốn dùng tỷ số khác?
+
+đúng
+Đã chốt: đội Bóng đá không đủ người thi đấu bị xử thua 0-3.
+
+=== PDF PAGE 065 ===
+Câu 214: Với tiếp sức và Vovinam quyền đôi/đội, nếu không đủ thành viên hợp lệ để thay thế, có ghi
+“Không thi đấu”, không xếp hạng và không tính điểm nội dung đó không anh?
+
+đúng
+Đã chốt: tiếp sức và Vovinam quyền đôi/đội không đủ thành viên hợp lệ thì ghi “Không thi đấu”, không
+xếp hạng và không tính điểm nội dung đó.
+
+Câu 215: Khi Cầu lông/Đá cầu bị xử thua 0-2, phần mềm có cần ghi thêm điểm từng hiệp theo mức xử
+thua do tổ trưởng thiết lập, để tính hiệu số điểm khi xếp hạng vòng tròn, không anh?
+
+có
+Đã chốt: khi xử thua 0-2 ở Cầu lông/Đá cầu, phần mềm ghi điểm từng hiệp theo mức tổ trưởng thiết lập
+trước, để tính hiệu số điểm vòng tròn.
+
+Câu 216: Khi VĐV/đội bỏ cuộc trong giải vòng tròn sau khi đã đấu một số trận, giữ kết quả các trận đã
+đấu và xử thua các trận còn lại, hay hủy toàn bộ kết quả đối đầu của VĐV/đội đó?
+
+giữ kết quả, xử thua các trận còn lại
+
+Đã chốt: trong vòng tròn, giữ kết quả các trận đã đấu và xử thua các trận còn lại nếu VĐV/đội bỏ cuộc.
+
+Câu 217: Nếu VĐV/đội bị truất quyền trong giải vòng tròn, có áp dụng cùng cách này — giữ kết quả đối
+đầu đã đấu, xử thua các trận còn lại, nhưng không xếp hạng, không tính điểm thành tích và huy chương
+cho bên bị truất quyền — đúng không anh?
+
+đúng
+Đã chốt: bên bị truất quyền trong vòng tròn giữ kết quả đối đầu đã đấu, bị xử thua các trận còn lại,
+nhưng không được xếp hạng, tính điểm thành tích hay nhận huy chương.
+
+Câu 218: Với môn không hòa, trận còn lại bị xử thua do vắng có phép có tính 1 điểm thua, còn vắng
+
+không phép hoặc truất quyền tính 0 điểm, đúng không anh?
+
+đúng
+
+Đã chốt: môn không hòa, vắng có phép được 1 điểm thua; vắng không phép hoặc truất quyền được 0
+điểm. Đối thủ được 2 điểm thắng.
+
+=== PDF PAGE 066 ===
+Câu 219: Nếu cả hai bên đều vắng trong một trận vòng tròn, có ghi “Không diễn ra”, không bên nào
+được điểm và không cộng tỷ số vào hiệu số không anh?
+
+đúng
+Đã chốt: cả hai bên vắng trong trận vòng tròn thì ghi “Không diễn ra”, cả hai được 0 điểm, không cộng
+tỷ số vào hiệu số.
+
+Câu 220: Ở vòng tròn, trạng thái “Phép” hoặc “Truất quyền thi đấu” được gán riêng cho từng trận, hay
+áp dụng ngay cho toàn bộ các trận còn lại của nội dung?
+
+phép thì tiếp tục các trận còn lại. truất uyền thi đấu phải dùng lại
+Đã chốt: “Phép” chỉ áp dụng cho trận đang xét, VĐV/đội vẫn được thi đấu các trận sau. “Truất quyền thi
+đấu” thì dừng toàn bộ các trận còn lại của nội dung.
+
+Câu 221: Khi chuyển từ “Truất quyền thi đấu” về “Có mặt” để sửa quyết định sai, phần mềm có hủy các
+kết quả xử thua tự động ở những trận chưa diễn ra, để VĐV/đội tiếp tục thi đấu không anh?
+
+lhôi phục quyền thi đấu và thành tích
+Đã chốt: khi sửa quyết định truất quyền về “Có mặt”, phần mềm khôi phục quyền thi đấu và thành tích,
+gỡ các kết quả xử thua tự động liên quan, đồng thời lưu lịch sử.
+
+Câu 222: Trong vòng tròn, việc phục hồi có được thực hiện bất kỳ lúc nào trước khi khóa kỳ giải, hay bị
+khóa khi lượt đấu kế tiếp đã có kết quả được trọng tài lưu, tương tự quy tắc đã chốt cho loại trực tiếp?
+
+bất kỳ lúc nào. trận không tổ chức do kết luận sai của trọng tài sẽ
+được tổ trưởng bố trí thi đấu lại
+
+Đã chốt: trong vòng tròn, được phục hồi quyền thi đấu và thành tích bất kỳ lúc nào trước khi khóa kỳ
+giải. Trận chưa tổ chức do quyết định sai sẽ được tổ trưởng bố trí thi đấu lại, có lưu lịch sử và thông báo
+lịch mới.
+
+Câu 223: Khi phục hồi, các trận thực tế đã thi đấu vẫn giữ nguyên kết quả; chỉ gỡ kết quả xử thua tự
+động do quyết định sai và tính lại bảng xếp hạng, đúng không anh?
+
+đúng
+
+=== PDF PAGE 067 ===
+Đã chốt: khi phục hồi trong vòng tròn, giữ kết quả các trận thực tế đã đấu, chỉ gỡ xử thua tự động do
+quyết định sai và tính lại bảng xếp hạng.
+
+Câu 224: Khi một nội dung đã hoàn thành và kết quả được xác nhận đầy đủ, phần mềm có tự cập nhật
+huy chương, điểm trường, xếp hạng môn và toàn đoàn, hay phải chờ tổ trưởng nhấn “Chốt nội dung”
+mới đưa vào tổng hợp?
+
+tự xếp và ghi kết quả sơ bộ
+
+Đã chốt: phần mềm tự tổng hợp huy chương, điểm và xếp hạng, hiển thị nhãn “Kết quả sơ bộ”.
+
+Câu 225: Để chuyển sang kết quả chính thức, có phải tổ trưởng chốt nội dung và xếp hạng môn mình
+phụ trách; quản trị chốt xếp hạng toàn đoàn không anh?
+
+đúng
+Đã chốt: tổ trưởng chốt nội dung và xếp hạng môn; quản trị chốt xếp hạng toàn đoàn để công bố
+chính thức.
+
+Câu 226: Nếu kết quả thi đấu được sửa sau khi đã chốt, phần mềm có chuyển các bảng tổng hợp bị ảnh
+
+hưởng về “Kết quả sơ bộ”, tính lại và yêu cầu người có thẩm quyền chốt lại không anh?
+
+có
+Đã chốt: sửa kết quả sau khi chốt sẽ tính lại các bảng bị ảnh hưởng, chuyển về “Kết quả sơ bộ” và yêu
+cầu chốt lại, có lưu lịch sử.
+
+Câu 227: Với Cờ vua, sau khi nhập bảng kết quả cá nhân, phần mềm có cần tính thêm xếp hạng đồng
+đội từ tổng điểm của 2 VĐV cùng trường trong nội dung đó theo điều lệ, hay chỉ tiếp nhận kết quả
+đồng đội từ phần mềm Cờ vua bên ngoài?
+
+thiết kế nhập tất cả csc thông tin cần thiết để xếp hạng theo điều lệ
+
+và quy định chung của HKPĐ cấp tians quốc
+
+Đã ghi nhận: với Cờ vua, cần nhập đủ dữ liệu để tính xếp hạng cá nhân và đồng đội theo điều lệ, gồm
+điểm, hệ số Buchholz, số ván thắng, số ván thắng khi cầm quân đen, kết quả đối đầu và thành viên
+tính điểm đồng đội. Các trường chính xác sẽ được đối chiếu thêm với quy định cấp toàn quốc.
+
+Câu 228: Anh có điều lệ Hội khỏe Phù Đổng toàn quốc cụ thể muốn áp dụng không, hay muốn tôi tra
+cứu văn bản chính thức phù hợp để đề xuất, rồi anh xác nhận?
+
+=== PDF PAGE 068 ===
+tra cứu trên mạng
+
+Worked for 40s >
+
+Tôi đã tìm được Điều lệ HKPĐ toàn quốc lần X năm 2024, ban hành theo Quyết định 3318/QĐÐ-BGDĐT
+ngày 19/10/2023, được đăng trên cổng HKPĐ của ngành giáo dục Hải Phòng. Chưa xác minh được điều
+lệ toàn quốc mới hơn áp dụng cho năm 2026. @ noikhoephuden..
+
+Phần Cờ vua trên VietnamChess quy định thứ tự xếp hạng cá nhân: điểm ¬ điểm đối đầu trong nhóm
+bằng điểm ¬ Buchholz ¬ hệ số lũy tiến ¬ số ván thắng — số ván cầm quân đen ¬ số ván thắng bằng
+
+quân đen —¬ bốc thăm. ® mônczvu:
+
+Vì vậy, tôi đề xuất bảng nhập trực tiếp/CSV/Excel:
+
+Thông tin Mục đích
+
+Mã VĐV, họ tên, trường, nội dung Đối chiếu hồ sơ
+
+Tổng điểm thi đấu Xếp hạng chính
+
+Điểm đối đầu trong nhóm bằng điểm Tiêu chí phụ thứ nhất
+
+Buchholz, hệ số lũy tiến Phân hạng tiếp
+
+Số ván thắng, số ván cầm đen, số ván thắng cầm đen Các tiêu chí tiếp theo
+
+Kết quả bốc thăm, vị thứ cuối cùng Xử lý trường hợp vẫn bằng nhau
+
+Đây là đề xuất dữ liệu phần mềm dựa trên thứ tự trên. Điểm đối đầu phải gắn với nhóm bằng điểm đang
+xét; các hệ số có thể tiếp nhận từ phần mềm Cờ vua riêng.
+
+Có một khác biệt cần anh chốt: điều lệ xã tính đồng đội bằng tổng điểm thi đấu của hai VĐV; điều lệ
+toàn quốc được đăng trên VietnamChess tính bằng tổng điểm quy đổi theo xếp hạng của hai VĐV, rồi
+
+xét tổng thứ hạng và người có hạng cá nhân cao hơn. @ môncờvua
+
+Câu 229: Với xếp hạng đồng đội Cờ vua, anh chọn cộng điểm thi đấu theo điều lệ xã, hay cộng điểm
+quy đổi từ thứ hạng theo quy định toàn quốc vừa tra cứu?
+
+Năm nay bỏ đăng ký nội dung đồng đội cờ vua. cps thể thêm bớt nội
+
+dung thi ở mục Danh mục môn thi của Quản trị
+
+Nói rõ thêm:
+
+=== PDF PAGE 069 ===
+Danh mục môn thi của quản trị được trình bày dạng bảng với STT
+nhiều cấp
+VD:
+STT|Môn|bảng|nội dung|Lứa tuổi|phân môn|Chi tiết|Số vđv| Ghi chú
+1. |Cờ vua
+1.1. |Cờ vua|Nam| ||
+1.1.1. |Cờ vua|Nam|Cá nhân|Lớp 1-3| | |3
+
+2. |Bơi
+
+2.1. |Bơi|Nam|
+
+2.1.1.|Bơi|Nam|Cá nhân|Lứa tuổi 7-9|
+
+2.1. 1.1.|Bơi|Nam|Cá nhân|Lứa tuổi 7-9|Ếch|
+
+2.1. 1.1.1.|Bơi|Nam|Cá nhân|Lứa tuổi 7-9|Ếch|50m
+2.1. 1.1.2.|Bơi|Nam|Cá nhân|Lứa tuổi 7-9|Ếch|100m
+2.1.2.|Bơi|Nam|Tiếp sức tự do|Tiểu học
+
+Đã cập nhật: kỳ giải năm nay không tổ chức đồng đội Cờ vua; quản trị có thể thêm/bớt nội dung trong
+
+Danh mục môn thi.
+
+Danh mục hiển thị dạng bảng phân cấp, STT tự đánh số như 1 ¬ 1.1 — 1.1.1..., với các cột anh nêu. Mỗi
+môn có cấu trúc riêng; nội dung cuối cùng như Bơi — Nam —› Cá nhân — 7-9 tuổi — Ếch —¬ 50 m là nội
+dung được chọn khi đăng ký.
+
+Câu 230: Cột “Số VĐV” có nghĩa là số đăng ký tối đa của mỗi trường trong nội dung đó, còn số thành
+
+viên một đôi/đội được cấu hình riêng, đúng không anh?
+
+đúng
+Đã chốt: “Số VĐV” là hạn mức đăng ký của mỗi trường cho nội dung; số thành viên và cơ cấu giới tính
+của đôi/đội được thiết lập riêng.
+
+Câu 231: Khi quản trị thêm nội dung con, ví dụ Bơi ếch 50 m, phần mềm có tự kế thừa môn, bảng giới
+tính, loại nội dung, nhóm tuổi và phân môn từ dòng cha, để chỉ cần nhập chỉ tiết và hạn mức không
+anh?
+
+có
+Đã chốt: nội dung con tự kế thừa thông tin từ dòng cha; quản trị nhập phần chỉ tiết và hạn mức còn
+
+thiếu.
+
+=== PDF PAGE 070 ===
+Câu 232: Nếu nội dung đã có VĐV đăng ký, khi quản trị muốn bỏ nội dung đó, phần mềm có chuyển
+sang “Ngừng tổ chức”, giữ hồ sơ và lịch sử, thông báo cho các trường liên quan, thay vì xóa hẳn không
+anh?
+
+đúng, dừng và thông báo
+Đã chốt: nội dung đã có đăng ký được chuyển sang “Ngừng tổ chức”, giữ dữ liệu và lịch sử, đồng thời
+thông báo cho các trường liên quan.
+
+Câu 233: Nếu ngừng nội dung sau khi đã bốc thăm, sơ đồ có được giữ nguyên để tra cứu, nhưng khóa
+thi đấu và không tính điểm/huy chương, đúng không anh?
+
+Đúng
+
+Đã chốt: ngừng nội dung sau bốc thăm thì giữ sơ đồ để tra cứu, khóa thi đấu và không tính điểm/huy
+chương.
+
+Câu 234: Với nội dung chưa có đăng ký, quản trị có được xóa hẳn, và phần mềm tự đánh lại STT phân
+cấp nhưng giữ mã cố định của các nội dung còn lại không anh?
+
+Danh mục chia ra danh mục chung (đầy đủ) và Dnah mục Hội khỏe
+
+(Chỉ thẻ hiện các nội dung có vđv đăng ký)
+
+Đã cập nhật thành hai danh mục:
+e _ Danh mục chung: đầy đủ môn và nội dung, dùng để cấu hình và đăng ký.
+
+e _ Danh mục Hội khỏe: chỉ hiển thị nội dung có VĐV/đội đăng ký trong kỳ giải; giữ cấu trúc phân cấp.
+
+Câu 235: Danh mục Hội khỏe hiển thị nội dung ngay khi có đăng ký được lưu, hay chỉ khi có đăng ký
+được quản trị duyệt?
+
+có khi đăng ký được lưu. trường hợp không tổ chức do quản trọ
+
+quyết định
+Đã chốt: Danh mục Hội khỏe xuất hiện ngay khi đăng ký được lưu, không cần chờ duyệt. Quản trị quyết
+định nội dung nào không tổ chức; hệ thống hiển thị trạng thái tương ứng.
+
+Câu 236: Trong Danh mục Hội khỏe, có bổ sung các cột Số VĐV/đội đã đăng ký, Số trường, Số đăng ký
+đã duyệt và Trạng thái tổ chức để quản trị theo dõi điều kiện tổ chức không anh?
+
+Có. Chốt lại: các danh sách luôn hiển thị lưới dạng bảng, có tiêu đề
+
+=== PDF PAGE 071 ===
+Đã chốt: tất cả danh sách hiển thị dạng lưới bảng, có tiêu đề rõ ràng. Danh mục Hội khỏe bổ sung số
+
+VĐV/đội đăng ký, số trường, số đăng ký đã duyệt và trạng thái tổ chức.
+
+Câu 237: Các bảng có cần tìm kiếm, lọc theo môn/nội dung/trường/trạng thái và sắp xếp bằng cách
+
+nhấp tiêu đề cột, tùy màn hình, không anh?
+
+có
+Đã chốt: các bảng có tìm kiếm, bộ lọc phù hợp từng màn hình và sắp xếp khi nhấp tiêu đề cột; bảng
+phân cấp vẫn giữ quan hệ cha-con.
+
+Câu 238: Với các quy tắc còn chờ xác nhận ở câu 39 và 81-87, anh muốn để thành cấu hình chưa chốt và
+cảnh báo khi sử dụng, hay phải chốt hết trước khi tôi hoàn thiện đặc tả để lập trình?
+
+cho phép tìm kiến trên internet các quy định phù hợp để gợi ý cho
+
+tôi. Chưa quyết định cho đến khi tôi đồng ý
+
+Worked for 46s >
+Đã ghi nhận: được tra cứu để đề xuất, nhưng mọi quy tắc còn chờ đều chỉ chốt khi anh đồng ý.
+
+Tôi đã tìm được bản PDF Điều lệ HKPĐ toàn quốc lần X năm 2024 trên cổng của ngành giáo dục Hải
+Phòng. Tôi sẽ dùng làm nguồn đối chiếu và kiểm tra cả văn bản sửa đổi trước khi đề xuất áp dụng.
+
+ hoikhoephudon...
+
+Các nội dung cần xử lý lần lượt:
+
+Mục Vấn đề cần chốt
+
+Câu 39 Trừ điểm khi tự ý bỏ nội dung sau đăng ký chính thức
+
+Câu 81 Cách đấu phụ khi từ 3 VĐV/đội vẫn bằng nhau
+
+Câu 82 Phân hạng Kéo co, Đẩy gậy, Vovinam khi bằng điểm
+
+Câu 83-87 Điểm, huy chương theo số người và phạm vi áp dụng cho đôi/đội
+
+Tôi bắt đầu với câu 39. Điều lệ xã anh gửi đã nêu mức trừ T1 điểm, nhân hệ số đối với môn tập thể, và cho
+phép Ban tổ chức xem xét trường hợp có lý do đặc biệt.
+
+=== PDF PAGE 072 ===
+Gợi ý của tôi: phần mềm ghi nhận việc bỏ nội dung nhưng không tự trừ điểm. Quản trị xác nhận quyết
+định xử phạt hoặc miễn phạt, nhập lý do; hệ thống lưu riêng khoản trừ để tránh nhầm với điểm thi đấu và
+có thể truy nguyên khi tính toàn đoàn.
+
+Anh có đồng ý cách xử lý này không?
+
+Đồng ý, nhưng phân cấp cho tổ trưởng trọng tài
+Đã chốt câu 39: tổ trưởng trọng tài quyết định xử phạt hoặc miễn phạt trong môn phụ trách, ghi lý do;
+phần mềm lưu khoản trừ riêng và lịch sử, không tự động trừ điểm.
+
+Câu 239: Khoản phạt này được trừ trực tiếp vào điểm toàn đoàn của trường sau khi quy đổi thứ hạng
+
+môn, hay trừ vào điểm môn trước khi xếp hạng môn?
+
+gợi ý cho tôi
+
+Tôi đề xuất trừ trực tiếp vào điểm toàn đoàn sau khi quy đổi thứ hạng môn và nhân hệ số.
+
+Cách này tách rõ thành tích thi đấu và quyết định xử phạt. Nếu trừ vào điểm môn trước khi xếp hạng,
+khoản phạt 11 điểm có thể chỉ làm giảm vài điểm quy đổi, hoặc không làm thay đổi thứ hạng — mức
+phạt thực tế sẽ không nhất quán.
+
+Ví dụ:
+
+Khoản Điểm
+
+Tổng điểm toàn đoàn sau quy đổi và nhân hệ số 85
+Phạt bỏ một nội dung cá nhân, tổ trưởng xác nhận T11
+Điểm toàn đoàn sau xử phạt 74
+
+Nếu bỏ nội dung tập thể áp dụng hệ số 3, khoản phạt là 11 x 3 = 33 điểm.
+
+Phần mềm nên hiển thị riêng điểm thành tích, điểm phạt, điểm cuối cùng, kèm nội dung vi phạm, lý do
+và người quyết định. Riêng bỏ môn/nội dung bắt buộc vẫn dẫn đến không đủ điều kiện xếp hạng toàn
+
+đoàn, theo quy tắc anh đã chốt.
+Đây là đề xuất cách triển khai, vì điều lệ xã chưa nói rõ bước trừ điểm trong công thức quy đổi.
+
+Anh đồng ý trừ ở điểm toàn đoàn sau quy đổi như trên không?
+
+=== PDF PAGE 073 ===
+đồng ý
+Đã chốt: điểm phạt trừ trực tiếp vào điểm toàn đoàn sau quy đổi và nhân hệ số, hiển thị riêng điểm
+
+thành tích, điểm phạt và điểm cuối cùng. Tổ trưởng quyết định phạt/miễn phạt trong môn phụ trách, có
+lý do và lịch sử.
+
+Câu 240: Nếu tổng điểm phạt lớn hơn điểm thành tích, anh muốn cho phép điểm toàn đoàn âm, hay
+giới hạn thấp nhất là 0 điểm?
+
+tối thiểu 0 điểm
+
+Đã chốt: điểm toàn đoàn thấp nhất là 0; vẫn lưu đầy đủ tổng điểm phạt để đối chiếu.
+
+Câu 241: Về câu 81, nếu từ 3 VĐV/đội Cầu lông hoặc Đá cầu vẫn bằng nhau sau các tiêu chí phụ, tôi đề
+xuất đấu vòng tròn phụ, mỗi trận một hiệp giữa các bên còn bằng nhau; nếu tiếp tục bằng thì tổ trưởng
+quyết định cách xử lý. Anh có đồng ý phương án này không?
+
+nếu đã bằng nhau sau khi xét các tiêu chí phụ theo thứ tự ưu tiên thì
+Tổ trưởng tổ chức bốc thăm
+Đã chốt: với Cầu lông/Đá cầu, nếu vẫn bằng nhau sau toàn bộ tiêu chí phụ, tổ trưởng tổ chức bốc thăm
+thực tế. Quy tắc này thay thế phương án đấu thêm một hiệp hoặc vòng tròn phụ.
+
+Câu 242: Kết quả bốc thăm này do tổ trưởng nhập và xác nhận trong môn phụ trách, thay cho quy định
+trước là quản trị nhập, đúng không anh?
+
+Tổ trưởng nhập
+Đã chốt: tổ trưởng nhập kết quả bốc thăm phân hạng trong môn phụ trách, có lưu lịch sử; bốc thăm
+toàn đoàn vẫn do quản trị nhập.
+
+Câu 243: Với Kéo co, Đẩy gậy và Vovinam đối kháng đấu vòng tròn, nếu bằng điểm và đối đầu chưa
+phân hạng được, anh muốn tôi tra cứu tiêu chí phụ riêng từng môn trước khi đề xuất, đúng không?
+
+Có.tra cứu và đề xuất
+Worked for 43s >
+Tôi đề xuất Kéo co và Đẩy gậy dùng cùng thứ tự tiêu chí phụ; riêng Vovinam cần thận trọng hơn vì
+
+chưa tìm được căn cứ rõ cho xếp hạng vòng tròn. Các đề xuất dưới đây chưa được chốt.
+
+=== PDF PAGE 074 ===
+Môn Căn cứ tìm được Đề xuất cho phần mềm
+
+Kéo co Điều lệ giải vô địch Lâm Đồng 2025 xét: đối đầu ¬ Tổng điểm ¬ đối đầu —¬ hiệu số hiệp
+hiệu số hiệp — số lần cảnh cáo — bốc thăm. Đây là toàn nội dung — ít cảnh cáo hơn ¬
+điều lệ một giải cụ thể để tham khảo. bốc thăm thực tế
+
+@ cattien2.lamdon...
+
+Đẩy gậy Điều lệ giải vô địch Lâm Đồng 2025 cũng quy định Áp dụng thứ tự như Kéo co
+đối đầu —¬ hiệu số hiệp —¬ số lần cảnh cáo ¬ bốc
+
+thăm. © cattien2lamdon.
+
+Vovinam đối Tài liệu luật do Đại học Duy Tân đăng quy định loại Tạm đề xuất tổng điểm ¬ đối đầu ¬
+kháng trực tiếp một lần thua; chưa có căn cứ trong tài liệu bốc thăm thực tế, nếu Ban tổ chức
+này cho phân hạng vòng tròn. _ ® files0i.duytan.e.. chọn vòng tròn cho 3-5 VĐV
+
+Hai điểm cần phân biệt:
+
+e _ Nguồn Lâm Đồng tính điểm thắng khác quy tắc anh đã chốt. Tôi đề xuất chỉ tham khảo tiêu chí phụ,
+giữ nguyên thắng 2, thua 1; trường hợp vắng/truất quyền theo các quy tắc đã thống nhất.
+
+e_ Với Vovinam, tôi không đề xuất tự cộng hiệu số điểm kỹ thuật giữa các trận khi chưa có căn cứ
+chuyên môn phù hợp. Quy tắc tổng điểm-đối đầu-bốc thăm ở trên là phương án để anh xem xét,
+không phải quy định toàn quốc đã xác minh.
+
+Nếu chọn phương án Kéo co/Đẩy gậy, biểu mẫu cần thêm số hiệp thắng, số hiệp thua và số lần cảnh
+cáo từng bên trong mỗi trận. Tổ trưởng nhập kết quả bốc thăm cuối cùng.
+
+Câu 244: Anh có đồng ý chốt cho Kéo co và Đẩy gậy thứ tự tổng điểm — đối đầu ¬ hiệu số hiệp — ít
+cảnh cáo hơn ¬ bốc thăm thực tế, còn Vovinam để xét riêng ở câu tiếp theo không?
+
+chốt
+Đã chốt Kéo co và Đẩy gậy: tổng điểm ¬ đối đầu ¬ hiệu số hiệp ¬ ít cảnh cáo hơn bốc thăm thực
+tế. Biểu mẫu ghi thêm tỷ số hiệp và số lần cảnh cáo từng bên.
+
+Câu 245: Với Vovinam đối kháng đấu vòng tròn, anh có đồng ý dùng tổng điểm ¬ đối đầu ¬ bốc thăm
+thực tế nếu vẫn bằng nhau không? Đây là đề xuất riêng cho giải, chưa phải quy định toàn quốc đã xác
+
+minh.
+
+Xác nhận
+
+=== PDF PAGE 075 ===
+Đã chốt: Vovinam đối kháng vòng tròn xét tổng điểm —¬ đối đầu ¬ bốc thăm thực tế, do tổ trưởng tổ
+
+chức và nhập kết quả.
+
+Câu 246: Quay lại nhóm câu 83-87 còn chờ xác nhận: với nội dung cá nhân có 3-4 VĐV thực tế thi đấu,
+anh có chốt chỉ trao vàng, bạc; điểm hạng 1-4 lần lượt là 11, 9, 7, 6 không?
+
+đúng rồi
+Đã chốt: nội dung cá nhân có 3-4 VĐV thực tế thi đấu chỉ trao vàng, bạc; điểm hạng 1—4 lần lượt T1, 9, 7,
+6.
+
+Câu 247: Với 5 VÐV thực tế thi đấu, anh có chốt trao vàng, bạc, một đồng, và điểm hạng 1-5 lần lượt T1,
+9,8, 7, 6 không?
+
+đúng
+
+Đã chốt: 5 VĐV thực tế thi đấu trao vàng, bạc, một đồng; điểm hạng 1-5 là 11, 9, 8, 7, 6.
+
+Câu 248: Quy tắc này có áp dụng cho đôi, tiếp sức và đội, tính theo số đôi/đội thực tế thi đấu — 3-4
+đôi/đội chỉ vàng, bạc; từ 5 đôi/đội có đồng — không anh?
+
+có
+Đã chốt: quy tắc huy chương và điểm theo số lượng áp dụng cả cá nhân, đôi, tiếp sức và đội, căn cứ số
+người/đôi/đội thực tế thi đấu.
+
+Câu 249: Khi đếm số thực tế thi đấu để xét huy chương, VĐV được miễn vòng đầu nhưng có thi đấu ở
+vòng sau vẫn được tính, còn người chỉ được miễn hoặc xử thắng mà chưa thi đấu trận nào thì không
+
+tính, đúng không anh?
+
+cụ thể nội dung nào
+
+Tôi đang nói về nội dung đối kháng loại trực tiếp, như Đẩy gậy, Vovinam đối kháng, Cầu lông hoặc Đá
+
+cầu.
+Ví dụ Đẩy gậy nam có 6 VĐV:
+
+e _ VĐVA được miễn vòng đầu, sau đó có thi đấu tứ kết/bán kết: tính là đã thực tế thi đấu.
+e _ VĐV B được miễn vòng đầu; vòng sau đối thủ vắng nên B được xử thắng, rồi B cũng vắng trước trận
+tiếp theo: B chưa thi đấu trận thực tế nào.
+
+=== PDF PAGE 076 ===
+Câu 249 muốn hỏi: khi đếm số người để xác định số huy chương của nội dung, trường hợp B có được
+tính vào số VĐÐV tham gia không, hay chỉ tính người đã thực sự thi đấu ít nhất một trận?
+
+chỉ tính số thi đấu ít nhất 1 trận.
+Đã chốt: nội dung đối kháng chỉ tính VĐV/đôi/đội đã thực sự thi đấu ít nhất một trận khi xác định số huy
+chương; miễn đấu hoặc xử thắng không được tính là trận thực tế.
+
+Câu 250: Với chạy, bơi, nhảy, ném và Vovinam quyền, “thực tế thi đấu” có nghĩa là đã thực hiện phần
+thi, kể cả phạm quy hoặc không có thành tích hợp lệ, đúng không anh?
+
+đúng
+Đã chốt: môn thi theo thành tích tính là thực tế tham gia khi đã thực hiện phần thi, kể cả phạm quy
+hoặc không có thành tích hợp lệ.
+
+Câu 251: Biểu mẫu kết quả có cần thêm lựa chọn “Đã thi nhưng không có thành tích hợp lệ”, để phân
+biệt với vắng mặt, không xếp hạng nhưng vẫn tính vào số người thực tế tham gia không anh?
+
+có
+Đã chốt: biểu mẫu có trạng thái “Đã thi nhưng không có thành tích hợp lệ”; không xếp hạng, nhưng vẫn
+tính vào số người thực tế tham gia.
+
+Câu 252: Nếu nội dung có đủ người thực tế tham gia nhưng chỉ một hoặc hai người có thành tích hợp
+lệ, phần mềm có chỉ trao huy chương theo thứ hạng hợp lệ hiện có, không bổ sung người phạm quy
+
+vào vị trí còn thiếu, đúng không anh?
+
+hủy nội dung
+Đã ghi nhận: hủy nội dung nếu chỉ còn một hoặc hai VĐV có thành tích hợp lệ, không trao huy chương
+hay tính điểm; vẫn lưu kết quả để đối chiếu.
+
+Câu 253: Điều kiện này có nghĩa là môn thi theo thành tích phải có ít nhất 3 VĐÐV có thành tích hợp lệ
+thuộc ít nhất 2 trường mới được công nhận kết quả, đúng không anh?
+
+đúng
+Đã chốt: môn thi theo thành tích chỉ công nhận kết quả khi có ít nhất 3 VÐV có thành tích hợp lệ thuộc
+ít nhất 2 trường; nếu không đủ thì hủy nội dung, giữ dữ liệu để đối chiếu.
+
+=== PDF PAGE 077 ===
+Câu 254: Với tiếp sức và quyền đôi/đội, có yêu cầu ít nhất 3 đôi/đội thuộc 3 trường có thành tích hợp
+lệ mới công nhận kết quả, tương ứng điều kiện tổ chức đã chốt, không anh?
+
+đúng
+Đã chốt: tiếp sức và quyền đôi/đội phải có ít nhất 3 đôi/đội thuộc 3 trường đạt thành tích hợp lệ mới
+công nhận kết quả; không đủ thì hủy nội dung.
+
+Câu 255: Nếu ban đầu có 5 VĐV thực tế thi, nhưng chỉ 3 người có thành tích hợp lệ thuộc 2 trường, nội
+dung vẫn được công nhận. Khi đó có trao vàng, bạc, đồng theo số 5 người thực tế thi, hay chỉ vàng, bạc
+theo số 3 người có thành tích hợp lệ?
+
+Nếu vòng 1 đủ 5 người thì trao vàng, bạc đồng
+Đã chốt: số huy chương căn cứ số người thực tế thi đấu ở vòng đầu. Có đủ 5 người ở vòng đầu thì trao
+
+vàng, bạc, đồng, dù sau đó chỉ còn 3 người có thành tích hợp lệ; vẫn phải đáp ứng điều kiện công nhận
+
+nội dung.
+
+Câu 256: Quy tắc lấy số thực tế tham gia ở vòng đầu này có áp dụng thống nhất cho cả cá nhân, đôi,
+tiếp sức và đội, đúng không anh?
+
+đúng
+
+Đã chốt: số người/đôi/đội thực tế tham gia vòng đầu là căn cứ xác định số huy chương.
+
+Câu 257: Với 6 VĐV loại trực tiếp, sơ đồ 8 vị trí có 2 người miễn vòng đầu, chỉ 4 người đấu vòng đầu.
+Nếu cả 6 đều thi đấu ít nhất một trận trong giải, anh muốn tính 6 người để trao vàng-bạc-đồng, hay chỉ
+tính 4 người vòng đầu và chỉ trao vàng-bạc?
+
+tính cả số được miễn
+Đã chốt: khi xác định số huy chương, tính cả VĐV/đôi/đội được miễn vòng đầu. Ví dụ 6 VĐV, có 2 người
+miễn thì vẫn tính đủ 6 để trao vàng-bạc-đồng.
+
+Câu 258: Người được miễn vòng đầu nhưng sau đó vắng, chưa thi đấu trận thực tế nào, có vẫn được
+tính trong số lượng xét huy chương không anh?
+
+không
+
+=== PDF PAGE 078 ===
+Đã chốt: người được miễn vòng đầu chỉ được tính vào số lượng xét huy chương khi có thi đấu ít nhất
+một trận sau đó; nếu vắng mà chưa thi trận nào thì không tính.
+
+Câu 259: Nếu vì trường hợp này số người được tính giảm từ 5 xuống 4, phần mềm có điều chỉnh xuống
+chỉ trao vàng, bạc, dù sơ đồ ban đầu đã có trận tranh đồng, không anh?
+
+có
+Đã chốt: nếu số người đủ điều kiện được tính giảm còn 3-4, phần mềm điều chỉnh chỉ trao vàng, bạc, giữ
+nguyên sơ đồ đã bốc thăm.
+
+Câu 260: Khi đó, nếu trận tranh huy chương đồng chưa diễn ra, phần mềm có chuyển trận này sang
+“Không tổ chức do không đủ điều kiện trao đồng”, giữ vị trí trên sơ đồ nhưng khóa nhập điểm không
+anh?
+
+khóa với lý do hủy trận đấu
+Đã chốt: trận tranh đồng không còn đủ điều kiện sẽ khóa nhập điểm, giữ nguyên vị trí trên sơ đồ và ghi
+lý do hủy trận đấu.
+
+Câu 261: Nếu trận tranh đồng đã thi đấu, rồi mới xác định không đủ điều kiện trao đồng, có giữ kết quả
+trận để tra cứu nhưng không trao huy chương, còn điểm thành tích tính theo quy tắc số người đã chốt
+không anh?
+
+hủy trận đấu
+Đã chốt: dù đã thi đấu, trận tranh đồng vẫn chuyển sang “Hủy trận đấu”, không dùng kết quả để trao
+huy chương hoặc tính điểm; dữ liệu cũ được giữ trong lịch sử.
+Câu 262: Ai có quyền xác nhận hủy trận này: tổ trưởng môn, hay cả quản trị?
+
+Cả 2
+
+Đã chốt: tổ trưởng môn và quản trị đều được xác nhận hủy trận, bắt buộc ghi lý do và lưu lịch sử.
+
+Câu 263: Khi giải đang diễn ra, bản sao lưu hằng ngày có thể bỏ mất những kết quả vừa nhập nếu xảy ra
+sự cố. Anh có muốn bổ sung sao lưu tự động mỗi giờ trong các ngày thi đấu, ngoài sao lưu hằng ngày
+và nút “Sao lưu ngay” không?
+
+có
+
+=== PDF PAGE 079 ===
+Đã chốt: sao lưu mỗi giờ trong ngày thi đấu, hằng ngày ngoài thời gian thi đấu, kèm nút “Sao lưu ngay”
+
+cho quản trị.
+
+Câu 264: Anh muốn giữ bản sao lưu theo phương án bản mỗi giờ trong 7 ngày, bản hằng ngày trong 30
+ngày và bản cuối kỳ giải giữ lâu dài, hay có thời hạn khác?
+
+chấp nhận gợi ý
+Đã chốt: giữ bản sao lưu mỗi giờ trong 7 ngày, bản hằng ngày trong 30 ngày, và bản cuối kỳ giải lâu
+dài.
+
+Câu 265: Quyền khôi phục dữ liệu từ bản sao lưu có chỉ dành cho quản trị, bắt buộc chọn bản cần phục
+hồi, ghi lý do và sao lưu dữ liệu hiện tại trước khi thực hiện không anh?
+
+đúng
+Đã chốt: chỉ quản trị được khôi phục dữ liệu, phải chọn bản sao lưu, ghi lý do và sao lưu hiện trạng trước
+khi phục hồi.
+
+Câu 266: Anh muốn phiên bản đầu ưu tiên dịch vụ miễn phí trong giới hạn sử dụng, hay chấp nhận chỉ
+phí hằng tháng để chọn cơ sở dữ liệu và dịch vụ sao lưu ổn định hơn?
+
+chấp nhận
+
+Tôi hiểu anh chấp nhận chỉ phí hằng tháng để vận hành ổn định.
+
+Câu 267: Ngân sách dự kiến cho hosting, cơ sở dữ liệu và sao lưu là khoảng bao nhiêu mỗi tháng: dưới
+500.000 đồng, 500.000-1.000.000 đồng, hay cần tôi đề xuất chỉ phí rồi anh quyết định?
+
+tôi sẽ quyết định sau. có thể sẽ chuyển phần mềm sang VPS và
+
+Dbase có phí
+
+Đã ghi nhận: ngân sách và dịch vụ cơ sở dữ liệu sẽ quyết định sau. Đặc tả sẽ yêu cầu triển khai ban đầu
+trên Netlify, đồng thời cho phép chuyển sang VPS và cơ sở dữ liệu trả phí, giữ nguyên dữ liệu và chức
+
+năng.
+
+Câu 268: Khi quyền phân công bị thay đổi trong lúc trọng tài mất mạng, kết quả họ nhập ngoại tuyến có
+được giữ lại nhưng chờ tổ trưởng xem xét, thay vì tự động ghi vào kết quả chính thức khi đồng bộ,
+không anh?
+
+=== PDF PAGE 080 ===
+được giữ lại
+Đã chốt: dữ liệu nhập ngoại tuyến được giữ lại khi quyền phân công thay đổi, chuyển tổ trưởng xem xét
+khi đồng bộ.
+
+Câu 269: Trong Cờ vua, anh muốn trọng tài nhập bảng tổng hợp điểm và các hệ số từ phần mềm Cờ
+
+vua riêng, hay nhập kết quả từng ván để hệ thống này tự tính các hệ số?
+
+nhập kết quả cuối cùng
+Đã chốt: Cờ vua chỉ nhập kết quả cuối cùng trực tiếp hoặc CSV/Excel; không nhập từng ván hay tự tính
+lại hệ số từ các ván đấu.
+
+Câu 270: Phần mềm có giữ nguyên vị thứ cuối cùng từ phần mềm Cờ vua riêng, còn điểm và các hệ số
+chỉ để hiển thị, đối chiếu; sau đó tính điểm thành tích HKPĐ theo vị thứ đã được tổ trưởng xác nhận,
+đúng không anh?
+
+đúng
+Đã chốt: Cờ vua giữ nguyên vị thứ cuối cùng được nhập; tổ trưởng xác nhận, phần mềm quy đổi sang
+điểm thành tích HKPĐ. Điểm thi đấu và hệ số dùng để đối chiếu.
+
+Câu 271: Giới hạn chung tối đa 2 nội dung cá nhân mỗi môn có ngoại lệ với Đẩy gậy và Vovinam đối
+kháng: mỗi VĐV chỉ được đăng ký một hạng cân, còn Vovinam có thể đăng ký thêm nội dung quyền
+trong giới hạn chung, đúng không anh?
+
+có ngoại lệ
+
+Đã ghi nhận ngoại lệ: Đẩy gậy và Vovinam đối kháng chỉ được đăng ký một hạng cân mỗi VĐV.
+
+Câu 272: Với Vovinam, một VĐV đã đăng ký một hạng cân đối kháng được đăng ký thêm tối đa một hay
+hai nội dung quyền cá nhân?
+
+1 đối kháng và 1 nội dung quyền
+Đã chốt: VĐV Vovinam có thể đăng ký 1 nội dung đối kháng và 1 nội dung quyền cá nhân, không được
+đăng ký hai hạng cân.
+
+Câu 273: Nếu không đăng ký đối kháng, VĐV Vovinam có được đăng ký 2 nội dung quyền cá nhân
+không anh?
+
+=== PDF PAGE 081 ===
+Không.
+
+Làm rõ nội dung xếp loại đấu vòng tròn vovinam
+
+quy tắc xếp hạng dùng tổng điểm ¬ đối đầu Nếu bằng nhau thì
+theo cân VĐV nhé, VĐV nào có số Kg nhe hơn sẽ thắng.
+
+Đã cập nhật:
+e _ Vovinam: tối đa 1 đối kháng và 1 quyền cá nhân; không được đăng ký 2 quyền cá nhân.
+e - Xếp hạng vòng tròn Vovinam: tổng điểm ¬ đối đầu ¬ cân nặng nhẹ hơn xếp trên, thay quy tắc bốc
+thăm trước đó.
+
+Câu 274: Cân nặng dùng để phân hạng là cân chính thức trước giải được trọng tài ghi nhận, hay phải
+
+cân lại khi xảy ra bằng điểm?
+
+cân trước trận đấu
+Đã chốt: dùng cân nặng chính thức trước trận đấu, không dùng cân nặng do nhà trường khai khi đăng
+ký.
+
+Câu 275: Nếu hai VĐV bằng điểm, bằng đối đầu nhưng mỗi người đã cân ở nhiều trận với số cân khác
+nhau, có dùng cân nặng trước trận đối đầu giữa hai người đó để so sánh không anh?
+
+Chỉ cân 1 lần trong nội dung thi đấu
+Đã chốt: mỗi VĐV chỉ cân chính thức một lần trong nội dung Vovinam đối kháng, trước trận đầu tiên; số
+cân này dùng xuyên suốt nội dung để phân hạng.
+
+Câu 276: Nếu vẫn bằng nhau sau tổng điểm ¬ đối đầu — cân nặng, có bốc thăm thực tế do tổ trưởng
+
+tổ chức và nhập kết quả không anh?
+
+không cần, vì cân nặng tính đến 0.1 kg
+
+Đã ghi nhận: cân nặng lưu chính xác đến 0,1 kg, người nhẹ hơn xếp trên.
+
+Tuy nhiên, hai VÐV vẫn có thể cùng cân 42,3 kg. Nếu tổng điểm và đối đầu cũng chưa phân hạng được,
+phần mềm cần cách xử lý trường hợp này.
+
+Câu 277: Anh có đồng ý để hệ thống ghi “Chưa phân hạng được” và chuyển tổ trưởng quyết định,
+không tự bốc thăm không?
+
+tổ trưởng quyết định
+
+=== PDF PAGE 082 ===
+Đã chốt Vovinam vòng tròn: tổng điểm — đối đầu —¬ cân nặng chính thức nhẹ hơn (đến 0,1 kg) — tổ
+
+trưởng quyết định nếu vẫn bằng nhau.
+
+Câu 278: Cân nặng chính thức do trọng tài được phân công nhập trước trận đầu tiên, lưu riêng với cân
+nặng nhà trường khai đăng ký, đúng không anh?
+
+đúng
+Đã chốt: trọng tài nhập cân nặng chính thức, lưu riêng với cân nặng nhà trường khai; dùng số cân chính
+thức để phân hạng.
+
+Câu 279: Nếu cân chính thức cho thấy VĐV vượt hạng cân đã bốc thăm, phần mềm có cảnh báo và để
+trọng tài truất quyền trong nội dung đó, không chuyển hạng vì sơ đồ đã khóa, đúng không anh?
+
+Nếu trường chưa có đủ VĐV của hạng cân trên thì được ghép lên,
+nếu không sẽ truất quyền thi đấu. Áp dụng cho cả môn Đảy gậy
+Đã cập nhật ngoại lệ cho Vovinam và Đẩy gậy: nếu cân chính thức vượt hạng đăng ký, được chuyển lên
+hạng trên khi trường còn suất đăng ký ở hạng đó; nếu hết suất thì truất quyền thi đấu trong nội dung.
+Điều này cần làm rõ với quy tắc không đổi sơ đồ sau bốc thăm.
+
+Câu 280: Việc cân chính thức và chuyển hạng này phải hoàn tất trước khi chốt bốc thăm, hay anh cho
+phép bổ sung VĐV vào sơ đồ hạng trên sau bốc thăm như một ngoại lệ?
+
+Cho phép bổ sung
+Đã chốt ngoại lệ: được bổ sung VĐV chuyển hạng sau bốc thăm ở cả Đẩy gậy và Vovinam, nếu trường
+còn suất ở hạng trên.
+
+Câu 281: Để giữ nguyên đường nhánh, anh có đồng ý chỉ bổ sung vào vị trí ảo còn trống ở vòng đầu
+của hạng trên, khi trận tại vị trí đó chưa được xác nhận xử thắng hoặc thi đấu; nếu không có vị trí phù
+hợp thì không chuyển được không?
+
+Đồng ý
+Đã chốt: chuyển hạng sau bốc thăm chỉ được điền vào vị trí ảo trống ở vòng đầu, khi trận đó chưa thi
+đấu hoặc được xác nhận xử thắng; không đổi đường nối. Đồng thời phải còn hạn mức đăng ký của
+
+trường.
+
+=== PDF PAGE 083 ===
+Câu 282: Việc chuyển hạng này có cần tổ trưởng hoặc quản trị xác nhận, còn trọng tài chỉ nhập cân
+
+chính thức và gửi đề nghị chuyển không anh?
+
+Tổ trưởng xác nhận
+Đã chốt: trọng tài nhập cân chính thức và đề nghị chuyển hạng; tổ trưởng xác nhận. Hệ thống kiểm tra
+hạn mức của trường và vị trí ảo phù hợp, giữ nguyên đường nhánh và lưu lịch sử.
+
+Câu 283: Nếu hạng trên đang đấu vòng tròn, không có vị trí ảo trống hoặc việc thêm người làm thay đổi
+
+lịch đã bốc thăm, có không cho chuyển hạng và truất quyền ở nội dung cũ không anh?
+
+xếp lại lịch của hạng thay đổi
+Đã chốt ngoại lệ cho hạng đấu vòng tròn: khi tổ trưởng xác nhận bổ sung VĐV chuyển hạng, phần mềm
+xếp lại lịch hạng nhận VĐV, kiểm tra xung đột và thông báo thay đổi.
+
+Câu 284: Việc bổ sung và xếp lại lịch này có chỉ được thực hiện trước khi hạng nhận VĐV có trận đầu
+tiên bắt đầu, hay vẫn được phép khi đã có trận thi đấu?
+
+trước khi trận đầu tiên bắt đầu
+Đã chốt: bổ sung VĐV chuyển hạng và xếp lại lịch vòng tròn chỉ được thực hiện trước trận đầu tiên của
+hạng nhận VĐV. Sau thời điểm đó, không được bổ sung.
+
+Câu 285: Nếu bổ sung làm hạng nhận tăng từ 5 lên 6 VĐV, anh có cho phép chuyển từ vòng tròn sang
+loại trực tiếp, tạo và bốc thăm sơ đồ mới trước trận đầu tiên, không?
+
+chuyển sang loại trực tiếp, lập sơ đồ lại
+Đã chốt ngoại lệ: bổ sung chuyển hạng làm số VĐV tăng từ 5 lên 6 thì chuyển sang loại trực tiếp, lập và
+bốc thăm lại sơ đồ, chỉ trước trận đầu tiên; lưu sơ đồ cũ và lý do.
+
+Câu 286: Khi chuyển VĐV lên hạng trên, vị trí của VĐV ở hạng cũ có được giữ nguyên, ghi “Đã chuyển
+hạng” và xử đối thủ thắng nếu đã có sơ đồ loại trực tiếp, không anh?
+
+khi thay đổi thì phải xếp vòng đấu lại. khi vòng đấu đã bắt đầu thì
+không được chuyển hạng mà bị truất quyền thi đấu
+Đã cập nhật, thay thế cách điền vào vị trí ảo và xử thắng ở hạng cũ: chuyển hạng được tổ trưởng xác
+nhận thì xếp lại vòng đấu của cả hạng cũ và hạng mới. Nếu đã bắt đầu thi đấu thì không chuyển hạng,
+
+=== PDF PAGE 084 ===
+VĐV bị truất quyền ở nội dung liên quan.
+
+Câu 287: Điều kiện chuyển hạng là cả hạng cũ và hạng nhận đều chưa có trận nào bắt đầu, đúng không
+anh?
+
+đúng
+Đã chốt: với Đẩy gậy và Vovinam đối kháng, chỉ chuyển hạng khi cả hạng cũ và hạng nhận đều chưa có
+
+trận nào bắt đầu. Tổ trưởng xác nhận, sau đó xếp lại vòng đấu của cả hai hạng. Nếu một trong hai hạng
+
+đã bắt đầu, không được chuyển và VĐV bị truất quyền ở hạng đăng ký.
+
+Câu 288: Nếu chuyển hạng khiến hạng cũ chỉ còn 1-2 VĐV, phần mềm có hủy nội dung hạng cũ, không
+trao huy chương và không tính điểm, đúng không anh?
+
+không đủ vđäv hoặc không đủ trường tham gia thì hủy nội dung
+Đã chốt: sau khi chuyển hạng, kiểm tra lại cả hạng cũ và hạng mới; hạng nào không đủ số VĐV hoặc
+
+không đủ số trường tham gia theo điều kiện đã thống nhất thì hủy nội dung, không trao huy chương
+
+và không tính điểm.
+
+Câu 289: Khi xếp lại vòng đấu do chuyển hạng, nếu hạng cũ giảm từ 6 xuống 5 VĐV và vẫn đủ điều kiện
+tổ chức, phần mềm có chuyển từ loại trực tiếp sang vòng tròn không anh?
+
+đúng. quy tắc loại trực tiếp hay vòng tròn thực hiện theo số vđv. Hãy
+render cho tôi phân đấu vong ftròn một nội dung có 5 vđv, tên vđv
+
+do bạn tự nghĩ ra. Tôi chỉ muốn xem trước pm sẽ hoạt động thế nào
+
+Worked for 1m 2s ›
+
+Anh có thể nhập kết quả từng trận hoặc bấm “Điền kết quả minh họa” để xem bảng xếp hạng cập nhật.
+
+Tên VĐV, trường và cân nặng đầu là dữ liệu giả định.
+
+=== PDF PAGE 085 ===
+Ghi rõ Trận 1, Trận 2 ở mỗi vòng
+
+Worked for 13s >
+
+Đã ghi rõ Trận 1, Trận 2 ở mỗi vòng và trong danh sách chọn trận.
+
+Nghiên cứu mẫu này, tuy nhiên cần sử dụng Tiếng Việt:
+
+Worked for 33s >
+
+Tôi đã dựa theo mẫu: bên trái liệt kê các vòng đấu, bên phải chọn vòng để xem các cặp đấu và kết quả.
+Toàn bộ nhãn dùng tiếng Việt, giữ rõ Trận 1, Trận 2 trong từng vòng.
+
+=== PDF PAGE 086 ===
+Tôi muốn bạn thiết kế cho tôi chính xác như mẫu
+
+Worked for 39s >
+
+Đã chỉnh theo bố cục mẫu: thanh công cụ phía trên, hai khung song song, các vòng đấu bên trái và bảng
+kết quả vòng được chọn bên phải; dùng tiếng Việt.
+
+Today 3:43 PM
+tiếp
+Câu 290: Trong giao diện này, anh có đồng ý bấm vào ô kết quả của từng trận để nhập hoặc sửa kết
+quả, sau khi xác nhận thì lịch đấu và bảng xếp hạng tự cập nhật, đúng quyền của người được phân công
+
+không?
+
+=== PDF PAGE 087 ===
+đúng.Tổ trưởng có thêm nút xác nhận kết quả ở mỗi trận đấu.Tất
+
+nhiên khoá chức năng nhập
+
+Đã chốt: tổ trưởng có nút “Xác nhận kết quả” ở mỗi trận. Sau khi xác nhận, phần mềm khóa nhập và
+sửa kết quả trận đó, đồng thời cập nhật bảng xếp hạng và lưu lịch sử xác nhận.
+
+Câu 291: Nếu phát hiện sai sau khi xác nhận, tổ trưởng và quản trị có được mở khóa để sửa, bắt buộc ghi
+lý do và xác nhận lại kết quả không anh?
+
+trọng tài nhập lại kết quả và báo tổ trưởng xác nhận.Nếu tổ trưởng
+không xác nhận thì kêtx quả không thay đổi.
+Cho tôi hỏi nút xác nhân của tổ trưởng bố trí ở màn hình bên phải
+
+hay màn hình bên trái
+Tôi đề xuất đặt nút “Xác nhận” ở khung bên phải, trên từng dòng trận đấu, ngay cạnh ô kết quả. Khung
+bên trái hiển thị tổng hợp các vòng và kết quả chính thức để theo dõi.
+
+Quy trình sửa kết quả đã chốt: trọng tài nhập kết quả đề nghị sửa — gửi tổ trưởng xác nhận. Trong thời
+gian chờ hoặc nếu tổ trưởng không xác nhận, kết quả chính thức và bảng xếp hạng giữ nguyên. Khi tổ
+trưởng xác nhận, hệ thống mới thay kết quả, cập nhật xếp hạng và lưu lịch sử.
+
+Người theo dõi thấy màn hình trái,phải hay cả hai?
+Tôi đề xuất người theo dõi thấy cả hai khung:
+
+e _ Bên trái: toàn bộ vòng đấu và kết quả chính thức.
+
+e _ Bên phải: chỉ tiết vòng được chọn; có thể xem bảng xếp hạng.
+
+Người theo dõi chỉ được chọn vòng để xem, không có nút nhập, sửa hoặc xác nhận. Kết quả đang chờ
+tổ trưởng xác nhận chưa hiển thị công khai.
+
+Trên điện thoại, hai khung xếp trên-dưới để dễ đọc.
+tiếp
+Câu 292: Anh có chốt phương án người theo dõi thấy cả hai khung, chỉ xem kết quả đã được tổ trưởng
+xác nhận và bảng xếp hạng; trên điện thoại hai khung xếp trên-dưới không?
+tôi đã chốt. Bạn tiếp tục đặt câu hỏi sâu về chuyên môn để có thể
+
+viết phần mềm
+
+=== PDF PAGE 088 ===
+Đã ghi nhận phương án người theo dõi, không hỏi lại.
+
+Câu 293: Khi đấu vòng tròn có 3 VÐV bằng tổng điểm, đối đầu chéo nhau (A thắng B, B thắng C, C thắng
+A), anh có đồng ý xét điểm các trận giữa những VĐV cùng điểm trước; nếu vẫn bằng nhau thì chuyển
+
+sang tiêu chí tiếp theo của môn?
+Với Vovinam, tiêu chí tiếp theo là cân nặng chính thức nhẹ hơn xếp trên.
+
+Đã có tiêu chí xét giải đấu vòng tròn.Vui lòng xem lại và báo cho tôi
+
+Đúng, câu 293 đã hỏi lại nội dung có tiêu chí. Tôi rà soát các quyết định anh đã chốt:
+
+Môn Thứ tự xét xếp hạng vòng tròn
+
+Vovinam đối kháng Tổng điểm ¬ đối đầu ¬ cân nặng chính thức nhẹ hơn — tổ trưởng quyết định nếu vẫn
+bằng nhau
+
+Kéo co, Đẩy gậy Tổng điểm — đối đầu ¬ hiệu số hiệp ¬ ít cảnh cáo hơn ¬ bốc thăm thực tế
+
+Cầu lông, Đá cầu Xét các tiêu chí phụ theo thứ tự đã chốt; nếu vẫn bằng nhau thì tổ trưởng tổ chức bốc
+
+thăm thực tế và nhập kết quả
+
+Với Vovinam, mỗi VĐV chỉ cân chính thức một lần trước trận đầu tiên của nội dung, lưu đến 0,1 kg.
+Trọng tài nhập số cân này riêng với cân nặng nhà trường khai đăng ký. Quy tắc này thay thế phương án
+
+bốc thăm Vovinam trước đó.
+Điểm vòng tròn đã chốt: thắng 2, thua 1; vắng hoặc truất quyền áp dụng quy tắc riêng đã thống nhất.
+
+Tôi rút câu 293, không thêm bước “tính điểm riêng giữa nhóm bằng điểm” khi anh chưa yêu cầu. Riêng
+thứ tự chỉ tiết của Cầu lông, Đá cầu không xuất hiện đầy đủ trong phần hội thoại hiện có, nên tôi chưa
+
+thể nhắc lại chính xác.
+Hãy tổng hợp lại theo nhóm nội dung các nội dung đã hỏi trước khi
+đặt câu hỏi tiếp theo. Yêu cầu chỉ tiết, không lặp lại
+Dưới đây là tổng hợp theo nhóm các nội dung đã hỏi và quyết định anh đã chốt trong phần hội thoại
+hiện
+
+tổng hợp và xuất file word cho tôi nhé
+
+Worked for 4m 57s >
+
+=== PDF PAGE 089 ===
+Đã xuất bản tổng hợp 7 trang, 15 nhóm nội dung, giữ quyết định cuối cùng và ghi riêng các phương á
+đã bị thay thế.
+
+Lưu ý: chưa khôi phục đầy đủ câu 1-241; các phần thiếu được đánh dấu rõ, không tự bổ sung.
+
+Tong_hop_yeu_cau_phan_mem_HKPD.docx
+e Word
+
+tôi muốn xây dựng phần mềm quản lý Hội khỏe phù đổng cấp xã.
+
+Tính năng chủ yếu là
+
+1. Quản trị: Cấp quyền theo dõi, tổ trưởng trọng tài, tổ trọng tài,
+
+nhà trường,
+theo dõi kết quả thi đấu theo từng môn, từng nội dung
+
+3. Đăng ký môn thi đấu (nhà trường), tổng hợp danh sách thi đấu
+(quản trị, tổ trưởng trọng tài); chia bảng, nội dung thi đấu
+(phwnf mềm tự làm dựa trên danh sách đăng ký)
+
+4. Cho phép thay đổi nội dung thi đấu (quản trị, Tổ trưởng trọng
+tài), đánh dấu vận động viên bỏ cuộc (trọng tài, gồm cả tổ
+trưởng)
+
+5. Tổ chức bốc thăm thứ tự thi đấu,Phân lịch thi đấu, chia cặp hoặc
+lượt thi đấu (quản trị, tổ trưởng trọng tài)
+
+6. Ghi kết quả thi đấu (trọng tài)
+
+7. Xuất danh sách đăng ký, lịch thi đấu,
+
+8. Mỗi nội dung có thể tiến hành nhiều lượt
+
+"Hãy đặt cho tôi những câu hỏi làm rõ vấn đề cho đến khi bạn tự tin
+95% là có thể hoàn khành xuất sắc nhiệm vụ xây dựng kịch bản chỉ
+tiết để code phần mềm (chưa viết code cho đến khi tôi yêu cầu)"
+Người thuộc top 0.1% xuất sắc nhất trong lĩnh vực này sẽ nghĩ gì về
+điều này?!
+
+n
+
+Tôi sẽ cùng anh làm rõ yêu cầu theo từng vòng, sau đó xây dựng đặc
+
+tả chỉ tiết để lập trình phần mềm. Chưa viết code cho đến khi anh
+yêu cầu.
+
+Một người thiết kế hệ thống quản lý giải thể thao giỏi sẽ tập trung
+trước vào quy tắc thi đấu, thẩm quyền quyết định và tính chính xác
+của kết quả. Giao diện được thiết kế dựa trên những quy tắc này.
+
+Chẳng hạn, thay đổi danh sách vận động viên sau khi bốc thăm có
+
+=== PDF PAGE 090 ===
+thể ảnh hưởng đến bảng đấu, lịch thi đấu và kết quả đã ghi; phần
+
+mềm cần quy định rõ cách xử lý.
+
+Điểm cần làm rõ nhất trong yêu cầu của anh là “mỗi nội dung có thể
+tiến hành nhiều lượt". “Lượt” có thể là vòng loại-bán kết-chung kết,
+
+các lượt chạy để chia số vận động viên, hoặc nhiều lần thực hiện để
+lấy thành tích tốt nhất. Mỗi trường hợp cần một cách xử lý khác
+
+nhau.
+
+Vòng 1: Xác định phạm vi và cách tổ chức giải
+
+Anh có thể trả lời theo số thứ tự, ngắn gọn; mục nào chưa quyết định
+
+cứ ghi “cần tư vấn”.
+
+STT
+
+Câu hỏi cần làm rõ
+
+Phần mềm phục vụ riêng
+Hội khỏe Phù Đổng xã
+Quảng Phú hay dùng
+được cho nhiều xã, nhiều
+
+giải và nhiều năm?
+
+Anh muốn sử dụng phần
+mềm qua trình duyệt trên
+máy tính, điện thoại hay
+cài đặt trên máy? Các địa
+điểm thi đấu có Internet
+ổn định không?
+
+Giải gồm những môn
+nào? Anh có điều lệ hoặc
+dự thảo điều lệ hiện hành
+
+để làm căn cứ không?
+
+Một “nội dung thi đấu”
+được phân biệt theo
+
+những yếu tố nào?
+
+Có những hình thức thi
+
+đấu nào cần hỗ trợ?
+
+Gợi ý để anh trả lời
+
+Riêng xã Quảng Phú nhưng lưu nhiều
+năm; hoặc nhiều xã, mỗi xã quản lý
+
+riêng.
+
+Website dùng cả máy tính và điện thoại;
+có/không cần nhập kết quả khi mất
+
+mạng.
+
+Liệt kê môn; có thể gửi điều lệ để tôi
+
+phân tích các quy tắc.
+
+Ví dụ: môn điền kinh ¬ chạy 60 m ¬ nữ
+¬ tiểu học ¬ nhóm tuổi. Có phân theo
+
+lớp, tuổi, cấp học, cân nặng không?
+
+Cá nhân; đôi; tiếp sức; đội. Với môn đối
+kháng: loại trực tiếp, vòng tròn, chia
+
+bảng rồi loại trực tiếp...
+
+=== PDF PAGE 091 ===
+STT
+
+10
+
+11
+
+
+
+Câu hỏi cần làm rõ
+
+“Nhiều lượt” trong yêu
+cầu số 8 có nghĩa cụ thể
+
+thế nào?
+
+Có bao nhiêu trường,
+khoảng bao nhiêu vận
+động viên và bao nhiêu
+địa điểm thi đấu trong
+
+một giải?
+
+Nhà trường đăng ký trực
+tiếp từng vận động viên,
+nhập từ Excel hay cần cả
+hai? Hồ sơ vận động viên
+
+cần những thông tin nào?
+
+Giới hạn đăng ký được
+quy định thế nào?
+
+Những nhóm quyền anh
+
+nêu có phạm vi ra sao?
+
+Ai xác nhận kết quả chính
+thức? Trọng tài nhập xong
+được công bố ngay hay
+
+cần tổ trưởng duyệt?
+
+Gợi ý để anh trả lời
+
+Nhiều vòng; nhiều lượt chạy trong một
+vòng; nhiều lần nhảy/ném lấy thành tích;
+hay cần cả ba? Anh cho một ví dụ thực
+tế.
+Ước lượng là đủ. Một trường có thể có
+nhiều đội trong cùng một nội dung
+
+không?
+
+Họ tên, ngày sinh, giới tính, lớp, trường,
+ảnh, mã học sinh, minh chứng... Có cần
+duyệt hồ sơ trước khi được thi đấu
+không?
+
+Số vận động viên/đội của mỗi trường
+trong từng nội dung; số nội dung tối đa
+mỗi em được tham gia; có vận động viên
+dự bị không?
+
+Người theo dõi chỉ xem; nhà trường chỉ
+quản lý trường mình; tổ trưởng chỉ quản
+lý môn được giao; trọng tài chỉ nhập kết
+quả nội dung/trận được phân công — có
+
+đúng ý anh không?
+
+Có cần xử lý khiếu nại, sửa kết quả và lưu
+
+lịch sử người sửa, lý do sửa không?
+
+=== PDF PAGE 092 ===
+STT _ Câu hỏi cần làm rõ Gợi ý để anh trả lời
+
+12 Anh muốn phần mềm tự Tự đề xuất để người phụ trách duyệt;
+
+động đến mức nào khi hay tự chốt? Có yêu cầu tránh cùng
+
+chia bảng, bốc thăm và trường gặp nhau, xếp hạt giống, tránh
+
+xếp lịch? một em thi hai nội dung cùng giờ
+không?
+
+Tôi đề xuất phần mềm tự tạo phương án chia bảng và lịch thi đấu,
+người có thẩm quyền duyệt trước khi công bố. Cách này giúp xử lý
+được các ngoại lệ thực tế của giải cấp xã.
+
+Sau câu trả lời vòng 1, tôi sẽ hỏi tiếp những tình huống cụ thể về bốc
+thăm, bỏ cuộc, nhiều lượt, xếp hạng và sửa kết quả. Khi các quy tắc
+đủ rõ, tôi sẽ tổng hợp thành đặc tả gồm phân quyền, dữ liệu, màn
+hình, quy trình, thuật toán và tiêu chí nghiệm thu để người lập trình
+có thể triển khai.
+
+hỏi lần lượt từng câu
+
+Câu 1: Anh muốn phần mềm chỉ phục vụ xã Quảng Phú, lưu được
+nhiều kỳ Hội khỏe Phù Đổng qua các năm, hay phục vụ nhiều xã,
+mỗi xã có dữ liệu và tài khoản quản lý riêng?
+
+phần mềm chỉ phục vụ xã Quảng Phú, lưu được nhiều kỳ Hội khỏe
+Phù Đổng qua các năm
+
+Đã ghi nhận: phần mềm phục vụ xã Quảng Phú, quản lý riêng từng
+kỳ Hội khỏe Phù Đổng và lưu dữ liệu qua các năm.
+
+Câu 2: Anh muốn phần mềm chạy trên website, dùng được bằng cả
+máy tính và điện thoại, hay cài đặt trực tiếp trên máy tính?
+
+chạy trên web, trước hết trên netlify, có database, lưu trữ trên gg
+drive
+
+Đã ghi nhận: phần mềm chạy trên web, triển khai ban đầu trên
+Netlify, có cơ sở dữ liệu và sử dụng Google Drive để lưu trữ.
+
+Câu 3: Anh muốn Google Drive lưu tệp hồ sơ, ảnh, danh sách và báo
+cáo xuất ra, còn dữ liệu đăng ký, lịch đấu, kết quả nằm trong cơ sở
+dữ liệu riêng; hay muốn toàn bộ dữ liệu cũng lưu trên Google
+Drive/Google Sheets?
+
+Tôi đề xuất phương án đầu để quản lý thi đấu ổn định và tránh xung
+đột khi nhiều người cùng cập nhật.
+
+lưu trong cơ sở dữ liệu, đồn thời sao lưu trên gg drive
+
+=== PDF PAGE 093 ===
+Đã ghi nhận: dữ liệu chính lưu trong cơ sở dữ liệu, đồng thời sao
+lưu trên Google Drive.
+Câu 4: Hội khỏe Phù Đổng cần quản lý những môn thi đấu nào? Anh
+có thể liệt kê tên môn hoặc gửi điều lệ để tôi xác định đầy đủ.
+7ma6r65hhBc 6/edit?
+chỉ tiết trên link này
+Worked for 16s
+Tôi chưa đọc được nội dung bảng tính từ liên kết này nên chưa thể
+xác định chính xác các môn thi đấu.
+Anh hãy tải bảng tính xuống dạng Excel (.xlsx) và đính kèm tại đây.
+Tôi sẽ đọc danh sách môn, nội dung thi đấu rồi tiếp tục hỏi lần lượt
+từng câu.
+DanhMuc Mon NoiDung HKPD (1)
+Đây là toàn bộ câu hỏi và trả lời, hãy viết lại cho tôi thành bản mô tả
+chỉ tiết
+
+You stopped after 0s
+
+bạn có khôi phục được nội dung các câu còn thiếu không?
+
+Tôi có thể tìm lại một phần, nhưng hiện chưa khôi phục được đầy đủ, nguyên văn các câu 1-241. Lần tra
+cứu trước chỉ tìm được vài quyết định; chưa đủ để hoàn thiện toàn bộ đặc tả.
+
+Để khôi phục chính xác, anh có thể gửi bản sao hoặc tệp xuất cuộc trò chuyện cũ chứa các câu còn
+thiếu. Tôi sẽ đối chiếu, gom theo nhóm, loại nội dung trùng, giữ quyết định cuối cùng và cập nhật file
+
+Word — không yêu cầu anh trả lời lại những câu đã chốt.
+
+Nội dung câu hỏi còn đầy đủ trên phiên chat, nhưng tôi không thể
+copy hết được. luôn bị thiếu nội dung
+
+Anh không cần copy toàn bộ một lần. Có thể làm theo cách này:
+1. Trên máy tính, mở cuộc trò chuyện cũ, cuộn lên đầu và chờ nội dung tải xong.
+2. Nhấn Ctrl + P, chọn Lưu dưới dạng PDF, chọn Tất cả các trang.
+
+3. Kiểm tra bản xem trước có phần đầu và các câu đến 241 rồi lưu, gửi tệp PDF vào đây.
+
+=== PDF PAGE 094 ===
+Nếu bản xem trước vẫn thiếu, anh hãy copy từng đoạn khoảng 20-30 câu, gửi thành nhiều tin nhắn hoặc
+
+tệp Word. Các đoạn có thể chồng nhau vài câu; tôi sẽ tự loại phần trùng và ghép lại.
+
+Nội dung còn hiển thị trên phiên chat của anh không có nghĩa tôi đọc được toàn bộ lịch sử đó trong
+
+lượt hiện tại. Vì vậy, tôi cần nhận phần còn thiếu qua tệp hoặc từng đoạn để tổng hợp chính xác.
+

@@ -1,0 +1,1399 @@
+{
+  "version": "A06-v1",
+  "baseline": "A01-v0.2",
+  "recorded_date": "2026-10-11",
+  "timezone": "Asia/Saigon",
+  "integration_maintainer": "Codex",
+  "repository_owner": "hoangtuanhung-lab",
+  "human_assignment_status": "names_not_supplied",
+  "external_gates": [
+    {
+      "id": "G5",
+      "meaning": "Cổng nghiệm thu: diễn tập mất mạng, nhập đồng thời, sửa sai, hủy và phục hồi dữ liệu qua; không còn lỗi nghiêm trọng (plan mục 6/QT40); khác nhóm tổ chức G5",
+      "status": "not_accepted"
+    }
+  ],
+  "roster": [
+    {
+      "position": "L01",
+      "group": "G1",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "L02",
+      "group": "G1",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "P01",
+      "group": "G2",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "P02",
+      "group": "G2",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "P03",
+      "group": "G2",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "S01",
+      "group": "G2",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "S02",
+      "group": "G2",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "S03",
+      "group": "G2",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "R01",
+      "group": "G3",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "R02",
+      "group": "G3",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "R03",
+      "group": "G3",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "R04",
+      "group": "G3",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "C01",
+      "group": "G4",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "C02",
+      "group": "G4",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "C03",
+      "group": "G4",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "C04",
+      "group": "G4",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "K01",
+      "group": "G5",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "K02",
+      "group": "G5",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "K03",
+      "group": "G5",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "K04",
+      "group": "G5",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "F01",
+      "group": "G6",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "F02",
+      "group": "G6",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "F03",
+      "group": "G6",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "Q01",
+      "group": "G7",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "Q02",
+      "group": "G7",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "Q03",
+      "group": "G7",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "O01",
+      "group": "G7",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    },
+    {
+      "position": "O02",
+      "group": "G7",
+      "person_name": null,
+      "github_handle": null,
+      "assignment_status": "awaiting_user_assignment",
+      "backup_reviewer": null
+    }
+  ],
+  "tasks": [
+    {
+      "id": "A01",
+      "title": "Baseline nghiệp vụ và traceability",
+      "primary_position": "L02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": [],
+      "dependencies_source_text": "Không",
+      "acceptance": "Mỗi mã yêu cầu có nguồn, trạng thái và module; quyết định bị thay thế không vào backlog hiện hành.",
+      "requirement_ids": ["QT01", "QT02", "QT03", "RQ-PDF-G22"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:199",
+        "quote": "A01L02\nBaseline nghiệp vụ và traceabilityNghiệm thu: Mỗi mã yêu cầu có nguồn, trạng thái và module; quyết định bị thay thế không vào backlog hiện hành."
+      }
+    },
+    {
+      "id": "A02",
+      "title": "Kiến trúc và các quyết định kỹ thuật",
+      "primary_position": "L01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A01"],
+      "dependencies_source_text": "A01",
+      "acceptance": "Có ADR cho stack, database, auth, worker và adapter Drive; lựa chọn không đổi luật giải.",
+      "requirement_ids": [
+        "QT03",
+        "QT06",
+        "RQ-USER-002",
+        "RQ-PLAN-SCALE",
+        "RQ-PDF-G01"
+      ],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:203",
+        "quote": "A02L01\nKiến trúc và các quyết định kỹ thuậtNghiệm thu: Có ADR cho stack, database, auth, worker và adapter Drive; lựa chọn không đổi luật giải."
+      }
+    },
+    {
+      "id": "A03",
+      "title": "Hợp đồng DTO và schema lõi",
+      "primary_position": "L01",
+      "collaborating_positions": ["P01"],
+      "additional_collaboration": null,
+      "dependencies": ["A01"],
+      "dependencies_source_text": "A01",
+      "acceptance": "VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất.",
+      "requirement_ids": ["QT07", "QT13"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:207",
+        "quote": "A03L01/P01\nHợp đồng DTO và schema lõiNghiệm thu: VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất."
+      }
+    },
+    {
+      "id": "A04",
+      "title": "Wireframe các luồng theo vai trò",
+      "primary_position": "F01",
+      "collaborating_positions": ["C04", "R04"],
+      "additional_collaboration": null,
+      "dependencies": ["A01"],
+      "dependencies_source_text": "A01",
+      "acceptance": "Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ.",
+      "requirement_ids": ["QT28", "RQ-USER-003"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:211",
+        "quote": "A04F01/C04/R04\nWireframe các luồng theo vai tròNghiệm thu: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ."
+      }
+    },
+    {
+      "id": "A05",
+      "title": "Fixtures và kịch bản nghiệm thu",
+      "primary_position": "Q01",
+      "collaborating_positions": ["Q02", "Q03"],
+      "additional_collaboration": null,
+      "dependencies": ["A01"],
+      "dependencies_source_text": "A01",
+      "acceptance": "Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV.",
+      "requirement_ids": ["RQ-PLAN-A05"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:215",
+        "quote": "A05Q01/Q02/Q03\nFixtures và kịch bản nghiệm thuNghiệm thu: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV."
+      }
+    },
+    {
+      "id": "A06",
+      "title": "Backlog người sở hữu và môi trường",
+      "primary_position": "L02",
+      "collaborating_positions": ["O01"],
+      "additional_collaboration": null,
+      "dependencies": ["A02"],
+      "dependencies_source_text": "A02",
+      "acceptance": "Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi.",
+      "requirement_ids": ["QT04", "QT05", "RQ-USER-004"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:219",
+        "quote": "A06L02/O01\nBacklog người sở hữu và môi trườngNghiệm thu: Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi."
+      }
+    },
+    {
+      "id": "B01",
+      "title": "Repository CI và nhánh phát hành",
+      "primary_position": "O01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A02"],
+      "dependencies_source_text": "A02",
+      "acceptance": "Lint, type-check, test, build, secret scan chạy tự động; PR lỗi không được hợp nhất.",
+      "requirement_ids": ["QT05", "QT38", "RQ-USER-004", "QT37-R1"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:228",
+        "quote": "B01O01\nRepository CI và nhánh phát hànhNghiệm thu: Lint, type-check, test, build, secret scan chạy tự động; PR lỗi không được hợp nhất."
+      }
+    },
+    {
+      "id": "B02",
+      "title": "Database migration và seed",
+      "primary_position": "P01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A03"],
+      "dependencies_source_text": "A03",
+      "acceptance": "Dựng sạch được database, seed và rollback/recovery migration thử; mã VĐV giữ số 0.",
+      "requirement_ids": [
+        "QT08",
+        "QT09",
+        "QT36",
+        "RQ-TG01",
+        "RQ-TG02",
+        "RQ-TG03",
+        "RQ-TG04",
+        "RQ-TG05",
+        "RQ-TG06",
+        "RQ-TG07",
+        "RQ-TG08",
+        "RQ-USER-002",
+        "RQ-PDF-G02"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:232",
+        "quote": "B02P01\nDatabase migration và seedNghiệm thu: Dựng sạch được database, seed và rollback/recovery migration thử; mã VĐV giữ số 0."
+      }
+    },
+    {
+      "id": "B03",
+      "title": "Google login và policy nền",
+      "primary_position": "S01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A03", "B02"],
+      "dependencies_source_text": "A03/B02",
+      "acceptance": "Server kiểm role/môn/trường; tài khoản chưa duyệt bị chặn ghi dữ liệu.",
+      "requirement_ids": [
+        "QT15",
+        "QT17",
+        "QT18",
+        "RQ-TG01",
+        "RQ-TG02",
+        "RQ-TG03",
+        "RQ-TG04",
+        "RQ-TG05",
+        "RQ-TG06",
+        "RQ-TG07",
+        "RQ-TG08",
+        "RQ-USER-002",
+        "RQ-PDF-G03"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:236",
+        "quote": "B03S01\nGoogle login và policy nềnNghiệm thu: Server kiểm role/môn/trường; tài khoản chưa duyệt bị chặn ghi dữ liệu."
+      }
+    },
+    {
+      "id": "B04",
+      "title": "API nền giao dịch và version",
+      "primary_position": "P02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A03", "B02"],
+      "dependencies_source_text": "A03/B02",
+      "acceptance": "Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần.",
+      "requirement_ids": ["QT06", "QT20", "QT31"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:240",
+        "quote": "B04P02\nAPI nền giao dịch và versionNghiệm thu: Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần."
+      }
+    },
+    {
+      "id": "B05",
+      "title": "Audit outbox và worker nền",
+      "primary_position": "P03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B02", "B04"],
+      "dependencies_source_text": "B02/B04",
+      "acceptance": "Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng.",
+      "requirement_ids": ["RQ-PDF-G20"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:244",
+        "quote": "B05P03\nAudit outbox và worker nềnNghiệm thu: Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng."
+      }
+    },
+    {
+      "id": "B06",
+      "title": "Lưới modal form và mock server",
+      "primary_position": "F01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A03", "A04"],
+      "dependencies_source_text": "A03/A04",
+      "acceptance": "UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất.",
+      "requirement_ids": ["QT28", "QT30", "RQ-PDF-G19"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:248",
+        "quote": "B06F01\nLưới modal form và mock serverNghiệm thu: UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất."
+      }
+    },
+    {
+      "id": "B07",
+      "title": "Dev staging và cấu hình bí mật",
+      "primary_position": "O01",
+      "collaborating_positions": ["O02"],
+      "additional_collaboration": null,
+      "dependencies": ["B01"],
+      "dependencies_source_text": "B01",
+      "acceptance": "Môi trường tách biệt, không có dữ liệu học sinh thật ở test, có log không lộ CCCD/token.",
+      "requirement_ids": ["QT35", "RQ-USER-002", "RQ-PDF-G01"],
+      "status": "handover_prepared",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:252",
+        "quote": "B07O01/O02\nDev staging và cấu hình bí mậtNghiệm thu: Môi trường tách biệt, không có dữ liệu học sinh thật ở test, có log không lộ CCCD/token."
+      }
+    },
+    {
+      "id": "B08",
+      "title": "Contract test và policy matrix",
+      "primary_position": "Q02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B03", "B04"],
+      "dependencies_source_text": "B03/B04",
+      "acceptance": "API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version.",
+      "requirement_ids": ["QT07", "QT13", "QT14"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:256",
+        "quote": "B08Q02\nContract test và policy matrixNghiệm thu: API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version."
+      }
+    },
+    {
+      "id": "R01",
+      "title": "Danh mục phân cấp và snapshot kỳ",
+      "primary_position": "R01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B02", "B04"],
+      "dependencies_source_text": "B02/B04",
+      "acceptance": "Hai danh mục, kế thừa, hạn mức, ngừng tổ chức; mã nội dung giữ ổn định.",
+      "requirement_ids": [
+        "QT12",
+        "RQ-TG01",
+        "RQ-TG02",
+        "RQ-TG03",
+        "RQ-TG04",
+        "RQ-TG05",
+        "RQ-TG06",
+        "RQ-TG07",
+        "RQ-TG08",
+        "RQ-PLAN-START",
+        "RQ-PDF-G02",
+        "RQ-PDF-CHESS"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:265",
+        "quote": "R01R01\nDanh mục phân cấp và snapshot kỳNghiệm thu: Hai danh mục, kế thừa, hạn mức, ngừng tổ chức; mã nội dung giữ ổn định."
+      }
+    },
+    {
+      "id": "R02",
+      "title": "Học sinh VĐV và cấp mã",
+      "primary_position": "R02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B02", "B04"],
+      "dependencies_source_text": "B02/B04",
+      "acceptance": "Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt.",
+      "requirement_ids": ["QT08", "RQ-PDF-G05"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:269",
+        "quote": "R02R02\nHọc sinh VĐV và cấp mãNghiệm thu: Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt."
+      }
+    },
+    {
+      "id": "R03",
+      "title": "Import và bảo vệ dữ liệu gốc",
+      "primary_position": "R02",
+      "collaborating_positions": ["S03"],
+      "additional_collaboration": null,
+      "dependencies": ["R02", "B03"],
+      "dependencies_source_text": "R02/B03",
+      "acceptance": "Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền.",
+      "requirement_ids": ["QT34", "RQ-PDF-G05"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:273",
+        "quote": "R03R02/S03\nImport và bảo vệ dữ liệu gốcNghiệm thu: Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền."
+      }
+    },
+    {
+      "id": "R04",
+      "title": "Đăng ký và rule validation",
+      "primary_position": "R03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["R01", "R02"],
+      "dependencies_source_text": "R01/R02",
+      "acceptance": "Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý.",
+      "requirement_ids": ["RQ-USER-003", "RQ-PDF-G06"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:277",
+        "quote": "R04R03\nĐăng ký và rule validationNghiệm thu: Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý."
+      }
+    },
+    {
+      "id": "R05",
+      "title": "Đôi đội và thành viên",
+      "primary_position": "R03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["R04"],
+      "dependencies_source_text": "R04",
+      "acceptance": "Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới.",
+      "requirement_ids": ["QT09", "RQ-PDF-G07", "RQ-PDF-TEAM"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:281",
+        "quote": "R05R03\nĐôi đội và thành viênNghiệm thu: Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới."
+      }
+    },
+    {
+      "id": "R06",
+      "title": "Duyệt và revision đăng ký",
+      "primary_position": "R03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["R03", "R04"],
+      "dependencies_source_text": "R03/R04",
+      "acceptance": "Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server.",
+      "requirement_ids": ["RQ-PLAN-REG", "RQ-PDF-G06"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:285",
+        "quote": "R06R03\nDuyệt và revision đăng kýNghiệm thu: Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server."
+      }
+    },
+    {
+      "id": "R07",
+      "title": "Màn hình trường và duyệt quản trị",
+      "primary_position": "R04",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B06", "R01", "R02", "R03", "R04", "R05", "R06"],
+      "dependencies_source_text": "B06/R01–R06",
+      "acceptance": "Nhập/sửa/gửi/duyệt chạy end-to-end, dropdown đúng cây nội dung và thông báo lỗi rõ.",
+      "requirement_ids": [
+        "RQ-TG01",
+        "RQ-TG02",
+        "RQ-TG03",
+        "RQ-TG04",
+        "RQ-TG05",
+        "RQ-TG06",
+        "RQ-TG07",
+        "RQ-TG08",
+        "RQ-USER-003",
+        "RQ-PDF-G06"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:289",
+        "quote": "R07R04\nMàn hình trường và duyệt quản trịNghiệm thu: Nhập/sửa/gửi/duyệt chạy end-to-end, dropdown đúng cây nội dung và thông báo lỗi rõ."
+      }
+    },
+    {
+      "id": "R08",
+      "title": "Tổ trọng tài checklist và xung đột",
+      "primary_position": "S02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B03", "R01"],
+      "dependencies_source_text": "B03/R01",
+      "acceptance": "Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi.",
+      "requirement_ids": ["QT15", "QT16", "RQ-PDF-G04", "RQ-PDF-CHECKLIST"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:293",
+        "quote": "R08S02\nTổ trọng tài checklist và xung độtNghiệm thu: Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi."
+      }
+    },
+    {
+      "id": "R09",
+      "title": "Tệp và quyền xem hồ sơ",
+      "primary_position": "S03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B03", "B05"],
+      "dependencies_source_text": "B03/B05",
+      "acceptance": "Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình.",
+      "requirement_ids": ["QT33", "QT34", "RQ-USER-001", "RQ-PDF-G21"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:297",
+        "quote": "R09S03\nTệp và quyền xem hồ sơNghiệm thu: Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình."
+      }
+    },
+    {
+      "id": "R10",
+      "title": "Kiểm thử đồng thời hạn mức và mã",
+      "primary_position": "Q01",
+      "collaborating_positions": ["Q02"],
+      "additional_collaboration": null,
+      "dependencies": ["R02", "R04", "R06", "R08"],
+      "dependencies_source_text": "R02/R04/R06/R08",
+      "acceptance": "Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền.",
+      "requirement_ids": ["QT08"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:301",
+        "quote": "R10Q01/Q02\nKiểm thử đồng thời hạn mức và mãNghiệm thu: Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền."
+      }
+    },
+    {
+      "id": "C01",
+      "title": "Bộ tạo sơ đồ cố định",
+      "primary_position": "C01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A03", "B04", "R06"],
+      "dependencies_source_text": "A03/B04/R06",
+      "acceptance": "N=6..64 có số trận/chỗ đúng; ảo chỉ vòng đầu, không ảo–ảo, không vẽ lại sau chốt.",
+      "requirement_ids": [
+        "QT09",
+        "QT23",
+        "QT24",
+        "RQ-PDF-G08",
+        "RQ-PDF-G10",
+        "RQ-PDF-KO"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:310",
+        "quote": "C01C01\nBộ tạo sơ đồ cố địnhNghiệm thu: N=6..64 có số trận/chỗ đúng; ảo chỉ vòng đầu, không ảo–ảo, không vẽ lại sau chốt."
+      }
+    },
+    {
+      "id": "C02",
+      "title": "Hạt giống và bốc thăm hai chế độ",
+      "primary_position": "C01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["C01"],
+      "dependencies_source_text": "C01",
+      "acceptance": "Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ.",
+      "requirement_ids": ["QT24", "RQ-PDF-G11"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:314",
+        "quote": "C02C01\nHạt giống và bốc thăm hai chế độNghiệm thu: Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ."
+      }
+    },
+    {
+      "id": "C03",
+      "title": "Bộ vòng tròn một lượt",
+      "primary_position": "C02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["A03", "B04", "R06"],
+      "dependencies_source_text": "A03/B04/R06",
+      "acceptance": "N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo.",
+      "requirement_ids": ["QT23", "QT24", "RQ-PDF-G08", "RQ-PDF-G12"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:318",
+        "quote": "C03C02\nBộ vòng tròn một lượtNghiệm thu: N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo."
+      }
+    },
+    {
+      "id": "C04",
+      "title": "Scheduler và kiểm xung đột",
+      "primary_position": "C03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["R08", "C01", "C03"],
+      "dependencies_source_text": "R08/C01/C03",
+      "acceptance": "Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch.",
+      "requirement_ids": ["RQ-PDF-G13"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:322",
+        "quote": "C04C03\nScheduler và kiểm xung độtNghiệm thu: Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch."
+      }
+    },
+    {
+      "id": "C05",
+      "title": "Cân ghép và chuyển hạng",
+      "primary_position": "C03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["R04", "C01", "C03"],
+      "dependencies_source_text": "R04/C01/C03",
+      "acceptance": "Giới hạn ghép 3 kg, hạn mức trường; cả hai hạng chưa bắt đầu; xếp lại cả hai/hủy thiếu điều kiện.",
+      "requirement_ids": [
+        "QT25",
+        "RQ-PLAN-START",
+        "RQ-PDF-G09",
+        "RQ-PDF-TRANSFER"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:326",
+        "quote": "C05C03\nCân ghép và chuyển hạngNghiệm thu: Giới hạn ghép 3 kg, hạn mức trường; cả hai hạng chưa bắt đầu; xếp lại cả hai/hủy thiếu điều kiện."
+      }
+    },
+    {
+      "id": "C06",
+      "title": "UI sơ đồ và hạt giống",
+      "primary_position": "C04",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B06", "C01", "C02"],
+      "dependencies_source_text": "B06/C01/C02",
+      "acceptance": "Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng.",
+      "requirement_ids": ["RQ-PDF-G10", "RQ-PDF-KO"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:330",
+        "quote": "C06C04\nUI sơ đồ và hạt giốngNghiệm thu: Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng."
+      }
+    },
+    {
+      "id": "C07",
+      "title": "UI vòng tròn theo mẫu",
+      "primary_position": "C04",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B06", "C03"],
+      "dependencies_source_text": "B06/C03",
+      "acceptance": "Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới.",
+      "requirement_ids": ["QT29"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:334",
+        "quote": "C07C04\nUI vòng tròn theo mẫuNghiệm thu: Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới."
+      }
+    },
+    {
+      "id": "C08",
+      "title": "UI lịch và phân làn/lượt",
+      "primary_position": "C04",
+      "collaborating_positions": ["C03"],
+      "additional_collaboration": null,
+      "dependencies": ["C04"],
+      "dependencies_source_text": "C04",
+      "acceptance": "Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo.",
+      "requirement_ids": ["RQ-PDF-G13"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:338",
+        "quote": "C08C04/C03\nUI lịch và phân làn/lượtNghiệm thu: Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo."
+      }
+    },
+    {
+      "id": "C09",
+      "title": "Property tests sơ đồ và vòng tròn",
+      "primary_position": "Q01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["C01", "C02", "C03"],
+      "dependencies_source_text": "C01/C02/C03",
+      "acceptance": "Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện.",
+      "requirement_ids": ["QT24"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:342",
+        "quote": "C09Q01\nProperty tests sơ đồ và vòng trònNghiệm thu: Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện."
+      }
+    },
+    {
+      "id": "C10",
+      "title": "Tích hợp đăng ký tới lịch",
+      "primary_position": "Q02",
+      "collaborating_positions": ["Q03"],
+      "additional_collaboration": null,
+      "dependencies": ["R07", "R08", "C05", "C06", "C07", "C08"],
+      "dependencies_source_text": "R07/R08/C05–C08",
+      "acceptance": "Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:346",
+        "quote": "C10Q02/Q03\nTích hợp đăng ký tới lịchNghiệm thu: Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server."
+      }
+    },
+    {
+      "id": "K01",
+      "title": "Submission xác nhận và edit lease",
+      "primary_position": "K01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B04", "B05", "R08", "C01"],
+      "dependencies_source_text": "B04/B05/R08/C01",
+      "acceptance": "Chỉ trọng tài checklist nhập; một người online; xác nhận mới đổi chính thức, version cũ báo xung đột.",
+      "requirement_ids": [
+        "QT14",
+        "QT16",
+        "QT17",
+        "QT19",
+        "QT20",
+        "QT21",
+        "QT31",
+        "RQ-PDF-G07",
+        "RQ-PDF-G14",
+        "RQ-PDF-RESULT"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:355",
+        "quote": "K01K01\nSubmission xác nhận và edit leaseNghiệm thu: Chỉ trọng tài checklist nhập; một người online; xác nhận mới đổi chính thức, version cũ báo xung đột."
+      }
+    },
+    {
+      "id": "K02",
+      "title": "Trạng thái và phục hồi quyền thi",
+      "primary_position": "K02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["K01", "C01", "C03"],
+      "dependencies_source_text": "K01/C01/C03",
+      "acceptance": "Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật.",
+      "requirement_ids": ["QT27", "RQ-PDF-G15"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:359",
+        "quote": "K02K02\nTrạng thái và phục hồi quyền thiNghiệm thu: Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật."
+      }
+    },
+    {
+      "id": "K03",
+      "title": "Biểu mẫu môn và Cờ vua import",
+      "primary_position": "K01",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["K01", "R03"],
+      "dependencies_source_text": "K01/R03",
+      "acceptance": "Thời gian/khoảng cách/tổng điểm/hiệp/thẻ có schema; Cờ vua giữ vị thứ, không đồng đội năm nay.",
+      "requirement_ids": [
+        "QT11",
+        "QT27",
+        "RQ-PDF-G14",
+        "RQ-PDF-VOVINAM",
+        "RQ-PDF-CHESS"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:363",
+        "quote": "K03K01\nBiểu mẫu môn và Cờ vua importNghiệm thu: Thời gian/khoảng cách/tổng điểm/hiệp/thẻ có schema; Cờ vua giữ vị thứ, không đồng đội năm nay."
+      }
+    },
+    {
+      "id": "K04",
+      "title": "Xếp hạng vòng tròn theo môn",
+      "primary_position": "K03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["C03", "K01", "K02", "K03"],
+      "dependencies_source_text": "C03/K01/K02/K03",
+      "acceptance": "Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng.",
+      "requirement_ids": ["QT11", "QT26", "RQ-PDF-G12", "RQ-PDF-VOVINAM"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:367",
+        "quote": "K04K03\nXếp hạng vòng tròn theo mônNghiệm thu: Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng."
+      }
+    },
+    {
+      "id": "K05",
+      "title": "Đếm thực tế hợp lệ và huy chương",
+      "primary_position": "K03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["K02", "K03"],
+      "dependencies_source_text": "K02/K03",
+      "acceptance": "3–4 chỉ vàng/bạc; 5 có đồng; miễn chỉ tính khi đấu thật; đủ số trường/hợp lệ mới công nhận.",
+      "requirement_ids": [
+        "QT10",
+        "QT26",
+        "RQ-PDF-G08",
+        "RQ-PDF-G16",
+        "RQ-PDF-MEDALS"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:371",
+        "quote": "K05K03\nĐếm thực tế hợp lệ và huy chươngNghiệm thu: 3–4 chỉ vàng/bạc; 5 có đồng; miễn chỉ tính khi đấu thật; đủ số trường/hợp lệ mới công nhận."
+      }
+    },
+    {
+      "id": "K06",
+      "title": "Điểm môn toàn đoàn và phạt",
+      "primary_position": "K04",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["K04", "K05"],
+      "dependencies_source_text": "K04/K05",
+      "acceptance": "Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng.",
+      "requirement_ids": ["QT26", "RQ-PDF-G17", "RQ-PDF-G18"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:375",
+        "quote": "K06K04\nĐiểm môn toàn đoàn và phạtNghiệm thu: Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng."
+      }
+    },
+    {
+      "id": "K07",
+      "title": "Chốt và tính lại bảng phụ thuộc",
+      "primary_position": "K04",
+      "collaborating_positions": ["P03"],
+      "additional_collaboration": null,
+      "dependencies": ["K06", "B05"],
+      "dependencies_source_text": "K06/B05",
+      "acceptance": "Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng.",
+      "requirement_ids": ["QT22", "RQ-PDF-G17"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:379",
+        "quote": "K07K04/P03\nChốt và tính lại bảng phụ thuộcNghiệm thu: Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng."
+      }
+    },
+    {
+      "id": "K08",
+      "title": "UI nhập duyệt và bản sửa",
+      "primary_position": "K01",
+      "collaborating_positions": ["C04"],
+      "additional_collaboration": null,
+      "dependencies": ["K01", "K02", "K03"],
+      "dependencies_source_text": "K01/K02/K03",
+      "acceptance": "Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel.",
+      "requirement_ids": ["QT21", "QT30", "RQ-PDF-G14", "RQ-PDF-RESULT"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:383",
+        "quote": "K08K01/C04\nUI nhập duyệt và bản sửaNghiệm thu: Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel."
+      }
+    },
+    {
+      "id": "K09",
+      "title": "Công khai in và xuất Excel",
+      "primary_position": "F02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["K07", "B06"],
+      "dependencies_source_text": "K07/B06",
+      "acceptance": "Chỉ dữ liệu được công bố, không CCCD/ảnh; in đầu/ký; trạng thái sơ bộ/chính thức đúng.",
+      "requirement_ids": [
+        "QT18",
+        "QT21",
+        "QT22",
+        "QT29",
+        "RQ-PDF-G19",
+        "RQ-PDF-G22",
+        "RQ-PDF-PUBLIC"
+      ],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:387",
+        "quote": "K09F02\nCông khai in và xuất ExcelNghiệm thu: Chỉ dữ liệu được công bố, không CCCD/ảnh; in đầu/ký; trạng thái sơ bộ/chính thức đúng."
+      }
+    },
+    {
+      "id": "K10",
+      "title": "Thông báo liên kết theo quyền",
+      "primary_position": "P03",
+      "collaborating_positions": ["F01"],
+      "additional_collaboration": null,
+      "dependencies": ["B05", "R06", "K01", "C04"],
+      "dependencies_source_text": "B05/R06/K01/C04",
+      "acceptance": "Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate.",
+      "requirement_ids": ["RQ-PDF-G20"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:391",
+        "quote": "K10P03/F01\nThông báo liên kết theo quyềnNghiệm thu: Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate."
+      }
+    },
+    {
+      "id": "K11",
+      "title": "Nghiệm thu kết quả và toàn đoàn",
+      "primary_position": "Q01",
+      "collaborating_positions": ["Q02", "Q03"],
+      "additional_collaboration": null,
+      "dependencies": [
+        "K02",
+        "K03",
+        "K04",
+        "K05",
+        "K06",
+        "K07",
+        "K08",
+        "K09",
+        "K10"
+      ],
+      "dependencies_source_text": "K02–K10",
+      "acceptance": "Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:395",
+        "quote": "K11Q01/Q02/Q03\nNghiệm thu kết quả và toàn đoànNghiệm thu: Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán."
+      }
+    },
+    {
+      "id": "I01",
+      "title": "Hàng đợi nhập ngoại tuyến",
+      "primary_position": "F03",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B04", "K01", "R08"],
+      "dependencies_source_text": "B04/K01/R08",
+      "acceptance": "Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả.",
+      "requirement_ids": ["QT32", "RQ-PDF-G21"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:404",
+        "quote": "I01F03\nHàng đợi nhập ngoại tuyếnNghiệm thu: Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả."
+      }
+    },
+    {
+      "id": "I02",
+      "title": "Xung đột và đổi phân công offline",
+      "primary_position": "F03",
+      "collaborating_positions": ["S02", "K01"],
+      "additional_collaboration": null,
+      "dependencies": ["I01", "K01"],
+      "dependencies_source_text": "I01/K01",
+      "acceptance": "Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.",
+      "requirement_ids": ["QT33", "RQ-PDF-G21"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:408",
+        "quote": "I02F03/S02/K01\nXung đột và đổi phân công offlineNghiệm thu: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức."
+      }
+    },
+    {
+      "id": "I03",
+      "title": "Drive adapter thật và retries",
+      "primary_position": "S03",
+      "collaborating_positions": ["O02"],
+      "additional_collaboration": null,
+      "dependencies": ["R09", "B05"],
+      "dependencies_source_text": "R09/B05",
+      "acceptance": "Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được.",
+      "requirement_ids": ["RQ-USER-001", "RQ-USER-002"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:412",
+        "quote": "I03S03/O02\nDrive adapter thật và retriesNghiệm thu: Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được."
+      }
+    },
+    {
+      "id": "I04",
+      "title": "Backup retention và restore thử",
+      "primary_position": "O02",
+      "collaborating_positions": [],
+      "additional_collaboration": null,
+      "dependencies": ["B07", "I03"],
+      "dependencies_source_text": "B07/I03",
+      "acceptance": "Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng.",
+      "requirement_ids": ["QT36", "RQ-USER-001", "RQ-PDF-G22"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:416",
+        "quote": "I04O02\nBackup retention và restore thửNghiệm thu: Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng."
+      }
+    },
+    {
+      "id": "I05",
+      "title": "Bảo mật và kiểm tải",
+      "primary_position": "Q02",
+      "collaborating_positions": ["O01"],
+      "additional_collaboration": null,
+      "dependencies": ["K11", "I02", "I03"],
+      "dependencies_source_text": "K11/I02/I03",
+      "acceptance": "Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0.",
+      "requirement_ids": ["QT18", "QT34", "QT35"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:420",
+        "quote": "I05Q02/O01\nBảo mật và kiểm tảiNghiệm thu: Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0."
+      }
+    },
+    {
+      "id": "I06",
+      "title": "Diễn tập toàn giải và kiểm hồi quy",
+      "primary_position": "Q03",
+      "collaborating_positions": ["L02"],
+      "additional_collaboration": null,
+      "dependencies": ["K11", "I02", "I04"],
+      "dependencies_source_text": "K11/I02/I04",
+      "acceptance": "7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:424",
+        "quote": "I06Q03/L02\nDiễn tập toàn giải và kiểm hồi quyNghiệm thu: 7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện."
+      }
+    },
+    {
+      "id": "I07",
+      "title": "Triển khai thử và chuyển VPS",
+      "primary_position": "O01",
+      "collaborating_positions": ["O02"],
+      "additional_collaboration": null,
+      "dependencies": ["B07", "I04"],
+      "dependencies_source_text": "B07/I04",
+      "acceptance": "Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau.",
+      "requirement_ids": ["RQ-USER-002"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:428",
+        "quote": "I07O01/O02\nTriển khai thử và chuyển VPSNghiệm thu: Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau."
+      }
+    },
+    {
+      "id": "I08",
+      "title": "Sửa lỗi tích hợp và ổn định hợp đồng",
+      "primary_position": "L01",
+      "collaborating_positions": [],
+      "additional_collaboration": "các nhóm",
+      "dependencies": ["I05", "I06"],
+      "dependencies_source_text": "I05/I06",
+      "acceptance": "Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:432",
+        "quote": "I08L01/các nhóm\nSửa lỗi tích hợp và ổn định hợp đồngNghiệm thu: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua."
+      }
+    },
+    {
+      "id": "D01",
+      "title": "UAT với người dùng theo vai trò",
+      "primary_position": "L02",
+      "collaborating_positions": ["Q03"],
+      "additional_collaboration": null,
+      "dependencies": ["G5"],
+      "dependencies_source_text": "G5",
+      "acceptance": "Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát.",
+      "requirement_ids": ["QT39", "QT40"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:441",
+        "quote": "D01L02/Q03\nUAT với người dùng theo vai tròNghiệm thu: Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát."
+      }
+    },
+    {
+      "id": "D02",
+      "title": "Rà dữ liệu và tài khoản thật",
+      "primary_position": "R02",
+      "collaborating_positions": ["S01", "L02"],
+      "additional_collaboration": null,
+      "dependencies": ["D01"],
+      "dependencies_source_text": "D01",
+      "acceptance": "Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:445",
+        "quote": "D02R02/S01/L02\nRà dữ liệu và tài khoản thậtNghiệm thu: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc."
+      }
+    },
+    {
+      "id": "D03",
+      "title": "Release candidate và rollback",
+      "primary_position": "O01",
+      "collaborating_positions": ["O02"],
+      "additional_collaboration": null,
+      "dependencies": ["D01", "I07"],
+      "dependencies_source_text": "D01/I07",
+      "acceptance": "Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:449",
+        "quote": "D03O01/O02\nRelease candidate và rollbackNghiệm thu: Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi."
+      }
+    },
+    {
+      "id": "D04",
+      "title": "Hướng dẫn và tập huấn",
+      "primary_position": "F02",
+      "collaborating_positions": ["L02"],
+      "additional_collaboration": "các nhóm",
+      "dependencies": ["D01"],
+      "dependencies_source_text": "D01",
+      "acceptance": "Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.",
+      "requirement_ids": [],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:453",
+        "quote": "D04F02/L02/các nhóm\nHướng dẫn và tập huấnNghiệm thu: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành."
+      }
+    },
+    {
+      "id": "D05",
+      "title": "Chạy thử bàn giao và theo dõi",
+      "primary_position": "L01",
+      "collaborating_positions": ["O01", "Q03"],
+      "additional_collaboration": null,
+      "dependencies": ["D02", "D03", "D04"],
+      "dependencies_source_text": "D02/D03/D04",
+      "acceptance": "Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận.",
+      "requirement_ids": ["QT39", "QT40"],
+      "status": "not_implemented",
+      "acceptance_status": "not_accepted",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:457",
+        "quote": "D05L01/O01/Q03\nChạy thử bàn giao và theo dõiNghiệm thu: Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận."
+      }
+    }
+  ]
+}

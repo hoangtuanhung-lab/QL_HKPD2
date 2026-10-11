@@ -72,3 +72,11 @@ Nhóm có thể gửi mã từng nhiệm vụ để Codex kiểm tra, sửa và 
 ## Phiếu đăng ký của nhà trường — A04
 
 Trường tự tạo phiếu theo kỳ giải, thêm/sửa/xóa VĐV và xuất/nhập JSON. Số lượng tính từ danh sách thực tế, không đặt trước số trường hoặc số người tham gia. Dữ liệu nháp lưu trên trình duyệt đang dùng; chưa gửi duyệt hoặc đồng bộ giữa các trường. Xem [hướng dẫn và phạm vi A04](docs/runbooks/A04-school-registration.md). Năm luồng còn lại đang ở mức phác thảo để nhóm phát triển tiếp.
+
+## Baseline nghiệp vụ — A01
+
+[A01 v0.2](docs/business/README.md) ghi yêu cầu có nguồn, trạng thái, module/WBS và kịch bản; quyết định bị thay thế được giữ lịch sử và loại khỏi hàng đợi hiện hành. Chạy `npm run business:generate` sau khi sửa sổ yêu cầu, `npm run business:check` để kiểm trích dẫn và bảng truy vết. Đã bổ sung điều lệ và PDF 94 trang, ánh xạ đủ 293 câu sang 22 nhóm công việc. Các quyết định bị sửa được đối chiếu theo nguồn sau; danh mục gốc 133 nội dung và các U còn mở vẫn chờ bổ sung/review.
+
+## Bàn giao nhóm A
+
+Xem [trạng thái A01–A06](docs/planning/group-a-handover.md), [wireframe sáu luồng](docs/design/A04-role-flows.md), [fixture A05](packages/test-fixtures/a05/README.md) và [backlog A06](docs/planning/backlog.md). `npm run group-a:check` kiểm board/fixture theo A01; `npm run group-a:generate` cập nhật bảng backlog. Tên thật 28 vị trí chưa nhận; dữ liệu 7 trường/500 VĐV chỉ là bộ thử, ứng dụng không tự nạp.
