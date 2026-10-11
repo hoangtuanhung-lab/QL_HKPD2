@@ -137,6 +137,15 @@ describe("K01 server commands and K07 invalidation", () => {
       clock,
     );
     expect(store.state.officialHistory.map((v) => v.version)).toEqual([1, 2]);
+    expect(
+      store.state.submissionReasons?.[store.state.official!.submission_id],
+    ).toBe("Biên bản mới");
+    expect(store.audits.at(-1)).toMatchObject({
+      action: "confirm",
+      reason: "Biên bản mới",
+      beforeOfficialVersion: 1,
+      afterOfficialVersion: 2,
+    });
     expect(winnerFromOfficial(store.state)).toBe(`athlete:${ids.athleteB}`);
     expect(store.invalidations).toBe(2);
   });

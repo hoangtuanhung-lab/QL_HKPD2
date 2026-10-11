@@ -2633,6 +2633,13 @@
           },
           "payload": {
             "$ref": "#/components/schemas/ResultPayload"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S",
+            "description": "Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai."
           }
         },
         "required": ["match_id", "base_official_version", "payload"],
@@ -2670,6 +2677,13 @@
           },
           "payload": {
             "$ref": "#/components/schemas/ResultPayload"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S",
+            "description": "Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai."
           }
         },
         "required": ["base_version", "payload"]

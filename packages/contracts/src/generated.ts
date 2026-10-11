@@ -793,10 +793,14 @@ export interface components {
       match_id: string;
       base_official_version: number;
       payload: components["schemas"]["ResultPayload"];
+      /** @description Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai. */
+      reason?: string;
     };
     ReviseSubmission: {
       base_version: number;
       payload: components["schemas"]["ResultPayload"];
+      /** @description Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai. */
+      reason?: string;
     };
     /**
      * @example {

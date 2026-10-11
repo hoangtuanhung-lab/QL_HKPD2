@@ -54,6 +54,8 @@ export interface ResultMatch {
   submissions: readonly Submission[];
   official: Official | null;
   officialHistory: readonly Official[];
+  /** Internal audit metadata keyed by submission, never a public DTO field. */
+  submissionReasons?: Readonly<Record<string, string | null>>;
 }
 /** Exact decimal scale: rejects excess precision instead of rounding under unresolved U02. */
 export function scaled(
@@ -236,6 +238,11 @@ export function submitPreview(
     "EDIT_REASON",
     "Kết quả đã khóa hoặc bản sửa thiếu lý do.",
   );
+  ensure(
+    reason === undefined || (reason.trim().length > 0 && reason.length <= 2000),
+    "EDIT_REASON",
+    "Lý do phải có nội dung và tối đa 2000 ký tự.",
+  );
   validatePayload(payload, match);
   const submission: Submission = {
     id,
@@ -253,6 +260,10 @@ export function submitPreview(
     ...structuredClone(match),
     version: match.version + 1,
     submissions: [...structuredClone(match.submissions), submission],
+    submissionReasons: {
+      ...match.submissionReasons,
+      [id]: reason?.trim() || null,
+    },
   });
 }
 export function confirmPreview(
@@ -291,6 +302,11 @@ export function confirmPreview(
       (match.official?.version ?? 0) === input.base_official_version,
     "VERSION_CONFLICT",
     "Bản nhập hoặc kết quả chính thức đã thay đổi.",
+  );
+  ensure(
+    !match.official || match.submissionReasons?.[s.id]?.trim(),
+    "EDIT_REASON",
+    "Bản sửa thiếu lý do đã lưu; phải đối chiếu lại.",
   );
   validatePayload(s.payload, match);
   const official: Official = {

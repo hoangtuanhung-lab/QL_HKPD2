@@ -296,7 +296,7 @@ export function ResultsWorkspace() {
                       trialRefId,
                       new Date(),
                       id,
-                      reason,
+                      reason.trim() || undefined,
                     );
                   setMatch(next);
                   setPendingReasons({ ...pendingReasons, [id]: reason.trim() });

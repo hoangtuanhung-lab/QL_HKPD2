@@ -13,6 +13,21 @@ const validators = contractValidators(
 it("K01 submission and official snapshots validate A03, new external rank is additive", () => {
   const s = submitPreview(match(), score(), ids.ref, clock(), ids.athleteA);
   expect(validators.Submission(s.submissions[0])).toBe(true);
+  const create = {
+    match_id: ids.match,
+    base_official_version: 1,
+    payload: score(),
+    reason: "Đối chiếu biên bản",
+  };
+  expect(validators.CreateSubmission(create)).toBe(true);
+  expect(validators.CreateSubmission({ ...create, reason: "  " })).toBe(false);
+  expect(
+    validators.ReviseSubmission({
+      base_version: 1,
+      payload: score(),
+      reason: "Sửa theo biên bản",
+    }),
+  ).toBe(true);
   const o = confirmPreview(
     s,
     {

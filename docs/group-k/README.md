@@ -22,7 +22,7 @@ Mở **Xác nhận kết quả**. Điền mỗi dòng `Mã;Tên;Mã trường`, 
 
 Bản thử mất khi đổi tab/tải lại; tạo lượt mới thay bản thử cũ. Các nút thử không xác minh tài khoản, lease hoặc gửi server. Các kiểm quyền/lease/giao dịch nằm trong lõi server và test, cần nối adapter trước dùng thật. Cờ vua dùng vị thứ ngoài đã tính, không tự tính lại và không tạo nội dung đội năm nay. Giới hạn 5 hiệp trên giao diện chỉ là cấu hình thử.
 
-Đọc [hợp đồng tích hợp](integration.md), [quy tắc và điểm chưa chốt](rules.md), [checklist nghiệm thu thật](acceptance.md). OpenAPI bổ sung `RankValue`/`external_rank` vào union kết quả; consumer phải xử lý nhánh mới. Không thay các kiểu cũ hoặc thêm endpoint. Thư mục VĐV vẫn theo `(edition_id,athlete_id)` từ outbox R02; K không tạo Drive hoặc link công khai.
+Đọc [hợp đồng tích hợp](integration.md), [quy tắc và điểm chưa chốt](rules.md), [checklist nghiệm thu thật](acceptance.md). OpenAPI bổ sung `RankValue`/`external_rank` vào union kết quả và `reason` tùy chọn trong CreateSubmission/ReviseSubmission (server bắt buộc khi sửa official); consumer phải xử lý nhánh mới. Không thay các kiểu cũ hoặc thêm endpoint. Thư mục VĐV vẫn theo `(edition_id,athlete_id)` từ outbox R02; K không tạo Drive hoặc link công khai.
 
 ## Kiểm tra trình duyệt
 

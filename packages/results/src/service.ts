@@ -329,7 +329,12 @@ export function executeResult(
       matchId: match.id,
       action: op.type,
       at: now.toISOString(),
-      reason: "reason" in op ? (op.reason ?? null) : null,
+      reason:
+        op.type === "confirm"
+          ? (match.submissionReasons?.[op.confirmation.submission_id] ?? null)
+          : "reason" in op
+            ? (op.reason ?? null)
+            : null,
       beforeOfficialVersion: match.official?.version ?? 0,
       afterOfficialVersion: next.official?.version ?? 0,
     });

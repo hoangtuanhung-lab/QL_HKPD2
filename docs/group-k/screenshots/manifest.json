@@ -20,18 +20,18 @@
       "sha256": "1e9ccf1997088942d0b41df4ad6178468e04a8b4c3783c4a1ae54def7385027c"
     },
     {
-      "file": "index-DFyjnUsB.js",
-      "sha256": "ed5ea2128003d918a1491c3ac049f35e4d8029759767fdf9d09fe7ca6f89d85d"
+      "file": "index-B9xaKRYv.js",
+      "sha256": "579d1c20f0ce3ae06d00280cf985531343238f7e48e52dd340ba777f81b968dd"
     }
   ],
   "images": [
     {
       "file": "pending-correction.png",
-      "sha256": "7995d75d8d86e90e8b94fa70d8c5b6a3d6d8e98a6894ae5d5d568e1db61e649c"
+      "sha256": "b903f3930929078c6a63bc0a451ceee18bef7c432bf6588a747bacf6052b9667"
     },
     {
       "file": "confirmed-correction.png",
-      "sha256": "79e125147aa4c5acc46325f5dd08cab9928d8acd2c41e5e93db3cc7096fc7c67"
+      "sha256": "44c638837071035104aa5e87cc45b56baca7428627c8bc0aa429483c3e992f2c"
     }
   ]
 }
