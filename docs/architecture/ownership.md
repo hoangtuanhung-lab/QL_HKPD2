@@ -2,7 +2,7 @@
 
 Theo plan v1.4; mã vị trí chưa phải GitHub handle. L02 bổ sung tên thật/handle, reviewer và reviewer dự phòng. Không tự điền account giả vào CODEOWNERS.
 
-Người dùng đã chỉ định `@hoangtuanhung-lab` làm reviewer A02/B01/B07. CODEOWNERS áp dụng cho ADR của A02, công cụ/CI/cấu hình nền tảng và tài liệu vận hành; không tự gán quyền sở hữu các module nghiệp vụ khác. GitHub yêu cầu CODEOWNER có quyền write trên repository; tài khoản này đã được xác minh có quyền admin/write ở repository trước khi chuyển. Sau khi người dùng chuyển sang `Tuanhung76/QL_HKPD`, cần kiểm tra lại quyền write của CODEOWNER trên repository mới; không coi bằng chứng quyền cũ là quyền hiện tại. Việc chỉ định không đồng nghĩa PR đã được review.
+Người dùng đã chỉ định `@hoangtuanhung-lab` làm reviewer A02/B01/B07. CODEOWNERS áp dụng cho ADR của A02, công cụ/CI/cấu hình nền tảng và tài liệu vận hành; không tự gán quyền sở hữu các module nghiệp vụ khác. GitHub yêu cầu CODEOWNER có quyền write trên repository; tài khoản này đã được xác minh có quyền admin/write ở repository trước khi chuyển. Repository hiện tại được người dùng yêu cầu tạo lại tại `hoangtuanhung-lab/QL_HKPD2`; cần kiểm tra lại tính hợp lệ của CODEOWNER trên repository này, không coi bằng chứng quyền cũ là quyền hiện tại. Việc chỉ định không đồng nghĩa PR đã được review.
 
 | Phạm vi                                           | Chủ module / reviewer cần có                       |
 | ------------------------------------------------- | -------------------------------------------------- |

@@ -59,6 +59,6 @@ Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt ph�
 
 ## Hợp đồng A03 và repository hiện tại
 
-Repository được người dùng chuyển sang [Tuanhung76/QL_HKPD](https://github.com/Tuanhung76/QL_HKPD). Kết nối GitHub của môi trường cần được cấp quyền với repository mới trước push/tạo PR; quyền CODEOWNER trước khi chuyển phải được kiểm tra lại.
+Repository hiện tại là [hoangtuanhung-lab/QL_HKPD2](https://github.com/hoangtuanhung-lab/QL_HKPD2), được người dùng yêu cầu tạo lại từ nền tảng đã duyệt. A03 được bàn giao qua PR riêng; bằng chứng CI/review của repository cũ là lịch sử, không thay kiểm tra trên repository mới.
 
 A03 cung cấp [OpenAPI lõi](docs/api/core.openapi.json), DTO TypeScript sinh tự động và [tài liệu bàn giao](docs/api/A03-contracts.md). Chạy `npm run contracts:generate` sau khi sửa OpenAPI; `npm run check` kiểm đồng bộ DTO. Endpoint nghiệp vụ mới là hợp đồng chờ review, backend hiện chỉ có health.
