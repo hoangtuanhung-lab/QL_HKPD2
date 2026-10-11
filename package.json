@@ -26,7 +26,10 @@
     "staging:api": "node scripts/environment.mjs api staging",
     "staging:worker": "node scripts/environment.mjs worker staging",
     "staging:web": "node scripts/environment.mjs web staging",
-    "secret:scan": "node scripts/secret-scan.mjs"
+    "secret:scan": "node scripts/secret-scan.mjs",
+    "dev": "node scripts/services.mjs dev",
+    "staging": "node scripts/services.mjs staging",
+    "doctor": "node scripts/doctor.mjs"
   },
   "dependencies": {
     "fastify": "5.12.5",

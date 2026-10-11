@@ -2,6 +2,8 @@
 
 Theo plan v1.4; mã vị trí chưa phải GitHub handle. L02 bổ sung tên thật/handle, reviewer và reviewer dự phòng. Không tự điền account giả vào CODEOWNERS.
 
+Người dùng đã chỉ định `@hoangtuanhung-lab` làm reviewer A02/B01/B07. CODEOWNERS áp dụng cho ADR của A02, công cụ/CI/cấu hình nền tảng và tài liệu vận hành; không tự gán quyền sở hữu các module nghiệp vụ khác. GitHub yêu cầu CODEOWNER có quyền write trên repository; tài khoản này đã được xác minh có quyền admin/write. Việc chỉ định không đồng nghĩa PR đã được review.
+
 | Phạm vi                                           | Chủ module / reviewer cần có                   |
 | ------------------------------------------------- | ---------------------------------------------- |
 | Kiến trúc, hợp đồng chung                         | L01; A02 do Codex được người dùng giao bổ sung |

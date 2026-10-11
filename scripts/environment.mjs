@@ -2,7 +2,11 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseEnv } from "node:util";
-import { spawnSync } from "node:child_process";
+import {
+  supervise,
+  serviceSpecifications,
+  assertPortAvailable,
+} from "./processes.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 export const defaults = {
@@ -77,36 +81,18 @@ if (
       Object.hasOwn(defaults, target)
     ) {
       const configuration = configurations[target];
-      const options = {
-        cwd: root,
-        stdio: "inherit",
-        env: { ...process.env, ...configuration },
-      };
-      const child =
-        command === "web"
-          ? spawnSync(
-              "npm",
-              [
-                "run",
-                target === "dev" ? "dev" : "preview",
-                "--workspace",
-                "@hkpd/web",
-                "--",
-                "--port",
-                configuration.WEB_PORT,
-                "--strictPort",
-              ],
-              options,
-            )
-          : spawnSync(
-              process.execPath,
-              [
-                `apps/${command}/dist/${command === "api" ? "server" : "worker"}.js`,
-              ],
-              options,
-            );
-      if (child.error) throw new Error("Failed to start service.");
-      process.exitCode = child.status ?? 1;
+      if (command === "api") await assertPortAvailable(configuration.API_PORT);
+      if (command === "web") await assertPortAvailable(configuration.WEB_PORT);
+      const manager = supervise(
+        serviceSpecifications(root, configuration).filter(
+          (specification) => specification.name === command,
+        ),
+      );
+      for (const signal of ["SIGINT", "SIGTERM"])
+        process.once(signal, () => {
+          void manager.stop();
+        });
+      process.exitCode = await manager.done;
     } else {
       throw new Error(
         "Usage: environment.mjs init|check|api|worker|web [dev|staging]",

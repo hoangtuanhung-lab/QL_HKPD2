@@ -22,6 +22,10 @@ Trên máy cá nhân, có thể bỏ `--cache /workspace/.npm-cache` để dùng
 
 Sau `npm run build`, mở ba terminal từ thư mục repository:
 
+Có thể chạy cả ba service bằng một lệnh `npm run dev`. Với staging cục bộ, dùng `npm run staging`. Trình điều phối kiểm tra cổng, chờ HTTP readiness và dừng các service do nó tạo khi một service thoát/lỗi. Trong terminal thông thường, Ctrl+C dừng cả bộ; khi dùng công cụ cloud, gửi SIGTERM tới process `node scripts/services.mjs dev` hoặc `staging` nếu thao tác ngắt công cụ chỉ dừng lớp shell bên ngoài. Dùng `npm run doctor` để kiểm tra runtime, dependencies, build outputs và cấu hình khi khởi động thất bại.
+
+Các lệnh từng service vẫn hỗ trợ khi cần chạy riêng:
+
 ```bash
 npm run dev:api
 npm run dev:worker
@@ -51,4 +55,4 @@ API staging dùng cổng 3002, web staging cổng 5174, phục vụ frontend đ�
 - `infra/env/`: cấu hình cục bộ được Git bỏ qua.
 - `.github/workflows/ci.yml`: lint, type-check, test, build, smoke và secret scan.
 
-Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt phần đã kiểm chứng và điều kiện còn thiếu. Chưa có GitHub handle của reviewer, nên CODEOWNERS chưa có mapping hiệu lực. CI và bảo vệ nhánh cần được xác minh trên GitHub trước nghiệm thu B01.
+Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt phần đã kiểm chứng và điều kiện còn thiếu. Reviewer A02/B01/B07 được chỉ định là `@hoangtuanhung-lab`. CI nền tảng đã chạy thành công trên GitHub; bảo vệ nhánh vẫn bị chặn bởi gói repository/quyền integration và chưa được nghiệm thu.

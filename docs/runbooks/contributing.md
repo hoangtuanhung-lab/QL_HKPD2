@@ -12,4 +12,6 @@ O01 hoặc admin cần thiết lập ruleset cho `main` và `release/*`: yêu c�
 
 Workflow trong repository không tự bật ruleset. Phải kiểm cấu hình trên GitHub và dùng PR lỗi thử để chứng minh merge bị chặn. Chưa làm được việc đó thì B01 chưa nghiệm thu hoàn toàn.
 
+Tệp ruleset chuẩn bị sẵn và quy trình nghiệm thu nằm trong [runbook bảo vệ nhánh](branch-protection.md). Đây là cấu hình chờ áp dụng, không phải chính sách đang có hiệu lực trên GitHub.
+
 Repository ban đầu không có commit/nhánh. Commit bootstrap đầu tiên có thể tạo `main` để nhóm bắt đầu review; việc đó không phải bằng chứng đã qua review hoặc đã bật bảo vệ nhánh. Các thay đổi tiếp theo đi qua PR. Không deploy hoặc đưa dữ liệu thật vào bootstrap.

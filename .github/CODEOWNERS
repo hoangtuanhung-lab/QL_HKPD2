@@ -1,3 +1,25 @@
-# Chưa có GitHub handle/team của các chủ module.
-# L02 điền mapping từ docs/architecture/ownership.md trước khi bật required code-owner review.
-# Không dùng tài khoản giả hoặc gán mọi module cho O01.
+# Reviewer A02/B01/B07 do người dùng chỉ định: @hoangtuanhung-lab.
+# Các module nghiệp vụ khác chờ L02 cung cấp mapping GitHub handle/team.
+/.github/ @hoangtuanhung-lab
+/infra/ @hoangtuanhung-lab
+/scripts/ @hoangtuanhung-lab
+/docs/architecture/ADR-*.md @hoangtuanhung-lab
+/docs/architecture/ownership.md @hoangtuanhung-lab
+/docs/architecture/scope-changes.md @hoangtuanhung-lab
+/docs/runbooks/ @hoangtuanhung-lab
+/README.md @hoangtuanhung-lab
+/package.json @hoangtuanhung-lab
+/package-lock.json @hoangtuanhung-lab
+/.node-version @hoangtuanhung-lab
+/.npmrc @hoangtuanhung-lab
+/.gitignore @hoangtuanhung-lab
+/.prettierignore @hoangtuanhung-lab
+/.secretlintignore @hoangtuanhung-lab
+/.secretlintrc.json @hoangtuanhung-lab
+/eslint.config.js @hoangtuanhung-lab
+/tsconfig.json @hoangtuanhung-lab
+/vitest.config.ts @hoangtuanhung-lab
+/tests/api.test.ts @hoangtuanhung-lab
+/tests/environment.test.mjs @hoangtuanhung-lab
+/tests/secret-scan.test.mjs @hoangtuanhung-lab
+/tests/services.test.mjs @hoangtuanhung-lab

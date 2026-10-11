@@ -8,6 +8,12 @@ Chạy mọi lệnh ở gốc repository với Node 24/npm 11. Mỗi cloud task 
 4. `npm run check`, `npm run secret:scan`, `node scripts/smoke.mjs`.
 5. Chạy từng service bằng các lệnh dev/staging trong README, ở terminal hoặc process được giám sát riêng.
 
+Lệnh khởi động chung: `npm run dev` hoặc `npm run staging`. Không chạy bộ chung cùng các lệnh từng service của cùng môi trường vì chúng dùng cùng cổng. Lệnh `npm run doctor` kiểm tra các thành phần cục bộ, không truy vấn SQL/Google/Netlify và không in giá trị credential.
+
+Trình điều phối chặn cổng bị chiếm trước khi tạo process; nếu một process lỗi, các process còn lại do nó tạo được dừng. Gửi SIGINT/SIGTERM tới process Node điều phối để dừng có kiểm soát; sau 2 giây process con chưa thoát được gửi SIGKILL. Khi công cụ cloud ngắt lớp shell ngoài mà không chuyển tín hiệu xuống, cần gửi SIGTERM tới đúng process điều phối; không dùng `pkill node`.
+
+Các lệnh chạy riêng cũng chuyển tín hiệu dừng xuống process con. Smoke kiểm thử khởi động/dừng cả bộ và runner API riêng, sau đó xác minh cổng được trả lại, tránh coi service cũ đang chạy là bằng chứng khởi động mới thành công.
+
 | Môi trường     | Cấu hình bỏ qua bởi Git | API  | Web  |
 | -------------- | ----------------------- | ---- | ---- |
 | dev            | `infra/env/dev.env`     | 3001 | 5173 |
