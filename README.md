@@ -72,3 +72,7 @@ Nhóm có thể gửi mã từng nhiệm vụ để Codex kiểm tra, sửa và 
 ## Phiếu đăng ký của nhà trường — A04
 
 Trường tự tạo phiếu theo kỳ giải, thêm/sửa/xóa VĐV và xuất/nhập JSON. Số lượng tính từ danh sách thực tế, không đặt trước số trường hoặc số người tham gia. Dữ liệu nháp lưu trên trình duyệt đang dùng; chưa gửi duyệt hoặc đồng bộ giữa các trường. Xem [hướng dẫn và phạm vi A04](docs/runbooks/A04-school-registration.md). Năm luồng còn lại đang ở mức phác thảo để nhóm phát triển tiếp.
+
+## Baseline nghiệp vụ — A01
+
+[A01 v0.1](docs/business/README.md) ghi yêu cầu có nguồn, trạng thái, module/WBS và kịch bản; quyết định bị thay thế được giữ lịch sử và loại khỏi hàng đợi hiện hành. Chạy `npm run business:generate` sau khi sửa sổ yêu cầu, `npm run business:check` để kiểm trích dẫn và bảng truy vết. Baseline hiện dùng plan và quyết định người dùng; chưa đủ PDF nghiệp vụ gốc 293 câu để nghiệm thu toàn bộ A01.

@@ -1,0 +1,2341 @@
+{
+  "baseline_id": "A01-v0.1",
+  "recorded_date": "2026-10-11",
+  "recorded_timezone": "Asia/Saigon",
+  "scope_status": "partial_sources_pending_review",
+  "maintainer": "Codex, theo yêu cầu người dùng; vai trò nghiệp vụ L02 trong plan",
+  "sources": [
+    {
+      "id": "SRC-PLAN-14",
+      "kind": "uploaded_plan",
+      "path": "docs/business/sources/plan-v1.4.txt",
+      "original_filename": "Plan_phat_trien_phan_mem_HKPD_nhom_28_nguoi.docx",
+      "original_sha256": "831ea4a8b7d010ad5ab6cc90ee96b762527073e45ac7e65eb864b1892b85445f",
+      "text_sha256": "242bc7a5eb560dadee2529890567d0ba33545d1d2b60d5f21a383be659b2c224",
+      "availability": "available",
+      "authority": "Plan đề xuất; không thay PDF/điều lệ gốc hoặc quyết định cuối người dùng."
+    },
+    {
+      "id": "SRC-PDF-293",
+      "kind": "business_original",
+      "availability": "missing",
+      "expected_question_count": 293,
+      "expected_group_count": 22,
+      "authority": "Chưa đọc; không có ánh xạ số câu hoặc nội dung suy đoán."
+    },
+    {
+      "id": "SRC-CHAT-FOLDER",
+      "kind": "user_message",
+      "availability": "available",
+      "text": "Lưu ý: cần tạo ra cho mỗi vđv 1 thư mục để họ lưu phần kết quả của họ.",
+      "authority": "Quyết định trực tiếp của người dùng; ưu tiên hơn đề xuất plan."
+    },
+    {
+      "id": "SRC-CHAT-DEFER",
+      "kind": "user_message",
+      "availability": "available",
+      "text": "tất cả các nọi dung liên quan đến netlify, sql và google sẽ thực hiện ở bước cuối của dự án",
+      "authority": "Quyết định trực tiếp của người dùng; ưu tiên hơn đề xuất plan."
+    },
+    {
+      "id": "SRC-CHAT-DYNAMIC",
+      "kind": "user_message",
+      "availability": "available",
+      "text": "Tôi chưa có số liệu cụ thể bao nhiêu người tham gia, nên bạn viết code và để các trường đăng ký",
+      "authority": "Quyết định trực tiếp của người dùng; ưu tiên hơn đề xuất plan."
+    },
+    {
+      "id": "SRC-CHAT-MAINTAINER",
+      "kind": "user_message",
+      "availability": "available",
+      "text": "github đòi quyền team mà tôi không có, nên bạn sẽ phụ trách chính. tồi sẽ đẩy code của lập trình viên khác cho bạn kiểm tra, chỉnh sửa và đẩy lê gthub",
+      "authority": "Quyết định trực tiếp của người dùng; ưu tiên hơn đề xuất plan."
+    },
+    {
+      "id": "SRC-CHAT-A01",
+      "kind": "user_message",
+      "availability": "available",
+      "text": "làm A01 cho tôi",
+      "authority": "Quyết định trực tiếp của người dùng; ưu tiên hơn đề xuất plan."
+    }
+  ],
+  "open_issues": [
+    {
+      "id": "U01",
+      "description": "Tệp danh mục đầy đủ, điều lệ và hạn mức/nhóm tuổi/hạng cân",
+      "owner_and_gate": "R01/L02 trước nghiệm thu R01/R04; tiếp tục làm cơ chế import bằng fixture",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:562",
+        "quote": "U01\nTệp danh mục đầy đủ, điều lệ và hạn mức/nhóm tuổi/hạng cân"
+      }
+    },
+    {
+      "id": "U02",
+      "description": "Biểu mẫu từng môn, độ chính xác/làm tròn thành tích, điểm xử thua từng hiệp",
+      "owner_and_gate": "K01/L02 trước nghiệm thu K03/K04; không hardcode",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:565",
+        "quote": "U02\nBiểu mẫu từng môn, độ chính xác/làm tròn thành tích, điểm xử thua từng hiệp"
+      }
+    },
+    {
+      "id": "U03",
+      "description": "Quy tắc xếp hạng trường trong môn, điểm/hạng ngoài phạm vi đã chốt",
+      "owner_and_gate": "K03/K04/L02 trước G4; không công bố toàn đoàn khi chưa đối chiếu",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:568",
+        "quote": "U03\nQuy tắc xếp hạng trường trong môn, điểm/hạng ngoài phạm vi đã chốt"
+      }
+    },
+    {
+      "id": "U04",
+      "description": "Cách ghi nhận trận đã bắt đầu và quyền thao tác bắt đầu",
+      "owner_and_gate": "C03/L02 trước nghiệm thu C05; bảo toàn nguyên tắc không chuyển sau bắt đầu",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:571",
+        "quote": "U04\nCách ghi nhận trận đã bắt đầu và quyền thao tác bắt đầu"
+      }
+    },
+    {
+      "id": "U05",
+      "description": "Phân hạng khi hủy trận tranh đồng và điều kiện chốt nội dung bị ảnh hưởng",
+      "owner_and_gate": "K03/L02 trước nghiệm thu K05",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:574",
+        "quote": "U05\nPhân hạng khi hủy trận tranh đồng và điều kiện chốt nội dung bị ảnh hưởng"
+      }
+    },
+    {
+      "id": "U06",
+      "description": "Cấu hình backend/worker/database ban đầu, Drive và chi phí",
+      "owner_and_gate": "L01/O01/O02 trong P0; thực hiện thử tích hợp, không tự mua dịch vụ",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:577",
+        "quote": "U06\nCấu hình backend/worker/database ban đầu, Drive và chi phí"
+      }
+    },
+    {
+      "id": "U07",
+      "description": "Biểu mẫu in, vị trí cuối nút xác nhận và thống nhất nhấp tên",
+      "owner_and_gate": "F02/C04/R04 khi demo; không cản engine nghiệp vụ",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:580",
+        "quote": "U07\nBiểu mẫu in, vị trí cuối nút xác nhận và thống nhất nhấp tên"
+      }
+    },
+    {
+      "id": "U08",
+      "description": "Chính sách xóa nội dung chưa có đăng ký, phạm vi đổi checklist khi giải chạy",
+      "owner_and_gate": "R01/S02/L02 trước chức năng tương ứng; giữ dữ liệu khi chưa đủ quyết định",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:583",
+        "quote": "U08\nChính sách xóa nội dung chưa có đăng ký, phạm vi đổi checklist khi giải chạy"
+      }
+    },
+    {
+      "id": "U-BASE-001",
+      "description": "Chưa có PDF gốc 22 nhóm/293 câu, danh mục 133 nội dung và điều lệ để đối chiếu đầy đủ. Không tạo mã câu hoặc luật thay cho nguồn chưa đọc.",
+      "owner_and_gate": "Người dùng cung cấp nguồn; Codex/L02 nhập và đối chiếu trước nghiệm thu toàn bộ A01.",
+      "status": "open",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:6",
+        "quote": "Nguồn nghiệp vụ là bản tổng hợp 22 nhóm, các câu 1–293 trong PDF và quyết định cuối của người dùng."
+      }
+    }
+  ],
+  "wbs_catalog": [
+    {
+      "id": "A01",
+      "owner_positions": "L02",
+      "description": "Baseline nghiệp vụ và traceabilityNghiệm thu: Mỗi mã yêu cầu có nguồn, trạng thái và module; quyết định bị thay thế không vào backlog hiện hành.",
+      "dependencies_text": "Không",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:199",
+        "quote": "A01L02\nBaseline nghiệp vụ và traceabilityNghiệm thu: Mỗi mã yêu cầu có nguồn, trạng thái và module; quyết định bị thay thế không vào backlog hiện hành."
+      }
+    },
+    {
+      "id": "A02",
+      "owner_positions": "L01",
+      "description": "Kiến trúc và các quyết định kỹ thuậtNghiệm thu: Có ADR cho stack, database, auth, worker và adapter Drive; lựa chọn không đổi luật giải.",
+      "dependencies_text": "A01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:203",
+        "quote": "A02L01\nKiến trúc và các quyết định kỹ thuậtNghiệm thu: Có ADR cho stack, database, auth, worker và adapter Drive; lựa chọn không đổi luật giải."
+      }
+    },
+    {
+      "id": "A03",
+      "owner_positions": "L01/P01",
+      "description": "Hợp đồng DTO và schema lõiNghiệm thu: VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất.",
+      "dependencies_text": "A01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:207",
+        "quote": "A03L01/P01\nHợp đồng DTO và schema lõiNghiệm thu: VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất."
+      }
+    },
+    {
+      "id": "A04",
+      "owner_positions": "F01/C04/R04",
+      "description": "Wireframe các luồng theo vai tròNghiệm thu: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ.",
+      "dependencies_text": "A01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:211",
+        "quote": "A04F01/C04/R04\nWireframe các luồng theo vai tròNghiệm thu: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ."
+      }
+    },
+    {
+      "id": "A05",
+      "owner_positions": "Q01/Q02/Q03",
+      "description": "Fixtures và kịch bản nghiệm thuNghiệm thu: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV.",
+      "dependencies_text": "A01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:215",
+        "quote": "A05Q01/Q02/Q03\nFixtures và kịch bản nghiệm thuNghiệm thu: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV."
+      }
+    },
+    {
+      "id": "A06",
+      "owner_positions": "L02/O01",
+      "description": "Backlog người sở hữu và môi trườngNghiệm thu: Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi.",
+      "dependencies_text": "A02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:219",
+        "quote": "A06L02/O01\nBacklog người sở hữu và môi trườngNghiệm thu: Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi."
+      }
+    },
+    {
+      "id": "B01",
+      "owner_positions": "O01",
+      "description": "Repository CI và nhánh phát hànhNghiệm thu: Lint, type-check, test, build, secret scan chạy tự động; PR lỗi không được hợp nhất.",
+      "dependencies_text": "A02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:228",
+        "quote": "B01O01\nRepository CI và nhánh phát hànhNghiệm thu: Lint, type-check, test, build, secret scan chạy tự động; PR lỗi không được hợp nhất."
+      }
+    },
+    {
+      "id": "B02",
+      "owner_positions": "P01",
+      "description": "Database migration và seedNghiệm thu: Dựng sạch được database, seed và rollback/recovery migration thử; mã VĐV giữ số 0.",
+      "dependencies_text": "A03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:232",
+        "quote": "B02P01\nDatabase migration và seedNghiệm thu: Dựng sạch được database, seed và rollback/recovery migration thử; mã VĐV giữ số 0."
+      }
+    },
+    {
+      "id": "B03",
+      "owner_positions": "S01",
+      "description": "Google login và policy nềnNghiệm thu: Server kiểm role/môn/trường; tài khoản chưa duyệt bị chặn ghi dữ liệu.",
+      "dependencies_text": "A03/B02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:236",
+        "quote": "B03S01\nGoogle login và policy nềnNghiệm thu: Server kiểm role/môn/trường; tài khoản chưa duyệt bị chặn ghi dữ liệu."
+      }
+    },
+    {
+      "id": "B04",
+      "owner_positions": "P02",
+      "description": "API nền giao dịch và versionNghiệm thu: Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần.",
+      "dependencies_text": "A03/B02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:240",
+        "quote": "B04P02\nAPI nền giao dịch và versionNghiệm thu: Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần."
+      }
+    },
+    {
+      "id": "B05",
+      "owner_positions": "P03",
+      "description": "Audit outbox và worker nềnNghiệm thu: Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng.",
+      "dependencies_text": "B02/B04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:244",
+        "quote": "B05P03\nAudit outbox và worker nềnNghiệm thu: Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng."
+      }
+    },
+    {
+      "id": "B06",
+      "owner_positions": "F01",
+      "description": "Lưới modal form và mock serverNghiệm thu: UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất.",
+      "dependencies_text": "A03/A04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:248",
+        "quote": "B06F01\nLưới modal form và mock serverNghiệm thu: UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất."
+      }
+    },
+    {
+      "id": "B07",
+      "owner_positions": "O01/O02",
+      "description": "Dev staging và cấu hình bí mậtNghiệm thu: Môi trường tách biệt, không có dữ liệu học sinh thật ở test, có log không lộ CCCD/token.",
+      "dependencies_text": "B01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:252",
+        "quote": "B07O01/O02\nDev staging và cấu hình bí mậtNghiệm thu: Môi trường tách biệt, không có dữ liệu học sinh thật ở test, có log không lộ CCCD/token."
+      }
+    },
+    {
+      "id": "B08",
+      "owner_positions": "Q02",
+      "description": "Contract test và policy matrixNghiệm thu: API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version.",
+      "dependencies_text": "B03/B04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:256",
+        "quote": "B08Q02\nContract test và policy matrixNghiệm thu: API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version."
+      }
+    },
+    {
+      "id": "R01",
+      "owner_positions": "R01",
+      "description": "Danh mục phân cấp và snapshot kỳNghiệm thu: Hai danh mục, kế thừa, hạn mức, ngừng tổ chức; mã nội dung giữ ổn định.",
+      "dependencies_text": "B02/B04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:265",
+        "quote": "R01R01\nDanh mục phân cấp và snapshot kỳNghiệm thu: Hai danh mục, kế thừa, hạn mức, ngừng tổ chức; mã nội dung giữ ổn định."
+      }
+    },
+    {
+      "id": "R02",
+      "owner_positions": "R02",
+      "description": "Học sinh VĐV và cấp mãNghiệm thu: Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt.",
+      "dependencies_text": "B02/B04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:269",
+        "quote": "R02R02\nHọc sinh VĐV và cấp mãNghiệm thu: Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt."
+      }
+    },
+    {
+      "id": "R03",
+      "owner_positions": "R02/S03",
+      "description": "Import và bảo vệ dữ liệu gốcNghiệm thu: Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền.",
+      "dependencies_text": "R02/B03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:273",
+        "quote": "R03R02/S03\nImport và bảo vệ dữ liệu gốcNghiệm thu: Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền."
+      }
+    },
+    {
+      "id": "R04",
+      "owner_positions": "R03",
+      "description": "Đăng ký và rule validationNghiệm thu: Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý.",
+      "dependencies_text": "R01/R02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:277",
+        "quote": "R04R03\nĐăng ký và rule validationNghiệm thu: Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý."
+      }
+    },
+    {
+      "id": "R05",
+      "owner_positions": "R03",
+      "description": "Đôi đội và thành viênNghiệm thu: Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới.",
+      "dependencies_text": "R04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:281",
+        "quote": "R05R03\nĐôi đội và thành viênNghiệm thu: Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới."
+      }
+    },
+    {
+      "id": "R06",
+      "owner_positions": "R03",
+      "description": "Duyệt và revision đăng kýNghiệm thu: Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server.",
+      "dependencies_text": "R03/R04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:285",
+        "quote": "R06R03\nDuyệt và revision đăng kýNghiệm thu: Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server."
+      }
+    },
+    {
+      "id": "R07",
+      "owner_positions": "R04",
+      "description": "Màn hình trường và duyệt quản trịNghiệm thu: Nhập/sửa/gửi/duyệt chạy end-to-end, dropdown đúng cây nội dung và thông báo lỗi rõ.",
+      "dependencies_text": "B06/R01–R06",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:289",
+        "quote": "R07R04\nMàn hình trường và duyệt quản trịNghiệm thu: Nhập/sửa/gửi/duyệt chạy end-to-end, dropdown đúng cây nội dung và thông báo lỗi rõ."
+      }
+    },
+    {
+      "id": "R08",
+      "owner_positions": "S02",
+      "description": "Tổ trọng tài checklist và xung độtNghiệm thu: Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi.",
+      "dependencies_text": "B03/R01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:293",
+        "quote": "R08S02\nTổ trọng tài checklist và xung độtNghiệm thu: Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi."
+      }
+    },
+    {
+      "id": "R09",
+      "owner_positions": "S03",
+      "description": "Tệp và quyền xem hồ sơNghiệm thu: Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình.",
+      "dependencies_text": "B03/B05",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:297",
+        "quote": "R09S03\nTệp và quyền xem hồ sơNghiệm thu: Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình."
+      }
+    },
+    {
+      "id": "R10",
+      "owner_positions": "Q01/Q02",
+      "description": "Kiểm thử đồng thời hạn mức và mãNghiệm thu: Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền.",
+      "dependencies_text": "R02/R04/R06/R08",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:301",
+        "quote": "R10Q01/Q02\nKiểm thử đồng thời hạn mức và mãNghiệm thu: Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền."
+      }
+    },
+    {
+      "id": "C01",
+      "owner_positions": "C01",
+      "description": "Bộ tạo sơ đồ cố địnhNghiệm thu: N=6..64 có số trận/chỗ đúng; ảo chỉ vòng đầu, không ảo–ảo, không vẽ lại sau chốt.",
+      "dependencies_text": "A03/B04/R06",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:310",
+        "quote": "C01C01\nBộ tạo sơ đồ cố địnhNghiệm thu: N=6..64 có số trận/chỗ đúng; ảo chỉ vòng đầu, không ảo–ảo, không vẽ lại sau chốt."
+      }
+    },
+    {
+      "id": "C02",
+      "owner_positions": "C01",
+      "description": "Hạt giống và bốc thăm hai chế độNghiệm thu: Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ.",
+      "dependencies_text": "C01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:314",
+        "quote": "C02C01\nHạt giống và bốc thăm hai chế độNghiệm thu: Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ."
+      }
+    },
+    {
+      "id": "C03",
+      "owner_positions": "C02",
+      "description": "Bộ vòng tròn một lượtNghiệm thu: N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo.",
+      "dependencies_text": "A03/B04/R06",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:318",
+        "quote": "C03C02\nBộ vòng tròn một lượtNghiệm thu: N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo."
+      }
+    },
+    {
+      "id": "C04",
+      "owner_positions": "C03",
+      "description": "Scheduler và kiểm xung độtNghiệm thu: Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch.",
+      "dependencies_text": "R08/C01/C03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:322",
+        "quote": "C04C03\nScheduler và kiểm xung độtNghiệm thu: Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch."
+      }
+    },
+    {
+      "id": "C05",
+      "owner_positions": "C03",
+      "description": "Cân ghép và chuyển hạngNghiệm thu: Giới hạn ghép 3 kg, hạn mức trường; cả hai hạng chưa bắt đầu; xếp lại cả hai/hủy thiếu điều kiện.",
+      "dependencies_text": "R04/C01/C03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:326",
+        "quote": "C05C03\nCân ghép và chuyển hạngNghiệm thu: Giới hạn ghép 3 kg, hạn mức trường; cả hai hạng chưa bắt đầu; xếp lại cả hai/hủy thiếu điều kiện."
+      }
+    },
+    {
+      "id": "C06",
+      "owner_positions": "C04",
+      "description": "UI sơ đồ và hạt giốngNghiệm thu: Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng.",
+      "dependencies_text": "B06/C01/C02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:330",
+        "quote": "C06C04\nUI sơ đồ và hạt giốngNghiệm thu: Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng."
+      }
+    },
+    {
+      "id": "C07",
+      "owner_positions": "C04",
+      "description": "UI vòng tròn theo mẫuNghiệm thu: Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới.",
+      "dependencies_text": "B06/C03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:334",
+        "quote": "C07C04\nUI vòng tròn theo mẫuNghiệm thu: Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới."
+      }
+    },
+    {
+      "id": "C08",
+      "owner_positions": "C04/C03",
+      "description": "UI lịch và phân làn/lượtNghiệm thu: Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo.",
+      "dependencies_text": "C04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:338",
+        "quote": "C08C04/C03\nUI lịch và phân làn/lượtNghiệm thu: Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo."
+      }
+    },
+    {
+      "id": "C09",
+      "owner_positions": "Q01",
+      "description": "Property tests sơ đồ và vòng trònNghiệm thu: Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện.",
+      "dependencies_text": "C01/C02/C03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:342",
+        "quote": "C09Q01\nProperty tests sơ đồ và vòng trònNghiệm thu: Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện."
+      }
+    },
+    {
+      "id": "C10",
+      "owner_positions": "Q02/Q03",
+      "description": "Tích hợp đăng ký tới lịchNghiệm thu: Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server.",
+      "dependencies_text": "R07/R08/C05–C08",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:346",
+        "quote": "C10Q02/Q03\nTích hợp đăng ký tới lịchNghiệm thu: Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server."
+      }
+    },
+    {
+      "id": "K01",
+      "owner_positions": "K01",
+      "description": "Submission xác nhận và edit leaseNghiệm thu: Chỉ trọng tài checklist nhập; một người online; xác nhận mới đổi chính thức, version cũ báo xung đột.",
+      "dependencies_text": "B04/B05/R08/C01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:355",
+        "quote": "K01K01\nSubmission xác nhận và edit leaseNghiệm thu: Chỉ trọng tài checklist nhập; một người online; xác nhận mới đổi chính thức, version cũ báo xung đột."
+      }
+    },
+    {
+      "id": "K02",
+      "owner_positions": "K02",
+      "description": "Trạng thái và phục hồi quyền thiNghiệm thu: Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật.",
+      "dependencies_text": "K01/C01/C03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:359",
+        "quote": "K02K02\nTrạng thái và phục hồi quyền thiNghiệm thu: Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật."
+      }
+    },
+    {
+      "id": "K03",
+      "owner_positions": "K01",
+      "description": "Biểu mẫu môn và Cờ vua importNghiệm thu: Thời gian/khoảng cách/tổng điểm/hiệp/thẻ có schema; Cờ vua giữ vị thứ, không đồng đội năm nay.",
+      "dependencies_text": "K01/R03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:363",
+        "quote": "K03K01\nBiểu mẫu môn và Cờ vua importNghiệm thu: Thời gian/khoảng cách/tổng điểm/hiệp/thẻ có schema; Cờ vua giữ vị thứ, không đồng đội năm nay."
+      }
+    },
+    {
+      "id": "K04",
+      "owner_positions": "K03",
+      "description": "Xếp hạng vòng tròn theo mônNghiệm thu: Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng.",
+      "dependencies_text": "C03/K01/K02/K03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:367",
+        "quote": "K04K03\nXếp hạng vòng tròn theo mônNghiệm thu: Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng."
+      }
+    },
+    {
+      "id": "K05",
+      "owner_positions": "K03",
+      "description": "Đếm thực tế hợp lệ và huy chươngNghiệm thu: 3–4 chỉ vàng/bạc; 5 có đồng; miễn chỉ tính khi đấu thật; đủ số trường/hợp lệ mới công nhận.",
+      "dependencies_text": "K02/K03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:371",
+        "quote": "K05K03\nĐếm thực tế hợp lệ và huy chươngNghiệm thu: 3–4 chỉ vàng/bạc; 5 có đồng; miễn chỉ tính khi đấu thật; đủ số trường/hợp lệ mới công nhận."
+      }
+    },
+    {
+      "id": "K06",
+      "owner_positions": "K04",
+      "description": "Điểm môn toàn đoàn và phạtNghiệm thu: Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng.",
+      "dependencies_text": "K04/K05",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:375",
+        "quote": "K06K04\nĐiểm môn toàn đoàn và phạtNghiệm thu: Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng."
+      }
+    },
+    {
+      "id": "K07",
+      "owner_positions": "K04/P03",
+      "description": "Chốt và tính lại bảng phụ thuộcNghiệm thu: Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng.",
+      "dependencies_text": "K06/B05",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:379",
+        "quote": "K07K04/P03\nChốt và tính lại bảng phụ thuộcNghiệm thu: Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng."
+      }
+    },
+    {
+      "id": "K08",
+      "owner_positions": "K01/C04",
+      "description": "UI nhập duyệt và bản sửaNghiệm thu: Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel.",
+      "dependencies_text": "K01/K02/K03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:383",
+        "quote": "K08K01/C04\nUI nhập duyệt và bản sửaNghiệm thu: Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel."
+      }
+    },
+    {
+      "id": "K09",
+      "owner_positions": "F02",
+      "description": "Công khai in và xuất ExcelNghiệm thu: Chỉ dữ liệu được công bố, không CCCD/ảnh; in đầu/ký; trạng thái sơ bộ/chính thức đúng.",
+      "dependencies_text": "K07/B06",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:387",
+        "quote": "K09F02\nCông khai in và xuất ExcelNghiệm thu: Chỉ dữ liệu được công bố, không CCCD/ảnh; in đầu/ký; trạng thái sơ bộ/chính thức đúng."
+      }
+    },
+    {
+      "id": "K10",
+      "owner_positions": "P03/F01",
+      "description": "Thông báo liên kết theo quyềnNghiệm thu: Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate.",
+      "dependencies_text": "B05/R06/K01/C04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:391",
+        "quote": "K10P03/F01\nThông báo liên kết theo quyềnNghiệm thu: Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate."
+      }
+    },
+    {
+      "id": "K11",
+      "owner_positions": "Q01/Q02/Q03",
+      "description": "Nghiệm thu kết quả và toàn đoànNghiệm thu: Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán.",
+      "dependencies_text": "K02–K10",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:395",
+        "quote": "K11Q01/Q02/Q03\nNghiệm thu kết quả và toàn đoànNghiệm thu: Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán."
+      }
+    },
+    {
+      "id": "I01",
+      "owner_positions": "F03",
+      "description": "Hàng đợi nhập ngoại tuyếnNghiệm thu: Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả.",
+      "dependencies_text": "B04/K01/R08",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:404",
+        "quote": "I01F03\nHàng đợi nhập ngoại tuyếnNghiệm thu: Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả."
+      }
+    },
+    {
+      "id": "I02",
+      "owner_positions": "F03/S02/K01",
+      "description": "Xung đột và đổi phân công offlineNghiệm thu: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.",
+      "dependencies_text": "I01/K01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:408",
+        "quote": "I02F03/S02/K01\nXung đột và đổi phân công offlineNghiệm thu: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức."
+      }
+    },
+    {
+      "id": "I03",
+      "owner_positions": "S03/O02",
+      "description": "Drive adapter thật và retriesNghiệm thu: Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được.",
+      "dependencies_text": "R09/B05",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:412",
+        "quote": "I03S03/O02\nDrive adapter thật và retriesNghiệm thu: Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được."
+      }
+    },
+    {
+      "id": "I04",
+      "owner_positions": "O02",
+      "description": "Backup retention và restore thửNghiệm thu: Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng.",
+      "dependencies_text": "B07/I03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:416",
+        "quote": "I04O02\nBackup retention và restore thửNghiệm thu: Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng."
+      }
+    },
+    {
+      "id": "I05",
+      "owner_positions": "Q02/O01",
+      "description": "Bảo mật và kiểm tảiNghiệm thu: Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0.",
+      "dependencies_text": "K11/I02/I03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:420",
+        "quote": "I05Q02/O01\nBảo mật và kiểm tảiNghiệm thu: Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0."
+      }
+    },
+    {
+      "id": "I06",
+      "owner_positions": "Q03/L02",
+      "description": "Diễn tập toàn giải và kiểm hồi quyNghiệm thu: 7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện.",
+      "dependencies_text": "K11/I02/I04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:424",
+        "quote": "I06Q03/L02\nDiễn tập toàn giải và kiểm hồi quyNghiệm thu: 7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện."
+      }
+    },
+    {
+      "id": "I07",
+      "owner_positions": "O01/O02",
+      "description": "Triển khai thử và chuyển VPSNghiệm thu: Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau.",
+      "dependencies_text": "B07/I04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:428",
+        "quote": "I07O01/O02\nTriển khai thử và chuyển VPSNghiệm thu: Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau."
+      }
+    },
+    {
+      "id": "I08",
+      "owner_positions": "L01/các nhóm",
+      "description": "Sửa lỗi tích hợp và ổn định hợp đồngNghiệm thu: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.",
+      "dependencies_text": "I05/I06",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:432",
+        "quote": "I08L01/các nhóm\nSửa lỗi tích hợp và ổn định hợp đồngNghiệm thu: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua."
+      }
+    },
+    {
+      "id": "D01",
+      "owner_positions": "L02/Q03",
+      "description": "UAT với người dùng theo vai tròNghiệm thu: Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát.",
+      "dependencies_text": "G5",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:441",
+        "quote": "D01L02/Q03\nUAT với người dùng theo vai tròNghiệm thu: Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát."
+      }
+    },
+    {
+      "id": "D02",
+      "owner_positions": "R02/S01/L02",
+      "description": "Rà dữ liệu và tài khoản thậtNghiệm thu: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.",
+      "dependencies_text": "D01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:445",
+        "quote": "D02R02/S01/L02\nRà dữ liệu và tài khoản thậtNghiệm thu: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc."
+      }
+    },
+    {
+      "id": "D03",
+      "owner_positions": "O01/O02",
+      "description": "Release candidate và rollbackNghiệm thu: Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi.",
+      "dependencies_text": "D01/I07",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:449",
+        "quote": "D03O01/O02\nRelease candidate và rollbackNghiệm thu: Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi."
+      }
+    },
+    {
+      "id": "D04",
+      "owner_positions": "F02/L02/các nhóm",
+      "description": "Hướng dẫn và tập huấnNghiệm thu: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.",
+      "dependencies_text": "D01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:453",
+        "quote": "D04F02/L02/các nhóm\nHướng dẫn và tập huấnNghiệm thu: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành."
+      }
+    },
+    {
+      "id": "D05",
+      "owner_positions": "L01/O01/Q03",
+      "description": "Chạy thử bàn giao và theo dõiNghiệm thu: Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận.",
+      "dependencies_text": "D02/D03/D04",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:457",
+        "quote": "D05L01/O01/Q03\nChạy thử bàn giao và theo dõiNghiệm thu: Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận."
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "T01",
+      "description": "Đăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ.",
+      "owner_positions": "R/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:505",
+        "quote": "T01\nĐăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ."
+      }
+    },
+    {
+      "id": "T02",
+      "description": "Quyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi.",
+      "owner_positions": "S/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:508",
+        "quote": "T02\nQuyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi."
+      }
+    },
+    {
+      "id": "T03",
+      "description": "Sơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người.",
+      "owner_positions": "C/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:511",
+        "quote": "T03\nSơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người."
+      }
+    },
+    {
+      "id": "T04",
+      "description": "Vòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo.",
+      "owner_positions": "C/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:514",
+        "quote": "T04\nVòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo."
+      }
+    },
+    {
+      "id": "T05",
+      "description": "Hạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển.",
+      "owner_positions": "C/R/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:517",
+        "quote": "T05\nHạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển."
+      }
+    },
+    {
+      "id": "T06",
+      "description": "Xác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:520",
+        "quote": "T06\nXác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền."
+      }
+    },
+    {
+      "id": "T07",
+      "description": "Phân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:523",
+        "quote": "T07\nPhân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới."
+      }
+    },
+    {
+      "id": "T08",
+      "description": "Huy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:526",
+        "quote": "T08\nHuy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả."
+      }
+    },
+    {
+      "id": "T09",
+      "description": "Vắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:529",
+        "quote": "T09\nVắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên."
+      }
+    },
+    {
+      "id": "T10",
+      "description": "Môn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần.",
+      "owner_positions": "K/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:532",
+        "quote": "T10\nMôn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần."
+      }
+    },
+    {
+      "id": "T11",
+      "description": "Ngoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission.",
+      "owner_positions": "F/S/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:535",
+        "quote": "T11\nNgoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission."
+      }
+    },
+    {
+      "id": "T12",
+      "description": "Công khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã.",
+      "owner_positions": "F/O/Q",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:538",
+        "quote": "T12\nCông khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã."
+      }
+    },
+    {
+      "id": "TG01",
+      "description": "Admin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống",
+      "owner_positions": "Q02 và Q03",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1337",
+        "quote": "TG01 Tạo mới\nAdmin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống"
+      }
+    },
+    {
+      "id": "TG02",
+      "description": "Chỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập",
+      "owner_positions": "Q02 và Q03",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1340",
+        "quote": "TG02 Sao chép có chọn lọc\nChỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập"
+      }
+    },
+    {
+      "id": "TG03",
+      "description": "Giải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này",
+      "owner_positions": "Q02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1343",
+        "quote": "TG03 Dữ liệu không đi theo\nGiải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này"
+      }
+    },
+    {
+      "id": "TG04",
+      "description": "Tài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp",
+      "owner_positions": "Q02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1346",
+        "quote": "TG04 Phân quyền\nTài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp"
+      }
+    },
+    {
+      "id": "TG05",
+      "description": "Thiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký",
+      "owner_positions": "Q03 và L02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1349",
+        "quote": "TG05 Mở đăng ký\nThiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký"
+      }
+    },
+    {
+      "id": "TG06",
+      "description": "Có hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu",
+      "owner_positions": "Q02 và Q03",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1352",
+        "quote": "TG06 Cách ly giải\nCó hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu"
+      }
+    },
+    {
+      "id": "TG07",
+      "description": "Sao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn",
+      "owner_positions": "Q02",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1355",
+        "quote": "TG07 Bảo toàn giải nguồn\nSao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn"
+      }
+    },
+    {
+      "id": "TG08",
+      "description": "Gửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản",
+      "owner_positions": "Q02 và P01",
+      "expected_result_status": "needs_source_reconciliation",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1358",
+        "quote": "TG08 Giao dịch và lịch sử\nGửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản"
+      }
+    }
+  ],
+  "requirements": [
+    {
+      "id": "QT01",
+      "title": "Dùng bản tổng hợp yêu cầu và quyết định cuối của người dùng",
+      "statement": "Dùng bản tổng hợp yêu cầu và quyết định cuối của người dùng. Mỗi ticket dẫn mã yêu cầu hoặc mục nghiệp vụ. Đánh dấu quyết định bị thay thế; không đưa vào backlog hiện hành.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:604",
+          "quote": "QT01\nDùng bản tổng hợp yêu cầu và quyết định cuối của người dùng. Mỗi ticket dẫn mã yêu cầu hoặc mục nghiệp vụ. Đánh dấu quyết định bị thay thế; không đưa vào backlog hiện hành."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "business",
+      "owner_positions": ["L02"],
+      "wbs_ids": ["A01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT02",
+      "title": "Nội dung chưa rõ phải có mã U, người xử lý và đầu việc bị ảnh hưởng",
+      "statement": "Nội dung chưa rõ phải có mã U, người xử lý và đầu việc bị ảnh hưởng. Developer không tự chọn ngưỡng, tiêu chí hoặc luật mới.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:607",
+          "quote": "QT02\nNội dung chưa rõ phải có mã U, người xử lý và đầu việc bị ảnh hưởng. Developer không tự chọn ngưỡng, tiêu chí hoặc luật mới."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "business",
+      "owner_positions": ["L02"],
+      "wbs_ids": ["A01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT03",
+      "title": "Thay đổi chuyên môn do người dùng quyết định",
+      "statement": "Thay đổi chuyên môn do người dùng quyết định. Thay đổi kỹ thuật do L01 cùng chủ module thống nhất. Không âm thầm mở rộng phạm vi trong PR.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:610",
+          "quote": "QT03\nThay đổi chuyên môn do người dùng quyết định. Thay đổi kỹ thuật do L01 cùng chủ module thống nhất. Không âm thầm mở rộng phạm vi trong PR."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "business",
+      "owner_positions": ["L02", "L01"],
+      "wbs_ids": ["A01", "A02"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT04",
+      "title": "Mỗi ticket có một người chịu trách nhiệm chính, người phối hợp và reviewer",
+      "statement": "Mỗi ticket có một người chịu trách nhiệm chính, người phối hợp và reviewer. Trong bảng WBS, người đầu tiên trong cột chủ trì là người chịu trách nhiệm mặc định; các tên sau phối hợp. Khi tách ticket phải ghi tên người thật.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:618",
+          "quote": "QT04\nMỗi ticket có một người chịu trách nhiệm chính, người phối hợp và reviewer. Trong bảng WBS, người đầu tiên trong cột chủ trì là người chịu trách nhiệm mặc định; các tên sau phối hợp. Khi tách ticket phải ghi tên người thật."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "coordination",
+      "owner_positions": ["L02"],
+      "wbs_ids": ["A06"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT05",
+      "title": "Mỗi module có chủ sở hữu và reviewer dự phòng",
+      "statement": "Mỗi module có chủ sở hữu và reviewer dự phòng. Sửa module khác cần chủ module đó rà soát. Contracts, schema và migration có reviewer L01/P01 tương ứng.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:621",
+          "quote": "QT05\nMỗi module có chủ sở hữu và reviewer dự phòng. Sửa module khác cần chủ module đó rà soát. Contracts, schema và migration có reviewer L01/P01 tương ứng."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "coordination",
+      "owner_positions": ["L02", "L01", "P01"],
+      "wbs_ids": ["A06", "B01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT06",
+      "title": "Dùng bộ phân quyền, cấp mã, tính điểm và thông báo chung",
+      "statement": "Dùng bộ phân quyền, cấp mã, tính điểm và thông báo chung. Không tạo phiên bản riêng trong từng màn hình. Module khác sử dụng service/API, không tự ghi bảng của nhau.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:624",
+          "quote": "QT06\nDùng bộ phân quyền, cấp mã, tính điểm và thông báo chung. Không tạo phiên bản riêng trong từng màn hình. Module khác sử dụng service/API, không tự ghi bảng của nhau."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "platform",
+      "owner_positions": ["L01", "P02"],
+      "wbs_ids": ["A02", "B04"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT07",
+      "title": "Frontend, backend và thuật toán làm song song theo cùng hợp đồng và fixtures",
+      "statement": "Frontend, backend và thuật toán làm song song theo cùng hợp đồng và fixtures. Hợp nhất thường xuyên theo phần nhỏ; không giữ nhánh riêng đến cuối phase.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:627",
+          "quote": "QT07\nFrontend, backend và thuật toán làm song song theo cùng hợp đồng và fixtures. Hợp nhất thường xuyên theo phần nhỏ; không giữ nhánh riêng đến cuối phase."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "contracts",
+      "owner_positions": ["L01", "Q02"],
+      "wbs_ids": ["A03", "B08"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT08",
+      "title": "ID kỹ thuật tách mã VĐV, STT và tên hiển thị",
+      "statement": "ID kỹ thuật tách mã VĐV, STT và tên hiển thị. Mã VĐV lưu chuỗi, giữ số 0 như 01.012; cấp ở server trong transaction, có unique constraint. Không lấy số lớn nhất ở client rồi cộng 1.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:634",
+          "quote": "QT08\nID kỹ thuật tách mã VĐV, STT và tên hiển thị. Mã VĐV lưu chuỗi, giữ số 0 như 01.012; cấp ở server trong transaction, có unique constraint. Không lấy số lớn nhất ở client rồi cộng 1."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "athletes",
+      "owner_positions": ["P01", "R02"],
+      "wbs_ids": ["B02", "R02", "R10"],
+      "scenario_ids": ["T01"],
+      "open_issue_ids": ["U-BASE-001"],
+      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT09",
+      "title": "Đăng ký, sơ đồ, kết quả, xếp hạng có phạm vi kỳ giải",
+      "statement": "Đăng ký, sơ đồ, kết quả, xếp hạng có phạm vi kỳ giải. Dùng mã trường thống nhất. Đội theo trường và nội dung; vị trí ảo không tạo hồ sơ athlete.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:637",
+          "quote": "QT09\nĐăng ký, sơ đồ, kết quả, xếp hạng có phạm vi kỳ giải. Dùng mã trường thống nhất. Đội theo trường và nội dung; vị trí ảo không tạo hồ sơ athlete."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["P01", "R03", "C01"],
+      "wbs_ids": ["B02", "R05", "C01"],
+      "scenario_ids": ["T01", "TG06"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT10",
+      "title": "Tách số đăng ký, đã duyệt, thực tế thi, hợp lệ và số dùng xét huy chương",
+      "statement": "Tách số đăng ký, đã duyệt, thực tế thi, hợp lệ và số dùng xét huy chương. Không dùng một cột count cho tất cả.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:640",
+          "quote": "QT10\nTách số đăng ký, đã duyệt, thực tế thi, hợp lệ và số dùng xét huy chương. Không dùng một cột count cho tất cả."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "awards",
+      "owner_positions": ["K03", "Q01"],
+      "wbs_ids": ["K05"],
+      "scenario_ids": ["T08"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT11",
+      "title": "Thống nhất đơn vị, độ chính xác và cách biểu diễn theo môn",
+      "statement": "Thống nhất đơn vị, độ chính xác và cách biểu diễn theo môn. Cân đăng ký khác cân chính thức; bảo toàn 0,1 kg khi áp dụng. Không dùng float thiếu kiểm soát để xét bằng nhau.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:643",
+          "quote": "QT11\nThống nhất đơn vị, độ chính xác và cách biểu diễn theo môn. Cân đăng ký khác cân chính thức; bảo toàn 0,1 kg khi áp dụng. Không dùng float thiếu kiểm soát để xét bằng nhau."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "results",
+      "owner_positions": ["K01", "K03", "P01"],
+      "wbs_ids": ["K03", "K04"],
+      "scenario_ids": ["T07"],
+      "open_issue_ids": ["U02"],
+      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT12",
+      "title": "Clone kỳ giải chỉ sao chép cấu hình được phép",
+      "statement": "Clone kỳ giải chỉ sao chép cấu hình được phép. Không sao chép đăng ký, sơ đồ, kết quả. Không xóa lịch sử để sửa lỗi hoặc làm sạch màn hình.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:646",
+          "quote": "QT12\nClone kỳ giải chỉ sao chép cấu hình được phép. Không sao chép đăng ký, sơ đồ, kết quả. Không xóa lịch sử để sửa lỗi hoặc làm sạch màn hình."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01"],
+      "wbs_ids": ["R01"],
+      "scenario_ids": ["TG03", "TG07"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT13",
+      "title": "Không tự đổi tên trường, kiểu hoặc ý nghĩa trạng thái",
+      "statement": "Không tự đổi tên trường, kiểu hoặc ý nghĩa trạng thái. Thay đổi tương thích được cập nhật hợp đồng; thay đổi phá vỡ cần kế hoạch chuyển đổi và danh sách nhóm sử dụng. L01 và chủ module rà soát, Q02 kiểm contract.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:652",
+          "quote": "QT13: Không tự đổi tên trường, kiểu hoặc ý nghĩa trạng thái. Thay đổi tương thích được cập nhật hợp đồng; thay đổi phá vỡ cần kế hoạch chuyển đổi và danh sách nhóm sử dụng. L01 và chủ module rà soát, Q02 kiểm contract."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "partial",
+      "module": "contracts",
+      "owner_positions": ["L01", "Q02"],
+      "wbs_ids": ["A03", "B08"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "scripts/contracts-check.mjs",
+        "tests/contracts.test.mjs"
+      ],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT14",
+      "title": "API xác nhận nhận ID bản nhập và phiên bản cần xác nhận",
+      "statement": "API xác nhận nhận ID bản nhập và phiên bản cần xác nhận. Không nhận bộ điểm mới để tổ trưởng vừa sửa vừa duyệt. Server là nguồn tính huy chương và điểm toàn đoàn; không tin tổng điểm do client gửi. K01 chịu trách nhiệm, Q02 thử trực tiếp API.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:653",
+          "quote": "QT14: API xác nhận nhận ID bản nhập và phiên bản cần xác nhận. Không nhận bộ điểm mới để tổ trưởng vừa sửa vừa duyệt. Server là nguồn tính huy chương và điểm toàn đoàn; không tin tổng điểm do client gửi. K01 chịu trách nhiệm, Q02 thử trực tiếp API."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "results",
+      "owner_positions": ["K01", "Q02"],
+      "wbs_ids": ["K01", "B08"],
+      "scenario_ids": ["T06"],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "tests/contracts.test.mjs"
+      ],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT15",
+      "title": "Nhà trường chỉ thao tác phạm vi trường được giao",
+      "statement": "Nhà trường chỉ thao tác phạm vi trường được giao. Tài khoản chưa được duyệt không ghi nghiệp vụ. Trọng tài chỉ nhập các nội dung được tick trong môn được phân công.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:658",
+          "quote": "QT15\nNhà trường chỉ thao tác phạm vi trường được giao. Tài khoản chưa được duyệt không ghi nghiệp vụ. Trọng tài chỉ nhập các nội dung được tick trong môn được phân công."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "identity",
+      "owner_positions": ["S01", "S02"],
+      "wbs_ids": ["B03", "R08"],
+      "scenario_ids": ["T02"],
+      "open_issue_ids": ["U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT16",
+      "title": "Trọng tài cùng trường bị chặn đúng trận hoặc dòng thành tích theo quy tắc đã chốt",
+      "statement": "Trọng tài cùng trường bị chặn đúng trận hoặc dòng thành tích theo quy tắc đã chốt. Tổ trưởng cùng trường vẫn được xác nhận theo quyết định nghiệp vụ.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:661",
+          "quote": "QT16\nTrọng tài cùng trường bị chặn đúng trận hoặc dòng thành tích theo quy tắc đã chốt. Tổ trưởng cùng trường vẫn được xác nhận theo quyết định nghiệp vụ."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "assignments",
+      "owner_positions": ["S02", "K01"],
+      "wbs_ids": ["R08", "K01"],
+      "scenario_ids": ["T02"],
+      "open_issue_ids": ["U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT17",
+      "title": "Tổ trưởng và quản trị không nhập hoặc sửa điểm thay trọng tài",
+      "statement": "Tổ trưởng và quản trị không nhập hoặc sửa điểm thay trọng tài. Quản trị chỉ xác nhận thay trong trường hợp tổ trưởng vắng tại địa điểm theo yêu cầu đã chốt.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:664",
+          "quote": "QT17\nTổ trưởng và quản trị không nhập hoặc sửa điểm thay trọng tài. Quản trị chỉ xác nhận thay trong trường hợp tổ trưởng vắng tại địa điểm theo yêu cầu đã chốt."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "identity",
+      "owner_positions": ["S01", "K01"],
+      "wbs_ids": ["B03", "K01"],
+      "scenario_ids": ["T02"],
+      "open_issue_ids": ["U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT18",
+      "title": "Người theo dõi chỉ đọc dữ liệu công khai",
+      "statement": "Người theo dõi chỉ đọc dữ liệu công khai. Ẩn nút không thay kiểm quyền: gọi trực tiếp API vẫn phải bị từ chối nếu sai quyền.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:667",
+          "quote": "QT18\nNgười theo dõi chỉ đọc dữ liệu công khai. Ẩn nút không thay kiểm quyền: gọi trực tiếp API vẫn phải bị từ chối nếu sai quyền."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "public",
+      "owner_positions": ["S01", "F02", "Q02"],
+      "wbs_ids": ["B03", "K09", "I05"],
+      "scenario_ids": ["T12"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT19",
+      "title": "Trọng tài lưu tạo bản nhập chờ",
+      "statement": "Trọng tài lưu tạo bản nhập chờ. Xác nhận hợp lệ mới thành chính thức. Sửa kết quả đã xác nhận tạo bản đề nghị riêng; chưa duyệt hoặc bị từ chối thì kết quả chính thức cũ giữ nguyên.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:674",
+          "quote": "QT19\nTrọng tài lưu tạo bản nhập chờ. Xác nhận hợp lệ mới thành chính thức. Sửa kết quả đã xác nhận tạo bản đề nghị riêng; chưa duyệt hoặc bị từ chối thì kết quả chính thức cũ giữ nguyên."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "results",
+      "owner_positions": ["K01"],
+      "wbs_ids": ["K01"],
+      "scenario_ids": ["T06"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT20",
+      "title": "Không dùng một cột điểm chung cho bản nhập, bản sửa chờ và chính thức",
+      "statement": "Không dùng một cột điểm chung cho bản nhập, bản sửa chờ và chính thức. Xung đột version phải báo xem lại, không ghi đè âm thầm.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:677",
+          "quote": "QT20\nKhông dùng một cột điểm chung cho bản nhập, bản sửa chờ và chính thức. Xung đột version phải báo xem lại, không ghi đè âm thầm."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "results",
+      "owner_positions": ["K01", "P02"],
+      "wbs_ids": ["K01", "B04"],
+      "scenario_ids": ["T06"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT21",
+      "title": "Nội bộ có thể hiển thị người đi tiếp tạm thời; chỉ nhập điểm vòng sau khi kết quả vòng trước cần thiết đã xác nhận",
+      "statement": "Nội bộ có thể hiển thị người đi tiếp tạm thời; chỉ nhập điểm vòng sau khi kết quả vòng trước cần thiết đã xác nhận. Công khai chỉ lấy kết quả đã xác nhận.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:680",
+          "quote": "QT21\nNội bộ có thể hiển thị người đi tiếp tạm thời; chỉ nhập điểm vòng sau khi kết quả vòng trước cần thiết đã xác nhận. Công khai chỉ lấy kết quả đã xác nhận."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "results",
+      "owner_positions": ["K01", "C04", "F02"],
+      "wbs_ids": ["K01", "K08", "K09"],
+      "scenario_ids": ["T06", "T12"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT22",
+      "title": "Sửa chính thức làm bảng phụ thuộc về sơ bộ và tính lại",
+      "statement": "Sửa chính thức làm bảng phụ thuộc về sơ bộ và tính lại. Lưu người, thời gian, lý do, trước–sau; làm nổi bật thay đổi và ghi chú khi xuất theo yêu cầu.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:683",
+          "quote": "QT22\nSửa chính thức làm bảng phụ thuộc về sơ bộ và tính lại. Lưu người, thời gian, lý do, trước–sau; làm nổi bật thay đổi và ghi chú khi xuất theo yêu cầu."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "rankings",
+      "owner_positions": ["K04", "P03", "F02"],
+      "wbs_ids": ["K07", "K09"],
+      "scenario_ids": ["T12"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT23",
+      "title": "Kiểm đủ VĐV và trường để tổ chức; thiếu thì hủy, trừ ngoại lệ được chốt",
+      "statement": "Kiểm đủ VĐV và trường để tổ chức; thiếu thì hủy, trừ ngoại lệ được chốt. Chọn thể thức theo loại nội dung và số VĐV; không dùng một ngưỡng cho mọi môn.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:690",
+          "quote": "QT23\nKiểm đủ VĐV và trường để tổ chức; thiếu thì hủy, trừ ngoại lệ được chốt. Chọn thể thức theo loại nội dung và số VĐV; không dùng một ngưỡng cho mọi môn."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "competition",
+      "owner_positions": ["C01", "C02", "R01"],
+      "wbs_ids": ["C01", "C03"],
+      "scenario_ids": ["T03", "T04", "T08"],
+      "open_issue_ids": ["U01"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT24",
+      "title": "Vòng tròn mỗi cặp một lần; số lẻ nghỉ, không sinh điểm ảo",
+      "statement": "Vòng tròn mỗi cặp một lần; số lẻ nghỉ, không sinh điểm ảo. KO nhánh cố định, ảo vòng đầu; không tự nén khi bỏ. Hạt giống và miễn đúng quy tắc.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:693",
+          "quote": "QT24\nVòng tròn mỗi cặp một lần; số lẻ nghỉ, không sinh điểm ảo. KO nhánh cố định, ảo vòng đầu; không tự nén khi bỏ. Hạt giống và miễn đúng quy tắc."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "competition",
+      "owner_positions": ["C01", "C02", "Q01"],
+      "wbs_ids": ["C01", "C02", "C03", "C09"],
+      "scenario_ids": ["T03", "T04", "T05"],
+      "open_issue_ids": ["U01", "U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT25",
+      "title": "Chuyển hạng kiểm cả nguồn và đích, trạng thái chưa bắt đầu, hạn mức và ngoại lệ xếp lại cả hai sơ đồ; không tự xử lý như chuyển hồ sơ thông thường",
+      "statement": "Chuyển hạng kiểm cả nguồn và đích, trạng thái chưa bắt đầu, hạn mức và ngoại lệ xếp lại cả hai sơ đồ; không tự xử lý như chuyển hồ sơ thông thường.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:696",
+          "quote": "QT25\nChuyển hạng kiểm cả nguồn và đích, trạng thái chưa bắt đầu, hạn mức và ngoại lệ xếp lại cả hai sơ đồ; không tự xử lý như chuyển hồ sơ thông thường."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "scheduling",
+      "owner_positions": ["C03", "Q01"],
+      "wbs_ids": ["C05"],
+      "scenario_ids": ["T05"],
+      "open_issue_ids": ["U01", "U04"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT26",
+      "title": "Phân hạng đúng thứ tự từng môn",
+      "statement": "Phân hạng đúng thứ tự từng môn. Huy chương dùng số thực tế và hợp lệ. Toàn đoàn quy đổi hạng môn rồi hệ số, điều kiện bắt buộc và phạt; không cộng trực tiếp tất cả điểm nội dung.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:699",
+          "quote": "QT26\nPhân hạng đúng thứ tự từng môn. Huy chương dùng số thực tế và hợp lệ. Toàn đoàn quy đổi hạng môn rồi hệ số, điều kiện bắt buộc và phạt; không cộng trực tiếp tất cả điểm nội dung."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "rankings",
+      "owner_positions": ["K03", "K04"],
+      "wbs_ids": ["K04", "K05", "K06"],
+      "scenario_ids": ["T07", "T08", "T10"],
+      "open_issue_ids": ["U01", "U03", "U05", "U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT27",
+      "title": "Truất quyền/vắng phép đúng phạm vi và tác động",
+      "statement": "Truất quyền/vắng phép đúng phạm vi và tác động. Không tự hồi sinh người đã thua. Cờ vua nhập giữ thứ hạng từ hệ thống ngoài theo quy trình đã chốt.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:702",
+          "quote": "QT27\nTruất quyền/vắng phép đúng phạm vi và tác động. Không tự hồi sinh người đã thua. Cờ vua nhập giữ thứ hạng từ hệ thống ngoài theo quy trình đã chốt."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "participation",
+      "owner_positions": ["K01", "K02"],
+      "wbs_ids": ["K02", "K03"],
+      "scenario_ids": ["T09"],
+      "open_issue_ids": ["U02", "U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT28",
+      "title": "Nhãn, nút, trạng thái và thông báo dùng tiếng Việt thống nhất",
+      "statement": "Nhãn, nút, trạng thái và thông báo dùng tiếng Việt thống nhất. Bộ thuật ngữ gồm Vận động viên, Trọng tài, Tổ trưởng, Chờ xác nhận, Đã xác nhận. F01 quản lý thành phần và từ điển nhãn.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:707",
+          "quote": "QT28: Nhãn, nút, trạng thái và thông báo dùng tiếng Việt thống nhất. Bộ thuật ngữ gồm Vận động viên, Trọng tài, Tổ trưởng, Chờ xác nhận, Đã xác nhận. F01 quản lý thành phần và từ điển nhãn."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "partial",
+      "module": "ui",
+      "owner_positions": ["F01"],
+      "wbs_ids": ["B06", "A04"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "apps/web/src/App.tsx",
+        "docs/runbooks/A04-school-registration.md"
+      ],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT29",
+      "title": "Vòng tròn ghi Trận 1, Trận 2 trong từng vòng",
+      "statement": "Vòng tròn ghi Trận 1, Trận 2 trong từng vòng. Người theo dõi xem hai khung theo mẫu, điện thoại xếp dọc. Nút xác nhận gắn đúng trận/bản nhập và quyền; vị trí cuối cùng được rà soát qua demo nếu còn cần đối chiếu mẫu. C04/F02 thực hiện, Q03 nghiệm thu.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:708",
+          "quote": "QT29: Vòng tròn ghi Trận 1, Trận 2 trong từng vòng. Người theo dõi xem hai khung theo mẫu, điện thoại xếp dọc. Nút xác nhận gắn đúng trận/bản nhập và quyền; vị trí cuối cùng được rà soát qua demo nếu còn cần đối chiếu mẫu. C04/F02 thực hiện, Q03 nghiệm thu."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "ui",
+      "owner_positions": ["C04", "F02"],
+      "wbs_ids": ["C07", "K09"],
+      "scenario_ids": ["T04"],
+      "open_issue_ids": ["U07"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT30",
+      "title": "Dùng bảng màu chung; hiển thị lý do khóa",
+      "statement": "Dùng bảng màu chung; hiển thị lý do khóa. Phân biệt đang lưu, đã lưu, chờ đồng bộ và đã xác nhận. Bản sửa làm nổi bật và có lịch sử. Thay bố cục mẫu phải demo; không tự thay quy trình nghiệp vụ vì bố trí giao diện.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:709",
+          "quote": "QT30: Dùng bảng màu chung; hiển thị lý do khóa. Phân biệt đang lưu, đã lưu, chờ đồng bộ và đã xác nhận. Bản sửa làm nổi bật và có lịch sử. Thay bố cục mẫu phải demo; không tự thay quy trình nghiệp vụ vì bố trí giao diện."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "ui",
+      "owner_positions": ["F01", "C04"],
+      "wbs_ids": ["B06", "K08"],
+      "scenario_ids": ["T06"],
+      "open_issue_ids": ["U07"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT31",
+      "title": "Một người online nhập cùng trận, hiển thị người đang nhập; khóa có hạn và heartbeat",
+      "statement": "Một người online nhập cùng trận, hiển thị người đang nhập; khóa có hạn và heartbeat. Version và quyền vẫn kiểm ở mỗi lần ghi.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:714",
+          "quote": "QT31\nMột người online nhập cùng trận, hiển thị người đang nhập; khóa có hạn và heartbeat. Version và quyền vẫn kiểm ở mỗi lần ghi."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "results",
+      "owner_positions": ["K01", "P02"],
+      "wbs_ids": ["K01", "B04"],
+      "scenario_ids": ["T06"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT32",
+      "title": "Offline giữ bản nhập, mã thao tác, version gốc và phân công",
+      "statement": "Offline giữ bản nhập, mã thao tác, version gốc và phân công. Reconnect không tự công nhận chính thức. Gửi lặp không sinh trùng.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:717",
+          "quote": "QT32\nOffline giữ bản nhập, mã thao tác, version gốc và phân công. Reconnect không tự công nhận chính thức. Gửi lặp không sinh trùng."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "offline",
+      "owner_positions": ["F03", "K01"],
+      "wbs_ids": ["I01"],
+      "scenario_ids": ["T11"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT33",
+      "title": "Hai thiết bị khác kết quả giữ cả hai để tổ trưởng đối chiếu",
+      "statement": "Hai thiết bị khác kết quả giữ cả hai để tổ trưởng đối chiếu. Phân công đổi đưa vào luồng xem xét, không bỏ dữ liệu hoặc tự ghi chính thức. Biên bản bổ sung liên kết đúng trận.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:720",
+          "quote": "QT33\nHai thiết bị khác kết quả giữ cả hai để tổ trưởng đối chiếu. Phân công đổi đưa vào luồng xem xét, không bỏ dữ liệu hoặc tự ghi chính thức. Biên bản bổ sung liên kết đúng trận."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "offline",
+      "owner_positions": ["F03", "S02", "S03", "K01"],
+      "wbs_ids": ["I02", "R09"],
+      "scenario_ids": ["T11"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT34",
+      "title": "CCCD mã hóa và che số đúng quyền",
+      "statement": "CCCD mã hóa và che số đúng quyền. Không đưa CCCD/token vào URL, log, thông báo. Public không có ngày sinh, CCCD, ảnh hoặc giấy tờ. Tệp kiểm quyền, không mặc định mở Drive cho mọi người. S03 quản lý và Q02 kiểm endpoint/tệp/public.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:724",
+          "quote": "QT34: CCCD mã hóa và che số đúng quyền. Không đưa CCCD/token vào URL, log, thông báo. Public không có ngày sinh, CCCD, ảnh hoặc giấy tờ. Tệp kiểm quyền, không mặc định mở Drive cho mọi người. S03 quản lý và Q02 kiểm endpoint/tệp/public."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "privacy",
+      "owner_positions": ["S03", "Q02"],
+      "wbs_ids": ["R03", "R09", "I05"],
+      "scenario_ids": ["T12"],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "tests/contracts.test.mjs"
+      ],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT35",
+      "title": "Dev/test dùng dữ liệu giả; dữ liệu thật chỉ vào môi trường đã thống nhất",
+      "statement": "Dev/test dùng dữ liệu giả; dữ liệu thật chỉ vào môi trường đã thống nhất. Bí mật và khóa giải mã ngoài mã nguồn. Cấu hình dev/staging/production tách riêng. O01/P01 chịu trách nhiệm, CI và checklist phát hành kiểm chứng.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:725",
+          "quote": "QT35: Dev/test dùng dữ liệu giả; dữ liệu thật chỉ vào môi trường đã thống nhất. Bí mật và khóa giải mã ngoài mã nguồn. Cấu hình dev/staging/production tách riêng. O01/P01 chịu trách nhiệm, CI và checklist phát hành kiểm chứng."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "partial",
+      "module": "operations",
+      "owner_positions": ["O01", "P01"],
+      "wbs_ids": ["B07", "I05"],
+      "scenario_ids": ["T12"],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "scripts/environment.mjs",
+        "scripts/secret-scan.mjs",
+        "tests/secret-scan.test.mjs"
+      ],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT36",
+      "title": "Migration mã duy nhất; không sửa bản đã chạy ở môi trường chung",
+      "statement": "Migration mã duy nhất; không sửa bản đã chạy ở môi trường chung. Đổi schema có tương thích và phương án dữ liệu; xóa cột/bảng phải rà soát nơi dùng và phục hồi.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:730",
+          "quote": "QT36\nMigration mã duy nhất; không sửa bản đã chạy ở môi trường chung. Đổi schema có tương thích và phương án dữ liệu; xóa cột/bảng phải rà soát nơi dùng và phục hồi."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "data",
+      "owner_positions": ["P01", "L01"],
+      "wbs_ids": ["B02", "I04"],
+      "scenario_ids": ["T12"],
+      "open_issue_ids": ["U06"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT37",
+      "title": "Nhánh từ main, phạm vi nhỏ và cập nhật thường xuyên",
+      "statement": "Nhánh từ main, phạm vi nhỏ và cập nhật thường xuyên. PR ghi mục tiêu, mã yêu cầu, trước–sau, migration, test và rollout. Có reviewer khác người thực hiện.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:733",
+          "quote": "QT37\nNhánh từ main, phạm vi nhỏ và cập nhật thường xuyên. PR ghi mục tiêu, mã yêu cầu, trước–sau, migration, test và rollout. Có reviewer khác người thực hiện."
+        }
+      ],
+      "decision_status": "superseded",
+      "delivery_status": "not_implemented",
+      "module": "coordination",
+      "owner_positions": ["L02", "O01"],
+      "wbs_ids": ["B01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": ["CR-007"],
+      "superseded_by": ["QT37-R1"]
+    },
+    {
+      "id": "QT38",
+      "title": "Build, type-check và test liên quan phải đạt",
+      "statement": "Build, type-check và test liên quan phải đạt. Phần chưa hoàn thiện không làm hỏng main hoặc lộ tính năng chưa sẵn sàng. Lỗi có nguy cơ lặp lại cần test tái hiện.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:736",
+          "quote": "QT38\nBuild, type-check và test liên quan phải đạt. Phần chưa hoàn thiện không làm hỏng main hoặc lộ tính năng chưa sẵn sàng. Lỗi có nguy cơ lặp lại cần test tái hiện."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "partial",
+      "module": "operations",
+      "owner_positions": ["O01", "Q02"],
+      "wbs_ids": ["B01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [".github/workflows/ci.yml"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT39",
+      "title": "Ticket Accepted cần đúng yêu cầu/phạm vi; kiểm quyền server; kiểm đầu vào, trạng thái và version; tích hợp theo contract; test có bằng chứng; reviewer chấp nhận; tài liệu/migration cập nhật; chạy được trên staging với backend thật",
+      "statement": "Ticket Accepted cần đúng yêu cầu/phạm vi; kiểm quyền server; kiểm đầu vào, trạng thái và version; tích hợp theo contract; test có bằng chứng; reviewer chấp nhận; tài liệu/migration cập nhật; chạy được trên staging với backend thật. UI dùng mock chỉ hoàn thành đầu việc UI, chưa đủ nghiệm thu feature xuyên suốt.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:740",
+          "quote": "QT39: Ticket Accepted cần đúng yêu cầu/phạm vi; kiểm quyền server; kiểm đầu vào, trạng thái và version; tích hợp theo contract; test có bằng chứng; reviewer chấp nhận; tài liệu/migration cập nhật; chạy được trên staging với backend thật. UI dùng mock chỉ hoàn thành đầu việc UI, chưa đủ nghiệm thu feature xuyên suốt."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "acceptance",
+      "owner_positions": ["L02", "Q03"],
+      "wbs_ids": ["D01", "D05"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "QT40",
+      "title": "G0 kiểm chủ quản và bộ tài liệu tối thiểu; G1 kiểm contract/policy/schema/CI; G2 kiểm QT08–QT18 và đăng ký; G3 kiểm QT23–QT25 và sơ đồ; G4 kiểm QT19–QT30 và kết quả; G5 kiểm QT31–QT38 và vận hành; G6 kiểm QT39 cùng bộ bàn giao",
+      "statement": "G0 kiểm chủ quản và bộ tài liệu tối thiểu; G1 kiểm contract/policy/schema/CI; G2 kiểm QT08–QT18 và đăng ký; G3 kiểm QT23–QT25 và sơ đồ; G4 kiểm QT19–QT30 và kết quả; G5 kiểm QT31–QT38 và vận hành; G6 kiểm QT39 cùng bộ bàn giao. Q ghi bằng chứng, L02 theo dõi; người dùng rà soát chuyên môn qua demo/UAT.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:741",
+          "quote": "QT40: G0 kiểm chủ quản và bộ tài liệu tối thiểu; G1 kiểm contract/policy/schema/CI; G2 kiểm QT08–QT18 và đăng ký; G3 kiểm QT23–QT25 và sơ đồ; G4 kiểm QT19–QT30 và kết quả; G5 kiểm QT31–QT38 và vận hành; G6 kiểm QT39 cùng bộ bàn giao. Q ghi bằng chứng, L02 theo dõi; người dùng rà soát chuyên môn qua demo/UAT."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "acceptance",
+      "owner_positions": ["L02", "Q03"],
+      "wbs_ids": ["D01", "D05"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG01",
+      "title": "TG01 Tạo mới",
+      "statement": "Admin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1337",
+          "quote": "TG01 Tạo mới\nAdmin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG01"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG02",
+      "title": "TG02 Sao chép có chọn lọc",
+      "statement": "Chỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1340",
+          "quote": "TG02 Sao chép có chọn lọc\nChỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG02"],
+      "open_issue_ids": ["U01"],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG03",
+      "title": "TG03 Dữ liệu không đi theo",
+      "statement": "Giải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1343",
+          "quote": "TG03 Dữ liệu không đi theo\nGiải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG03"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG04",
+      "title": "TG04 Phân quyền",
+      "statement": "Tài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1346",
+          "quote": "TG04 Phân quyền\nTài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG04"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG05",
+      "title": "TG05 Mở đăng ký",
+      "statement": "Thiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1349",
+          "quote": "TG05 Mở đăng ký\nThiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG05"],
+      "open_issue_ids": ["U01"],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG06",
+      "title": "TG06 Cách ly giải",
+      "statement": "Có hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1352",
+          "quote": "TG06 Cách ly giải\nCó hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG06"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG07",
+      "title": "TG07 Bảo toàn giải nguồn",
+      "statement": "Sao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1355",
+          "quote": "TG07 Bảo toàn giải nguồn\nSao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG07"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-TG08",
+      "title": "TG08 Giao dịch và lịch sử",
+      "statement": "Gửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:1358",
+          "quote": "TG08 Giao dịch và lịch sử\nGửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản"
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "contract_only",
+      "module": "editions",
+      "owner_positions": ["R01", "P01", "S01", "R04"],
+      "wbs_ids": ["R01", "B02", "B03", "R07"],
+      "scenario_ids": ["TG08"],
+      "open_issue_ids": [],
+      "artifact_paths": ["docs/api/core.openapi.json"],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-USER-001",
+      "title": "Thư mục kết quả riêng cho từng VĐV",
+      "statement": "Mỗi VĐV có thư mục kết quả riêng; quyền lưu tệp và quyền xác nhận kết quả là hai phạm vi. Cơ chế tài khoản tự tải lên chưa được chốt.",
+      "sources": [
+        {
+          "source_id": "SRC-CHAT-FOLDER",
+          "locator": "message",
+          "quote": "Lưu ý: cần tạo ra cho mỗi vđv 1 thư mục để họ lưu phần kết quả của họ."
+        }
+      ],
+      "decision_status": "confirmed",
+      "delivery_status": "contract_only",
+      "module": "files",
+      "owner_positions": ["S03", "R02", "K01", "O02"],
+      "wbs_ids": ["R09", "I03", "I04"],
+      "scenario_ids": ["T11", "T12"],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "docs/architecture/ADR-002-identity-files.md",
+        "docs/api/A03-contracts.md"
+      ],
+      "change_ids": ["CR-001", "CR-004"],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-USER-002",
+      "title": "Đưa tích hợp SQL, Google và Netlify về cuối dự án",
+      "statement": "Các tích hợp SQL, Google và Netlify thực hiện ở bước cuối; phần độc lập được phát triển trước. Không coi mock hoặc localStorage là nghiệm thu các tích hợp thật.",
+      "sources": [
+        {
+          "source_id": "SRC-CHAT-DEFER",
+          "locator": "message",
+          "quote": "tất cả các nọi dung liên quan đến netlify, sql và google sẽ thực hiện ở bước cuối của dự án"
+        }
+      ],
+      "decision_status": "confirmed",
+      "delivery_status": "partial",
+      "module": "operations",
+      "owner_positions": ["L01", "O01", "O02", "P01", "S01", "S03"],
+      "wbs_ids": ["A02", "B02", "B03", "B07", "I03", "I07"],
+      "scenario_ids": [],
+      "open_issue_ids": ["U06"],
+      "artifact_paths": [
+        "docs/architecture/scope-changes.md",
+        "docs/runbooks/handover-o01.md"
+      ],
+      "change_ids": ["CR-004"],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-USER-003",
+      "title": "Trường tự đăng ký theo số lượng thực tế",
+      "statement": "Ban đầu không có dữ liệu tham gia; nhà trường bổ sung danh sách khi có. Số trường và VĐV được tính từ dữ liệu, không dùng quy mô fixture làm quota. Hạn mức từng nội dung chỉ áp dụng sau khi có điều lệ.",
+      "sources": [
+        {
+          "source_id": "SRC-CHAT-DYNAMIC",
+          "locator": "message",
+          "quote": "Tôi chưa có số liệu cụ thể bao nhiêu người tham gia, nên bạn viết code và để các trường đăng ký"
+        }
+      ],
+      "decision_status": "confirmed",
+      "delivery_status": "draft_ui",
+      "module": "registrations",
+      "owner_positions": ["R03", "R04", "L02"],
+      "wbs_ids": ["A04", "R04", "R07"],
+      "scenario_ids": ["T01"],
+      "open_issue_ids": ["U01"],
+      "artifact_paths": [
+        "apps/web/src/App.tsx",
+        "apps/web/src/registration-draft.ts",
+        "tests/school-registration.test.ts",
+        "docs/runbooks/A04-school-registration.md"
+      ],
+      "change_ids": ["CR-008"],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-USER-004",
+      "title": "Codex là đầu mối tiếp nhận và kiểm tra mã",
+      "statement": "Codex nhận mã thành viên gửi, kiểm tra, chỉnh sửa và đẩy GitHub theo quyền đã có. Không bắt buộc tài khoản review thứ hai; PR và kiểm tra CI vẫn giữ theo CR-007. Không coi Codex là reviewer độc lập hoặc đánh dấu module thành viên đã hoàn tất.",
+      "sources": [
+        {
+          "source_id": "SRC-CHAT-MAINTAINER",
+          "locator": "message",
+          "quote": "github đòi quyền team mà tôi không có, nên bạn sẽ phụ trách chính. tồi sẽ đẩy code của lập trình viên khác cho bạn kiểm tra, chỉnh sửa và đẩy lê gthub"
+        }
+      ],
+      "decision_status": "confirmed",
+      "delivery_status": "partial",
+      "module": "coordination",
+      "owner_positions": ["L02", "O01"],
+      "wbs_ids": ["A06", "B01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "docs/runbooks/code-intake.md",
+        "docs/architecture/scope-changes.md"
+      ],
+      "change_ids": ["CR-007"],
+      "superseded_by": []
+    },
+    {
+      "id": "QT37-R1",
+      "title": "Quy trình PR sau CR-007",
+      "statement": "Nhánh từ main, thay đổi nhỏ, cập nhật thường xuyên; PR ghi mục tiêu, mã yêu cầu, hành vi trước/sau, migration nếu có, test và rollout. Codex kiểm tra mã theo RQ-USER-004; không bắt buộc reviewer GitHub thứ hai. Không tự merge chỉ từ yêu cầu đẩy mã.",
+      "sources": [
+        {
+          "source_id": "SRC-CHAT-MAINTAINER",
+          "locator": "message",
+          "quote": "github đòi quyền team mà tôi không có, nên bạn sẽ phụ trách chính. tồi sẽ đẩy code của lập trình viên khác cho bạn kiểm tra, chỉnh sửa và đẩy lê gthub"
+        },
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:733",
+          "quote": "QT37\nNhánh từ main, phạm vi nhỏ và cập nhật thường xuyên. PR ghi mục tiêu, mã yêu cầu, trước–sau, migration, test và rollout. Có reviewer khác người thực hiện."
+        }
+      ],
+      "decision_status": "confirmed",
+      "delivery_status": "partial",
+      "module": "coordination",
+      "owner_positions": ["L02", "O01"],
+      "wbs_ids": ["B01"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [
+        "docs/runbooks/contributing.md",
+        "docs/runbooks/code-intake.md"
+      ],
+      "change_ids": ["CR-007"],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-PLAN-REG",
+      "title": "Revision đăng ký",
+      "statement": "Đề xuất vòng đời đăng ký: Nháp → Gửi duyệt → Đã duyệt hoặc Trả lại; bản sửa tạo revision mới, bản cũ duyệt vẫn có hiệu lực. Hồ sơ mới cần duyệt dữ liệu gốc trước duyệt đăng ký khi xã có danh sách chung.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:122",
+          "quote": "Đề xuất vòng đời đăng ký: Nháp → Gửi duyệt → Đã duyệt hoặc Trả lại; bản sửa tạo revision mới, bản cũ duyệt vẫn có hiệu lực. Hồ sơ mới cần duyệt dữ liệu gốc trước duyệt đăng ký khi xã có danh sách chung."
+        }
+      ],
+      "decision_status": "proposed",
+      "delivery_status": "not_implemented",
+      "module": "registrations",
+      "owner_positions": ["R03"],
+      "wbs_ids": ["R06"],
+      "scenario_ids": ["T01"],
+      "open_issue_ids": ["U-BASE-001"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-PLAN-START",
+      "title": "Trạng thái bắt đầu nội dung",
+      "statement": "Nội dung có trạng thái Chưa tổ chức, Đang thi, Hoàn thành, Hủy/Ngừng tổ chức; cần trường started_at để kiểm tra chuyển hạng. Định nghĩa chính xác thao tác ghi bắt đầu và người được ghi được đưa vào U04, không âm thầm suy ra từ chỉ lịch dự kiến.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:125",
+          "quote": "Nội dung có trạng thái Chưa tổ chức, Đang thi, Hoàn thành, Hủy/Ngừng tổ chức; cần trường started_at để kiểm tra chuyển hạng. Định nghĩa chính xác thao tác ghi bắt đầu và người được ghi được đưa vào U04, không âm thầm suy ra từ chỉ lịch dự kiến."
+        }
+      ],
+      "decision_status": "source_recorded",
+      "delivery_status": "not_implemented",
+      "module": "competition",
+      "owner_positions": ["C03", "R01"],
+      "wbs_ids": ["C05", "R01"],
+      "scenario_ids": ["T05"],
+      "open_issue_ids": ["U04"],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-PLAN-SCALE",
+      "title": "Quy mô tham khảo kiến trúc",
+      "statement": "Đề xuất một backend chia module rõ ràng trong một ứng dụng, một cơ sở dữ liệu PostgreSQL, frontend TypeScript với React, API REST có OpenAPI, xử lý tác vụ dài bằng worker. Không cần tách nhiều microservice cho quy mô 7 trường/khoảng 500 VĐV; nhóm lớn được tổ chức bằng quyền sở hữu module và kiểm thử hợp đồng.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:42",
+          "quote": "Đề xuất một backend chia module rõ ràng trong một ứng dụng, một cơ sở dữ liệu PostgreSQL, frontend TypeScript với React, API REST có OpenAPI, xử lý tác vụ dài bằng worker. Không cần tách nhiều microservice cho quy mô 7 trường/khoảng 500 VĐV; nhóm lớn được tổ chức bằng quyền sở hữu module và kiểm thử hợp đồng."
+        }
+      ],
+      "decision_status": "proposed",
+      "delivery_status": "not_implemented",
+      "module": "platform",
+      "owner_positions": ["L01"],
+      "wbs_ids": ["A02"],
+      "scenario_ids": [],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-PLAN-A05",
+      "title": "Quy mô fixture A05, không phải quota",
+      "statement": "Fixtures và kịch bản nghiệm thuNghiệm thu: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:216",
+          "quote": "Fixtures và kịch bản nghiệm thuNghiệm thu: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV."
+        }
+      ],
+      "decision_status": "proposed",
+      "delivery_status": "not_implemented",
+      "module": "testing",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "wbs_ids": ["A05"],
+      "scenario_ids": ["T01"],
+      "open_issue_ids": [],
+      "artifact_paths": [],
+      "change_ids": [],
+      "superseded_by": []
+    },
+    {
+      "id": "RQ-PLAN-INTEGRATIONS",
+      "title": "Lịch lựa chọn và tích hợp dịch vụ ban đầu",
+      "statement": "Frontend triển khai Netlify theo yêu cầu. Backend và worker thiết kế chạy độc lập, đóng gói container để chuyển VPS; chọn nơi chạy ban đầu trong P0 sau khi kiểm tra chi phí, giới hạn nền tảng và lịch tác vụ. Không đặt công việc sao lưu dài hoặc toàn bộ xử lý nhập Excel vào request trình duyệt.",
+      "sources": [
+        {
+          "source_id": "SRC-PLAN-14",
+          "locator": "line:43",
+          "quote": "Frontend triển khai Netlify theo yêu cầu. Backend và worker thiết kế chạy độc lập, đóng gói container để chuyển VPS; chọn nơi chạy ban đầu trong P0 sau khi kiểm tra chi phí, giới hạn nền tảng và lịch tác vụ. Không đặt công việc sao lưu dài hoặc toàn bộ xử lý nhập Excel vào request trình duyệt."
+        }
+      ],
+      "decision_status": "superseded",
+      "delivery_status": "not_implemented",
+      "module": "operations",
+      "owner_positions": ["L01", "O01"],
+      "wbs_ids": ["A02", "B02", "B03", "I03"],
+      "scenario_ids": [],
+      "open_issue_ids": ["U06"],
+      "artifact_paths": [],
+      "change_ids": ["CR-004"],
+      "superseded_by": ["RQ-USER-002"]
+    }
+  ]
+}

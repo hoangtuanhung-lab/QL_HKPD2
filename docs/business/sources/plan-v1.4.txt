@@ -1,0 +1,1361 @@
+KẾ HOẠCH PHÁT TRIỂN PHẦN MỀMHỘI KHỎE PHÙ ĐỔNG
+Xã Quảng Phú • Nhóm mẫu 28 người • Phiên bản 1.4
+Tài liệu giao việc theo phase và nghiệm thu từng phầnNgày lập 10 tháng 10 năm 2026 • Cập nhật 11 tháng 10 năm 2026
+1 Mục tiêu và cách sử dụng plan
+Kế hoạch này tổ chức phát triển toàn bộ chức năng phần mềm Hội khỏe Phù Đổng xã Quảng Phú bằng nhóm mẫu 28 kỹ sư, có thể điều chỉnh còn 20 hoặc tăng đến 30. Các nhóm làm song song theo module và hợp đồng dữ liệu/API; không chia mỗi phase thành một nhóm độc lập rồi đợi nhóm trước làm xong toàn bộ.
+Nguồn nghiệp vụ là bản tổng hợp 22 nhóm, các câu 1–293 trong PDF và quyết định cuối của người dùng. Tài liệu này bổ sung phương án kỹ thuật, tổ chức công việc và nghiệm thu; các phương án đó là đề xuất triển khai, không biến thành quy tắc chuyên môn đã chốt. Người dùng rà soát và cập nhật trong quá trình code qua bản chạy thử từng phase.
+Mỗi công việc phải có một người chịu trách nhiệm, người rà soát, phụ thuộc, đầu ra và kiểm thử. Mỗi module có người sở hữu; chỉ người được giao được sửa cấu trúc dùng chung. Không yêu cầu cả 28 người đồng thời sửa cơ sở dữ liệu hoặc cùng một màn hình.
+1.1 Các sản phẩm bàn giao
+Bộ bàn giao gồm: mã nguồn và lịch sử thay đổi; đặc tả nghiệp vụ có phiên bản; OpenAPI và hợp đồng sự kiện; lược đồ/migration cơ sở dữ liệu; cấu hình môi trường; bộ kiểm thử; dữ liệu mẫu; hướng dẫn tài khoản, trường, trọng tài, tổ trưởng và quản trị; hướng dẫn triển khai, sao lưu, phục hồi và chuyển VPS; bản phát hành có báo cáo nghiệm thu.
+Plan không thay thế danh mục 133 nội dung, điều lệ và biểu mẫu gốc. Những phần chưa đủ thông tin có mã U tại mục 13; chỉ khóa đầu việc phụ thuộc trực tiếp, không dừng toàn bộ dự án. Không tự triển khai luật mới hoặc kết quả giả thành kết quả giải thật.
+2 Cơ cấu 7 nhóm với 28 lập trình viên
+Nhóm
+Số người
+Mã nhân sự và phạm vi
+G1 Điều phối và kiến trúc
+2
+L01 kiến trúc và API; L02 nghiệp vụ, backlog, tích hợp và nghiệm thu
+G2 Nền tảng và bảo mật
+6
+P01, P02, P03 dữ liệu/API/audit; S01, S02, S03 tài khoản/phân công/hồ sơ và tệp
+G3 Danh mục và đăng ký
+4
+R01 danh mục; R02 hồ sơ/import; R03 đăng ký/duyệt/đội; R04 màn hình trường/quản trị
+G4 Thi đấu và lịch
+4
+C01 KO/hạt giống; C02 vòng tròn; C03 lịch/cân/chuyển hạng; C04 giao diện thi đấu
+G5 Kết quả và xếp hạng
+4
+K01 nhập/xác nhận; K02 trạng thái; K03 thuật toán huy chương; K04 môn/toàn đoàn và chốt
+G6 Giao diện chung và công khai
+3
+F01 thành phần chung; F02 công khai/in/xuất/hướng dẫn; F03 ngoại tuyến
+G7 Kiểm thử và vận hành
+5
+Q01 thuật toán; Q02 API/quyền; Q03 E2E/UAT; O01 CI/CD; O02 backup/restore/VPS
+Tổng số là 2 + 6 + 4 + 4 + 4 + 3 + 5 = 28. Cơ cấu này thay thế 9 nhóm ở phiên bản 1.1. G2 gộp nền tảng dữ liệu với tài khoản và tệp; G7 gộp kiểm thử với triển khai vận hành. Các mã L/P/S/R/C/K/F/Q/O được giữ để không đổi người chủ trì WBS, nhưng là mã vị trí/chuyên môn bên trong 7 nhóm, không phải 9 nhóm tổ chức.
+Nhóm trưởng dự kiến: G1 L01; G2 P01; G3 R01; G4 C01; G5 K01; G6 F01; G7 Q03. L02 điều phối nghiệp vụ và tiến độ xuyên nhóm; O01 chịu trách nhiệm triển khai kỹ thuật trong G7. Mỗi nhóm trưởng giao tên người thật, reviewer dự phòng, đầu việc và hạn nội bộ. Người thực hiện không tự duyệt mã của mình.
+Quy mô 20 người có thể phân bổ G1=2, G2=4, G3=3, G4=3, G5=3, G6=2, G7=3. Quy mô 30 giữ nhóm 28, thêm một kỹ sư import/dữ liệu cho G3 và một kỹ sư đồng bộ/hiệu năng cho G7. Phân công chi tiết của 28 vị trí và bàn giao theo phase nằm tại mục 17.
+Các bảng module và WBS tiếp tục dùng mã chuyên môn để xác định trách nhiệm. Khi lập checklist, dùng đúng 7 checklist G1–G7: G1 lấy L; G2 lấy P và S; G3 lấy R; G4 lấy C; G5 lấy K; G6 lấy F; G7 lấy Q và O. Checklist 9 nhóm đã lập theo bản 1.1 cần chuyển theo ánh xạ này trước khi giao việc chính thức, giữ ID WBS và lịch sử bước nhỏ.
+3 Kiến trúc thực hiện và ranh giới module
+3.1 Phương án kỹ thuật ban đầu
+Đề xuất một backend chia module rõ ràng trong một ứng dụng, một cơ sở dữ liệu PostgreSQL, frontend TypeScript với React, API REST có OpenAPI, xử lý tác vụ dài bằng worker. Không cần tách nhiều microservice cho quy mô 7 trường/khoảng 500 VĐV; nhóm lớn được tổ chức bằng quyền sở hữu module và kiểm thử hợp đồng.
+Frontend triển khai Netlify theo yêu cầu. Backend và worker thiết kế chạy độc lập, đóng gói container để chuyển VPS; chọn nơi chạy ban đầu trong P0 sau khi kiểm tra chi phí, giới hạn nền tảng và lịch tác vụ. Không đặt công việc sao lưu dài hoặc toàn bộ xử lý nhập Excel vào request trình duyệt.
+Google dùng cho đăng nhập; Google Drive giữ tệp và bản sao lưu qua adapter phía server. Thay nhà cung cấp tệp hoặc chuyển database không làm đổi mã VĐV và quy tắc tính điểm. Phiên bản thư viện, OAuth, hạn mức dịch vụ phải được kiểm chứng khi bắt đầu code, không cố định theo thông tin chưa kiểm tra trong plan.
+3.2 Module và quyền sở hữu
+Module
+Nhóm chủ trì
+Module khác sử dụng qua
+identity và permissions
+S
+Policy API dùng user, kỳ giải, vai trò môn, checklist, trường
+catalog và editions
+R/P
+Danh mục có phiên bản và snapshot cấu hình kỳ giải
+athletes và registrations
+R
+ID nội bộ, mã VĐV hiển thị, danh sách đăng ký đã duyệt
+competition và scheduling
+C
+Draw version, bracket node, round, match, schedule version
+results và status
+K
+Bản nhập, quyết định xác nhận, kết quả chính thức và trạng thái
+rankings và awards
+K
+Bảng điểm có phiên bản, nguồn tính và trạng thái sơ bộ/chính thức
+files và privacy
+S
+Liên kết tệp có kiểm tra quyền; không phát URL Drive công khai mặc định
+audit và notifications
+P
+Sự kiện nghiệp vụ sau commit, dữ liệu thông báo theo người nhận
+offline và public UI
+F
+API đồng bộ bản nhập; public projection chỉ dữ liệu được công bố
+operations
+O
+Job sao lưu, khôi phục, migration, giám sát
+Không gọi chéo repository hoặc ghi trực tiếp bảng của module khác. Trong giao dịch liên module, dùng service nội bộ do chủ module cung cấp. P01 quản lý migration dùng chung, nhưng chủ nghiệp vụ chịu trách nhiệm ý nghĩa dữ liệu.
+3.3 Cấu trúc repository đề xuất
+Một monorepo: apps/web, apps/api, apps/worker; packages/contracts, packages/rules, packages/ui, packages/test-fixtures; docs/business, docs/architecture, docs/api, docs/runbooks; infra. Mỗi nhóm sửa thư mục mình sở hữu. CODEOWNERS yêu cầu chủ module rà soát; contracts và migration cần L01/P01 rà soát.
+Đề xuất thống nhất formatter, lint, type-check và lệnh test từ đầu. Dùng một framework backend được nhóm lựa chọn tại P0; không pha nhiều framework hoặc tự tạo hai lớp xử lý cùng một nghiệp vụ.
+4 Dữ liệu cần thiết kế trước khi chia code
+4.1 Các nhóm bảng chính
+Nhóm
+Thực thể cốt lõi
+Ràng buộc cần thực hiện
+Kỳ giải và danh mục
+edition, school, catalog_node, event_definition, rule_version, event_snapshot
+Tách kỳ giải; mã nội dung ổn định; STT phân cấp chỉ để hiển thị
+Tài khoản
+user, membership, role_assignment, referee_assignment
+Vai trò theo môn; checklist theo nội dung; mã trường để đối soát
+Học sinh
+student_master, athlete, athlete_code_sequence, private_identity
+ID nội bộ riêng; mã VĐV duy nhất trong kỳ/trường; CCCD mã hóa
+Đăng ký
+registration, registration_revision, team, team_member
+Tách nháp/gửi/duyệt; một đội/trường/nội dung; giới hạn trong giao dịch
+Thi đấu
+draw, draw_version, bracket_node, round, match, schedule_revision
+Nhánh cố định; ảo không tạo athlete; version chống ghi đè
+Kết quả
+result_submission, official_result, confirmation, result_revision
+Bản chờ riêng; chỉ pointer chính thức được đổi khi xác nhận hợp lệ
+Trạng thái
+participation_decision, restoration_decision, weight_record
+Phép/truất/khôi phục có phạm vi; cân chính thức khác cân đăng ký
+Xếp hạng
+ranking_run, ranking_row, award, penalty, publication
+Gắn nguồn/rule version; điểm thi đấu khác điểm thành tích/quy đổi
+Tệp và lịch sử
+file_object, file_link, audit_event, notification, outbox_event
+Quyền xem liên kết; nhật ký trước–sau; phát sự kiện sau commit
+Vận hành
+edit_lease, sync_submission, backup_manifest, job_run
+Khóa có hạn; idempotency; sao lưu có checksum, trạng thái khôi phục
+UUID là khóa kỹ thuật đề xuất; mã VĐV như 01.012 là chuỗi hiển thị, không chuyển sang số và không mất số 0. Unique theo kỳ giải/trường/STT. Cấp số trong transaction, không dùng cách đọc số lớn nhất rồi cộng ở client.
+Các trường thành tích dùng kiểu và độ chính xác theo môn; cân 0,1 kg có thể lưu đơn vị 100 gram dạng số nguyên. Không dùng float để quyết định bằng nhau. Quy tắc làm tròn thời gian/khoảng cách chưa chốt phải giữ nguyên dữ liệu và đặt cấu hình được đối chiếu trước dùng chính thức.
+Ảo là loại vị trí trên sơ đồ, không phải người. Số đăng ký, số đã duyệt, số thực tế thi, số hợp lệ và số tính huy chương là các giá trị khác nhau; không dùng một cột count cho tất cả.
+4.2 Máy trạng thái và giao dịch
+Đề xuất vòng đời đăng ký: Nháp → Gửi duyệt → Đã duyệt hoặc Trả lại; bản sửa tạo revision mới, bản cũ duyệt vẫn có hiệu lực. Hồ sơ mới cần duyệt dữ liệu gốc trước duyệt đăng ký khi xã có danh sách chung.
+Kết quả: Bản nhập → Chờ xác nhận → Chính thức. Sửa tạo bản đề nghị riêng; không duyệt thì bản chính thức không đổi. Xác nhận cập nhật kết quả, audit và outbox trong cùng transaction. Nếu base version thay đổi, báo xung đột và yêu cầu xem lại; không tự lấy bản gửi sau cùng làm đúng.
+Bảng tổng hợp: Sơ bộ → Đã chốt. Khi kết quả chính thức thay đổi, đánh dấu các bảng phụ thuộc về sơ bộ; chốt lại theo quyền. Công khai chỉ lấy dữ liệu có phạm vi công bố đã được chốt; tuyệt đối không đọc bảng submission trực tiếp.
+Nội dung có trạng thái Chưa tổ chức, Đang thi, Hoàn thành, Hủy/Ngừng tổ chức; cần trường started_at để kiểm tra chuyển hạng. Định nghĩa chính xác thao tác ghi bắt đầu và người được ghi được đưa vào U04, không âm thầm suy ra từ chỉ lịch dự kiến.
+5 Hợp đồng API và cách làm song song
+5.1 Các hợp đồng tối thiểu
+Hợp đồng
+Đầu ra cần có trước code tích hợp
+Chủ trì
+API v1
+Đường dẫn, phương thức, schema request/response, lỗi, phân trang, ví dụ
+L01 và chủ module
+Quyền thao tác
+Actor, vai trò theo môn, trường, checklist, phạm vi kỳ giải
+S01/S02
+DTO VĐV/nội dung
+ID, mã hiển thị, edition_id, event_id, version, nhãn nhóm
+P01/R01/R02
+Kết quả môn
+Discriminated schema thời gian/khoảng cách/tổng điểm/tỷ số/hiệp/thẻ
+K01 và C04
+Đầu vào thuật toán
+Danh sách đủ điều kiện, seed, bốc thăm, rule snapshot, trạng thái
+C01/C02/K03
+Sự kiện
+Event ID, loại, aggregate ID/version, actor, occurred_at, payload version
+P03
+Ngoại tuyến
+Client operation ID, base version, assignment snapshot, payload, sync state
+F03/K01/S02
+Public view
+Whitelist trường dữ liệu và trạng thái được đọc; không hồ sơ nhạy cảm
+F02/S03/K04
+Hợp đồng ổn định v1 là điều kiện bắt đầu code song song có tích hợp. Frontend dùng mock server sinh từ cùng hợp đồng; backend chạy contract test với ví dụ đó. Thuật toán dùng fixtures độc lập, không chờ màn hình xong. Mock chỉ hỗ trợ phát triển, không thay chứng cứ nghiệm thu với backend thật.
+Không đổi schema âm thầm. Thay đổi tương thích có field tùy chọn/phiên bản; thay đổi phá vỡ cần ghi đề nghị, người dùng API liên quan và kế hoạch chuyển đổi. Không đặt một người tạo mọi endpoint cho 28 người đợi; chia hợp đồng theo module, L01 kiểm tra phần giao nhau.
+5.2 Nhóm endpoint dự kiến
+Các nhóm: /v1/editions, /catalog, /students, /athletes, /registrations, /assignments, /draws, /matches, /submissions, /confirmations, /participation-decisions, /weights, /rankings, /public, /files, /sync, /backups. Tất cả nghiệp vụ nội bộ có edition scope; public API chỉ đọc và trả whitelist.
+Các command cần idempotency: gửi đăng ký, tạo vòng đấu, xác nhận kết quả, chuyển hạng, hủy trận, nhận đồng bộ, tạo sao lưu. Không cho client gửi sẵn huy chương hoặc điểm toàn đoàn để server tin nhận.
+Sự kiện mẫu: RegistrationApproved, DrawFinalized, OfficialResultConfirmed, ParticipationDecisionChanged, WeightTransferConfirmed, EventCancelled, RankingInvalidated, PublicationFinalized. Tính điểm chỉ được kích hoạt từ nguồn hợp lệ; dùng outbox và deduplicate để không cộng điểm hai lần khi worker chạy lại.
+6 Phase và các cổng tích hợp
+Ước lượng lập kế hoạch ban đầu là 12 tuần nếu đủ người, có tài khoản dịch vụ và quyết định nghiệp vụ đúng lúc. Đây không phải cam kết thời hạn. Cuối P0 và P1 phải ước lượng lại theo backlog, năng lực nhóm và tệp gốc; không cộng cơ học số người để giảm thời gian.
+Phase
+Khoảng tuần dự kiến
+Nội dung và điều kiện chuyển
+P0 Chuẩn bị
+1
+Chốt baseline, ranh giới module, chủ trì, API khung, backlog và dữ liệu mẫu; G0
+P1 Nền tảng
+2
+Repository, CI, auth, schema lõi, môi trường thử, mock/contract; G1
+P2 Đăng ký và phân công
+3–4
+Danh mục, hồ sơ, import, đăng ký/duyệt, privacy, checklist; G2
+P3 Thi đấu và lịch
+4–6
+Sơ đồ, vòng tròn, hạt giống, lịch, ghép/chuyển hạng; G3
+P4 Kết quả và tổng hợp
+6–8
+Nhập/xác nhận, trạng thái, huy chương, toàn đoàn, công khai; G4
+P5 Tích hợp và diễn tập
+9–10
+Ngoại tuyến, Drive, backup/restore, bảo mật, tải, toàn quy trình; G5
+P6 Phát hành và bàn giao
+11–12
+UAT, sửa lỗi, chuyển môi trường, tập huấn, chạy thử và go live; G6
+P3 được chuẩn bị từ P1 bằng fixture và contract, bắt đầu phần độc lập trong tuần 4 trước khi mọi màn hình P2 hoàn thành. P4 chuẩn bị schema và bộ tính từ P1, chạy song song các phần độc lập từ P2/P3; chỉ tích hợp chuyển vòng khi G3 sẵn sàng. Ngoại tuyến, kiểm thử và vận hành bắt đầu thiết kế ở P0/P1, không để đến P5 mới viết.
+G0: mỗi module có người sở hữu, sơ đồ phụ thuộc, yêu cầu được phân loại đã chốt/còn thiếu, danh sách U có hạn xử lý. G1: mọi người dựng được dự án, CI chạy, auth/policy nền có test, hợp đồng v1 và database seed chạy được.
+G2: trường nhập và gửi danh sách, quản trị duyệt trên backend thật; mã không trùng, giới tính/hạn mức chặn đúng, quyền xem CCCD đúng. G3: danh sách đã duyệt tạo được sơ đồ/lịch chuẩn, nhánh ổn định, các trường hợp chuyển hạng xử lý đúng.
+G4: nhập → xác nhận → đi tiếp → điểm/huy chương/toàn đoàn chạy xuyên suốt; sửa không duyệt không thay chính thức; rule tests trọng yếu qua. G5: diễn tập mất mạng, nhập đồng thời, sửa sai, hủy và phục hồi dữ liệu qua; không còn lỗi mức nghiêm trọng.
+G6: người dùng nghiệm thu trên môi trường thử; dữ liệu/tài khoản thật đã rà soát; hướng dẫn và kế hoạch rollback hoàn chỉnh; có bản sao lưu và kiểm chứng phục hồi. Việc xuất bản môi trường thật là hành động triển khai riêng, không thực hiện trong lúc chỉ viết plan.
+7 Danh sách đầu việc có thể giao ngay
+Mỗi dòng là một work package có người sở hữu và kiểm chứng. Ước lượng ở đơn vị ngày công của người thực hiện, chưa bao gồm thời gian chờ duyệt hoặc sửa lại; nhóm phải tách thêm thành ticket 1–3 ngày công khi họp P0. Tổng ước lượng không dùng làm ngày hoàn thành dự án. Các ticket dùng mock phụ thuộc hợp đồng; nghiệm thu tích hợp vẫn phải dùng dữ liệu và server thật.
+7.1 P0 Chuẩn bị và thống nhất thiết kế
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+A01L02
+Baseline nghiệp vụ và traceabilityNghiệm thu: Mỗi mã yêu cầu có nguồn, trạng thái và module; quyết định bị thay thế không vào backlog hiện hành.
+Không
+3
+A02L01
+Kiến trúc và các quyết định kỹ thuậtNghiệm thu: Có ADR cho stack, database, auth, worker và adapter Drive; lựa chọn không đổi luật giải.
+A01
+3
+A03L01/P01
+Hợp đồng DTO và schema lõiNghiệm thu: VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất.
+A01
+4
+A04F01/C04/R04
+Wireframe các luồng theo vai tròNghiệm thu: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ.
+A01
+4
+A05Q01/Q02/Q03
+Fixtures và kịch bản nghiệm thuNghiệm thu: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV.
+A01
+4
+A06L02/O01
+Backlog người sở hữu và môi trườngNghiệm thu: Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi.
+A02
+2
+7.2 P1 Nền tảng để mở nhiều nhánh song song
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+B01O01
+Repository CI và nhánh phát hànhNghiệm thu: Lint, type-check, test, build, secret scan chạy tự động; PR lỗi không được hợp nhất.
+A02
+4
+B02P01
+Database migration và seedNghiệm thu: Dựng sạch được database, seed và rollback/recovery migration thử; mã VĐV giữ số 0.
+A03
+5
+B03S01
+Google login và policy nềnNghiệm thu: Server kiểm role/môn/trường; tài khoản chưa duyệt bị chặn ghi dữ liệu.
+A03/B02
+5
+B04P02
+API nền giao dịch và versionNghiệm thu: Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần.
+A03/B02
+5
+B05P03
+Audit outbox và worker nềnNghiệm thu: Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng.
+B02/B04
+5
+B06F01
+Lưới modal form và mock serverNghiệm thu: UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất.
+A03/A04
+5
+B07O01/O02
+Dev staging và cấu hình bí mậtNghiệm thu: Môi trường tách biệt, không có dữ liệu học sinh thật ở test, có log không lộ CCCD/token.
+B01
+4
+B08Q02
+Contract test và policy matrixNghiệm thu: API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version.
+B03/B04
+4
+7.3 P2 Danh mục hồ sơ đăng ký và phân công
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+R01R01
+Danh mục phân cấp và snapshot kỳNghiệm thu: Hai danh mục, kế thừa, hạn mức, ngừng tổ chức; mã nội dung giữ ổn định.
+B02/B04
+6
+R02R02
+Học sinh VĐV và cấp mãNghiệm thu: Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt.
+B02/B04
+6
+R03R02/S03
+Import và bảo vệ dữ liệu gốcNghiệm thu: Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền.
+R02/B03
+6
+R04R03
+Đăng ký và rule validationNghiệm thu: Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý.
+R01/R02
+7
+R05R03
+Đôi đội và thành viênNghiệm thu: Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới.
+R04
+5
+R06R03
+Duyệt và revision đăng kýNghiệm thu: Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server.
+R03/R04
+5
+R07R04
+Màn hình trường và duyệt quản trịNghiệm thu: Nhập/sửa/gửi/duyệt chạy end-to-end, dropdown đúng cây nội dung và thông báo lỗi rõ.
+B06/R01–R06
+7
+R08S02
+Tổ trọng tài checklist và xung độtNghiệm thu: Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi.
+B03/R01
+6
+R09S03
+Tệp và quyền xem hồ sơNghiệm thu: Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình.
+B03/B05
+5
+R10Q01/Q02
+Kiểm thử đồng thời hạn mức và mãNghiệm thu: Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền.
+R02/R04/R06/R08
+5
+7.4 P3 Thi đấu sơ đồ và lịch
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+C01C01
+Bộ tạo sơ đồ cố địnhNghiệm thu: N=6..64 có số trận/chỗ đúng; ảo chỉ vòng đầu, không ảo–ảo, không vẽ lại sau chốt.
+A03/B04/R06
+7
+C02C01
+Hạt giống và bốc thăm hai chế độNghiệm thu: Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ.
+C01
+5
+C03C02
+Bộ vòng tròn một lượtNghiệm thu: N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo.
+A03/B04/R06
+5
+C04C03
+Scheduler và kiểm xung độtNghiệm thu: Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch.
+R08/C01/C03
+6
+C05C03
+Cân ghép và chuyển hạngNghiệm thu: Giới hạn ghép 3 kg, hạn mức trường; cả hai hạng chưa bắt đầu; xếp lại cả hai/hủy thiếu điều kiện.
+R04/C01/C03
+6
+C06C04
+UI sơ đồ và hạt giốngNghiệm thu: Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng.
+B06/C01/C02
+6
+C07C04
+UI vòng tròn theo mẫuNghiệm thu: Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới.
+B06/C03
+5
+C08C04/C03
+UI lịch và phân làn/lượtNghiệm thu: Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo.
+C04
+4
+C09Q01
+Property tests sơ đồ và vòng trònNghiệm thu: Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện.
+C01/C02/C03
+5
+C10Q02/Q03
+Tích hợp đăng ký tới lịchNghiệm thu: Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server.
+R07/R08/C05–C08
+5
+7.5 P4 Kết quả huy chương và công bố
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+K01K01
+Submission xác nhận và edit leaseNghiệm thu: Chỉ trọng tài checklist nhập; một người online; xác nhận mới đổi chính thức, version cũ báo xung đột.
+B04/B05/R08/C01
+7
+K02K02
+Trạng thái và phục hồi quyền thiNghiệm thu: Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật.
+K01/C01/C03
+6
+K03K01
+Biểu mẫu môn và Cờ vua importNghiệm thu: Thời gian/khoảng cách/tổng điểm/hiệp/thẻ có schema; Cờ vua giữ vị thứ, không đồng đội năm nay.
+K01/R03
+6
+K04K03
+Xếp hạng vòng tròn theo mônNghiệm thu: Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng.
+C03/K01/K02/K03
+6
+K05K03
+Đếm thực tế hợp lệ và huy chươngNghiệm thu: 3–4 chỉ vàng/bạc; 5 có đồng; miễn chỉ tính khi đấu thật; đủ số trường/hợp lệ mới công nhận.
+K02/K03
+6
+K06K04
+Điểm môn toàn đoàn và phạtNghiệm thu: Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng.
+K04/K05
+6
+K07K04/P03
+Chốt và tính lại bảng phụ thuộcNghiệm thu: Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng.
+K06/B05
+5
+K08K01/C04
+UI nhập duyệt và bản sửaNghiệm thu: Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel.
+K01/K02/K03
+6
+K09F02
+Công khai in và xuất ExcelNghiệm thu: Chỉ dữ liệu được công bố, không CCCD/ảnh; in đầu/ký; trạng thái sơ bộ/chính thức đúng.
+K07/B06
+6
+K10P03/F01
+Thông báo liên kết theo quyềnNghiệm thu: Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate.
+B05/R06/K01/C04
+4
+K11Q01/Q02/Q03
+Nghiệm thu kết quả và toàn đoànNghiệm thu: Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán.
+K02–K10
+7
+7.6 P5 Tích hợp ngoại tuyến và vận hành
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+I01F03
+Hàng đợi nhập ngoại tuyếnNghiệm thu: Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả.
+B04/K01/R08
+7
+I02F03/S02/K01
+Xung đột và đổi phân công offlineNghiệm thu: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.
+I01/K01
+6
+I03S03/O02
+Drive adapter thật và retriesNghiệm thu: Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được.
+R09/B05
+5
+I04O02
+Backup retention và restore thửNghiệm thu: Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng.
+B07/I03
+6
+I05Q02/O01
+Bảo mật và kiểm tảiNghiệm thu: Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0.
+K11/I02/I03
+6
+I06Q03/L02
+Diễn tập toàn giải và kiểm hồi quyNghiệm thu: 7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện.
+K11/I02/I04
+6
+I07O01/O02
+Triển khai thử và chuyển VPSNghiệm thu: Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau.
+B07/I04
+5
+I08L01/các nhóm
+Sửa lỗi tích hợp và ổn định hợp đồngNghiệm thu: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+I05/I06
+5
+7.7 P6 Phát hành và bàn giao
+Mã và chủ trì
+Công việc và tiêu chí hoàn thành
+Phụ thuộc
+Ngày công
+D01L02/Q03
+UAT với người dùng theo vai tròNghiệm thu: Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát.
+G5
+4
+D02R02/S01/L02
+Rà dữ liệu và tài khoản thậtNghiệm thu: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.
+D01
+3
+D03O01/O02
+Release candidate và rollbackNghiệm thu: Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi.
+D01/I07
+4
+D04F02/L02/các nhóm
+Hướng dẫn và tập huấnNghiệm thu: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.
+D01
+3
+D05L01/O01/Q03
+Chạy thử bàn giao và theo dõiNghiệm thu: Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận.
+D02/D03/D04
+4
+8 Phụ thuộc và cách phân công đồng thời
+Đường phụ thuộc chính: A01/A03 → B02/B03/B04 → R02/R04/R06 → C01/C03 → K01 → K04/K05/K06 → K07/K09 → I06 → D01/D03. Nếu một mắt xích trễ, nhóm khác vẫn có thể làm phần độc lập qua hợp đồng; không nghiệm thu giả phần đã mock.
+Ngay P0, C01/C02/K03 làm fixture và đặc tả thuật toán; F01/C04/R04 dựng wireframe; Q tạo kịch bản; O dựng môi trường. P1 sau hợp đồng, R/S/C/K/F mở nhánh riêng. Các nhóm G3, G4, G5 làm cả endpoint và màn hình module, F tập trung UI dùng chung, công khai và ngoại tuyến để tránh trở thành nút thắt frontend.
+Luồng bàn giao
+Bên giao
+Bên nhận
+Điều kiện đủ
+Danh sách đã duyệt
+R
+C và S
+event snapshot, athlete/team ID, school, eligibility, revision
+Sơ đồ lịch và phân công
+C/S
+K và F
+match/round ID, node links, schedule version, quyền nhập
+Kết quả chính thức
+K01
+K03/K04/P03
+official revision, decision scope, audit và outbox đã commit
+Xếp hạng và công bố
+K04
+F02
+ranking version, rule version, trạng thái công bố và whitelist
+Tệp sao lưu
+S/O
+O02
+manifest, checksum, phiên bản schema, ID file và khóa phục hồi
+Mỗi kỹ sư giữ tối đa một ticket đang code và một PR đang review. PR nhỏ theo lát nghiệp vụ, mục tiêu 1–3 ngày làm việc; không giữ nhánh module suốt nhiều tuần. Nhánh feature tắt mặc định cho phần chưa hoàn thiện, nhưng kiểm thử vẫn chạy.
+Họp ngắn đầu ngày trong nhóm; họp phụ thuộc liên nhóm ba lần/tuần do L01/L02 điều phối; demo người dùng hằng tuần trên staging. Có hàng đợi review và ít nhất một reviewer dự phòng mỗi module. L01 không phải duyệt mọi dòng UI, chỉ thay đổi hợp đồng/kiến trúc và giao điểm rủi ro.
+9 Quy trình phát triển cho từng ticket
+9.1 Điều kiện nhận việc
+Bắt buộc áp dụng quy trình mục 18: phân tích nhiệm vụ, xác định sản phẩm đầu vào, kiểm tra đã có và dùng được; chỉ thực hiện bước phụ thuộc khi đủ đầu vào. Checklist ghi người cung cấp, phiên bản và bằng chứng kiểm tra.
+Ticket có mã WBS/mã yêu cầu, mục tiêu, in/out of scope, contract version, mock/fixture, quyền, lỗi dự kiến, acceptance scenarios, phụ thuộc và estimate. Nếu thiếu ngưỡng luật, ticket ghi U tương ứng và chỉ làm cấu trúc; không hardcode giá trị tự nghĩ.
+9.2 Quy trình thực hiện
+Developer tạo branch từ main, viết hoặc cập nhật contract/fixture theo trách nhiệm, triển khai module, thêm test cho hành vi có rủi ro, chạy local checks và gửi PR. PR mô tả hành vi trước–sau, mã yêu cầu, migration, ảnh màn hình nếu UI, test đã chạy và cách rollout.
+Reviewer chủ module kiểm nghiệp vụ, quyền server, đồng thời/version và ảnh hưởng module khác. CI chạy test liên quan và contract. Sau merge triển khai staging tự động, QA kiểm scenario rồi demo cho người dùng; phản hồi tạo ticket/change request, không thay luật qua tin nhắn không được lưu.
+Definition of Done: code được review, CI qua, acceptance đạt với dữ liệu thật của staging, audit/permission đúng, không lộ bí mật, migration/docs cập nhật, không phá public contract, có bằng chứng test và phiên bản bàn giao. Hoàn thành UI bằng mock chưa đủ Done của feature tích hợp.
+9.3 Quy tắc migration và tích hợp
+Mỗi migration có ID duy nhất do pipeline kiểm tra; không sửa migration đã chạy trên môi trường chung. Dùng thêm trường/bảng → triển khai code tương thích → backfill → chuyển đọc → loại trường cũ ở release sau. Không drop cột đang dùng để đổi schema nhanh.
+Main luôn build được; merge queue hoặc thứ tự merge do O01 quản lý khi nhiều PR chạm schema/contracts. PR liên module có danh sách người dùng API và kiểm thử tích hợp. Không tách nhánh theo từng lập trình viên rồi ghép hàng loạt ở cuối phase.
+10 Kiểm thử chuyên môn và nghiệm thu
+Mã
+Kịch bản và kết quả cần kiểm tra
+Chủ trì
+T01
+Đăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ.
+R/Q
+T02
+Quyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi.
+S/Q
+T03
+Sơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người.
+C/Q
+T04
+Vòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo.
+C/Q
+T05
+Hạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển.
+C/R/Q
+T06
+Xác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền.
+K/Q
+T07
+Phân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới.
+K/Q
+T08
+Huy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả.
+K/Q
+T09
+Vắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên.
+K/Q
+T10
+Môn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần.
+K/Q
+T11
+Ngoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission.
+F/S/Q
+T12
+Công khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã.
+F/O/Q
+Kiểm thử thuật toán dùng property tests và ví dụ đã được người dùng xác nhận; reviewer chuyên môn kiểm expected result trước khi biến thành golden test. Không viết test chỉ sao chép cùng thuật toán vì sẽ cùng sai. Với biểu mẫu màu/ô nhánh cần QA trực quan và thao tác bàn phím/điện thoại.
+Chỉ tiêu hiệu năng đề xuất để chốt ở P0: dữ liệu 500 VĐV và 100 phiên đồng thời, thao tác đọc p95 dưới 2 giây, ghi thông thường dưới 3 giây ở môi trường đo xác định; import/backup chạy job có tiến độ. Đây là mục tiêu kỹ thuật tạm, không phải yêu cầu người dùng đã chốt hoặc cam kết của Netlify.
+Lỗi nghiêm trọng gồm sai quyền, sai người đi tiếp, sai điểm/huy chương, mất dữ liệu hoặc phục hồi không được. Không phát hành khi còn lỗi này. Lỗi trình bày không cản tác nghiệp có thể xếp backlog sau khi người dùng đồng ý mức ưu tiên.
+11 Đồng thời ngoại tuyến và bảo mật phải xử lý từ đầu
+11.1 Nhập online và duyệt
+Edit lease ở server, có thời hạn và heartbeat để không khóa mãi khi trình duyệt chết; cùng trận hiển thị người đang nhập. Khoảng timeout là cấu hình kỹ thuật đề xuất, không luật giải. Lease không thay optimistic version: mọi ghi vẫn kiểm version và quyền trong transaction.
+Duyệt hàng loạt trả kết quả từng bản nhập; bản sai quyền/xung đột không làm mất bản khác. Người duyệt không đổi payload điểm. Kết quả bị từ chối giữ lịch sử theo chính sách; không chuyển sang chính thức qua endpoint cập nhật thông thường.
+11.2 Ngoại tuyến và thay quyền
+IndexedDB đề xuất lưu payload tối thiểu, operation ID, base version và snapshot phân công; không lưu toàn bộ hồ sơ/CCCD để hỗ trợ nhập điểm. Token, phiên đăng nhập và quyền hết hạn phải được xử lý riêng; queue không bị xóa khi đăng xuất trước đồng bộ nếu chưa có quy trình bảo toàn đã xác nhận.
+Server nhận đồng bộ kiểm lại actor, lịch sử phân công và phiên bản. Nếu quyền thay đổi, lưu vào inbox kiểm tra tách biệt, không gọi trực tiếp API official result. Tổ trưởng đối chiếu biên bản và quyết định; dữ liệu gửi lặp cùng operation ID chỉ tạo một submission. Hợp đồng inbox không là lối vượt quyền nhập ngoài môn.
+11.3 Hồ sơ nhạy cảm
+Mã hóa CCCD phía server, khóa bí mật ngoài repository và database dump; che số trong response theo policy. Tra cứu tự điền chỉ cùng trường, có rate limit và audit; không ghi CCCD đầy đủ vào URL, log, thông báo hoặc file test. Download tệp qua kiểm quyền hoặc liên kết có thời hạn, không dùng liên kết Drive mở mọi người để tiện test.
+12 Sao lưu phục hồi triển khai và chuyển VPS
+Job sao lưu gồm database, manifest phiên bản schema, thông tin liên kết/tệp cần thiết và checksum. Cần xác định bản sao lưu có bảo toàn bytes tệp và khả năng truy cập hay chỉ liên kết; mất quyền Drive không được coi là phục hồi hoàn chỉnh. Kiểm retention theo bản mỗi giờ 7 ngày, mỗi ngày 30 ngày, cuối giải lâu dài; không xóa bản cuối giải qua job dọn chung.
+Khôi phục có màn hình chọn bản và lý do, chỉ quản trị. Sao lưu hiện trạng trước; tạm khóa ghi trong cửa sổ khôi phục, kiểm schema, giải mã/tệp và số bản ghi trước công bố kết quả. Điều phối kỹ thuật chốt phương án phục hồi trên môi trường thử trước tác động môi trường thật.
+Mỗi môi trường dev/staging/production có database, OAuth config và thư mục Drive riêng. Bí mật cấu hình được inject lúc chạy; không để thông tin thực trong frontend bundle. Worker có job status, retry có giới hạn và alert thất bại; theo dõi login, error, lease, sync backlog, audit và backup.
+Đường chuyển VPS: đóng gói cùng backend/worker, tạo database mục tiêu, backup/export có schema version, khóa ghi ngắn, import/đối chiếu, chuyển cấu hình endpoint, kiểm OAuth origin và thư mục tệp, chạy smoke test rồi mở ghi. Nếu thất bại trước mở ghi, quay lại nguồn; nếu đã có ghi mới, phải replay/chuyển dữ liệu theo runbook, không trỏ về bản cũ làm mất kết quả.
+13 Những thông tin cần bổ sung khi code
+Mã
+Thiếu hoặc cần quyết định
+Nhóm chịu trách nhiệm và mốc
+U01
+Tệp danh mục đầy đủ, điều lệ và hạn mức/nhóm tuổi/hạng cân
+R01/L02 trước nghiệm thu R01/R04; tiếp tục làm cơ chế import bằng fixture
+U02
+Biểu mẫu từng môn, độ chính xác/làm tròn thành tích, điểm xử thua từng hiệp
+K01/L02 trước nghiệm thu K03/K04; không hardcode
+U03
+Quy tắc xếp hạng trường trong môn, điểm/hạng ngoài phạm vi đã chốt
+K03/K04/L02 trước G4; không công bố toàn đoàn khi chưa đối chiếu
+U04
+Cách ghi nhận trận đã bắt đầu và quyền thao tác bắt đầu
+C03/L02 trước nghiệm thu C05; bảo toàn nguyên tắc không chuyển sau bắt đầu
+U05
+Phân hạng khi hủy trận tranh đồng và điều kiện chốt nội dung bị ảnh hưởng
+K03/L02 trước nghiệm thu K05
+U06
+Cấu hình backend/worker/database ban đầu, Drive và chi phí
+L01/O01/O02 trong P0; thực hiện thử tích hợp, không tự mua dịch vụ
+U07
+Biểu mẫu in, vị trí cuối nút xác nhận và thống nhất nhấp tên
+F02/C04/R04 khi demo; không cản engine nghiệp vụ
+U08
+Chính sách xóa nội dung chưa có đăng ký, phạm vi đổi checklist khi giải chạy
+R01/S02/L02 trước chức năng tương ứng; giữ dữ liệu khi chưa đủ quyết định
+Các mã U là việc đối chiếu và cập nhật trong quá trình code theo yêu cầu người dùng, không phải yêu cầu trả lời thêm tất cả trước khi bắt đầu. Thông tin đã chốt trong 293 câu không bị mở lại chỉ vì developer chưa đọc. Mỗi đề xuất mới ghi rõ lý do, phạm vi tác động và quyết định sau review.
+14 Tiếp nhận cập nhật của người dùng khi đang phát triển
+Mọi thay đổi có mã CR, ngày, người yêu cầu, mô tả trước–sau, mã yêu cầu bị tác động, module/test/API/database liên quan, mức ưu tiên và release đích. L02 ghi quyết định cuối; L01/P01 phân tích tác động dữ liệu; chủ module ước lượng và Q thêm hồi quy.
+Đổi giao diện hoặc thông báo không đổi luật: cập nhật ticket và demo thường kỳ. Đổi luật khi chưa có dữ liệu thi đấu: tạo rule version và cấu hình kỳ giải. Đổi luật sau khi có kết quả: cần mô tả chuyển đổi/tính lại và quyền chốt, không tự áp dụng cho mọi năm.
+Không sửa kết quả chính thức trong database để làm dữ liệu khớp luật mới. Dùng command nghiệp vụ có audit; bản đã khóa cần mở theo quyền quản trị. Thay rule version không tự thay kết quả các kỳ giải cũ.
+Backlog giữ ba lớp: bắt buộc để vận hành theo yêu cầu đã chốt; thiếu dữ liệu/đang đối chiếu; cải tiến đề xuất. Người dùng xem demo và quyết định; đội kỹ thuật tiếp tục phần độc lập thay vì dừng cả dự án chờ một mẫu in.
+15 Checklist bắt đầu phân công và kiểm soát tiến độ
+Ngày khởi động: điền tên vào 28 vị trí; chỉ định chủ module/reviewer; tạo board P0–P6, nhập các WBS, gắn mã yêu cầu và phụ thuộc; chọn stack/môi trường; chuẩn hóa hợp đồng DTO; tạo seed giả, mở công việc A01–A06.
+Trước mỗi phase: cập nhật capacity theo ngày công thực tế, xác định công việc bị khóa bởi U/phụ thuộc, giao việc rõ người và deadline nội bộ, không ghi chung cả nhóm làm một task. Khi nhiệm vụ lớn hơn 3 ngày code, tách API, UI, algorithm hoặc test với đầu ra cụ thể nhưng giữ một người chịu trách nhiệm feature.
+Báo cáo tuần có feature đã nghiệm thu, PR đang review, blocker, lỗi nghiêm trọng, thay đổi CR và dự báo phase. Không đo tiến độ chỉ bằng số dòng code hoặc phần trăm tự khai; dùng trạng thái Ready, Coding, Review, Integration, Accepted, Blocked với chứng cứ.
+Bàn giao từng phase gồm link staging, build/version, ticket Accepted, kết quả test, ảnh/biên bản demo, danh sách U/CR chưa xử lý và hướng dẫn thử. Plan được cập nhật phiên bản sau mỗi phase để làm căn cứ phân công tiếp theo.
+16 Quy định thống nhất bắt buộc khi phát triển
+Phần này bổ sung các nội dung phải thống nhất để nhóm 20–30 người làm đồng thời. Quy tắc chuyên môn đã chốt là căn cứ bắt buộc. Cách tổ chức kỹ thuật là phương án triển khai của plan, được trưởng kỹ thuật và chủ module xác lập tại P0. Không coi việc thống nhất kỹ thuật là quyền thay đổi nghiệp vụ.
+Các mã QT dưới đây được gắn vào ticket và checklist review. Vi phạm nghiệp vụ, phân quyền, tính toàn vẹn kết quả hoặc bảo toàn dữ liệu phải chặn hợp nhất và nghiệm thu. Phần còn thiếu được ghi vào danh sách U, tiếp tục xử lý phần việc độc lập; không tự đặt luật để hoàn thành chức năng.
+16.1 Nguồn yêu cầu và quyền quyết định
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT01
+Dùng bản tổng hợp yêu cầu và quyết định cuối của người dùng. Mỗi ticket dẫn mã yêu cầu hoặc mục nghiệp vụ. Đánh dấu quyết định bị thay thế; không đưa vào backlog hiện hành.
+L02 quản lý đặc tả có phiên bản và bảng đối chiếu yêu cầu với WBS, module, test.
+QT02
+Nội dung chưa rõ phải có mã U, người xử lý và đầu việc bị ảnh hưởng. Developer không tự chọn ngưỡng, tiêu chí hoặc luật mới.
+L02 ghi quyết định của người dùng; chủ module ghi tác động và cập nhật test.
+QT03
+Thay đổi chuyên môn do người dùng quyết định. Thay đổi kỹ thuật do L01 cùng chủ module thống nhất. Không âm thầm mở rộng phạm vi trong PR.
+Mã CR hoặc ADR, lý do, phạm vi, người quyết định và phiên bản áp dụng.
+Ví dụ: quy tắc phân hạng vòng tròn đã chốt phải được triển khai đúng thứ tự. Không thay bằng thuật toán phổ biến trên mạng chỉ vì thư viện có sẵn.
+16.2 Ranh giới công việc và quyền sửa mã nguồn
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT04
+Mỗi ticket có một người chịu trách nhiệm chính, người phối hợp và reviewer. Trong bảng WBS, người đầu tiên trong cột chủ trì là người chịu trách nhiệm mặc định; các tên sau phối hợp. Khi tách ticket phải ghi tên người thật.
+L02 lập board giao việc; không giao chung cả nhóm mà thiếu người chịu trách nhiệm.
+QT05
+Mỗi module có chủ sở hữu và reviewer dự phòng. Sửa module khác cần chủ module đó rà soát. Contracts, schema và migration có reviewer L01/P01 tương ứng.
+CODEOWNERS, danh sách chủ module và lịch review.
+QT06
+Dùng bộ phân quyền, cấp mã, tính điểm và thông báo chung. Không tạo phiên bản riêng trong từng màn hình. Module khác sử dụng service/API, không tự ghi bảng của nhau.
+L01 kiểm ranh giới; chủ module kiểm call site và hợp đồng.
+QT07
+Frontend, backend và thuật toán làm song song theo cùng hợp đồng và fixtures. Hợp nhất thường xuyên theo phần nhỏ; không giữ nhánh riêng đến cuối phase.
+Contract test, CI và bản tích hợp staging.
+16.3 Dữ liệu và định danh
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT08
+ID kỹ thuật tách mã VĐV, STT và tên hiển thị. Mã VĐV lưu chuỗi, giữ số 0 như 01.012; cấp ở server trong transaction, có unique constraint. Không lấy số lớn nhất ở client rồi cộng 1.
+P01/R02; test cấp mã đồng thời và giữ mã khi rút.
+QT09
+Đăng ký, sơ đồ, kết quả, xếp hạng có phạm vi kỳ giải. Dùng mã trường thống nhất. Đội theo trường và nội dung; vị trí ảo không tạo hồ sơ athlete.
+P01 cùng R/C/K; test truy cập chéo kỳ và trùng đội.
+QT10
+Tách số đăng ký, đã duyệt, thực tế thi, hợp lệ và số dùng xét huy chương. Không dùng một cột count cho tất cả.
+C/K/Q01; từ điển dữ liệu và fixtures xét giải.
+QT11
+Thống nhất đơn vị, độ chính xác và cách biểu diễn theo môn. Cân đăng ký khác cân chính thức; bảo toàn 0,1 kg khi áp dụng. Không dùng float thiếu kiểm soát để xét bằng nhau.
+K01/K03/P01; schema và test giới hạn, bằng nhau.
+QT12
+Clone kỳ giải chỉ sao chép cấu hình được phép. Không sao chép đăng ký, sơ đồ, kết quả. Không xóa lịch sử để sửa lỗi hoặc làm sạch màn hình.
+R01/P01; test clone và kiểm audit.
+Hai request tranh suất cuối phải được kiểm tra trong giao dịch; không cấp trùng mã, không vượt hạn mức và không tạo trùng đội dù gửi đồng thời.
+16.4 Hợp đồng API
+Mỗi endpoint phải thống nhất: đường dẫn và phương thức; mục đích; schema request/response; kiểu và trường bắt buộc; phạm vi kỳ giải/môn/nội dung/trường; quyền; trạng thái cho phép và trạng thái sau; mã lỗi và thông báo tiếng Việt; version; idempotency; ví dụ đầu vào và đầu ra. Hợp đồng được lưu trong OpenAPI cùng fixtures, có người sở hữu.
+QT13: Không tự đổi tên trường, kiểu hoặc ý nghĩa trạng thái. Thay đổi tương thích được cập nhật hợp đồng; thay đổi phá vỡ cần kế hoạch chuyển đổi và danh sách nhóm sử dụng. L01 và chủ module rà soát, Q02 kiểm contract.
+QT14: API xác nhận nhận ID bản nhập và phiên bản cần xác nhận. Không nhận bộ điểm mới để tổ trưởng vừa sửa vừa duyệt. Server là nguồn tính huy chương và điểm toàn đoàn; không tin tổng điểm do client gửi. K01 chịu trách nhiệm, Q02 thử trực tiếp API.
+16.5 Phân quyền ở server
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT15
+Nhà trường chỉ thao tác phạm vi trường được giao. Tài khoản chưa được duyệt không ghi nghiệp vụ. Trọng tài chỉ nhập các nội dung được tick trong môn được phân công.
+S01/S02; ma trận policy và test API truy cập chéo.
+QT16
+Trọng tài cùng trường bị chặn đúng trận hoặc dòng thành tích theo quy tắc đã chốt. Tổ trưởng cùng trường vẫn được xác nhận theo quyết định nghiệp vụ.
+S02/K01; test cá nhân, đối kháng và thành tích nhiều dòng.
+QT17
+Tổ trưởng và quản trị không nhập hoặc sửa điểm thay trọng tài. Quản trị chỉ xác nhận thay trong trường hợp tổ trưởng vắng tại địa điểm theo yêu cầu đã chốt.
+S01/K01; test endpoint nhập, sửa và xác nhận riêng.
+QT18
+Người theo dõi chỉ đọc dữ liệu công khai. Ẩn nút không thay kiểm quyền: gọi trực tiếp API vẫn phải bị từ chối nếu sai quyền.
+S01/F02/Q02; test theo actor và phạm vi.
+16.6 Kết quả và xác nhận
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT19
+Trọng tài lưu tạo bản nhập chờ. Xác nhận hợp lệ mới thành chính thức. Sửa kết quả đã xác nhận tạo bản đề nghị riêng; chưa duyệt hoặc bị từ chối thì kết quả chính thức cũ giữ nguyên.
+K01; T06 và kiểm transaction kết quả, audit, outbox.
+QT20
+Không dùng một cột điểm chung cho bản nhập, bản sửa chờ và chính thức. Xung đột version phải báo xem lại, không ghi đè âm thầm.
+K01/P02; test hai người xử lý cùng bản.
+QT21
+Nội bộ có thể hiển thị người đi tiếp tạm thời; chỉ nhập điểm vòng sau khi kết quả vòng trước cần thiết đã xác nhận. Công khai chỉ lấy kết quả đã xác nhận.
+K01/C04/F02; test pending không được nhập vòng sau hoặc lộ public.
+QT22
+Sửa chính thức làm bảng phụ thuộc về sơ bộ và tính lại. Lưu người, thời gian, lý do, trước–sau; làm nổi bật thay đổi và ghi chú khi xuất theo yêu cầu.
+K04/P03/F02; kiểm rebuild, chốt lại và lịch sử.
+16.7 Thi đấu và xếp hạng
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT23
+Kiểm đủ VĐV và trường để tổ chức; thiếu thì hủy, trừ ngoại lệ được chốt. Chọn thể thức theo loại nội dung và số VĐV; không dùng một ngưỡng cho mọi môn.
+C01/C02/R01; test dưới, đúng và trên ngưỡng.
+QT24
+Vòng tròn mỗi cặp một lần; số lẻ nghỉ, không sinh điểm ảo. KO nhánh cố định, ảo vòng đầu; không tự nén khi bỏ. Hạt giống và miễn đúng quy tắc.
+C01/C02/Q01; T03–T05 và property tests.
+QT25
+Chuyển hạng kiểm cả nguồn và đích, trạng thái chưa bắt đầu, hạn mức và ngoại lệ xếp lại cả hai sơ đồ; không tự xử lý như chuyển hồ sơ thông thường.
+C03/Q01; test chuyển 5↔6, thiếu trường và một hạng đã bắt đầu.
+QT26
+Phân hạng đúng thứ tự từng môn. Huy chương dùng số thực tế và hợp lệ. Toàn đoàn quy đổi hạng môn rồi hệ số, điều kiện bắt buộc và phạt; không cộng trực tiếp tất cả điểm nội dung.
+K03/K04; T07–T10 và kết quả mẫu được đối chiếu chuyên môn.
+QT27
+Truất quyền/vắng phép đúng phạm vi và tác động. Không tự hồi sinh người đã thua. Cờ vua nhập giữ thứ hạng từ hệ thống ngoài theo quy trình đã chốt.
+K01/K02; test phục hồi KO/vòng tròn và import Cờ vua.
+Mỗi quy tắc có đầu vào và kết quả mong đợi được rà soát trước khi thành kiểm thử. Khi test sai, phải đối chiếu đặc tả; không sửa luật để làm test qua.
+16.8 Giao diện và thuật ngữ tiếng Việt
+QT28: Nhãn, nút, trạng thái và thông báo dùng tiếng Việt thống nhất. Bộ thuật ngữ gồm Vận động viên, Trọng tài, Tổ trưởng, Chờ xác nhận, Đã xác nhận. F01 quản lý thành phần và từ điển nhãn.
+QT29: Vòng tròn ghi Trận 1, Trận 2 trong từng vòng. Người theo dõi xem hai khung theo mẫu, điện thoại xếp dọc. Nút xác nhận gắn đúng trận/bản nhập và quyền; vị trí cuối cùng được rà soát qua demo nếu còn cần đối chiếu mẫu. C04/F02 thực hiện, Q03 nghiệm thu.
+QT30: Dùng bảng màu chung; hiển thị lý do khóa. Phân biệt đang lưu, đã lưu, chờ đồng bộ và đã xác nhận. Bản sửa làm nổi bật và có lịch sử. Thay bố cục mẫu phải demo; không tự thay quy trình nghiệp vụ vì bố trí giao diện.
+16.9 Đồng thời và ngoại tuyến
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT31
+Một người online nhập cùng trận, hiển thị người đang nhập; khóa có hạn và heartbeat. Version và quyền vẫn kiểm ở mỗi lần ghi.
+K01/P02; test khóa hết hạn và stale version.
+QT32
+Offline giữ bản nhập, mã thao tác, version gốc và phân công. Reconnect không tự công nhận chính thức. Gửi lặp không sinh trùng.
+F03/K01; T11 và thử mất mạng tại các bước lưu.
+QT33
+Hai thiết bị khác kết quả giữ cả hai để tổ trưởng đối chiếu. Phân công đổi đưa vào luồng xem xét, không bỏ dữ liệu hoặc tự ghi chính thức. Biên bản bổ sung liên kết đúng trận.
+F03/S02/S03/K01; test xung đột, đổi quyền và tải biên bản sau.
+16.10 Hồ sơ nhạy cảm và tệp
+QT34: CCCD mã hóa và che số đúng quyền. Không đưa CCCD/token vào URL, log, thông báo. Public không có ngày sinh, CCCD, ảnh hoặc giấy tờ. Tệp kiểm quyền, không mặc định mở Drive cho mọi người. S03 quản lý và Q02 kiểm endpoint/tệp/public.
+QT35: Dev/test dùng dữ liệu giả; dữ liệu thật chỉ vào môi trường đã thống nhất. Bí mật và khóa giải mã ngoài mã nguồn. Cấu hình dev/staging/production tách riêng. O01/P01 chịu trách nhiệm, CI và checklist phát hành kiểm chứng.
+16.11 Database và hợp nhất code
+Mã
+Quy định bắt buộc
+Chủ quản và bằng chứng
+QT36
+Migration mã duy nhất; không sửa bản đã chạy ở môi trường chung. Đổi schema có tương thích và phương án dữ liệu; xóa cột/bảng phải rà soát nơi dùng và phục hồi.
+P01/L01; CI migration và thử recovery.
+QT37
+Nhánh từ main, phạm vi nhỏ và cập nhật thường xuyên. PR ghi mục tiêu, mã yêu cầu, trước–sau, migration, test và rollout. Có reviewer khác người thực hiện.
+Chủ module; mẫu PR và review lưu trong repository.
+QT38
+Build, type-check và test liên quan phải đạt. Phần chưa hoàn thiện không làm hỏng main hoặc lộ tính năng chưa sẵn sàng. Lỗi có nguy cơ lặp lại cần test tái hiện.
+O01/Q; pipeline và báo cáo kết quả.
+16.12 Điều kiện nghiệm thu ticket và phase
+QT39: Ticket Accepted cần đúng yêu cầu/phạm vi; kiểm quyền server; kiểm đầu vào, trạng thái và version; tích hợp theo contract; test có bằng chứng; reviewer chấp nhận; tài liệu/migration cập nhật; chạy được trên staging với backend thật. UI dùng mock chỉ hoàn thành đầu việc UI, chưa đủ nghiệm thu feature xuyên suốt.
+QT40: G0 kiểm chủ quản và bộ tài liệu tối thiểu; G1 kiểm contract/policy/schema/CI; G2 kiểm QT08–QT18 và đăng ký; G3 kiểm QT23–QT25 và sơ đồ; G4 kiểm QT19–QT30 và kết quả; G5 kiểm QT31–QT38 và vận hành; G6 kiểm QT39 cùng bộ bàn giao. Q ghi bằng chứng, L02 theo dõi; người dùng rà soát chuyên môn qua demo/UAT.
+16.13 Bộ tài liệu dùng chung phải bàn giao
+Tài liệu
+Nội dung và nơi lưu đề xuất
+Chủ quản và mốc
+Đặc tả và truy vết
+docs/business: quy tắc, nguồn, thay thế; yêu cầu → WBS → module → test
+L02; khung P0, cập nhật mỗi CR
+Ma trận phân quyền
+docs/business/permissions: vai trò, thao tác, phạm vi, điều kiện
+S01/S02; P0/P1 trước tích hợp
+Từ điển dữ liệu
+docs/architecture/data: trường, kiểu, đơn vị, constraint, dữ liệu nhạy cảm
+P01; P0/P1 và mỗi migration
+Hợp đồng API
+docs/api và packages/contracts: OpenAPI, schema, lỗi, quyền, version, ví dụ
+L01/chủ module; trước code tích hợp
+Bảng chuyển trạng thái
+docs/business/states: đăng ký, trận, kết quả, tổng hợp, kỳ giải; guard và tác động
+R/C/K; trước ticket tương ứng
+Bộ quy tắc tính toán
+packages/rules và docs/business/rules: thuật toán có version, ví dụ và ngoại lệ
+C01/C02/K03; thiết kế từ P0
+Quy chuẩn giao diện
+packages/ui và docs: nhãn, màu, thành phần, mẫu khóa/lỗi/lưu
+F01; P0/P1 và demo
+Bộ nghiệm thu
+packages/test-fixtures và test suites: đầu vào, expected, nguồn quyết định
+Q01/Q02/Q03; từ P0
+Phát hành và phục hồi
+docs/runbooks: deploy, backup, restore, chuyển VPS, sự cố
+O01/O02; khung P1, diễn tập P5
+Sổ thay đổi
+docs/business/changes: CR, tác động, quyết định và version; ADR kỹ thuật riêng
+L02/L01; từ P0
+16.14 Checklist bắt buộc cho giao việc và review
+Trước nhận ticket: có mã WBS/yêu cầu/QT, một người chịu trách nhiệm, reviewer, phiên bản contract/rule, phụ thuộc, U chưa xử lý và kịch bản nghiệm thu. L02 không đưa ticket thiếu tiêu chí vào Doing.
+Trước hợp nhất: reviewer kiểm nguồn nghiệp vụ; quyền server; phạm vi kỳ/trường/môn; đầu vào và trạng thái; transaction/version/idempotency; tác động kết quả chính thức; privacy/audit; tương thích contract/migration; test và tài liệu. Mục không áp dụng ghi rõ lý do, không đánh dấu đạt chung chung.
+Chặn hợp nhất khi sai luật, sai quyền, lộ hồ sơ, ghi đè chính thức, tính sai người đi tiếp/điểm/huy chương, mất dữ liệu hoặc phá hợp đồng chưa có kế hoạch. Trưởng kỹ thuật không được bỏ kiểm tra chuyên môn chỉ để kịp phase. Vi phạm trình bày không cản nghiệp vụ được phân loại và xử lý theo ưu tiên đã thống nhất.
+Trước chuyển phase: Q đính kèm build, ticket Accepted, kết quả test và lỗi còn mở; chủ module ký nhận bàn giao liên nhóm; L02 ghi phản hồi người dùng và CR. Phần bị khóa bởi U không được báo hoàn thành; phần độc lập tiếp tục chạy theo plan.
+17 Nhiệm vụ cụ thể của 7 nhóm và 28 lập trình viên
+Phần này xác định trách nhiệm tổ chức theo cơ cấu mới tại mục 2. Mỗi mã vị trí là một lập trình viên; người dùng và người nghiệm thu nghiệp vụ không tính vào 28 người. Gói WBS giữ nguyên 58 mã ở mục 7. Nhóm chủ trì chịu trách nhiệm toàn bộ đầu ra; nhóm phối hợp chịu phần được giao và cung cấp bằng chứng bàn giao, không nhận cùng một gói thành hai gói chủ trì.
+Các dòng theo phase dưới đây là nhiệm vụ có WBS chính thức. Đồng thời, tất cả nhóm tham gia chuẩn bị P0/P1 và nghiệm thu P5/P6 trong phạm vi module của mình. Công việc độc lập như fixture, schema và wireframe được chuẩn bị sớm; phụ thuộc triển khai và tích hợp vẫn tuân theo mục 7.
+17.1 G1 Điều phối và kiến trúc
+Nhân sự: 2 người. Nhóm trưởng dự kiến L01. Mã vị trí: L01, L02.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+L01
+Chọn và ghi kiến trúc; chia ranh giới module; rà hợp đồng API; xử lý tích hợp liên nhóm; chủ trì sửa lỗi tích hợp và bàn giao kỹ thuật.
+Chủ trì: A02, A03, I08, D05. 
+L02
+Đối chiếu quyết định nghiệp vụ; quản lý traceability, U/CR và backlog; điều phối phụ thuộc; tổ chức demo, UAT và ghi nghiệm thu của người dùng.
+Chủ trì: A01, A06, D01. Phối hợp: I06, D02, D04.
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+A01 chủ trì Baseline nghiệp vụ và traceability; A02 chủ trì Kiến trúc và các quyết định kỹ thuật; A03 chủ trì Hợp đồng DTO và schema lõi; A06 chủ trì Backlog người sở hữu và môi trường
+A01: Mỗi mã yêu cầu có nguồn, trạng thái và module; quyết định bị thay thế không vào backlog hiện hành.; A02: Có ADR cho stack, database, auth, worker và adapter Drive; lựa chọn không đổi luật giải.; A03: VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất.; A06: Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi.
+P1
+Dựng local/CI; chuẩn bị schema, mock hoặc test riêng module
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P2
+Chuẩn bị phần độc lập và kiểm hợp đồng với đăng ký/phân công
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P3
+Chuẩn bị hoặc tích hợp với sơ đồ/lịch theo phụ thuộc
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P4
+Kiểm tác động quyền, trạng thái và kết quả trong phạm vi nhóm
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P5
+I06 phối hợp Diễn tập toàn giải và kiểm hồi quy; I08 chủ trì Sửa lỗi tích hợp và ổn định hợp đồng
+I06: 7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện.; I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D01 chủ trì UAT với người dùng theo vai trò; D02 phối hợp Rà dữ liệu và tài khoản thật; D04 phối hợp Hướng dẫn và tập huấn; D05 chủ trì Chạy thử bàn giao và theo dõi
+D01: Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát.; D02: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.; D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.; D05: Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận.
+Bàn giao liên nhóm: Nhận báo cáo và phụ thuộc từ G2–G7; bàn giao đặc tả, quyết định và kế hoạch tích hợp cho toàn nhóm.
+17.2 G2 Nền tảng và bảo mật
+Nhân sự: 6 người. Nhóm trưởng dự kiến P01. Mã vị trí: P01, P02, P03, S01, S02, S03.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+P01
+Thiết kế lược đồ và từ điển dữ liệu; quản lý migration/seed; ràng buộc mã và hạn mức; rà thay đổi database của các nhóm.
+Chủ trì: B02. Phối hợp: A03.
+P02
+Viết API nền và giao dịch; chuẩn hóa lỗi/phân trang; chống gửi trùng và ghi đè version; cung cấp cơ chế khóa và transaction.
+Chủ trì: B04. 
+P03
+Viết audit, outbox, worker và thông báo; bảo đảm commit nhất quán, retry không trùng; phối hợp tính lại khi sửa chính thức.
+Chủ trì: B05, K10. Phối hợp: K07.
+S01
+Google login và phê duyệt tài khoản; policy theo kỳ/môn/trường; ngăn ghi khi chưa duyệt; rà quyền tài khoản thật trước phát hành.
+Chủ trì: B03. Phối hợp: D02.
+S02
+Phân công tổ trưởng/trọng tài và checklist nội dung; chặn cùng trường đúng phạm vi; kiểm thiếu trọng tài và đổi phân công khi offline.
+Chủ trì: R08. Phối hợp: I02.
+S03
+Mã hóa/che CCCD; tra hồ sơ cùng trường; kiểm quyền ảnh/PDF/biên bản; viết adapter Drive, retry và tải tệp bổ sung.
+Chủ trì: R09, I03. Phối hợp: R03.
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+A03 phối hợp Hợp đồng DTO và schema lõi
+A03: VĐV, kỳ giải, nội dung, đăng ký, trận, submission/version được định nghĩa thống nhất.
+P1
+B02 chủ trì Database migration và seed; B03 chủ trì Google login và policy nền; B04 chủ trì API nền giao dịch và version; B05 chủ trì Audit outbox và worker nền
+B02: Dựng sạch được database, seed và rollback/recovery migration thử; mã VĐV giữ số 0.; B03: Server kiểm role/môn/trường; tài khoản chưa duyệt bị chặn ghi dữ liệu.; B04: Idempotency, optimistic concurrency, phân trang/lỗi chuẩn; gửi command lặp không ghi hai lần.; B05: Dữ liệu/audit/outbox commit cùng nhau; chạy lại event không gây tác dụng trùng.
+P2
+R03 phối hợp Import và bảo vệ dữ liệu gốc; R08 chủ trì Tổ trọng tài checklist và xung đột; R09 chủ trì Tệp và quyền xem hồ sơ
+R03: Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền.; R08: Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi.; R09: Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình.
+P3
+Chuẩn bị hoặc tích hợp với sơ đồ/lịch theo phụ thuộc
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P4
+K07 phối hợp Chốt và tính lại bảng phụ thuộc; K10 chủ trì Thông báo liên kết theo quyền
+K07: Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng.; K10: Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate.
+P5
+I02 phối hợp Xung đột và đổi phân công offline; I03 chủ trì Drive adapter thật và retries; I08 phối hợp Sửa lỗi tích hợp và ổn định hợp đồng
+I02: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.; I03: Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được.; I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D02 phối hợp Rà dữ liệu và tài khoản thật; D04 phối hợp Hướng dẫn và tập huấn
+D02: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.; D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.
+Bàn giao liên nhóm: Bàn giao auth/policy/contracts/dữ liệu/audit/tệp cho G3–G6; G7 nhận cấu hình và test tích hợp.
+17.3 G3 Danh mục và đăng ký
+Nhân sự: 4 người. Nhóm trưởng dự kiến R01. Mã vị trí: R01, R02, R03, R04.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+R01
+Danh mục phân cấp chung và kỳ giải; kế thừa/snapshot/clone; hạn mức; ngừng nội dung và kiểm dữ liệu danh mục từ điều lệ.
+Chủ trì: R01. 
+R02
+Học sinh gốc và VĐV; cấp mã giữ số 0; đề nghị dữ liệu gốc mới; import CSV/Excel xem trước và đối chiếu dữ liệu thật.
+Chủ trì: R02, R03, D02. 
+R03
+Giới hạn môn/nội dung/trường; đội và thành viên; gửi duyệt/revision/hạn đăng ký; kiểm bản duyệt cũ còn hiệu lực khi chờ sửa.
+Chủ trì: R04, R05, R06. 
+R04
+Giao diện nhà trường và duyệt quản trị; dropdown phân cấp, cảnh báo, lỗi; tích hợp nhập/sửa/gửi/duyệt với API thật.
+Chủ trì: R07. Phối hợp: A04.
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+A04 phối hợp Wireframe các luồng theo vai trò
+A04: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ.
+P1
+Dựng local/CI; chuẩn bị schema, mock hoặc test riêng module
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P2
+R01 chủ trì Danh mục phân cấp và snapshot kỳ; R02 chủ trì Học sinh VĐV và cấp mã; R03 chủ trì Import và bảo vệ dữ liệu gốc; R04 chủ trì Đăng ký và rule validation; R05 chủ trì Đôi đội và thành viên; R06 chủ trì Duyệt và revision đăng ký; R07 chủ trì Màn hình trường và duyệt quản trị
+R01: Hai danh mục, kế thừa, hạn mức, ngừng tổ chức; mã nội dung giữ ổn định.; R02: Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt.; R03: Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền.; R04: Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý.; R05: Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới.; R06: Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server.; R07: Nhập/sửa/gửi/duyệt chạy end-to-end, dropdown đúng cây nội dung và thông báo lỗi rõ.
+P3
+Chuẩn bị hoặc tích hợp với sơ đồ/lịch theo phụ thuộc
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P4
+Kiểm tác động quyền, trạng thái và kết quả trong phạm vi nhóm
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P5
+I08 phối hợp Sửa lỗi tích hợp và ổn định hợp đồng
+I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D02 chủ trì Rà dữ liệu và tài khoản thật; D04 phối hợp Hướng dẫn và tập huấn
+D02: Mã trường, danh mục, hạn mức, tài khoản/rule snapshot được đối chiếu tệp gốc.; D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.
+Bàn giao liên nhóm: Bàn giao danh sách đã duyệt và snapshot cho G4; G2 dùng phân công, G5 dùng định danh; G7 kiểm xuyên suốt.
+17.4 G4 Thi đấu và lịch
+Nhân sự: 4 người. Nhóm trưởng dự kiến C01. Mã vị trí: C01, C02, C03, C04.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+C01
+Thuật toán KO nhánh cố định; vị trí ảo; hạt giống và bốc thăm tự động/thủ công; giữ nhánh sau chốt.
+Chủ trì: C01, C02. 
+C02
+Thuật toán vòng tròn một lượt; ghép cặp/xoay vòng/nghỉ lượt; fixtures 3–5 người; bàn giao round/match cho kết quả.
+Chủ trì: C03. 
+C03
+Lịch/sân/thời gian nghỉ/xung đột trọng tài; cân ghép/chuyển hạng; kiểm chưa bắt đầu và xếp lại cả hai nội dung; phân lượt/làn.
+Chủ trì: C04, C05. Phối hợp: C08.
+C04
+Màn hình KO và vòng tròn đúng mẫu; Trận 1/Trận 2 mỗi vòng; giao diện lịch/lượt/làn; phối hợp UI nhập và xác nhận.
+Chủ trì: C06, C07, C08. Phối hợp: A04, K08.
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+A04 phối hợp Wireframe các luồng theo vai trò
+A04: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ.
+P1
+Dựng local/CI; chuẩn bị schema, mock hoặc test riêng module
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P2
+Chuẩn bị phần độc lập và kiểm hợp đồng với đăng ký/phân công
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P3
+C01 chủ trì Bộ tạo sơ đồ cố định; C02 chủ trì Hạt giống và bốc thăm hai chế độ; C03 chủ trì Bộ vòng tròn một lượt; C04 chủ trì Scheduler và kiểm xung đột; C05 chủ trì Cân ghép và chuyển hạng; C06 chủ trì UI sơ đồ và hạt giống; C07 chủ trì UI vòng tròn theo mẫu; C08 chủ trì UI lịch và phân làn/lượt
+C01: N=6..64 có số trận/chỗ đúng; ảo chỉ vòng đầu, không ảo–ảo, không vẽ lại sau chốt.; C02: Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ.; C03: N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo.; C04: Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch.; C05: Giới hạn ghép 3 kg, hạn mức trường; cả hai hạng chưa bắt đầu; xếp lại cả hai/hủy thiếu điều kiện.; C06: Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng.; C07: Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới.; C08: Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo.
+P4
+K08 phối hợp UI nhập duyệt và bản sửa
+K08: Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel.
+P5
+I08 phối hợp Sửa lỗi tích hợp và ổn định hợp đồng
+I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D04 phối hợp Hướng dẫn và tập huấn
+D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.
+Bàn giao liên nhóm: Bàn giao draw/round/match/lịch cho G5 và G6; G2 kiểm phân công; G7 kiểm thuật toán và giao diện.
+17.5 G5 Kết quả và xếp hạng
+Nhân sự: 4 người. Nhóm trưởng dự kiến K01. Mã vị trí: K01, K02, K03, K04.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+K01
+Bản nhập/chờ/xác nhận/chính thức; edit lease; revision sửa; duyệt từng trận/hàng loạt; biểu mẫu thành tích và import Cờ vua.
+Chủ trì: K01, K03, K08. Phối hợp: I02.
+K02
+Có mặt/vắng phép/truất quyền; xử thua tự động; phục hồi theo KO/vòng tròn; giữ lịch sử và tác động huy chương.
+Chủ trì: K02. 
+K03
+Thứ tự phân hạng theo môn; đếm thực tế/hợp lệ; huy chương và trường hợp hủy; giải thích tiêu chí và kiểm số tính giải.
+Chủ trì: K04, K05. 
+K04
+Điểm môn, quy đổi toàn đoàn/hệ số/phạt; môn bắt buộc và miễn; chốt/sơ bộ/tính lại bảng phụ thuộc; API bảng tổng hợp.
+Chủ trì: K06, K07. 
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+Rà phạm vi, contract, fixture và các U ảnh hưởng nhóm
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P1
+Dựng local/CI; chuẩn bị schema, mock hoặc test riêng module
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P2
+Chuẩn bị phần độc lập và kiểm hợp đồng với đăng ký/phân công
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P3
+Chuẩn bị hoặc tích hợp với sơ đồ/lịch theo phụ thuộc
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P4
+K01 chủ trì Submission xác nhận và edit lease; K02 chủ trì Trạng thái và phục hồi quyền thi; K03 chủ trì Biểu mẫu môn và Cờ vua import; K04 chủ trì Xếp hạng vòng tròn theo môn; K05 chủ trì Đếm thực tế hợp lệ và huy chương; K06 chủ trì Điểm môn toàn đoàn và phạt; K07 chủ trì Chốt và tính lại bảng phụ thuộc; K08 chủ trì UI nhập duyệt và bản sửa
+K01: Chỉ trọng tài checklist nhập; một người online; xác nhận mới đổi chính thức, version cũ báo xung đột.; K02: Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật.; K03: Thời gian/khoảng cách/tổng điểm/hiệp/thẻ có schema; Cờ vua giữ vị thứ, không đồng đội năm nay.; K04: Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng.; K05: 3–4 chỉ vàng/bạc; 5 có đồng; miễn chỉ tính khi đấu thật; đủ số trường/hợp lệ mới công nhận.; K06: Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng.; K07: Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng.; K08: Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel.
+P5
+I02 phối hợp Xung đột và đổi phân công offline; I08 phối hợp Sửa lỗi tích hợp và ổn định hợp đồng
+I02: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.; I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D04 phối hợp Hướng dẫn và tập huấn
+D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.
+Bàn giao liên nhóm: Bàn giao kết quả chính thức, bảng tổng hợp và phiên bản công bố cho G6; G2 cung cấp audit/outbox; G7 kiểm tính toán.
+17.6 G6 Giao diện chung và công khai
+Nhân sự: 3 người. Nhóm trưởng dự kiến F01. Mã vị trí: F01, F02, F03.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+F01
+Thành phần lưới/modal/form dùng chung; tiếng Việt và màu; wireframe; mock từ contract; UI thông báo và liên kết theo quyền.
+Chủ trì: A04, B06. Phối hợp: K10.
+F02
+Trang công khai hai khung; dữ liệu chỉ đã xác nhận; mobile; in/xuất Excel đúng quyền và ghi chú sửa; tài liệu hướng dẫn.
+Chủ trì: K09, D04. 
+F03
+Hàng đợi ngoại tuyến; lưu operation/version/phân công; chống mất và gửi trùng; giữ xung đột, đồng bộ vào luồng xem xét.
+Chủ trì: I01, I02. 
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+A04 chủ trì Wireframe các luồng theo vai trò
+A04: Đăng ký, phân công, sơ đồ, vòng tròn, xác nhận và công khai tiếng Việt có luồng đầy đủ.
+P1
+B06 chủ trì Lưới modal form và mock server
+B06: UI chung tiếng Việt, responsive; mock dùng contract đã thống nhất.
+P2
+Chuẩn bị phần độc lập và kiểm hợp đồng với đăng ký/phân công
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P3
+Chuẩn bị hoặc tích hợp với sơ đồ/lịch theo phụ thuộc
+Tài liệu/PR/test của phạm vi nhóm; ghi rõ U/CR, người nhận và phiên bản.
+P4
+K09 chủ trì Công khai in và xuất Excel; K10 phối hợp Thông báo liên kết theo quyền
+K09: Chỉ dữ liệu được công bố, không CCCD/ảnh; in đầu/ký; trạng thái sơ bộ/chính thức đúng.; K10: Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate.
+P5
+I01 chủ trì Hàng đợi nhập ngoại tuyến; I02 chủ trì Xung đột và đổi phân công offline; I08 phối hợp Sửa lỗi tích hợp và ổn định hợp đồng
+I01: Lưu local operation ID, chống mất bản nhập; reconnect không tự công nhận kết quả.; I02: Giữ mọi bản; quyền cũ đổi thì inbox chờ xem xét; không vượt quyền để ghi chính thức.; I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D04 chủ trì Hướng dẫn và tập huấn
+D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.
+Bàn giao liên nhóm: Nhận API từ G2–G5; bàn giao giao diện công khai/ngoại tuyến/in cho G7 kiểm; G1 nhận demo và hướng dẫn.
+17.7 G7 Kiểm thử và vận hành
+Nhân sự: 5 người. Nhóm trưởng dự kiến Q03. Mã vị trí: Q01, Q02, Q03, O01, O02.
+Vị trí
+Nhiệm vụ cá nhân
+WBS chủ trì hoặc phối hợp
+Q01
+Fixtures nghiệp vụ; kiểm thuật toán và ngưỡng; property tests KO/vòng tròn; test mã/hạn mức đồng thời; đối chiếu điểm/huy chương.
+Chủ trì: A05, R10, C09, K11. 
+Q02
+Contract/API/policy tests; truy cập trực tiếp và chéo trường/môn/kỳ; version/idempotency; bảo mật và tải cùng O01.
+Chủ trì: B08, C10, I05. Phối hợp: A05, R10, K11.
+Q03
+E2E màn hình và luồng xuyên nhóm; diễn tập toàn giải/mất mạng; UAT; ghi lỗi tái hiện, bằng chứng và báo cáo cổng nghiệm thu.
+Chủ trì: I06. Phối hợp: A05, C10, K11, D01, D05.
+O01
+Repository, CI/CD, nhánh và merge queue; môi trường/bí mật/giám sát; build phát hành, deploy thử, kế hoạch rollback và trực sự cố.
+Chủ trì: B01, B07, I07, D03. Phối hợp: A06, I05, D05.
+O02
+Backup theo lịch/retention; kiểm checksum và khóa phục hồi; restore thử, chuyển VPS; bảo toàn tệp, số bản ghi và kết quả.
+Chủ trì: I04. Phối hợp: B07, I03, I07, D03.
+Phase
+Nhiệm vụ của nhóm
+Đầu ra và bên nhận
+P0
+A05 chủ trì Fixtures và kịch bản nghiệm thu; A06 phối hợp Backlog người sở hữu và môi trường
+A05: Có dữ liệu 7 trường, 500 VĐV giả; bao gồm liên cấp, trùng mã, 3–5 và 6+ VĐV.; A06: Giao tên cho 28 vị trí; service/account cần thiết, phụ thuộc và Definition of Done được ghi.
+P1
+B01 chủ trì Repository CI và nhánh phát hành; B07 chủ trì Dev staging và cấu hình bí mật; B08 chủ trì Contract test và policy matrix
+B01: Lint, type-check, test, build, secret scan chạy tự động; PR lỗi không được hợp nhất.; B07: Môi trường tách biệt, không có dữ liệu học sinh thật ở test, có log không lộ CCCD/token.; B08: API thực so khớp schema; test cấm truy cập chéo trường/môn và lỗi version.
+P2
+R10 chủ trì Kiểm thử đồng thời hạn mức và mã
+R10: Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền.
+P3
+C09 chủ trì Property tests sơ đồ và vòng tròn; C10 chủ trì Tích hợp đăng ký tới lịch
+C09: Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện.; C10: Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server.
+P4
+K11 chủ trì Nghiệm thu kết quả và toàn đoàn
+K11: Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán.
+P5
+I03 phối hợp Drive adapter thật và retries; I04 chủ trì Backup retention và restore thử; I05 chủ trì Bảo mật và kiểm tải; I06 chủ trì Diễn tập toàn giải và kiểm hồi quy; I07 chủ trì Triển khai thử và chuyển VPS; I08 phối hợp Sửa lỗi tích hợp và ổn định hợp đồng
+I03: Đứt dịch vụ lưu trạng thái chờ, retry không trùng file/liên kết; biên bản tải sau vẫn dùng được.; I04: Mỗi giờ/ngày, giữ 7/30 ngày, cuối giải lâu dài; backup hiện trạng trước restore, checksum đúng.; I05: Chặn truy cập trực tiếp API/tệp khác quyền; không lộ PII; tải/lease/idempotency đạt chỉ tiêu P0.; I06: 7 trường/500 VĐV giả, mất mạng, hủy, sửa, chốt lại; biên bản lỗi có tái hiện.; I07: Container/database migrate, Drive links giữ; checksum/số bản ghi và kết quả khớp trước–sau.; I08: Không còn lỗi nghiêm trọng; test lỗi mới được thêm, không sửa luật để làm test qua.
+P6
+D01 phối hợp UAT với người dùng theo vai trò; D03 chủ trì Release candidate và rollback; D04 phối hợp Hướng dẫn và tập huấn; D05 phối hợp Chạy thử bàn giao và theo dõi
+D01: Có kịch bản, kết quả và danh sách thay đổi; nghiệp vụ trọng yếu được người dùng rà soát.; D03: Build có tag, migration plan, sao lưu kiểm chứng; rollback không làm mất kết quả đã ghi.; D04: Hướng dẫn trường, trọng tài, tổ trưởng, quản trị và vận hành có ảnh đúng bản phát hành.; D05: Checklist G6 hoàn tất; theo dõi sự cố, lịch trực và quy trình hotfix có người nhận.
+Bàn giao liên nhóm: Nhận build, contracts, fixtures, migration và tài liệu từ G1–G6; bàn giao bằng chứng test, môi trường và runbook cho G1/người dùng.
+17.8 Cách ghi nhiệm vụ vào 7 checklist nhóm
+Mỗi nhóm có một checklist G1–G7. Mỗi dòng ghi mã checklist, phase lớn, phase hoặc bước nhỏ, WBS gốc, vai trò chủ trì/phối hợp, người thật, reviewer, phụ thuộc, đầu ra, QT áp dụng, lịch, trạng thái và bằng chứng. Không ghi chung “nhóm thực hiện”. Các vị trí Q/O trong G7 vẫn có người chịu trách nhiệm tách biệt giữa kiểm thử và triển khai.
+Khi tách nhỏ gói, ghi ngay vào checklist của nhóm sở hữu. Ví dụ G4-C05.1 thiết kế điều kiện chuyển hạng; G4-C05.2 triển khai transaction chuyển; G4-C05.3 xếp lại hai sơ đồ; G4-C05.4 test thiếu trường/đổi thể thức/hạng đã bắt đầu. Mỗi bước có người và đầu ra riêng. G2/G3/G5/G7 có dòng phối hợp tương ứng khi cần. Giữ C05 làm WBS gốc để truy vết.
+Gói hoàn tất chỉ khi các bước con và phần phối hợp bắt buộc được nghiệm thu. Không đếm cả dòng cha và dòng con thành hai khối lượng hoàn thành. Mọi thay đổi người/phase/đầu ra ghi CR hoặc nhật ký phân công và cập nhật phụ thuộc. L02 kiểm cơ cấu 7 nhóm, tổng 28 vị trí và mỗi WBS có duy nhất một chủ trì trước khi giao việc.
+18 Quy trình lập trình viên và phối hợp theo sản phẩm đầu vào
+18.1 Quy trình bắt buộc trước khi thực hiện nhiệm vụ
+Quy trình của từng lập trình viên: Phân tích công việc → Rà soát sản phẩm của mình cần những sản phẩm nào mới thực hiện được → Kiểm tra các sản phẩm đó đã có và dùng được chưa → Nếu đủ thì thực hiện nhiệm vụ. “Đã có” phải có bằng chứng và phiên bản đúng; không chỉ dựa vào thông báo miệng hoặc trạng thái người cung cấp tự đánh dấu.
+Bước
+Công việc của lập trình viên
+Thông tin phải ghi vào checklist
+1 Phân tích
+Đọc WBS, đặc tả và QT; xác định đầu ra, phạm vi, tiêu chí nghiệm thu. Tách bước 1–3 ngày công nếu cần.
+ID/WBS gốc, phase/bước nhỏ, người thực hiện/reviewer, tiêu chí và phiên bản yêu cầu.
+2 Rà phụ thuộc
+Liệt kê từng sản phẩm bắt buộc; xác định người cung cấp, người sở hữu và bước sử dụng. Phân biệt contract/fixture cho thiết kế với API/build thật cho tích hợp.
+Sản phẩm đầu vào, người cung cấp, ID công việc nguồn và phiên bản cần nhận.
+3 Kiểm tra đầu vào
+Kiểm link truy cập, nội dung/schema, phiên bản, quyền, test hoặc build có chạy được. Đối chiếu điều kiện của chính bước đang nhận.
+Chưa có / Có nhưng chưa đạt / Đủ để thực hiện; link, người kiểm, thời gian và lý do.
+4 Quyết định thực hiện
+Đủ toàn bộ đầu vào bắt buộc thì chuyển Sẵn sàng rồi Đang làm. Thiếu hoặc không đạt thì Bị chặn và liên hệ người cung cấp qua quy trình nội bộ.
+Thiếu gì, ai cung cấp, hạn dự kiến, hành động tiếp theo và ticket sửa nếu cần.
+5 Thực hiện
+Code theo hợp đồng đã kiểm; test, review và cập nhật docs. Nếu đầu vào đổi version, đánh giá lại trước tiếp tục bước bị tác động.
+PR/build/test, phiên bản đầu vào thực dùng, lỗi/CR và trạng thái.
+6 Bàn giao
+Gửi đầu ra có phiên bản và bằng chứng cho người nhận; người nhận kiểm dùng được. Chỉ nghiệm thu khi đáp ứng QT39.
+Sản phẩm đầu ra, người nhận, xác nhận nhận, ngày kiểm và kết quả.
+Nếu đầu vào chưa có: không tự thay luật, không ghi tích hợp đã xong, không làm phần phụ thuộc bằng giả định chưa thống nhất. Có thể tiếp tục phân tích hoặc bước độc lập chỉ khi chính bước đó đã đủ đầu vào; ghi riêng trong checklist. Mock/fixture chỉ cho phép các bước được xác định dùng mock, không thay API thật để nghiệm thu.
+Đầu việc không có phụ thuộc bên ngoài ghi “Không có phụ thuộc ngoài”, nhưng vẫn cần đặc tả và tiêu chí hợp lệ. Người thực hiện tự rà ban đầu; reviewer/nhóm trưởng xác nhận điều kiện nhận việc khi phân công. L02 xử lý phụ thuộc chậm liên nhóm; L01 xử lý sai hợp đồng hoặc xung đột kỹ thuật.
+18.2 Quy tắc bàn giao liên nhóm
+Một WBS có một chủ trì; phối hợp phải có phần việc và sản phẩm riêng. Người cung cấp thông báo đầu ra cụ thể kèm ID, phiên bản, link, test và hạn chế còn mở. Người nhận kiểm tra và phản hồi Đã nhận đủ hoặc Chưa đủ cùng lý do. Không coi gửi link là đã nghiệm thu. Không sửa thay module khác âm thầm; PR cần chủ module rà soát.
+Contract ổn định cho phép viết phần độc lập. API thật, dữ liệu/schema tương thích và test đạt mới cho phép tích hợp. Thay đổi contract/schema/rule phải liệt kê người sử dụng bị ảnh hưởng, cập nhật phiên bản, CR/ADR và checklist phụ thuộc. Các quan hệ bên dưới là phối hợp giữa sản phẩm, không yêu cầu đợi toàn bộ module xong; tách contract, stub và bản triển khai để tránh vòng chờ.
+18.3 Ma trận phối hợp của 28 lập trình viên
+Người thực hiện và nguồn đầu vào
+Sản phẩm cần nhận
+Sản phẩm giao và người nhận
+L01 nhận từ L02, P01, chủ module
+Yêu cầu có phiên bản, luồng nghiệp vụ và đề xuất schema/API
+Kiến trúc, ranh giới module, hợp đồng chung cho toàn nhóm
+L02 nhận từ Người dùng, L01, trưởng nhóm
+Quyết định nghiệp vụ, U/CR, báo cáo và bằng chứng
+Đặc tả, backlog, quyết định và kết luận nghiệm thu cho toàn nhóm
+P01 nhận từ L01, R02, R03, C01, K01, K04
+Ý nghĩa thực thể, ràng buộc và nhu cầu lưu dữ liệu
+Schema, migration, từ điển, seed cho backend; database dựng thử cho O/Q
+P02 nhận từ L01, P01, S01
+Contract API, schema và giao diện kiểm quyền
+API nền, lỗi, transaction, version/idempotency cho R/C/K/F
+P03 nhận từ P01, P02, R03, C03, K01, K04
+Schema, transaction và danh sách sự kiện/tác động
+Audit/outbox/worker/thông báo cho module; job status cho O01
+S01 nhận từ L02, P01, P02, O01
+Ma trận quyền, dữ liệu tài khoản, OAuth và môi trường
+Login/phê duyệt/policy cho R/C/K/F/Q02
+S02 nhận từ S01, R01, C01, C02, C03
+Nội dung, vai trò, VĐV/trường, trận và lịch
+Phân công/checklist/xung đột cho C03/K01/F03
+Người thực hiện và nguồn đầu vào
+Sản phẩm cần nhận
+Sản phẩm giao và người nhận
+S03 nhận từ S01, P01, R02, K01, O02
+Quyền hồ sơ/tệp, định danh, ID hồ sơ/trận, Drive config
+Tra cứu che số, tệp có quyền và adapter cho R02/K01/F02/O02
+R01 nhận từ L02, P01, P02
+Danh mục/điều lệ gốc, cấu trúc dữ liệu và API nền
+Danh mục, hạn mức, snapshot cho R03/S02/C/K
+R02 nhận từ P01, P02, S01, S03
+Schema học sinh/VĐV, cấp mã, quyền CCCD, mẫu import
+Hồ sơ/mã/import/dữ liệu gốc duyệt cho R03/R04/C/K
+R03 nhận từ R01, R02, S01, P02
+Danh mục/hạn mức, hồ sơ, policy, transaction/version
+API đăng ký/đội/duyệt; danh sách duyệt cho R04/C01/C02/S02/K01
+R04 nhận từ F01, R01, R02, R03, S01
+UI chung, API danh mục/hồ sơ/đăng ký, quyền và lỗi mẫu
+Màn hình trường/quản trị cho Q03 và L02 demo
+C01 nhận từ R03, R01, P02, L02
+Danh sách duyệt, school ID, thể thức/rule snapshot và hạt giống
+KO/draw/node/match/nhánh cho C03/C04/K01/Q01
+C02 nhận từ R03, R01, P02, L02
+Danh sách duyệt, nội dung và luật vòng tròn
+Round/cặp/nghỉ/match cho C03/C04/K01/K03/Q01
+Người thực hiện và nguồn đầu vào
+Sản phẩm cần nhận
+Sản phẩm giao và người nhận
+C03 nhận từ C01, C02, S02, R03, K01
+Trận/vòng, phân công, hạn mức, trạng thái bắt đầu và kết quả
+Lịch/lượt/làn/xung đột/chuyển hạng cho C04/K01/P03/Q
+C04 nhận từ F01, C01, C02, C03, K01
+UI chung, sơ đồ/vòng/lịch, trạng thái và kết quả theo quyền
+UI thi đấu/lịch/nhập/xác nhận cho Q03/L02
+K01 nhận từ P02, P03, S01, S02, C01, C02, S03
+Transaction/version/audit, policy/phân công, match/nhánh, API tệp
+API nhập/sửa/xác nhận/chính thức và sự kiện cho K02/K03/K04/C04/F03
+K02 nhận từ K01, C01, C02, L02
+Kết quả/trạng thái, vòng sau, luật vắng/truất/phục hồi
+Quyết định và tác động trạng thái cho K01/K03/K04/C03/Q01
+K03 nhận từ K01, K02, C02, R01, L02
+Chính thức, trạng thái, vòng/cặp, rule snapshot, tiêu chí xét giải
+Hạng nội dung/huy chương/giải thích cho K04/F02/Q01
+K04 nhận từ K03, K01, K02, R01, P03, L02
+Hạng/điểm, thực tế thi, luật điểm môn/toàn đoàn/phạt
+Tổng hợp có phiên bản/chốt/API công bố cho F02/Q01
+F01 nhận từ L01, L02, R04, C04, K01
+Wireframe, thuật ngữ, trạng thái, contract UI
+UI chung/màu/form/lỗi/khóa/mock cho R04/C04/F02/F03
+Người thực hiện và nguồn đầu vào
+Sản phẩm cần nhận
+Sản phẩm giao và người nhận
+F02 nhận từ F01, K01, K04, S03, L02
+UI, API public chỉ đã xác nhận, tổng hợp và mẫu in/xuất
+Theo dõi/in/Excel/hướng dẫn cho Q03/L02
+F03 nhận từ K01, P02, S01, S02, C04
+Contract sync/submission, operation/version, policy/phân công, luồng nhập
+Queue offline/sync/xung đột cho K01/Q02/Q03
+Q01 nhận từ L02, R03, C01, C02, K02, K03, K04
+Ví dụ nghiệp vụ đã đối chiếu, input/output thuật toán, rule version
+Fixtures/property/regression và báo cáo cho chủ module/L02
+Q02 nhận từ L01, P02, S01, S02, S03, K01, F03
+OpenAPI, policy matrix, API thật, version/sync/tệp
+Contract/quyền/đồng thời/bảo mật tests cho module/O01/L02
+Q03 nhận từ R04, C04, F02, F03, K01, O01, L02
+Build staging, tài khoản thử, seed, kịch bản và luồng hoàn chỉnh
+E2E/lỗi tái hiện/UAT/bằng chứng cổng cho L02/chủ module
+O01 nhận từ L01, P01, S01, P03, Q02, Q03
+Kiến trúc triển khai, migration, OAuth/worker config, lệnh test
+CI/CD/môi trường/build/giám sát/phát hành cho toàn nhóm
+O02 nhận từ P01, S03, O01, K04
+Schema/export, manifest tệp/Drive, môi trường, kết quả đối chiếu
+Backup/restore/runbook VPS/báo cáo cho O01/Q03/L02
+K04 phụ thuộc quy tắc xếp hạng trường trong từng môn còn cần đối chiếu điều lệ (U03). L02 cung cấp kết luận trước nghiệm thu phần đó; K04 chỉ làm phần độc lập đã đủ đầu vào, không tự suy đoán.
+18.4 Cấu trúc sản phẩm bàn giao tối thiểu
+Sản phẩm
+Nội dung tối thiểu
+Người cung cấp chính
+Danh sách duyệt
+Kỳ/nội dung, athlete/team ID, mã VĐV, school ID, eligibility, revision, rule snapshot
+R03 cùng R01/R02
+Sơ đồ và vòng
+Draw version, round/match ID, người/vị trí, quan hệ nhánh, vị trí ảo, trạng thái khóa
+C01/C02
+Phân công
+Referee ID, môn/nội dung tick, phạm vi hiệu lực, version, kiểm người hợp lệ
+S02
+Lịch
+Match/lượt ID, sân/địa điểm/làn, thời gian, version và xung đột
+C03
+Bản nhập
+Submission/match ID, actor, payload theo môn, base version, operation ID, trạng thái
+K01
+Chính thức
+Official revision, bản nhập được duyệt, người/thời gian xác nhận, trạng thái thi, sự kiện
+K01 cùng K02
+Xếp hạng
+Version bảng/rule, nguồn kết quả, tiêu chí, điểm/huy chương, trạng thái sơ bộ/chốt
+K03/K04
+Phát hành
+Build/tag/commit, migration version, cấu hình, báo cáo test, phương án phục hồi
+O01 cùng O02/Q
+18.5 Các trường cần thêm vào checklist nhóm
+Mỗi checklist G1–G7 bổ sung: Người cung cấp đầu vào; Sản phẩm đầu vào; ID công việc nguồn; Phiên bản cần/thực nhận; Link đầu vào; Kết quả kiểm đầu vào; Ngày/người kiểm; Sản phẩm còn thiếu và hạn cung cấp; Người nhận đầu ra; Xác nhận bàn giao. Nếu một bước cần nhiều đầu vào, ghi thành danh sách phụ thuộc có ID riêng; không gộp thành “backend”.
+Trạng thái nhận việc: Chưa phân tích → Đang rà đầu vào → Sẵn sàng hoặc Bị chặn → Đang làm → Chờ review → Chờ tích hợp/nghiệm thu → Đã nghiệm thu. Sẵn sàng chỉ khi mọi sản phẩm bắt buộc của bước đều Đủ để thực hiện. File checklist cần được cập nhật sang 7 nhóm và các cột này trước khi dùng chính thức; phần này là quy định của plan, không phải xác nhận file Excel cũ đã được sửa.
+18.6 Ví dụ phối hợp khi thực hiện K01
+Bước và người thực hiện
+Đầu vào và người cung cấp
+Đầu ra và người nhận
+K01.1 K01 thiết kế
+Đặc tả L02; schema P01; policy S01/S02; contract trận C01/C02
+Contract submission/confirmation và trạng thái cho P02/P03/C04/F03/Q02
+K01.2 K01 API nhập sửa
+Transaction/version/idempotency P02; audit P03
+API bản nhập/bản sửa cho C04/F03/Q02
+K01.3 K01 API xác nhận
+Policy S01/S02; quan hệ vòng C01/C02; các bước 1–2
+Xác nhận đúng quyền, giữ chính thức khi chưa duyệt cho K02/K03/K04
+K01.4 K01 cùng C04 UI
+API thật K01; UI chung F01; biểu mẫu theo môn
+Màn hình nhập/lịch sử/xác nhận cho Q03/L02
+K01.5 Q02/Q03 kiểm
+Build O01; fixture Q01; kịch bản L02; bước 2–4
+Bằng chứng test quyền/sửa/vòng sau; lỗi cho K01 sửa
+K01.6 K01 bàn giao
+Bước trước đạt và QT39 đầy đủ
+K02/K03/K04/F03 xác nhận API dùng được, lưu phiên bản bàn giao
+19 Admin tạo giải mới và sao chép cấu hình
+19.1 Phạm vi chức năng đã bổ sung
+Admin có quyền tạo giải mới. Mỗi giải có ID riêng và quản lý độc lập về cấu hình, đăng ký VĐV hoặc đội, lịch, sơ đồ, phân công trọng tài, kết quả, xếp hạng và công bố. Đây là yêu cầu bổ sung vào kế hoạch; chưa phải xác nhận chức năng đã được lập trình.
+Màn hình quản lý giải có nút Tạo giải mới. Admin chọn Tạo mới hoàn toàn hoặc Sao chép cấu hình từ giải trước, nhập thông tin, kiểm tra và lưu. Giải mới luôn bắt đầu ở trạng thái Nháp; Admin kiểm tra cấu hình rồi mới mở đăng ký. Tạo giải mới không làm thay đổi dữ liệu hoặc trạng thái của giải nguồn.
+Thông tin cấu hình gồm tên giải, năm tổ chức, đơn vị tổ chức, thời gian tổ chức và thời hạn đăng ký; danh sách môn và nội dung; độ tuổi, hạn mức, điều kiện tổ chức và phiên bản quy tắc áp dụng. Dữ liệu hoặc điều lệ còn thiếu được ghi rõ theo mục 13; không tự điền luật chuyên môn.
+19.2 Quy tắc tạo mới và sao chép
+Tạo mới hoàn toàn tạo bản ghi giải Nháp và các cấu hình do Admin nhập. Dữ liệu danh mục dùng chung được tham chiếu hoặc tạo snapshot theo thiết kế ở mục 4; không đồng nghĩa sao chép hồ sơ đăng ký.
+Khi sao chép, Admin chọn giải nguồn và các phần cấu hình muốn lấy, xem trước rồi xác nhận tạo giải. Server chỉ sao chép các trường trong danh sách cho phép; không sao chép toàn bộ cơ sở dữ liệu. Ghi nhận giải nguồn, phiên bản cấu hình nguồn và người thực hiện trong lịch sử.
+Phần dữ liệu
+Xử lý khi tạo giải mới
+Chủ trì
+Danh mục môn và nội dung
+Cho phép chọn sao chép; tạo snapshot của giải mới, giữ ID giải mới riêng
+R01 và P01
+Tuổi, hạn mức, điều kiện tổ chức và quy tắc
+Chỉ lấy cấu hình được chọn; Admin rà soát phù hợp điều lệ giải mới trước khi mở đăng ký
+R01 và L02
+Thông tin tên và thời gian
+Admin nhập cho giải mới; không tự giữ thời hạn đăng ký đã hết của giải nguồn
+R04 và R01
+Tài khoản người dùng
+Có thể dùng tài khoản chung đã được duyệt; quyền thao tác phải gắn với giải mới
+S01 và S02
+Phân công tổ trưởng và trọng tài
+Admin thực hiện cho giải mới; không tự sao chép phân công, checklist hoặc quyền theo giải nguồn
+S02
+Đăng ký VĐV hoặc đội
+Không sao chép; trường đăng ký lại trong giải mới theo quy trình đã chốt
+R03
+Sơ đồ, lịch và kết quả
+Không sao chép; huy chương, xếp hạng và lịch sử xác nhận của giải cũ không đi theo
+C và K
+Không sửa giải nguồn khi đổi cấu hình giải mới. Rule snapshot của giải mới có phiên bản riêng. Mã VĐV vẫn tuân thủ phạm vi kỳ giải/trường và giữ số 0 như mục 4; không lấy mã hoặc thứ tự đăng ký cũ làm đăng ký mới.
+19.3 Quyền và kiểm tra trước khi mở đăng ký
+Server kiểm tra quyền Admin và phạm vi giải ở mọi thao tác tạo, sao chép, sửa cấu hình và mở đăng ký. Ẩn nút trên giao diện không thay thế kiểm tra quyền ở API. Nhà trường, trọng tài, tổ trưởng và người theo dõi không được tạo giải mới nếu chỉ có những vai trò này.
+Trước khi mở đăng ký, kiểm tra thông tin bắt buộc, mốc thời gian hợp lệ, ít nhất một nội dung hoạt động, cấu hình tuổi/hạn mức/điều kiện và phiên bản quy tắc cần thiết. Thiếu cấu hình bắt buộc thì giữ Nháp, chỉ rõ lỗi để Admin sửa. Kiểm tra đủ VĐV và đủ trường tổ chức thuộc giai đoạn chốt đăng ký và tổ chức thi đấu; không lấy điều kiện này để ngăn tạo giải Nháp.
+Hợp đồng trạng thái tối thiểu bổ sung: Nháp → Mở đăng ký. L02 và R01 đối chiếu các trạng thái tiếp theo với quy trình đã chốt trước khi tích hợp; không đặt lại trạng thái hoặc mở đăng ký trở lại trái điều lệ.
+Mọi API và truy vấn dữ liệu của giải phải xác định edition_id. Không đọc đăng ký, kết quả hoặc quyền từ giải đang chọn ở client mà bỏ kiểm tra server. Trình duyệt chuyển giải phải tải lại phạm vi quyền và dữ liệu tương ứng.
+19.4 Phân công triển khai theo phase và đầu vào
+Bổ sung các bước nhỏ dưới WBS hiện có, không đổi chủ trì hoặc tạo gói WBS trùng. Tổng danh sách 58 gói giữ nguyên; ước lượng thời gian các gói chịu ảnh hưởng phải được nhóm rà soát lại.
+Phase và vị trí
+Đầu vào cần có
+Sản phẩm và bên nhận
+P0 L02 và L01 trong A01 A02 A03
+Yêu cầu tại mục 19 và mô hình kỳ giải hiện có
+Đặc tả quyền, trường, trạng thái và hợp đồng tạo/sao chép cho P01 R01 S01 R04 Q02
+P1 P01 và P02 trong B02 B04
+Đặc tả L02, hợp đồng L01
+Schema edition và snapshot; transaction/version/idempotency cho R01 S01 C K và Q02
+P2 R01 trong R01
+Schema P01, API nền P02, policy S01, cấu hình chuyên môn L02
+API tạo giải Nháp, xem trước và sao chép cấu hình cho R04 S02 Q02
+P2 S01 và S02 trong B03 R08
+Ma trận quyền L02, ID giải R01, API nền P02
+Policy Admin và phân công theo giải; bàn giao R01 R04 K01 Q02
+P2 R04 cùng F01 trong R07 B06
+UI chung F01, API R01, policy S01, đặc tả trường L02
+Màn hình danh sách giải, tạo mới, chọn cấu hình sao chép, kiểm tra và mở đăng ký cho Q03 L02
+P3 C01 C02 C03 trong C01 C03 C04
+Danh sách đã duyệt và snapshot giải mới từ R03 R01
+Thi đấu/lịch chỉ dùng dữ liệu đúng giải; bằng chứng tích hợp cho Q02 Q03
+P4 K01 K03 K04 F02 trong K01 K04 K06 K09
+Trận, phân công và kết quả đúng edition_id
+Nhập/xác nhận/tổng hợp/công khai không lẫn giải; bàn giao Q02 Q03
+P5 Q02 Q03 trong I05 I06
+Build O01, ít nhất hai giải và tài khoản mẫu, API/UI đã tích hợp
+Báo cáo kiểm thử tạo/sao chép/phân quyền/cách ly dữ liệu; lỗi giao đúng chủ module
+P6 L02 R04 F02 trong D01 D04
+Build đạt, báo cáo test, kịch bản tạo và mở đăng ký
+UAT với Admin, hướng dẫn thao tác và bằng chứng nghiệm thu
+R01 chủ trì chức năng; P01 sở hữu schema, S01/S02 sở hữu policy và phân công, R04 sở hữu giao diện quản lý giải. L01 rà soát hợp đồng liên module, L02 quản lý quyết định nghiệp vụ. Mỗi bước áp dụng quy trình kiểm đầu vào tại mục 18: nếu sản phẩm bắt buộc chưa có hoặc chưa dùng được thì ghi Bị chặn, người cung cấp và hạn xử lý.
+19.5 Checklist và tiêu chí nghiệm thu
+Mã kiểm tra
+Kết quả phải đạt
+Chủ trì kiểm
+TG01 Tạo mới
+Admin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống
+Q02 và Q03
+TG02 Sao chép có chọn lọc
+Chỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập
+Q02 và Q03
+TG03 Dữ liệu không đi theo
+Giải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này
+Q02
+TG04 Phân quyền
+Tài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp
+Q02
+TG05 Mở đăng ký
+Thiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký
+Q03 và L02
+TG06 Cách ly giải
+Có hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu
+Q02 và Q03
+TG07 Bảo toàn giải nguồn
+Sao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn
+Q02
+TG08 Giao dịch và lịch sử
+Gửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản
+Q02 và P01
+Checklist G1–G7 ghi các bước nhỏ mục 19.4 dưới WBS tương ứng, có người thực hiện, đầu vào, người cung cấp, phiên bản, bằng chứng test TG01–TG08 và người nhận sản phẩm. Không đánh dấu hoàn thành chỉ vì đã có nút Tạo giải mới; phải nghiệm thu API, quyền server, sao chép có chọn lọc và cách ly dữ liệu giữa các giải.

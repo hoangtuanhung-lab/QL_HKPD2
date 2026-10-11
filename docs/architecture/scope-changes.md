@@ -24,3 +24,7 @@ Ngày 11/10/2026; người dùng cho biết không có gói Team và giao Codex 
 ## CR-008 — Tiếp tục nhóm A, đăng ký theo số lượng thực tế
 
 Người dùng giao Codex tiếp tục nhóm A và yêu cầu thiết lập phần cơ bản để các trường tự đăng ký khi có danh sách, chưa có số người tham gia. Ưu tiên A04 với biểu mẫu nháp và phác thảo sáu luồng, không cố định số trường/VĐV, không dùng quy mô fixture A05 làm quota nghiệp vụ. Giữ SQL, Google và Netlify ở cuối theo CR-004. Bản nháp localStorage và JSON không thay API đăng ký trực tuyến, phân quyền, duyệt hoặc thư mục kết quả chính thức. A01 chưa đủ tài liệu gốc; không tự đặt điều lệ để hoàn thành các phần phụ thuộc.
+
+## CR-009 — Người dùng giao Codex A01
+
+Ngày 11/10/2026 (Asia/Saigon), người dùng yêu cầu “làm A01 cho tôi”. Codex bổ sung nhiệm vụ L02: baseline nghiệp vụ và truy vết, giữ quyền sở hữu module của nhóm. Nguồn đã có là plan v1.4 và quyết định trong chat; PDF gốc 22 nhóm/293 câu cùng điều lệ/danh mục chưa đủ. Bàn giao baseline v0.1 cho nguồn hiện có, phân biệt confirmed/source_recorded/proposed/superseded với mức triển khai, giữ quyết định bị thay thế ngoài backlog hiện hành. Không tự tạo luật hoặc đánh dấu toàn bộ A01 đã nghiệm thu khi thiếu nguồn. SQL/Google/Netlify vẫn cuối dự án; A06 và tên người thật chưa được hoàn thành từ việc giao A01.
