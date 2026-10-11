@@ -1512,7 +1512,14 @@
         "docs/group-k/acceptance.md",
         "packages/results/src/index.ts",
         "tests/group-k-service.test.ts",
-        "tests/group-k-calculation.test.ts"
+        "tests/group-k-calculation.test.ts",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1892,13 +1899,21 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "offline",
       "owner_positions": ["F03", "K01"],
       "wbs_ids": ["I01"],
       "scenario_ids": ["T11"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1924,7 +1939,14 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1941,7 +1963,7 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "privacy",
       "owner_positions": ["S03", "Q02"],
       "wbs_ids": ["R03", "R09", "I05"],
@@ -1953,7 +1975,14 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1979,7 +2008,14 @@
       "artifact_paths": [
         "scripts/environment.mjs",
         "scripts/secret-scan.mjs",
-        "tests/secret-scan.test.mjs"
+        "tests/secret-scan.test.mjs",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -2007,7 +2043,14 @@
         "infra/db/scripts/migrate.sh",
         "infra/db/tests/test_check_migrations.sh",
         "tests/b02-intake.test.mjs",
-        "docs/B02/README.md"
+        "docs/B02/README.md",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -2346,7 +2389,7 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "files",
       "owner_positions": ["S03", "R02", "K01", "O02"],
       "wbs_ids": ["R09", "I03", "I04"],
@@ -2358,7 +2401,14 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": ["CR-001", "CR-004"],
       "superseded_by": []
@@ -2383,7 +2433,14 @@
       "open_issue_ids": ["U06"],
       "artifact_paths": [
         "docs/architecture/scope-changes.md",
-        "docs/runbooks/handover-o01.md"
+        "docs/runbooks/handover-o01.md",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": ["CR-004"],
       "superseded_by": []
@@ -3572,7 +3629,14 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
@@ -3615,7 +3679,14 @@
         "docs/group-k/acceptance.md",
         "packages/results/src/index.ts",
         "tests/group-k-service.test.ts",
-        "tests/group-k-calculation.test.ts"
+        "tests/group-k-calculation.test.ts",
+        "docs/group-i/README.md",
+        "docs/group-i/integration.md",
+        "docs/group-i/operations.md",
+        "docs/group-i/verification.md",
+        "packages/offline/src/index.ts",
+        "tests/group-i-inbox.test.ts",
+        "tests/group-i-drill.test.mjs"
       ],
       "change_ids": ["CR-009"],
       "superseded_by": [],

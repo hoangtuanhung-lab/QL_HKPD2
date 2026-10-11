@@ -1,0 +1,32 @@
+# I05/I06/I08 — Bằng chứng phát triển và cổng nghiệm thu
+
+Các test `group-i-inbox`, `group-i-queue`, `group-i-operations`, `group-i-drill`, `group-i-ui` dùng adapter transaction giả lập với rollback và fake-indexeddb. Browser smoke dùng Chromium + IndexedDB thật của profile tổng hợp, không auth/server thật. `npm run check` gồm toàn bộ regression, schema drift, typecheck và build; `node scripts/smoke.mjs` kiểm foundation dev/staging/worker shutdown, `npm run secret:scan` kiểm repo. Kiểm tra cuối: 526 test/40 file qua (63 test nhóm I/5 file), 28 SQL static checks; lint/typecheck/build, foundation smoke và secret scan qua. Release audit trả exit 2/ready=false đúng các cổng nghiệm thu còn chờ. Xem [verification.json](verification.json) để phân biệt bằng chứng và phạm vi.
+
+| Mã       | Tái hiện / điều kiện                                                       | Kỳ vọng được kiểm                                                                                                                       |
+| -------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| I-REG-01 | Store.add ném QuotaExceededError trong callback IDB                        | Abort/reject, không báo thành công và không lưu bản rỗng; catch callback exception đúng transaction                                     |
+| I-REG-02 | Server đã commit nhưng local receipt write lỗi                             | Giữ original operation; retry trả cùng receipt, một pending, official null                                                              |
+| I-REG-03 | Provider transport không tuân thủ AbortSignal                              | Flush có deadline độc lập; bản còn pending và ID không đổi                                                                              |
+| I-REG-04 | Match có lease online còn hiệu lực                                         | Offline vào conflict, lease/match/official không thay                                                                                   |
+| I-REG-05 | Snapshot từng cấp nhưng actor/edition/event/sport giả hoặc maySubmit false | Không tạo inbox chéo quyền; changed assignment hợp lệ vẫn giữ review                                                                    |
+| I-REG-06 | Hai operation/device từ cùng base_version khác điểm                        | Giữ cả request, chỉ một pending; không ghi official                                                                                     |
+| I-REG-07 | Inbox/audit insert lỗi sau saveMatch                                       | Transaction rollback cả state/receipt; retry không sinh pending trùng                                                                   |
+| I-REG-08 | Generated submission ID/receipt status/op sai hợp đồng                     | Không ghi match hoặc đánh dấu local sent; schema sinh từ A03 phát hiện drift                                                            |
+| I-REG-09 | Official vòng trước sửa sau downstream confirmed                           | Official source tăng version; downstream stale không công khai/chốt tự động, giữ audit/history                                          |
+| I-REG-10 | Mở tab Ngoại tuyến dùng FormField sai API tạo input có children            | Trước sửa: React error #137 / test UI fail; sau sửa: input accessible, lưu và reopen giữ cả hai bản; type children?:never ngăn tái diễn |
+| I-REG-11 | A03 cho nullable submission_id ở tất cả status                             | Validator không tự siết hợp đồng theo status; giữ tương thích tất cả nhánh A03, không suy ra official từ receipt                        |
+
+Diễn tập I06 phân 500 VĐV A05 vào 10 nội dung tổng hợp, mỗi nội dung 50, rule kỹ thuật score/precision0 và quota fixture. Không phải 133 nội dung điều lệ, không sử dụng quota fixture cho dữ liệu thật. Chạy đăng ký submit/approve R, khóa sơ đồ C, xác nhận K qua core helper, 490 trận thực (N−1 từng sơ đồ), folder logic 500. Có offline request→receipt pending→confirm rõ ràng, source sửa→stale, canceled projection→không ready, checksum export tổng hợp. Chưa có command hủy/khôi phục/re-chốt toàn giải trên máy chủ, session, provider hoặc DB thật; không gọi đây là G5/UAT.
+
+## I05 trước release
+
+- Chốt target P0 (số session/request cùng lúc, tỷ lệ lỗi, p95/p99, lease contention, retry/backlog, thời gian backup/RPO/RTO) có người chịu trách nhiệm; chưa có số được xác nhận thì không tự đặt SLA để đánh dấu đạt.
+- Tấn công trực tiếp API/files/public/notification với actor role/school/edition khác, swapped IDs, forged assignment, revoked session/approval, CSRF/CORS/CSP và rate/body limits. Kiểm tải không làm mất local/inbox, strict noPII logs/public, không Drive anyone links, encryption/keys ngoài repo.
+- Nhiều process/transaction thật cùng operation/match, lỗi tại từng commit boundary (SQL/outbox/provider/receipt), lease expired/heartbeat, source sửa khi confirm; kiểm UNIQUE/CAS/single official writer thực.
+- I03 timeout trước/sau provider commit; file upload muộn, nhiều trận/VĐV dùng reference hợp lệ, permissions thay khi mở link; giữ result/submission và không duplicate folder/file/link.
+
+## I06–I08 trước nghiệm thu
+
+Diễn tập trên server/private staging agreed, dữ liệu tổng hợp trước; T01–T12/TG01–TG08 có tài liệu nguồn, version snapshot, artifact hash, bước tái hiện, oracle tính toán và reviewer. Tổ trưởng xét tất cả conflict/review trước công nhận, không dùng automatic overwrite/lưu lại DTO ngoại tuyến để vượt quyền. Kiểm hủy/sửa/chốt lại, downstream participants và publication; phục hồi backup, migrate/rollback, mã VĐV và folder mapping. Mỗi lỗi mới có regression; release chỉ khi không có lỗi nghiêm trọng mở và cổng D/release thật được ký. Check xanh trong PR này không đóng các cổng đó.
+
+Browser smoke tái lập từ root repo với **profile Chromium riêng chỉ có dữ liệu tổng hợp**: build, chạy Vite preview port 5180, Chromium remote-debugging-port 9222 với `--user-data-dir=/tmp/hkpd-i-browser-test`, rồi `node scripts/offline-browser-smoke.mjs`. Script tạo thêm hai bản thử, chụp ảnh/hash và kiểm số bản tăng tương đối; không chạy với profile chứa dữ liệu thật. Headless Linux môi trường này cần sandbox container và cờ Chromium tương ứng; đây không phải cách chạy browser người dùng live. [Ảnh và manifest](screenshots/manifest.json) ghi đúng asset đã kiểm.

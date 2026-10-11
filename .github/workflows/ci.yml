@@ -35,6 +35,7 @@ jobs:
             packages/registration/dist
             packages/results/dist
             packages/integration/dist
+            packages/offline/dist
           retention-days: 7
   secrets:
     name: secrets
