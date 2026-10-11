@@ -55,7 +55,7 @@ API staging dùng cổng 3002, web staging cổng 5174, phục vụ frontend đ�
 - `infra/env/`: cấu hình cục bộ được Git bỏ qua.
 - `.github/workflows/ci.yml`: lint, type-check, test, build, smoke và secret scan.
 
-Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt phần đã kiểm chứng và điều kiện còn thiếu. Reviewer A02/B01/B07 được chỉ định là `@hoangtuanhung-lab`. CI nền tảng đã chạy thành công trên GitHub; bảo vệ nhánh vẫn bị chặn bởi gói repository/quyền integration và chưa được nghiệm thu.
+Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt phần đã kiểm chứng và điều kiện còn thiếu. Reviewer A02/B01/B07 được chỉ định là `@hoangtuanhung-lab`. CI nền tảng đã chạy thành công trên GitHub. Repository QL_HKPD2 hiện public; chưa có ruleset, classic protection chưa đọc được qua integration và quy trình mới do Codex kiểm tra mã và không yêu cầu approval tài khoản thứ hai. Bảo vệ nhánh chưa được nghiệm thu.
 
 ## Hợp đồng A03 và repository hiện tại
 
@@ -64,3 +64,7 @@ Repository hiện tại là [hoangtuanhung-lab/QL_HKPD2](https://github.com/hoan
 A03 cung cấp [OpenAPI lõi](docs/api/core.openapi.json), DTO TypeScript sinh tự động và [tài liệu bàn giao](docs/api/A03-contracts.md). Chạy `npm run contracts:generate` sau khi sửa OpenAPI; `npm run check` kiểm đồng bộ DTO. Endpoint nghiệp vụ mới là hợp đồng chờ review, backend hiện chỉ có health.
 
 Để frontend phát triển song song, chạy `npm run dev:mock` để đọc dữ liệu giả theo OpenAPI. Xem [hướng dẫn mock API chỉ đọc](docs/api/mock-api.md); mock không thực hiện lệnh ghi hoặc xác thực.
+
+O01 có thể chạy `npm run github:audit` để kiểm cấu hình GitHub chỉ đọc. Xem [runbook bảo vệ nhánh](docs/runbooks/branch-protection.md) về reviewer, quyền quản trị và nghiệm thu PR lỗi.
+
+Nhóm có thể gửi mã từng nhiệm vụ để Codex kiểm tra, sửa và đẩy PR theo [quy trình tiếp nhận mã](docs/runbooks/code-intake.md). Không yêu cầu mua GitHub Team; chính sách PR/CI được mô tả trong runbook B01.
