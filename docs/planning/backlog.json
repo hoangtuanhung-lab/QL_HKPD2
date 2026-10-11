@@ -747,7 +747,7 @@
         "RQ-PDF-G10",
         "RQ-PDF-KO"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -765,7 +765,7 @@
       "dependencies_source_text": "C01",
       "acceptance": "Tối đa 4, ưu tiên miễn đúng, kiểm vị trí thủ công; tránh cùng trường có cơ chế ngoại lệ.",
       "requirement_ids": ["QT24", "RQ-PDF-G11"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -783,7 +783,7 @@
       "dependencies_source_text": "A03/B04/R06",
       "acceptance": "N=3,4,5 có đủ cặp duy nhất, không trùng vòng; N lẻ mỗi người nghỉ một lần, không điểm ảo.",
       "requirement_ids": ["QT23", "QT24", "RQ-PDF-G08", "RQ-PDF-G12"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -801,7 +801,7 @@
       "dependencies_source_text": "R08/C01/C03",
       "acceptance": "Trùng sân/người/trọng tài liên môn được phát hiện; kiểm thời gian nghỉ và phiên bản lịch.",
       "requirement_ids": ["RQ-PDF-G13"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -824,7 +824,7 @@
         "RQ-PDF-G09",
         "RQ-PDF-TRANSFER"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -842,7 +842,7 @@
       "dependencies_source_text": "B06/C01/C02",
       "acceptance": "Cân giữa, đủ vòng; ô điểm hai phía sát nhánh; vị trí Thắng trận và khóa đúng.",
       "requirement_ids": ["RQ-PDF-G10", "RQ-PDF-KO"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -860,7 +860,7 @@
       "dependencies_source_text": "B06/C03",
       "acceptance": "Hai khung Việt hóa, số trận mỗi vòng, chọn vòng, bảng xếp hạng; mobile trên–dưới.",
       "requirement_ids": ["QT29"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -878,7 +878,7 @@
       "dependencies_source_text": "C04",
       "acceptance": "Tổ trưởng đặt lượt/làn chạy/bơi, chỉnh lịch có cảnh báo và liên kết thông báo.",
       "requirement_ids": ["RQ-PDF-G13"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -896,7 +896,7 @@
       "dependencies_source_text": "C01/C02/C03",
       "acceptance": "Bất biến đúng nhiều N và seed; giữ fixture hồi quy cho lỗi đã phát hiện.",
       "requirement_ids": ["QT24"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -914,7 +914,7 @@
       "dependencies_source_text": "R07/R08/C05–C08",
       "acceptance": "Tạo vòng từ danh sách duyệt thật; chuyển 5↔6, thiếu trường, khóa sơ đồ đều kiểm server.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",

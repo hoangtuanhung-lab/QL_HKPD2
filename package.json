@@ -40,8 +40,8 @@
     "group-a:check": "node scripts/group-a.mjs --check",
     "fixtures:a05": "node scripts/export-a05.mjs",
     "db:check": "bash infra/db/tests/run_all.sh",
-    "prebuild": "npm run build --workspace @hkpd/foundation",
-    "pretest": "npm run build --workspace @hkpd/foundation"
+    "prebuild": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition",
+    "pretest": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition"
   },
   "dependencies": {
     "fastify": "5.12.5",
