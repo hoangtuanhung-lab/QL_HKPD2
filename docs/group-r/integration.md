@@ -1,0 +1,35 @@
+# R — hợp đồng tích hợp server
+
+`Registry` là mô hình domain nội bộ, không phải body/response API A03. `RegistryStore.transaction` cần rollback tất cả state, sequence, receipt, audit và outbox cùng nhau. Adapter kiểm schema A03 trước khi gọi, nhận actorId từ session server; không lấy `approved`, assignments, school/quota/deadline/master status hoặc kết quả clock từ body. Library không mount route và không cung cấp memory store cho production.
+
+## Kho dữ liệu và lệnh
+
+`registryForUpdate` phải đọc và khóa dữ liệu của đúng giải: danh mục/rule snapshot đã rà soát, cửa sổ đăng ký, mã trường, học sinh gốc và VĐV, đội snapshot, registration/revision. Phiên bản đầu dùng khóa toàn giải để bao phủ tranh suất liên nội dung/môn, một học sinh hai môn, trường và mã; khi tối ưu sang khóa nhỏ hơn phải khóa mọi athlete/registration/quota/sequence/receipt liên quan theo thứ tự ổn định. Không chỉ khóa registration đang sửa rồi đọc quota ngoài transaction.
+
+Các lệnh đã có: đề nghị học sinh, duyệt hồ sơ, tạo VĐV, tạo đội nháp, tạo/sửa đăng ký cá nhân, thay thành viên đội bằng revision mới, gửi/duyệt/trả lại. Nhà trường chỉ viết trường được giao; admin của đúng giải duyệt/trả lại/hồ sơ; actor được tải lại trước khi trả receipt nên thu hồi quyền cũng chặn replay. Không thêm Cập nhật hộ hoặc mặc định admin nhập điểm.
+
+`baseVersion` cho lệnh đăng ký là version registration; tạo mới/hồ sơ dùng version aggregate nội bộ. Route adapter phải xác định đúng tài nguyên/version theo A03 và B04, không tự đưa aggregate version thành phiên bản DTO công khai. Đây là điểm còn phải tích hợp và kiểm contract khi mount API. Receipt khóa `(actor,edition,key)` và hash toàn operation/baseVersion; đổi payload cùng key bị chặn, replay đúng không ghi lại audit/outbox. Key dùng UUID. Chưa có cơ chế vận hành/retention receipt thật.
+
+`nextAthleteSequence` tăng sequence server nguyên tử theo giải/trường; không lấy MAX ở client. `athleteSequenceWidth` là cấu hình đã rà soát (0–12), không tự chốt độ rộng từ ví dụ `01.012`; test tổng hợp dùng 3. Mã trường là chuỗi số giữ 0, tách technical ID/mã VĐV/STT. Trước production phải chốt hệ mã trường và width, unique `(edition,student)`/`(edition,athlete_code)`/`(edition,school,student_code)`, ràng buộc một đội gốc/trường/nội dung và ID/receipt. Snapshot đội thay thế cần lịch sử riêng; không đặt unique school/event lên mọi snapshot lịch sử khiến không thể lưu revision mới.
+
+Tạo VĐV gửi đúng một `athlete.folder.requested` trong transaction cho consumer B05. Resource là athlete ID, edition là giải: consumer cuối dự án tạo thư mục theo `(edition_id,athlete_id)` duy nhất và idempotent. Chưa có Drive consumer, endpoint folder hay quyền tự tải của VĐV; không cấp link công khai. Permission lưu tệp và permission xác nhận kết quả tách biệt.
+
+## Validation và revision
+
+Hạn mức trường và nội dung/môn bắt buộc cấu hình trước gửi/duyệt; thiếu thì chặn. Tối đa hai môn là quy tắc nguồn. Không suy giới hạn từ tên môn. Cấu hình môn/nhóm/nội dung kế thừa theo cha, con có thể ghi đè; `categoryLimits` cho ngoại lệ, ví dụ Vovinam combat 1/forms 1 và tổng 2 sau khi chủ nghiệp vụ xác nhận mã nhóm. Cờ vua năm nay không có nội dung đội trong danh mục chính thức. Kéo co cấu hình 8–12 và hỗn hợp mỗi giới 4–6; Bóng đá 5–12; đôi/tiếp sức bật requireIndividual và cơ cấu đúng điều lệ. Library nhận cấu hình, không tự tạo toàn bộ danh mục chính thức từ ví dụ.
+
+Tuổi = năm giải − năm sinh. Tuổi/lớp ngoài khoảng chỉ cảnh báo; giới tính, hai môn và quota chặn. Submission pending giữ suất; draft chưa giữ suất. Bản approved cũ còn giữ đăng ký của người/đội cũ khi bản sửa đang chờ; validator xét cả approved và submitted để không chiếm vượt suất/môn. Trả lại bản sửa không bỏ bản approved cũ. Danh sách xã rỗng: hồ sơ mới không tạo đề nghị chờ; khi có master thì profile pending, gửi có cảnh báo và duyệt thi đấu bị chặn tới khi duyệt profile.
+
+Lệnh trường kiểm mở đăng ký và deadline bằng clock server. Admin có thể xử lý bản đã gửi sau deadline; không dùng đó để cho trường tự sửa/gửi muộn. R06 chưa nối kiểm started_at/C/K: trước khi mount revision endpoint cần chính sách nội dung đã chốt/bắt đầu và giao dịch cập nhật bản duyệt → invalidation C/K có bằng chứng. Không tự sửa sơ đồ đã chốt hoặc kết quả cũ trong bước này.
+
+## Import, giấy tờ và tệp
+
+CSV parser xử lý BOM, nháy/escape/comma/newline, cột bắt buộc, row width, mã trùng và giới/năm/lớp. Giới hạn 1 MiB chỉ là giới hạn kỹ thuật xem trước; chia tệp, không coi là số VĐV tối đa. `previewRows` nhận bảng đã được parser Excel đáng tin đọc; chưa có parser `.xlsx` nhị phân. Preview chỉ tra mã học sinh trong trường chọn, không ghép theo trùng tên hay lookup trường khác. Không tự ghi đè master từ import nhà trường; master gốc sửa qua admin repository và audit riêng còn phải làm.
+
+CCCD đầy đủ không được trả trong preview/DTO/log/URL. `sealIdentity` dùng khóa 32 byte, IV ngẫu nhiên AES-256-GCM và AAD `(edition,school,student)`; `openIdentity` là primitive server nội bộ, không được expose route. `schoolIdentityView` chỉ cho school assignment đúng scope và trả bản che. Khóa/key version cung cấp từ kho secret ở bước tích hợp, không hardcode/commit; cần kế hoạch rotation và audit truy cập. Hàm AES không tự tích hợp persist/import/lookup hoặc lưu dữ liệu vào production.
+
+`validReferees` nhận actor/roster từ nguồn server, kiểm checklist/approved/cùng trường và không đếm trùng người. Chạy khi phân công và khi thay vòng; kiểm thêm trùng lịch bằng C04. `canViewFile` chỉ nhận metadata links tin cậy từ server, không nhận participantSchoolIds/sport/event từ body. `canUploadMatchEvidence` là quyền riêng và chỉ cho trọng tài được nhập trận đó. Policy hiện không cho VĐV tự upload hoặc trường upload biên bản trận thay trọng tài. Adapter tệp thật phải kiểm lại download, giới hạn tệp/quét nội dung và URL hết hạn; nhiều liên kết thuộc cùng giải, không mặc định Drive public.
+
+## Kiểm trước nghiệm thu
+
+Q01/Q02 chạy lại trên DB/session/API thật: tranh suất cuối, tranh số môn thứ ba, mã giữ 0/không trùng, nguyên tử khi lỗi audit/outbox/receipt, quyền sau thu hồi, hồ sơ pending, revision duyệt cũ, đội thay người, hạn đăng ký và cách ly hai giải. C10 chỉ đọc approved revision; K/D dùng snapshot và version chính xác. D02 đối chiếu tệp gốc; D01/G2 cần người dùng thực hành backend thật. Trước đó các test hiện có không phải nghiệm thu feature end-to-end.

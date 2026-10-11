@@ -549,7 +549,7 @@
         "RQ-PDF-G02",
         "RQ-PDF-CHESS"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -567,7 +567,7 @@
       "dependencies_source_text": "B02/B04",
       "acceptance": "Cấp mã đồng thời không trùng; nhận diện hồ sơ và quy trình danh sách mới chờ duyệt.",
       "requirement_ids": ["QT08", "RQ-PDF-G05"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -585,7 +585,7 @@
       "dependencies_source_text": "R02/B03",
       "acceptance": "Xem trước CSV/Excel; tra CCCD chỉ cùng trường; mã hóa và che số đúng quyền.",
       "requirement_ids": ["QT34", "RQ-PDF-G05"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -603,7 +603,7 @@
       "dependencies_source_text": "R01/R02",
       "acceptance": "Chặn môn thứ ba, sai giới, vượt hạn mức; cảnh báo tuổi/lớp theo cấu hình không biến thành chặn tùy ý.",
       "requirement_ids": ["RQ-USER-003", "RQ-PDF-G06"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -621,7 +621,7 @@
       "dependencies_source_text": "R04",
       "acceptance": "Một đội/trường/nội dung, đủ cơ cấu; Kéo co 8–12 và hỗn hợp 4–6 mỗi giới.",
       "requirement_ids": ["QT09", "RQ-PDF-G07", "RQ-PDF-TEAM"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -639,7 +639,7 @@
       "dependencies_source_text": "R03/R04",
       "acceptance": "Hồ sơ mới duyệt trước thi đấu; sửa chưa duyệt không đổi bản chính thức; hạn đăng ký có kiểm server.",
       "requirement_ids": ["RQ-PLAN-REG", "RQ-PDF-G06"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -668,7 +668,7 @@
         "RQ-USER-003",
         "RQ-PDF-G06"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -686,7 +686,7 @@
       "dependencies_source_text": "B03/R01",
       "acceptance": "Không có Cập nhật hộ; chặn phân công thiếu người hợp lệ; khóa dòng cùng trường đúng phạm vi.",
       "requirement_ids": ["QT15", "QT16", "RQ-PDF-G04", "RQ-PDF-CHECKLIST"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -704,7 +704,7 @@
       "dependencies_source_text": "B03/B05",
       "acceptance": "Ảnh/PDF gắn trận/hồ sơ; nhiều liên kết; nhà trường chỉ xem biên bản trận mình.",
       "requirement_ids": ["QT33", "QT34", "RQ-USER-001", "RQ-PDF-G21"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -722,7 +722,7 @@
       "dependencies_source_text": "R02/R04/R06/R08",
       "acceptance": "Hai request cùng tranh suất cuối chỉ có một được lưu; không cấp trùng mã, không vượt quyền.",
       "requirement_ids": ["QT08"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",

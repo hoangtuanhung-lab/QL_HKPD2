@@ -1218,7 +1218,13 @@
       "wbs_ids": ["B02", "R02", "R10"],
       "scenario_ids": ["T01"],
       "open_issue_ids": ["U-BASE-001"],
-      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "artifact_paths": [
+        "docs/api/A03-contracts.md",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1240,7 +1246,13 @@
       "wbs_ids": ["B02", "R05", "C01"],
       "scenario_ids": ["T01", "TG06"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1306,7 +1318,13 @@
       "wbs_ids": ["R01"],
       "scenario_ids": ["TG03", "TG07"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1372,13 +1390,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "identity",
       "owner_positions": ["S01", "S02"],
       "wbs_ids": ["B03", "R08"],
       "scenario_ids": ["T02"],
       "open_issue_ids": ["U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1394,13 +1417,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "assignments",
       "owner_positions": ["S02", "K01"],
       "wbs_ids": ["R08", "K01"],
       "scenario_ids": ["T02"],
       "open_issue_ids": ["U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1780,13 +1808,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "offline",
       "owner_positions": ["F03", "S02", "S03", "K01"],
       "wbs_ids": ["I02", "R09"],
       "scenario_ids": ["T11"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1810,7 +1843,11 @@
       "open_issue_ids": [],
       "artifact_paths": [
         "docs/api/core.openapi.json",
-        "tests/contracts.test.mjs"
+        "tests/contracts.test.mjs",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1985,7 +2022,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG01"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2007,7 +2050,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG02"],
       "open_issue_ids": ["U01"],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2029,7 +2078,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG03"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2051,7 +2106,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG04"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2073,7 +2134,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG05"],
       "open_issue_ids": ["U01"],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2095,7 +2162,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG06"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2117,7 +2190,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG07"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2139,7 +2218,13 @@
       "wbs_ids": ["R01", "B02", "B03", "R07"],
       "scenario_ids": ["TG08"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2163,7 +2248,11 @@
       "open_issue_ids": [],
       "artifact_paths": [
         "docs/architecture/ADR-002-identity-files.md",
-        "docs/api/A03-contracts.md"
+        "docs/api/A03-contracts.md",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
       ],
       "change_ids": ["CR-001", "CR-004"],
       "superseded_by": []
@@ -2215,7 +2304,11 @@
         "apps/web/src/App.tsx",
         "apps/web/src/registration-draft.ts",
         "tests/school-registration.test.ts",
-        "docs/runbooks/A04-school-registration.md"
+        "docs/runbooks/A04-school-registration.md",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
       ],
       "change_ids": ["CR-008"],
       "superseded_by": []
@@ -2287,13 +2380,18 @@
         }
       ],
       "decision_status": "proposed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "registrations",
       "owner_positions": ["R03"],
       "wbs_ids": ["R06"],
       "scenario_ids": ["T01"],
       "open_issue_ids": ["U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2315,7 +2413,13 @@
       "wbs_ids": ["C05", "R01"],
       "scenario_ids": ["T05"],
       "open_issue_ids": ["U04"],
-      "artifact_paths": ["packages/competition/src/lifecycle.ts"],
+      "artifact_paths": [
+        "packages/competition/src/lifecycle.ts",
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2438,13 +2542,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "catalog",
       "owner_positions": ["R01", "P01"],
       "wbs_ids": ["R01", "B02"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2509,13 +2618,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "assignments",
       "owner_positions": ["S02"],
       "wbs_ids": ["R08"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2553,13 +2667,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "athletes",
       "owner_positions": ["R02", "S03"],
       "wbs_ids": ["R02", "R03"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2601,13 +2720,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "registrations",
       "owner_positions": ["R03", "R04"],
       "wbs_ids": ["R04", "R06", "R07"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2654,13 +2778,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "teams",
       "owner_positions": ["R03", "K01"],
       "wbs_ids": ["R05", "K01"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3256,13 +3385,18 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "offline",
       "owner_positions": ["F03", "S03"],
       "wbs_ids": ["I01", "I02", "R09"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3592,13 +3726,18 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "assignments",
       "owner_positions": ["S02"],
       "wbs_ids": ["R08"],
       "scenario_ids": ["T02"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3637,13 +3776,18 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "teams",
       "owner_positions": ["R03"],
       "wbs_ids": ["R05"],
       "scenario_ids": ["T01"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3690,13 +3834,18 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "R01"],
       "wbs_ids": ["K03", "R01"],
       "scenario_ids": ["T07"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-r/README.md",
+        "docs/group-r/integration.md",
+        "packages/registration/src/index.ts",
+        "tests/group-r-service.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [

@@ -40,7 +40,14 @@ async function fixture() {
     "node_modules",
   ])
     await symlink(join(repository, entry), join(root, entry));
-  for (const entry of ["api", "architecture", "runbooks", "B02", "group-d"])
+  for (const entry of [
+    "api",
+    "architecture",
+    "runbooks",
+    "B02",
+    "group-d",
+    "group-r",
+  ])
     await symlink(join(repository, "docs", entry), join(root, "docs", entry));
   for (const entry of await readdir(join(repository, "scripts"))) {
     const target = join(root, "scripts", entry);
