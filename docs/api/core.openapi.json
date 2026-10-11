@@ -1,0 +1,3260 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HKPĐ — A03 Core API contracts",
+    "version": "0.1.0",
+    "description": "Bản thiết kế cần L01/P01 và chủ module review. Endpoint nghiệp vụ chưa được triển khai; không dùng đặc tả này làm chứng cứ API thật. SQL/Netlify/Google deferred."
+  },
+  "paths": {
+    "/v1/editions": {
+      "get": {
+        "operationId": "listEditions",
+        "summary": "listEditions",
+        "tags": ["R01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditionPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R01",
+        "x-policy": "Chỉ trả các giải actor được phép đọc.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createEdition",
+        "summary": "createEdition",
+        "tags": ["R01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Edition"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R01",
+        "x-policy": "Admin; server tạo giải Nháp và version=1.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "new -> draft",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEdition"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/copy": {
+      "post": {
+        "operationId": "copyEditionConfiguration",
+        "summary": "copyEditionConfiguration",
+        "tags": ["R01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Edition"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R01",
+        "x-policy": "Admin; kiểm quyền nguồn và quyền tạo mới; chỉ sao chép whitelist cấu hình, không sao chép dữ liệu thi đấu/quyền.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "new -> draft; source unchanged",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CopyEdition"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/athletes": {
+      "get": {
+        "operationId": "listAthletes",
+        "summary": "listAthletes",
+        "tags": ["R02"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AthletePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R02",
+        "x-policy": "Giải + trường; student_id là dữ liệu nội bộ.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createAthlete",
+        "summary": "createAthlete",
+        "tags": ["R02"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Athlete"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R02",
+        "x-policy": "Giải + trường; server cấp code, tạo đúng một folder logic.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAthlete"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/athletes/{resource_id}": {
+      "get": {
+        "operationId": "getAthlete",
+        "summary": "getAthlete",
+        "tags": ["R02"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Athlete"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R02",
+        "x-policy": "Giải + trường; student_id là dữ liệu nội bộ.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/events": {
+      "get": {
+        "operationId": "listEvents",
+        "summary": "listEvents",
+        "tags": ["R01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R01",
+        "x-policy": "Giải + phạm vi môn.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/events/{resource_id}": {
+      "get": {
+        "operationId": "getEvent",
+        "summary": "getEvent",
+        "tags": ["R01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R01",
+        "x-policy": "Giải + phạm vi môn.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/registrations": {
+      "get": {
+        "operationId": "listRegistrations",
+        "summary": "listRegistrations",
+        "tags": ["R03"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R03",
+        "x-policy": "Giải + trường; admin review theo policy S01/S02.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createRegistration",
+        "summary": "createRegistration",
+        "tags": ["R03"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registration"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R03",
+        "x-policy": "Giải + trường; participant/event cùng giải; tạo revision Nháp.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRegistration"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/registrations/{resource_id}": {
+      "get": {
+        "operationId": "getRegistration",
+        "summary": "getRegistration",
+        "tags": ["R03"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registration"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R03",
+        "x-policy": "Giải + trường; admin review theo policy S01/S02.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/matches": {
+      "get": {
+        "operationId": "listMatches",
+        "summary": "listMatches",
+        "tags": ["C01/C02"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "C01/C02",
+        "x-policy": "Giải + môn + nội dung + phân công.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/matches/{resource_id}": {
+      "get": {
+        "operationId": "getMatch",
+        "summary": "getMatch",
+        "tags": ["C01/C02"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Match"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "C01/C02",
+        "x-policy": "Giải + môn + nội dung + phân công.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/submissions": {
+      "get": {
+        "operationId": "listSubmissions",
+        "summary": "listSubmissions",
+        "tags": ["K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "K01",
+        "x-policy": "Giải + môn + nội dung + phân công/checklist; tuyệt đối không public.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createSubmission",
+        "summary": "createSubmission",
+        "tags": ["K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "K01",
+        "x-policy": "Giải + môn + phân công/checklist; base_official_version=0 khi chưa có official. Tạo bản nhập riêng, không thay official.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubmission"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/submissions/{resource_id}": {
+      "get": {
+        "operationId": "getSubmission",
+        "summary": "getSubmission",
+        "tags": ["K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "K01",
+        "x-policy": "Giải + môn + nội dung + phân công/checklist; tuyệt đối không public.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/registrations/{resource_id}/revisions": {
+      "post": {
+        "operationId": "reviseRegistration",
+        "summary": "reviseRegistration",
+        "tags": ["R03"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registration"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R03",
+        "x-policy": "Kiểm quyền trường/giải và base_version; revision mới không thay approved_revision_id.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "new revision -> draft; approved revision unchanged",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviseRegistration"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/registrations/{resource_id}/submit": {
+      "post": {
+        "operationId": "submitRegistration",
+        "summary": "submitRegistration",
+        "tags": ["R03"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Registration"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "R03",
+        "x-policy": "Kiểm quyền trường/giải, version và tính hợp lệ theo rule snapshot.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "draft/returned -> submitted",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionCommand"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/submissions/{resource_id}/revisions": {
+      "post": {
+        "operationId": "reviseSubmission",
+        "summary": "reviseSubmission",
+        "tags": ["K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "K01",
+        "x-policy": "Phân công/checklist + base_version; tạo bản đề nghị mới, official chưa đổi.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "new revision -> draft; official unchanged",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviseSubmission"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/submissions/{resource_id}/submit": {
+      "post": {
+        "operationId": "submitResult",
+        "summary": "submitResult",
+        "tags": ["K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "K01",
+        "x-policy": "Người được phân công nhập; kiểm version và rule snapshot.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "draft/returned -> pending_confirmation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VersionCommand"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/confirmations": {
+      "post": {
+        "operationId": "confirmSubmission",
+        "summary": "confirmSubmission",
+        "tags": ["K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OfficialResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "K01",
+        "x-policy": "Tổ trưởng được phân công đúng môn/checklist. Kiểm submission_version + base_official_version; kết quả/audit/outbox cùng transaction. Không nhận điểm mới/huy chương.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "x-state-transition": "pending_confirmation -> confirmed; official version + 1",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmSubmission"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/editions/{edition_id}/athletes/{resource_id}/folder": {
+      "get": {
+        "operationId": "getAthleteFolder",
+        "summary": "getAthleteFolder",
+        "tags": ["S03"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/ResourceId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AthleteFolder"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "S03",
+        "x-policy": "Giải + VĐV + quyền tệp; khóa edition_id/athlete_id duy nhất; không có URL/token Drive.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/v1/editions/{edition_id}/sync/submissions": {
+      "post": {
+        "operationId": "syncSubmission",
+        "summary": "syncSubmission",
+        "tags": ["F03/K01"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SyncReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "401": {
+            "$ref": "#/components/responses/Error401"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "409": {
+            "$ref": "#/components/responses/Error409"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error422"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "F03/K01",
+        "x-policy": "Kiểm lại actor/version/phân công; assignment snapshot không cấp quyền. Quyền đổi đưa inbox review, không ghi official.",
+        "x-implementation-status": "contract-only",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncSubmission"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/public/editions/{edition_id}/results": {
+      "get": {
+        "operationId": "listPublicResults",
+        "summary": "listPublicResults",
+        "tags": ["F02/K04"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/EditionId"
+          },
+          {
+            "$ref": "#/components/parameters/Cursor"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Thành công",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicResultPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "x-owner": "F02/K04",
+        "x-policy": "Chỉ projection đã finalized và trong phạm vi công bố; không đọc submission/private athlete.",
+        "x-implementation-status": "contract-only",
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "hkpd_session",
+        "description": "Hợp đồng phiên server dự kiến; S01 chốt cơ chế xác thực/CSRF, Google triển khai cuối. Không phải session đã hoạt động."
+      }
+    },
+    "parameters": {
+      "EditionId": {
+        "name": "edition_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "ResourceId": {
+        "name": "resource_id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "IdempotencyKey": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "description": "Khóa operation của client; cùng actor/edition/method/path/key và payload canonical trả lại kết quả cũ; payload khác: 409."
+      },
+      "Cursor": {
+        "name": "cursor",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 50
+        }
+      }
+    },
+    "responses": {
+      "Error400": {
+        "description": "Yêu cầu sai schema",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Error401": {
+        "description": "Chưa xác thực",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Error403": {
+        "description": "Không đủ quyền trong kỳ giải/trường/môn/checklist",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Error404": {
+        "description": "Không tìm thấy trong phạm vi được phép",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Error409": {
+        "description": "Xung đột phiên bản, operation hoặc trạng thái",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Error422": {
+        "description": "Luật hoặc dữ liệu nghiệp vụ chưa hợp lệ",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Error500": {
+        "description": "Lỗi nội bộ; không trả PII/token/stack trace",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "Version": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9007199254740991
+      },
+      "Decimal": {
+        "type": "string",
+        "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+        "description": "Số thập phân chính xác dạng chuỗi; độ chính xác/làm tròn do rule_snapshot_id quy định (U02)."
+      },
+      "NonNegativeDecimal": {
+        "type": "string",
+        "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+      },
+      "AthleteCode": {
+        "type": "string",
+        "pattern": "^[0-9]+\\.[0-9]+$",
+        "examples": ["01.012"],
+        "description": "Chuỗi giữ số 0; cấp bởi server, unique theo edition/school/STT, không cố định độ rộng khi chưa chốt danh mục."
+      },
+      "PageQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cursor": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": []
+      },
+      "Problem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "VALIDATION_ERROR",
+              "UNAUTHENTICATED",
+              "FORBIDDEN",
+              "NOT_FOUND",
+              "VERSION_CONFLICT",
+              "IDEMPOTENCY_CONFLICT",
+              "INVALID_STATE",
+              "RULES_UNRESOLVED",
+              "INTERNAL_ERROR"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": ["field", "reason"]
+            },
+            "minItems": 0
+          }
+        },
+        "required": ["code", "message", "request_id"]
+      },
+      "Edition": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "organizer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "registration_deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "registration_open"]
+          },
+          "rule_snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "name",
+          "year",
+          "organizer",
+          "starts_at",
+          "ends_at",
+          "registration_deadline",
+          "status",
+          "rule_snapshot_id"
+        ],
+        "examples": [
+          {
+            "name": "GIẢ LẬP — Giải thử nghiệm",
+            "year": 2026,
+            "organizer": "Đơn vị giả lập",
+            "starts_at": "2026-11-01T00:00:00Z",
+            "ends_at": "2026-11-03T00:00:00Z",
+            "registration_deadline": "2026-10-25T00:00:00Z",
+            "id": "00000000-0000-4000-8000-000000000001",
+            "version": 1,
+            "status": "draft",
+            "rule_snapshot_id": null
+          }
+        ]
+      },
+      "CreateEdition": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "organizer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "registration_deadline": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "year",
+          "organizer",
+          "starts_at",
+          "ends_at",
+          "registration_deadline"
+        ],
+        "examples": [
+          {
+            "name": "GIẢ LẬP — Giải thử nghiệm",
+            "year": 2026,
+            "organizer": "Đơn vị giả lập",
+            "starts_at": "2026-11-01T00:00:00Z",
+            "ends_at": "2026-11-03T00:00:00Z",
+            "registration_deadline": "2026-10-25T00:00:00Z"
+          }
+        ]
+      },
+      "CopyEdition": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "configuration_sections": {
+            "type": "array",
+            "uniqueItems": true,
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "sport_event_catalog",
+                "age_limits",
+                "registration_limits",
+                "organization_conditions",
+                "rules"
+              ]
+            }
+          },
+          "new_edition": {
+            "$ref": "#/components/schemas/CreateEdition"
+          }
+        },
+        "required": [
+          "source_edition_id",
+          "source_version",
+          "configuration_sections",
+          "new_edition"
+        ],
+        "examples": [
+          {
+            "source_edition_id": "00000000-0000-4000-8000-000000000001",
+            "source_version": 1,
+            "configuration_sections": ["sport_event_catalog", "rules"],
+            "new_edition": {
+              "name": "GIẢ LẬP — Giải thử nghiệm",
+              "year": 2026,
+              "organizer": "Đơn vị giả lập",
+              "starts_at": "2026-11-01T00:00:00Z",
+              "ends_at": "2026-11-03T00:00:00Z",
+              "registration_deadline": "2026-10-25T00:00:00Z"
+            }
+          }
+        ]
+      },
+      "Athlete": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "school_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "student_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "athlete_code": {
+            "$ref": "#/components/schemas/AthleteCode"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "school_id",
+          "student_id",
+          "display_name",
+          "athlete_code",
+          "version"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000004",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "school_id": "00000000-0000-4000-8000-000000000002",
+            "student_id": "00000000-0000-4000-8000-000000000003",
+            "display_name": "VĐV GIẢ LẬP 012",
+            "athlete_code": "01.012",
+            "version": 1
+          }
+        ]
+      },
+      "CreateAthlete": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "school_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "student_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": ["school_id", "student_id"]
+      },
+      "Event": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sport_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "group_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "participant_kind": {
+            "type": "string",
+            "enum": ["athlete", "team"]
+          },
+          "rule_snapshot_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["not_started", "in_progress", "completed", "cancelled"]
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "sport_id",
+          "name",
+          "group_label",
+          "participant_kind",
+          "rule_snapshot_id",
+          "status",
+          "started_at",
+          "version"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000005",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "sport_id": "00000000-0000-4000-8000-000000000006",
+            "name": "NỘI DUNG GIẢ LẬP",
+            "group_label": "NHÓM THỬ",
+            "participant_kind": "athlete",
+            "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+            "status": "not_started",
+            "started_at": null,
+            "version": 1
+          }
+        ]
+      },
+      "AthleteParticipant": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["athlete"]
+          },
+          "athlete_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": ["kind", "athlete_id"]
+      },
+      "TeamParticipant": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["team"]
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": ["kind", "team_id"]
+      },
+      "Participant": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/AthleteParticipant"
+          },
+          {
+            "$ref": "#/components/schemas/TeamParticipant"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "kind",
+          "mapping": {
+            "athlete": "#/components/schemas/AthleteParticipant",
+            "team": "#/components/schemas/TeamParticipant"
+          }
+        }
+      },
+      "RegistrationRevision": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "submitted", "approved", "returned"]
+          },
+          "participant": {
+            "$ref": "#/components/schemas/Participant"
+          }
+        },
+        "required": ["id", "version", "status", "participant"]
+      },
+      "Registration": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "school_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "current_revision": {
+            "$ref": "#/components/schemas/RegistrationRevision"
+          },
+          "approved_revision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "school_id",
+          "event_id",
+          "version",
+          "current_revision",
+          "approved_revision_id"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000013",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "school_id": "00000000-0000-4000-8000-000000000002",
+            "event_id": "00000000-0000-4000-8000-000000000005",
+            "version": 2,
+            "current_revision": {
+              "id": "00000000-0000-4000-8000-000000000014",
+              "version": 2,
+              "status": "draft",
+              "participant": {
+                "kind": "athlete",
+                "athlete_id": "00000000-0000-4000-8000-000000000004"
+              }
+            },
+            "approved_revision_id": "00000000-0000-4000-8000-000000000018"
+          }
+        ]
+      },
+      "CreateRegistration": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "school_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "participant": {
+            "$ref": "#/components/schemas/Participant"
+          }
+        },
+        "required": ["school_id", "event_id", "participant"]
+      },
+      "VersionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "base_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": ["base_version"]
+      },
+      "ReviseRegistration": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "base_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "participant": {
+            "$ref": "#/components/schemas/Participant"
+          }
+        },
+        "required": ["base_version", "participant"]
+      },
+      "ParticipantSlot": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["participant"]
+          },
+          "participant": {
+            "$ref": "#/components/schemas/Participant"
+          }
+        },
+        "required": ["kind", "participant"]
+      },
+      "GhostSlot": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["ghost"]
+          }
+        },
+        "required": ["kind"]
+      },
+      "PendingSlot": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["pending"]
+          },
+          "source_match_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": ["kind", "source_match_id"]
+      },
+      "MatchSlot": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ParticipantSlot"
+          },
+          {
+            "$ref": "#/components/schemas/GhostSlot"
+          },
+          {
+            "$ref": "#/components/schemas/PendingSlot"
+          }
+        ]
+      },
+      "Match": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "slots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MatchSlot"
+            },
+            "minItems": 1
+          },
+          "scheduled_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "official_result_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "event_id",
+          "version",
+          "slots",
+          "scheduled_at",
+          "started_at",
+          "official_result_id"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000008",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "event_id": "00000000-0000-4000-8000-000000000005",
+            "version": 1,
+            "slots": [
+              {
+                "kind": "participant",
+                "participant": {
+                  "kind": "athlete",
+                  "athlete_id": "00000000-0000-4000-8000-000000000004"
+                }
+              },
+              {
+                "kind": "ghost"
+              }
+            ],
+            "scheduled_at": null,
+            "started_at": null,
+            "official_result_id": null
+          }
+        ]
+      },
+      "TimeValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["time"]
+          },
+          "seconds": {
+            "$ref": "#/components/schemas/NonNegativeDecimal"
+          }
+        },
+        "required": ["kind", "seconds"]
+      },
+      "DistanceValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["distance"]
+          },
+          "metres": {
+            "$ref": "#/components/schemas/NonNegativeDecimal"
+          }
+        },
+        "required": ["kind", "metres"]
+      },
+      "PointsValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["points"]
+          },
+          "points": {
+            "$ref": "#/components/schemas/Decimal"
+          }
+        },
+        "required": ["kind", "points"]
+      },
+      "ScoreValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["score"]
+          },
+          "scored": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "conceded": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": ["kind", "scored", "conceded"]
+      },
+      "SetsValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["sets"]
+          },
+          "sets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "scored": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "conceded": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": ["scored", "conceded"]
+            },
+            "minItems": 1
+          }
+        },
+        "required": ["kind", "sets"]
+      },
+      "CardsValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["cards"]
+          },
+          "yellow": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "red": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": ["kind", "yellow", "red"]
+      },
+      "ResultValue": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TimeValue"
+          },
+          {
+            "$ref": "#/components/schemas/DistanceValue"
+          },
+          {
+            "$ref": "#/components/schemas/PointsValue"
+          },
+          {
+            "$ref": "#/components/schemas/ScoreValue"
+          },
+          {
+            "$ref": "#/components/schemas/SetsValue"
+          },
+          {
+            "$ref": "#/components/schemas/CardsValue"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "kind",
+          "mapping": {
+            "time": "#/components/schemas/TimeValue",
+            "distance": "#/components/schemas/DistanceValue",
+            "points": "#/components/schemas/PointsValue",
+            "score": "#/components/schemas/ScoreValue",
+            "sets": "#/components/schemas/SetsValue",
+            "cards": "#/components/schemas/CardsValue"
+          }
+        },
+        "examples": [
+          {
+            "kind": "distance",
+            "metres": "5.010"
+          },
+          {
+            "kind": "points",
+            "points": "-0.50"
+          },
+          {
+            "kind": "score",
+            "scored": 2,
+            "conceded": 1
+          },
+          {
+            "kind": "sets",
+            "sets": [
+              {
+                "scored": 11,
+                "conceded": 9
+              }
+            ]
+          },
+          {
+            "kind": "cards",
+            "yellow": 1,
+            "red": 0
+          }
+        ]
+      },
+      "ResultEntry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "participant": {
+            "$ref": "#/components/schemas/Participant"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ResultValue"
+          }
+        },
+        "required": ["participant", "value"]
+      },
+      "ResultPayload": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rule_snapshot_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResultEntry"
+            },
+            "minItems": 1
+          },
+          "file_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": ["rule_snapshot_id", "entries", "file_ids"]
+      },
+      "CreateSubmission": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "base_official_version": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ResultPayload"
+          }
+        },
+        "required": ["match_id", "base_official_version", "payload"],
+        "examples": [
+          {
+            "match_id": "00000000-0000-4000-8000-000000000008",
+            "base_official_version": 0,
+            "payload": {
+              "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+              "entries": [
+                {
+                  "participant": {
+                    "kind": "athlete",
+                    "athlete_id": "00000000-0000-4000-8000-000000000004"
+                  },
+                  "value": {
+                    "kind": "time",
+                    "seconds": "12.340"
+                  }
+                }
+              ],
+              "file_ids": []
+            }
+          }
+        ]
+      },
+      "ReviseSubmission": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "base_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ResultPayload"
+          }
+        },
+        "required": ["base_version", "payload"]
+      },
+      "Submission": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "match_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "base_official_version": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": ["draft", "pending_confirmation", "confirmed", "returned"]
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ResultPayload"
+          },
+          "created_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "event_id",
+          "match_id",
+          "version",
+          "base_official_version",
+          "status",
+          "payload",
+          "created_by",
+          "created_at"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000009",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "event_id": "00000000-0000-4000-8000-000000000005",
+            "match_id": "00000000-0000-4000-8000-000000000008",
+            "version": 2,
+            "base_official_version": 1,
+            "status": "pending_confirmation",
+            "payload": {
+              "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+              "entries": [
+                {
+                  "participant": {
+                    "kind": "athlete",
+                    "athlete_id": "00000000-0000-4000-8000-000000000004"
+                  },
+                  "value": {
+                    "kind": "time",
+                    "seconds": "12.340"
+                  }
+                }
+              ],
+              "file_ids": []
+            },
+            "created_by": "00000000-0000-4000-8000-000000000010",
+            "created_at": "2026-11-01T01:00:00Z"
+          }
+        ]
+      },
+      "ConfirmSubmission": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "submission_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "submission_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "base_official_version": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "submission_id",
+          "submission_version",
+          "base_official_version"
+        ],
+        "examples": [
+          {
+            "submission_id": "00000000-0000-4000-8000-000000000009",
+            "submission_version": 2,
+            "base_official_version": 1
+          }
+        ]
+      },
+      "OfficialResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "match_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "submission_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "submission_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ResultPayload"
+          },
+          "confirmed_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "confirmed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "match_id",
+          "version",
+          "submission_id",
+          "submission_version",
+          "payload",
+          "confirmed_by",
+          "confirmed_at"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000017",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "match_id": "00000000-0000-4000-8000-000000000008",
+            "version": 2,
+            "submission_id": "00000000-0000-4000-8000-000000000009",
+            "submission_version": 2,
+            "payload": {
+              "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+              "entries": [
+                {
+                  "participant": {
+                    "kind": "athlete",
+                    "athlete_id": "00000000-0000-4000-8000-000000000004"
+                  },
+                  "value": {
+                    "kind": "time",
+                    "seconds": "12.340"
+                  }
+                }
+              ],
+              "file_ids": []
+            },
+            "confirmed_by": "00000000-0000-4000-8000-000000000010",
+            "confirmed_at": "2026-11-01T02:00:00Z"
+          }
+        ]
+      },
+      "AthleteFolder": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "athlete_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "logical_key": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+          },
+          "storage_status": {
+            "type": "string",
+            "enum": ["deferred", "pending", "ready", "failed"]
+          }
+        },
+        "required": [
+          "id",
+          "edition_id",
+          "athlete_id",
+          "version",
+          "logical_key",
+          "storage_status"
+        ],
+        "examples": [
+          {
+            "id": "00000000-0000-4000-8000-000000000011",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "athlete_id": "00000000-0000-4000-8000-000000000004",
+            "version": 1,
+            "logical_key": "00000000-0000-4000-8000-000000000001/00000000-0000-4000-8000-000000000004",
+            "storage_status": "deferred"
+          }
+        ]
+      },
+      "PublicResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "publication_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "athlete_code": {
+            "$ref": "#/components/schemas/AthleteCode"
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "school_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "publication_status": {
+            "type": "string",
+            "enum": ["finalized"]
+          }
+        },
+        "required": [
+          "publication_id",
+          "edition_id",
+          "event_label",
+          "athlete_code",
+          "display_name",
+          "school_label",
+          "value",
+          "publication_status"
+        ],
+        "examples": [
+          {
+            "publication_id": "00000000-0000-4000-8000-000000000012",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "event_label": "NỘI DUNG GIẢ LẬP",
+            "athlete_code": "01.012",
+            "display_name": "VĐV GIẢ LẬP 012",
+            "school_label": "TRƯỜNG GIẢ LẬP",
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            },
+            "publication_status": "finalized"
+          }
+        ]
+      },
+      "SyncSubmission": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "base_version": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "assignment_snapshot_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "submission": {
+            "$ref": "#/components/schemas/CreateSubmission"
+          }
+        },
+        "required": [
+          "operation_id",
+          "base_version",
+          "assignment_snapshot_id",
+          "submission"
+        ],
+        "examples": [
+          {
+            "operation_id": "00000000-0000-4000-8000-000000000015",
+            "base_version": 0,
+            "assignment_snapshot_id": "00000000-0000-4000-8000-000000000016",
+            "submission": {
+              "match_id": "00000000-0000-4000-8000-000000000008",
+              "base_official_version": 0,
+              "payload": {
+                "rule_snapshot_id": "00000000-0000-4000-8000-000000000007",
+                "entries": [
+                  {
+                    "participant": {
+                      "kind": "athlete",
+                      "athlete_id": "00000000-0000-4000-8000-000000000004"
+                    },
+                    "value": {
+                      "kind": "time",
+                      "seconds": "12.340"
+                    }
+                  }
+                ],
+                "file_ids": []
+              }
+            }
+          }
+        ]
+      },
+      "SyncReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["accepted", "review_required", "conflict", "rejected"]
+          },
+          "submission_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["operation_id", "status", "submission_id"]
+      },
+      "DomainEvent": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "RegistrationApproved",
+              "DrawFinalized",
+              "OfficialResultConfirmed",
+              "ParticipationDecisionChanged",
+              "WeightTransferConfirmed",
+              "EventCancelled",
+              "RankingInvalidated",
+              "PublicationFinalized"
+            ]
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "aggregate_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "aggregate_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "actor_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "payload_version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "payload": {
+            "type": "object",
+            "description": "P03/chủ module chốt schema payload riêng theo type trước tích hợp; không dùng như DTO command."
+          }
+        },
+        "required": [
+          "event_id",
+          "type",
+          "edition_id",
+          "aggregate_id",
+          "aggregate_version",
+          "actor_id",
+          "occurred_at",
+          "payload_version",
+          "payload"
+        ]
+      },
+      "EditionPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Edition"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      },
+      "AthletePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Athlete"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      },
+      "EventPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      },
+      "RegistrationPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Registration"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      },
+      "MatchPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Match"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      },
+      "SubmissionPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Submission"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      },
+      "PublicResultPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicResult"
+            },
+            "minItems": 0
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["items", "next_cursor"]
+      }
+    }
+  }
+}

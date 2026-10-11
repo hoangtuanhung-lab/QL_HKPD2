@@ -17,7 +17,7 @@ Không tự đổi repository sang public hoặc mua gói dịch vụ. Không th
 Sau khi đọc rulesets hiện có và rà soát nội dung tệp, owner có thể tạo ruleset bằng giao diện GitHub hoặc lệnh dưới đây từ gốc repository với quyền API phù hợp:
 
 ```bash
-gh api --method POST repos/hoangtuanhung-lab/QL_HKPD/rulesets \
+gh api --method POST repos/hoangtuanhung-lab/QL_HKPD2/rulesets \
   --input infra/github/main-release.ruleset.json
 ```
 

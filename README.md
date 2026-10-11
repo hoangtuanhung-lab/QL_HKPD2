@@ -56,3 +56,9 @@ API staging dùng cổng 3002, web staging cổng 5174, phục vụ frontend đ�
 - `.github/workflows/ci.yml`: lint, type-check, test, build, smoke và secret scan.
 
 Xem [hồ sơ A02/B01/B07](docs/runbooks/handover-o01.md) để phân biệt phần đã kiểm chứng và điều kiện còn thiếu. Reviewer A02/B01/B07 được chỉ định là `@hoangtuanhung-lab`. CI nền tảng đã chạy thành công trên GitHub; bảo vệ nhánh vẫn bị chặn bởi gói repository/quyền integration và chưa được nghiệm thu.
+
+## Hợp đồng A03 và repository hiện tại
+
+Repository hiện tại là [hoangtuanhung-lab/QL_HKPD2](https://github.com/hoangtuanhung-lab/QL_HKPD2), được người dùng yêu cầu tạo lại từ nền tảng đã duyệt. A03 được bàn giao qua PR riêng; bằng chứng CI/review của repository cũ là lịch sử, không thay kiểm tra trên repository mới.
+
+A03 cung cấp [OpenAPI lõi](docs/api/core.openapi.json), DTO TypeScript sinh tự động và [tài liệu bàn giao](docs/api/A03-contracts.md). Chạy `npm run contracts:generate` sau khi sửa OpenAPI; `npm run check` kiểm đồng bộ DTO. Endpoint nghiệp vụ mới là hợp đồng chờ review, backend hiện chỉ có health.
