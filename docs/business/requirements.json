@@ -1548,13 +1548,13 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["C01", "C02", "R01"],
       "wbs_ids": ["C01", "C03"],
       "scenario_ids": ["T03", "T04", "T08"],
       "open_issue_ids": ["U01"],
-      "artifact_paths": [],
+      "artifact_paths": ["packages/competition/src/lifecycle.ts"],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1570,13 +1570,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["C01", "C02", "Q01"],
       "wbs_ids": ["C01", "C02", "C03", "C09"],
       "scenario_ids": ["T03", "T04", "T05"],
       "open_issue_ids": ["U01", "U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/draw.ts",
+        "tests/group-c-engines.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1592,13 +1595,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "scheduling",
       "owner_positions": ["C03", "Q01"],
       "wbs_ids": ["C05"],
       "scenario_ids": ["T05"],
       "open_issue_ids": ["U01", "U04"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/lifecycle.ts",
+        "tests/group-c-schedule-transfer.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1683,13 +1689,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "ui",
       "owner_positions": ["C04", "F02"],
       "wbs_ids": ["C07", "K09"],
       "scenario_ids": ["T04"],
       "open_issue_ids": ["U07"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "apps/web/src/competition-ui.tsx",
+        "tests/group-c-ui.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2290,13 +2299,13 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["C03", "R01"],
       "wbs_ids": ["C05", "R01"],
       "scenario_ids": ["T05"],
       "open_issue_ids": ["U04"],
-      "artifact_paths": [],
+      "artifact_paths": ["packages/competition/src/lifecycle.ts"],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2686,13 +2695,13 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["R01", "K03"],
       "wbs_ids": ["C01", "C03", "K05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": ["packages/competition/src/lifecycle.ts"],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2720,13 +2729,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "scheduling",
       "owner_positions": ["C03"],
       "wbs_ids": ["C05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/lifecycle.ts",
+        "packages/competition/src/integration.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2762,13 +2774,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["C01", "C04"],
       "wbs_ids": ["C01", "C06"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/draw.ts",
+        "apps/web/src/competition-ui.tsx"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2811,13 +2826,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["C01"],
       "wbs_ids": ["C02"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/draw.ts",
+        "tests/group-c-engines.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": ["PDF-Q191", "PDF-Q192", "PDF-Q193", "PDF-Q194"],
@@ -2837,13 +2855,13 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "rankings",
       "owner_positions": ["C02", "K03"],
       "wbs_ids": ["C03", "K04"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": ["packages/competition/src/draw.ts"],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -2888,13 +2906,16 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "scheduling",
       "owner_positions": ["C03", "C04"],
       "wbs_ids": ["C04", "C08"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/schedule.ts",
+        "apps/web/src/schedule-ui.tsx"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3306,13 +3327,16 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "competition",
       "owner_positions": ["C01"],
       "wbs_ids": ["C01", "C06"],
       "scenario_ids": ["T03"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/draw.ts",
+        "packages/competition/src/lifecycle.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3452,13 +3476,17 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "scheduling",
       "owner_positions": ["C03"],
       "wbs_ids": ["C05"],
       "scenario_ids": ["T05"],
       "open_issue_ids": ["U04"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/competition/src/lifecycle.ts",
+        "packages/competition/src/integration.ts",
+        "tests/group-c-integration.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [

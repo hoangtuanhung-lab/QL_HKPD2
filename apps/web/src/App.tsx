@@ -1,3 +1,5 @@
+import { CompetitionWorkspace } from "./competition-ui.js";
+import { ScheduleWorkspace } from "./schedule-ui.js";
 import { FormField } from "@hkpd/ui";
 import { useRef, useState, type FormEvent } from "react";
 import {
@@ -18,12 +20,16 @@ const steps = [
   "Phân công",
   "Sơ đồ thi đấu",
   "Vòng tròn",
+  "Lịch và phân làn",
   "Xác nhận kết quả",
   "Công khai",
 ] as const;
 type Step = (typeof steps)[number];
 const outlines: Record<
-  Exclude<Step, "Đăng ký VĐV">,
+  Exclude<
+    Step,
+    "Đăng ký VĐV" | "Sơ đồ thi đấu" | "Vòng tròn" | "Lịch và phân làn"
+  >,
   { role: string; steps: string[]; handoff: string }
 > = {
   "Phân công": {
@@ -34,24 +40,6 @@ const outlines: Record<
       "Rà soát phân công trước khi lưu",
     ],
     handoff: "Chờ danh mục, tài khoản và kiểm quyền từ hệ thống.",
-  },
-  "Sơ đồ thi đấu": {
-    role: "Điều phối thi đấu",
-    steps: [
-      "Nhận danh sách đăng ký đã được duyệt",
-      "Chọn cấu hình vòng đấu theo điều lệ",
-      "Xem sơ đồ, kiểm tra vị trí ảo rồi chốt",
-    ],
-    handoff: "Các phiếu nháp hiện tại chưa được dùng để bốc thăm.",
-  },
-  "Vòng tròn": {
-    role: "Điều phối thi đấu",
-    steps: [
-      "Nhận danh sách đủ điều kiện",
-      "Lập bảng và lịch vòng tròn",
-      "Rà soát trùng lịch trước khi chốt",
-    ],
-    handoff: "Quy tắc chia bảng và lịch sẽ nối với module thi đấu.",
   },
   "Xác nhận kết quả": {
     role: "Trọng tài / tổ trưởng",
@@ -516,6 +504,13 @@ export function App() {
             )}
           </section>
         </div>
+      ) : step === "Sơ đồ thi đấu" || step === "Vòng tròn" ? (
+        <CompetitionWorkspace
+          key={step}
+          mode={step === "Sơ đồ thi đấu" ? "knockout" : "round_robin"}
+        />
+      ) : step === "Lịch và phân làn" ? (
+        <ScheduleWorkspace />
       ) : (
         <section className="card outline">
           <p className="eyebrow">PHÁC THẢO LUỒNG · {outlines[step].role}</p>

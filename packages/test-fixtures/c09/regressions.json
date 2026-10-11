@@ -1,0 +1,18 @@
+{
+  "source_requirement_ids": ["RQ-PDF-G11", "RQ-PDF-TRANSFER", "QT24"],
+  "knockout": {
+    "count": 14,
+    "schoolCount": 4,
+    "seedIds": ["e1", "e2", "e3", "e4"],
+    "randomFixtureSeed": 8,
+    "expectedFirstRoundByeSeedIds": ["e1", "e2"]
+  },
+  "transfer": {
+    "sourceCount": 6,
+    "destinationCount": 5,
+    "officialKg": "41.0",
+    "destinationLowerKg": "44.0",
+    "expectedSourceFormat": "round_robin",
+    "expectedDestinationFormat": "knockout"
+  }
+}

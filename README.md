@@ -86,3 +86,5 @@ Xem [trạng thái A01–A06](docs/planning/group-a-handover.md), [wireframe sá
 Tiếp nhận snapshot B02 tại [hồ sơ bàn giao](docs/B02/README.md). `npm run db:check` chỉ kiểm tĩnh; test bổ sung dùng công cụ giả. SQL thật khóa mặc định theo CR-004, chưa có migration/domain seed và chưa nghiệm thu database/recovery.
 
 Phần nền B03–B06/B08 và các hạng mục chưa nghiệm thu: [bàn giao nhóm B](docs/group-b/README.md).
+
+Lõi thi đấu và màn hình thử C01–C10: [bàn giao nhóm C](docs/group-c/README.md).

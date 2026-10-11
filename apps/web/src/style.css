@@ -368,3 +368,104 @@ dialog {
 dialog::backdrop {
   background: #19364b80;
 }
+
+textarea,
+select {
+  font: inherit;
+  padding: 10px;
+  border: 1px solid #c4d1da;
+  border-radius: 8px;
+  width: 100%;
+  background: white;
+}
+textarea {
+  resize: vertical;
+}
+fieldset {
+  min-width: 0;
+  border: 1px solid #c4d1da;
+  border-radius: 10px;
+  padding: 20px;
+}
+fieldset:disabled {
+  opacity: 0.8;
+}
+.checkbox {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.checkbox input {
+  width: auto;
+}
+.competition-workspace {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.draw-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.bracket-scroll {
+  max-width: 100%;
+  overflow: auto;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #c4d1da;
+}
+.bracket-card {
+  fill: #f6fafb;
+  stroke: #a8bbc7;
+}
+.bracket-link {
+  fill: none;
+  stroke: #58788b;
+  stroke-width: 2;
+}
+.bracket-score {
+  fill: white;
+  stroke: #a8bbc7;
+}
+.bracket-name {
+  font-size: 12px;
+}
+.bracket-heading {
+  font-size: 14px;
+  font-weight: 700;
+}
+.bracket-match-label {
+  font-size: 11px;
+  fill: #58788b;
+}
+.round-robin-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.round-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.round-nav button[aria-pressed="true"] {
+  background: #19364b;
+}
+.round-match {
+  display: grid;
+  padding: 16px;
+  border-bottom: 1px solid #d9e3e8;
+}
+.schedule-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 760px) {
+  .round-robin-layout,
+  .schedule-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
