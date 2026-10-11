@@ -1,4 +1,5 @@
 import { CompetitionWorkspace } from "./competition-ui.js";
+import { ResultsWorkspace } from "./results-ui.js";
 import { RegistrationWorkspace } from "./registration-ui.js";
 import { ScheduleWorkspace } from "./schedule-ui.js";
 import { FormField } from "@hkpd/ui";
@@ -32,6 +33,7 @@ const outlines: Record<
     Step,
     | "Đăng ký VĐV"
     | "Kiểm tra đăng ký"
+    | "Xác nhận kết quả"
     | "Sơ đồ thi đấu"
     | "Vòng tròn"
     | "Lịch và phân làn"
@@ -46,15 +48,6 @@ const outlines: Record<
       "Rà soát phân công trước khi lưu",
     ],
     handoff: "Chờ danh mục, tài khoản và kiểm quyền từ hệ thống.",
-  },
-  "Xác nhận kết quả": {
-    role: "Trọng tài / tổ trưởng",
-    steps: [
-      "Trọng tài nhập bản kết quả",
-      "Tổ trưởng xem bản nhập và phiên bản",
-      "Xác nhận đúng bản nhập; bản sửa chưa duyệt giữ kết quả cũ",
-    ],
-    handoff: "Chưa có bản nhập từ trọng tài để xác nhận.",
   },
   "Công khai": {
     role: "Người theo dõi",
@@ -510,6 +503,8 @@ export function App() {
             )}
           </section>
         </div>
+      ) : step === "Xác nhận kết quả" ? (
+        <ResultsWorkspace />
       ) : step === "Kiểm tra đăng ký" ? (
         <RegistrationWorkspace />
       ) : step === "Sơ đồ thi đấu" || step === "Vòng tròn" ? (

@@ -943,7 +943,7 @@
         "RQ-PDF-G14",
         "RQ-PDF-RESULT"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -961,7 +961,7 @@
       "dependencies_source_text": "K01/C01/C03",
       "acceptance": "Phép/truất/khôi phục đúng khác biệt vòng tròn/loại trực tiếp; giữ lịch sử trận thật.",
       "requirement_ids": ["QT27", "RQ-PDF-G15"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -985,7 +985,7 @@
         "RQ-PDF-VOVINAM",
         "RQ-PDF-CHESS"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1003,7 +1003,7 @@
       "dependencies_source_text": "C03/K01/K02/K03",
       "acceptance": "Bóng đá, cầu/đá cầu, kéo/đẩy, Vovinam đúng thứ tự; giải thích tiêu chí làm đổi thứ hạng.",
       "requirement_ids": ["QT11", "QT26", "RQ-PDF-G12", "RQ-PDF-VOVINAM"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1027,7 +1027,7 @@
         "RQ-PDF-G16",
         "RQ-PDF-MEDALS"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1045,7 +1045,7 @@
       "dependencies_source_text": "K04/K05",
       "acceptance": "Quy đổi hạng môn rồi hệ số, phạt sau quy đổi, min 0; điều kiện bắt buộc và miễn hủy đúng.",
       "requirement_ids": ["QT26", "RQ-PDF-G17", "RQ-PDF-G18"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1063,7 +1063,7 @@
       "dependencies_source_text": "K06/B05",
       "acceptance": "Sửa kết quả chính thức chuyển bảng về sơ bộ, rebuild cho cùng kết quả, không cộng trùng.",
       "requirement_ids": ["QT22", "RQ-PDF-G17"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1081,7 +1081,7 @@
       "dependencies_source_text": "K01/K02/K03",
       "acceptance": "Nút từng trận và duyệt hàng loạt; sửa không duyệt giữ chính thức; lịch sử/đậm/ghi chú Excel.",
       "requirement_ids": ["QT21", "QT30", "RQ-PDF-G14", "RQ-PDF-RESULT"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1107,7 +1107,7 @@
         "RQ-PDF-G22",
         "RQ-PDF-PUBLIC"
       ],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1125,7 +1125,7 @@
       "dependencies_source_text": "B05/R06/K01/C04",
       "acceptance": "Mở đúng đối tượng, không rò dữ liệu qua nội dung thông báo, job gửi lặp được deduplicate.",
       "requirement_ids": ["RQ-PDF-G20"],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",
@@ -1153,7 +1153,7 @@
       "dependencies_source_text": "K02–K10",
       "acceptance": "Chạy bộ T01–T12 tại mục 10 với server thật và chứng cứ tính toán.",
       "requirement_ids": [],
-      "status": "not_implemented",
+      "status": "handover_prepared",
       "acceptance_status": "not_accepted",
       "source": {
         "source_id": "SRC-PLAN-14",

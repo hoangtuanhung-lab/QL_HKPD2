@@ -743,6 +743,10 @@ export interface components {
      *       "yellow": 1,
      *       "red": 0
      *     }
+     * @example {
+     *       "kind": "external_rank",
+     *       "rank": 1
+     *     }
      */
     ResultValue:
       | components["schemas"]["TimeValue"]
@@ -750,7 +754,8 @@ export interface components {
       | components["schemas"]["PointsValue"]
       | components["schemas"]["ScoreValue"]
       | components["schemas"]["SetsValue"]
-      | components["schemas"]["CardsValue"];
+      | components["schemas"]["CardsValue"]
+      | components["schemas"]["RankValue"];
     ResultEntry: {
       participant: components["schemas"]["Participant"];
       value: components["schemas"]["ResultValue"];
@@ -788,10 +793,14 @@ export interface components {
       match_id: string;
       base_official_version: number;
       payload: components["schemas"]["ResultPayload"];
+      /** @description Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai. */
+      reason?: string;
     };
     ReviseSubmission: {
       base_version: number;
       payload: components["schemas"]["ResultPayload"];
+      /** @description Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai. */
+      reason?: string;
     };
     /**
      * @example {
@@ -1044,6 +1053,21 @@ export interface components {
     PublicResultPage: {
       items: components["schemas"]["PublicResult"][];
       next_cursor: string | null;
+    };
+    /**
+     * @description Vị thứ chính thức từ phần mềm Cờ vua bên ngoài; không tính lại ván/hệ số.
+     * @example {
+     *       "kind": "external_rank",
+     *       "rank": 1
+     *     }
+     */
+    RankValue: {
+      /**
+       * @description discriminator enum property added by openapi-typescript
+       * @enum {string}
+       */
+      kind: "external_rank";
+      rank: number;
     };
   };
   responses: {

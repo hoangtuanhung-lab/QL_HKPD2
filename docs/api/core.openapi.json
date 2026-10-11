@@ -2528,6 +2528,9 @@
           },
           {
             "$ref": "#/components/schemas/CardsValue"
+          },
+          {
+            "$ref": "#/components/schemas/RankValue"
           }
         ],
         "discriminator": {
@@ -2538,7 +2541,8 @@
             "points": "#/components/schemas/PointsValue",
             "score": "#/components/schemas/ScoreValue",
             "sets": "#/components/schemas/SetsValue",
-            "cards": "#/components/schemas/CardsValue"
+            "cards": "#/components/schemas/CardsValue",
+            "external_rank": "#/components/schemas/RankValue"
           }
         },
         "examples": [
@@ -2568,6 +2572,10 @@
             "kind": "cards",
             "yellow": 1,
             "red": 0
+          },
+          {
+            "kind": "external_rank",
+            "rank": 1
           }
         ]
       },
@@ -2625,6 +2633,13 @@
           },
           "payload": {
             "$ref": "#/components/schemas/ResultPayload"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S",
+            "description": "Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai."
           }
         },
         "required": ["match_id", "base_official_version", "payload"],
@@ -2662,6 +2677,13 @@
           },
           "payload": {
             "$ref": "#/components/schemas/ResultPayload"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "\\S",
+            "description": "Lý do sửa; server bắt buộc khi đã có kết quả chính thức. Lưu audit theo submission ID, không công khai."
           }
         },
         "required": ["base_version", "payload"]
@@ -3297,6 +3319,29 @@
           }
         },
         "required": ["items", "next_cursor"]
+      },
+      "RankValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["external_rank"]
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": ["kind", "rank"],
+        "description": "Vị thứ chính thức từ phần mềm Cờ vua bên ngoài; không tính lại ván/hệ số.",
+        "examples": [
+          {
+            "kind": "external_rank",
+            "rank": 1
+          }
+        ]
       }
     }
   }

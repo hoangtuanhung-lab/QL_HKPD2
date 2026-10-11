@@ -1268,13 +1268,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "awards",
       "owner_positions": ["K03", "Q01"],
       "wbs_ids": ["K05"],
       "scenario_ids": ["T08"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1290,13 +1297,21 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "K03", "P01"],
       "wbs_ids": ["K03", "K04"],
       "scenario_ids": ["T07"],
       "open_issue_ids": ["U02"],
-      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "artifact_paths": [
+        "docs/api/A03-contracts.md",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1365,7 +1380,7 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "Q02"],
       "wbs_ids": ["K01", "B08"],
@@ -1373,7 +1388,13 @@
       "open_issue_ids": [],
       "artifact_paths": [
         "docs/api/core.openapi.json",
-        "tests/contracts.test.mjs"
+        "tests/contracts.test.mjs",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1427,7 +1448,13 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1444,13 +1471,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "identity",
       "owner_positions": ["S01", "K01"],
       "wbs_ids": ["B03", "K01"],
       "scenario_ids": ["T02"],
       "open_issue_ids": ["U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1466,13 +1500,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "public",
       "owner_positions": ["S01", "F02", "Q02"],
       "wbs_ids": ["B03", "K09", "I05"],
       "scenario_ids": ["T12"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1488,13 +1529,21 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01"],
       "wbs_ids": ["K01"],
       "scenario_ids": ["T06"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1510,13 +1559,21 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "P02"],
       "wbs_ids": ["K01", "B04"],
       "scenario_ids": ["T06"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "artifact_paths": [
+        "docs/api/A03-contracts.md",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1532,13 +1589,21 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "C04", "F02"],
       "wbs_ids": ["K01", "K08", "K09"],
       "scenario_ids": ["T06", "T12"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/core.openapi.json"],
+      "artifact_paths": [
+        "docs/api/core.openapi.json",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1554,13 +1619,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "rankings",
       "owner_positions": ["K04", "P03", "F02"],
       "wbs_ids": ["K07", "K09"],
       "scenario_ids": ["T12"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1648,13 +1720,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "rankings",
       "owner_positions": ["K03", "K04"],
       "wbs_ids": ["K04", "K05", "K06"],
       "scenario_ids": ["T07", "T08", "T10"],
       "open_issue_ids": ["U01", "U03", "U05", "U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1670,13 +1749,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "participation",
       "owner_positions": ["K01", "K02"],
       "wbs_ids": ["K02", "K03"],
       "scenario_ids": ["T09"],
       "open_issue_ids": ["U02", "U-BASE-001"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1725,7 +1811,13 @@
       "open_issue_ids": ["U07"],
       "artifact_paths": [
         "apps/web/src/competition-ui.tsx",
-        "tests/group-c-ui.test.ts"
+        "tests/group-c-ui.test.ts",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
       ],
       "change_ids": [],
       "superseded_by": []
@@ -1742,13 +1834,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "ui",
       "owner_positions": ["F01", "C04"],
       "wbs_ids": ["B06", "K08"],
       "scenario_ids": ["T06"],
       "open_issue_ids": ["U07"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -1764,13 +1863,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "P02"],
       "wbs_ids": ["K01", "B04"],
       "scenario_ids": ["T06"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": [],
       "superseded_by": []
     },
@@ -2788,7 +2894,13 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
       ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
@@ -2840,7 +2952,15 @@
       "wbs_ids": ["C01", "C03", "K05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": ["packages/competition/src/lifecycle.ts"],
+      "artifact_paths": [
+        "packages/competition/src/lifecycle.ts",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3000,7 +3120,15 @@
       "wbs_ids": ["C03", "K04"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": ["packages/competition/src/draw.ts"],
+      "artifact_paths": [
+        "packages/competition/src/draw.ts",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3089,13 +3217,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01", "C04"],
       "wbs_ids": ["K01", "K03", "K08"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3141,13 +3276,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "participation",
       "owner_positions": ["K02", "K01"],
       "wbs_ids": ["K02"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3196,13 +3338,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "awards",
       "owner_positions": ["K03"],
       "wbs_ids": ["K05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3253,13 +3402,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "rankings",
       "owner_positions": ["K04"],
       "wbs_ids": ["K06", "K07"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3301,13 +3457,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "rankings",
       "owner_positions": ["K04", "K01"],
       "wbs_ids": ["K06"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": ["PDF-Q039", "PDF-Q239", "PDF-Q240"],
@@ -3327,13 +3490,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "public",
       "owner_positions": ["F01", "F02"],
       "wbs_ids": ["B06", "K09"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3359,13 +3529,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "notifications",
       "owner_positions": ["P03", "L02"],
       "wbs_ids": ["K10", "B05"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": ["PDF-Q088", "PDF-Q089"],
@@ -3426,13 +3603,20 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "operations",
       "owner_positions": ["F02", "O02", "L02"],
       "wbs_ids": ["K09", "I04", "A01"],
       "scenario_ids": [],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3525,13 +3709,20 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "awards",
       "owner_positions": ["K03"],
       "wbs_ids": ["K05"],
       "scenario_ids": ["T08"],
       "open_issue_ids": ["U05"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3585,13 +3776,20 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "rankings",
       "owner_positions": ["K03", "K01"],
       "wbs_ids": ["K04", "K03"],
       "scenario_ids": ["T07"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": [
@@ -3663,13 +3861,21 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "results",
       "owner_positions": ["K01"],
       "wbs_ids": ["K01", "K08"],
       "scenario_ids": ["T06"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "artifact_paths": [
+        "docs/api/A03-contracts.md",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": ["PDF-Q104", "PDF-Q105", "PDF-Q127", "PDF-Q291"]
@@ -3690,13 +3896,21 @@
         }
       ],
       "decision_status": "confirmed",
-      "delivery_status": "contract_only",
+      "delivery_status": "partial",
       "module": "public",
       "owner_positions": ["F02"],
       "wbs_ids": ["K09"],
       "scenario_ids": ["T12"],
       "open_issue_ids": [],
-      "artifact_paths": ["docs/api/A03-contracts.md"],
+      "artifact_paths": [
+        "docs/api/A03-contracts.md",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
+      ],
       "change_ids": ["CR-009"],
       "superseded_by": [],
       "source_question_ids": ["PDF-Q115", "PDF-Q130", "PDF-Q292"]
@@ -3844,7 +4058,13 @@
         "docs/group-r/README.md",
         "docs/group-r/integration.md",
         "packages/registration/src/index.ts",
-        "tests/group-r-service.test.ts"
+        "tests/group-r-service.test.ts",
+        "docs/group-k/README.md",
+        "docs/group-k/integration.md",
+        "docs/group-k/acceptance.md",
+        "packages/results/src/index.ts",
+        "tests/group-k-service.test.ts",
+        "tests/group-k-calculation.test.ts"
       ],
       "change_ids": ["CR-009"],
       "superseded_by": [],

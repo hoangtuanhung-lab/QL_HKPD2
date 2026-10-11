@@ -1,0 +1,22 @@
+# K11 — checklist nghiệm thu thật T01–T12
+
+Mỗi dòng dưới đây **chưa chạy backend thật / chưa Accepted**. Test memory, DOM và Chromium chỉ kiểm hành vi phát triển; không thay endpoint, DB concurrency, thiết bị người dùng hoặc restore. Q01/Q02/Q03 cần bổ sung run ID, commit, môi trường, API request/response đã che PII, actual result, lỗi và người duyệt. Nguồn/expected_result_status được giữ nguyên từ A01.
+
+| Case | Kỳ vọng theo nguồn                                                                                                                                                                     | Nguồn                | Trạng thái             |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ---------------------- |
+| T01  | Đăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ.                              | SRC-PLAN-14 line:505 | Chưa chạy backend thật |
+| T02  | Quyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi. | SRC-PLAN-14 line:508 | Chưa chạy backend thật |
+| T03  | Sơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người.                    | SRC-PLAN-14 line:511 | Chưa chạy backend thật |
+| T04  | Vòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo.                                                      | SRC-PLAN-14 line:514 | Chưa chạy backend thật |
+| T05  | Hạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển.                                  | SRC-PLAN-14 line:517 | Chưa chạy backend thật |
+| T06  | Xác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền.     | SRC-PLAN-14 line:520 | Chưa chạy backend thật |
+| T07  | Phân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới.            | SRC-PLAN-14 line:523 | Chưa chạy backend thật |
+| T08  | Huy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả.          | SRC-PLAN-14 line:526 | Chưa chạy backend thật |
+| T09  | Vắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên.          | SRC-PLAN-14 line:529 | Chưa chạy backend thật |
+| T10  | Môn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần.                          | SRC-PLAN-14 line:532 | Chưa chạy backend thật |
+| T11  | Ngoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission.                         | SRC-PLAN-14 line:535 | Chưa chạy backend thật |
+| T12  | Công khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã.             | SRC-PLAN-14 line:538 | Chưa chạy backend thật |
+
+Test hiện có: `group-k-service.test.ts` kiểm lease/phiên, quyền/thu hồi, source stale, receipt/CAS, rollback từng bước và batch từng item; `group-k-calculation.test.ts` kiểm các tiêu chí, actual/valid, phục hồi, điểm, công bố và CSV; `group-k-contracts.test.mjs` kiểm DTO A03/RankValue/whitelist; `group-k-ui.test.ts` kiểm nhập/duyệt/sửa và số 0. R/C/B có test riêng cho phần phụ thuộc. Không gắn passed T01–T12 từ các test này.
+
+Trước T06/T07/T08/T09/T10 cần chốt cấu hình môn và các giới hạn trong `rules.md`; trước T11/T12 cần nối worker/tệp/backup và môi trường cuối dự án CR-004. Không chạy SQL/Google/Netlify sớm để tạo chứng cứ giả.
