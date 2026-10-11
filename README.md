@@ -92,3 +92,7 @@ Lõi thi đấu và màn hình thử C01–C10: [bàn giao nhóm C](docs/group-c
 ## Danh mục và đăng ký nhóm R
 
 Tab **Kiểm tra đăng ký** cung cấp bản thử danh mục/CSV/revision cá nhân; không gửi đăng ký chính thức. Lõi `@hkpd/registration` có validation, transaction ports, mã server, đội/revision, policy giấy tờ/tệp và projection cho C10. Xem [bàn giao R01–R10](docs/group-r/README.md) và [adapter server còn cần tích hợp](docs/group-r/integration.md). Dữ liệu tham gia ban đầu rỗng; SQL/Google/Netlify vẫn ở bước cuối.
+
+## Kết quả và điểm nhóm K
+
+Tab **Xác nhận kết quả** có bản thử nhập → xác nhận → sửa chờ duyệt giữ kết quả cũ, lịch sử/in/CSV. Lõi `@hkpd/results` cung cấp lease/quyền/giao dịch, phân hạng, huy chương và quy đổi điểm. Xem [bàn giao K01–K11](docs/group-k/README.md): API/lưu bền, luật chưa chốt và nghiệm thu thật còn cần tích hợp; chưa công bố kết quả chính thức.

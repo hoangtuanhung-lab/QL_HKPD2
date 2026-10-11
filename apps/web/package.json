@@ -11,6 +11,7 @@
   "dependencies": {
     "@hkpd/ui": "0.1.0",
     "@hkpd/competition": "0.1.0",
-    "@hkpd/registration": "0.1.0"
+    "@hkpd/registration": "0.1.0",
+    "@hkpd/results": "0.1.0"
   }
 }

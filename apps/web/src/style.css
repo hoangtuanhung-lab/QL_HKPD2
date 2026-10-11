@@ -469,3 +469,20 @@ fieldset:disabled {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.result-corrected {
+  font-weight: 700;
+  background: #fff4d8;
+}
+.print-signatures {
+  margin-top: 2rem;
+}
+@media print {
+  .result-workspace .result-inputs,
+  .result-workspace .result-actions {
+    display: none;
+  }
+  .result-workspace .result-print {
+    break-inside: avoid;
+  }
+}

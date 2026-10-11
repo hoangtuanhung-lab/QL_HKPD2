@@ -33,6 +33,7 @@ jobs:
             packages/foundation/dist
             packages/competition/dist
             packages/registration/dist
+            packages/results/dist
           retention-days: 7
   secrets:
     name: secrets
