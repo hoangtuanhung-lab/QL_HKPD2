@@ -59,7 +59,8 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {}
       },
       "post": {
         "operationId": "createEdition",
@@ -244,7 +245,10 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id"
+        }
       },
       "post": {
         "operationId": "createAthlete",
@@ -364,7 +368,11 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id",
+          "resource_id": "id"
+        }
       }
     },
     "/v1/editions/{edition_id}/events": {
@@ -423,7 +431,10 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id"
+        }
       }
     },
     "/v1/editions/{edition_id}/events/{resource_id}": {
@@ -479,7 +490,11 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id",
+          "resource_id": "id"
+        }
       }
     },
     "/v1/editions/{edition_id}/registrations": {
@@ -538,7 +553,10 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id"
+        }
       },
       "post": {
         "operationId": "createRegistration",
@@ -658,7 +676,11 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id",
+          "resource_id": "id"
+        }
       }
     },
     "/v1/editions/{edition_id}/matches": {
@@ -717,7 +739,10 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id"
+        }
       }
     },
     "/v1/editions/{edition_id}/matches/{resource_id}": {
@@ -773,7 +798,11 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id",
+          "resource_id": "id"
+        }
       }
     },
     "/v1/editions/{edition_id}/submissions": {
@@ -832,7 +861,10 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id"
+        }
       },
       "post": {
         "operationId": "createSubmission",
@@ -952,7 +984,11 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id",
+          "resource_id": "id"
+        }
       }
     },
     "/v1/editions/{edition_id}/registrations/{resource_id}/revisions": {
@@ -1355,7 +1391,11 @@
           {
             "sessionCookie": []
           }
-        ]
+        ],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id",
+          "resource_id": "athlete_id"
+        }
       }
     },
     "/v1/editions/{edition_id}/sync/submissions": {
@@ -1464,7 +1504,10 @@
         "x-owner": "F02/K04",
         "x-policy": "Chỉ projection đã finalized và trong phạm vi công bố; không đọc submission/private athlete.",
         "x-implementation-status": "contract-only",
-        "security": []
+        "security": [],
+        "x-mock-path-bindings": {
+          "edition_id": "edition_id"
+        }
       }
     }
   },

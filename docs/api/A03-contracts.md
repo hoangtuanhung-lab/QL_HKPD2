@@ -22,7 +22,7 @@ type ConfirmationBody =
   operations["confirmSubmission"]["requestBody"]["content"]["application/json"];
 ```
 
-Package chỉ xuất kiểu TypeScript, không cung cấp client/runtime validator hay triển khai API. Bộ kiểm tra dùng AJV JSON Schema 2020-12, kiểm UUID/timestamp, trường bắt buộc, union và cấm trường ngoài schema; không tự ép kiểu hoặc xóa trường. `oneOf` thực thi union; `discriminator` chỉ hướng dẫn client. Kiểm tra liên kết giữa các ID, quyền và giao dịch cần backend thật do P02/S01/S02/chủ module triển khai.
+Package chỉ xuất kiểu TypeScript, không cung cấp client/runtime validator hay triển khai API. Công cụ mock GET cho frontend nằm riêng tại `scripts/mock-api.mjs`; xem [cách dùng mock API](mock-api.md). Bộ kiểm tra dùng AJV JSON Schema 2020-12, kiểm UUID/timestamp, trường bắt buộc, union và cấm trường ngoài schema; không tự ép kiểu hoặc xóa trường. `oneOf` thực thi union; `discriminator` chỉ hướng dẫn client. Kiểm tra liên kết giữa các ID, quyền và giao dịch cần backend thật do P02/S01/S02/chủ module triển khai.
 
 ## Sáu thực thể và ranh giới dữ liệu
 
