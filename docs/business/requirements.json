@@ -2328,13 +2328,18 @@
         }
       ],
       "decision_status": "proposed",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "testing",
       "owner_positions": ["Q01", "Q02", "Q03"],
       "wbs_ids": ["A05"],
       "scenario_ids": ["T01"],
       "open_issue_ids": [],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "packages/test-fixtures/a05/dataset.mjs",
+        "packages/test-fixtures/a05/scenarios.json",
+        "packages/test-fixtures/a05/README.md",
+        "tests/group-a.test.mjs"
+      ],
       "change_ids": [],
       "superseded_by": []
     },

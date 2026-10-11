@@ -1,0 +1,469 @@
+{
+  "version": "A05-v1",
+  "synthetic_only": true,
+  "cases": [
+    {
+      "id": "T01",
+      "description": "Đăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ.",
+      "owner_positions": "R/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:505",
+        "quote": "T01\nĐăng ký và mãHai trường liên cấp, hai request cấp mã/hạn mức; mã giữ 0, một học sinh không môn thứ ba, sai giới chặn, bản sửa chờ duyệt không đổi bản cũ."
+      },
+      "requirement_ids": [
+        "QT08",
+        "QT09",
+        "RQ-USER-003",
+        "RQ-PLAN-REG",
+        "RQ-PLAN-A05",
+        "RQ-PDF-TEAM"
+      ],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T02",
+      "description": "Quyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi.",
+      "owner_positions": "S/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:508",
+        "quote": "T02\nQuyền và cùng trườngTrọng tài tick nội dung, người cùng trường bị khóa trận/dòng; tổ trưởng cùng trường vẫn duyệt; quản trị/tổ trưởng không nhập điểm; chưa duyệt tài khoản không ghi."
+      },
+      "requirement_ids": ["QT15", "QT16", "QT17", "RQ-PDF-CHECKLIST"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T03",
+      "description": "Sơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người.",
+      "owner_positions": "C/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:511",
+        "quote": "T03\nSơ đồ loại trực tiếpN=6,7,8,10,14,16,17,32,64; không mất/trùng người, không ảo–ảo, đường nối không đổi khi bỏ cuộc; số trận logic N−1 khi không có hủy/thiếu người."
+      },
+      "requirement_ids": ["QT23", "QT24", "RQ-PDF-KO"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T04",
+      "description": "Vòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo.",
+      "owner_positions": "C/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:514",
+        "quote": "T04\nVòng trònN=3,4,5; N(N−1)/2 trận thật; một cặp một lần, mỗi người không hai trận cùng vòng; N lẻ nghỉ đúng một lần, không điểm ảo."
+      },
+      "requirement_ids": ["QT23", "QT24", "QT29"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T05",
+      "description": "Hạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển.",
+      "owner_positions": "C/R/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:517",
+        "quote": "T05\nHạt giống và chuyển hạng14 người/4 hạt giống/2 miễn; số 1/2 khác nửa; 5↔6; thiếu suất/3 kg/thiếu trường; một trong hai hạng bắt đầu thì không chuyển."
+      },
+      "requirement_ids": ["QT24", "QT25", "RQ-PLAN-START", "RQ-PDF-TRANSFER"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T06",
+      "description": "Xác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền.",
+      "owner_positions": "K/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:520",
+        "quote": "T06\nXác nhận và sửaTrọng tài lưu chưa chính thức, vòng sau khóa; duyệt mới đi tiếp; sửa không duyệt giữ chính thức; stale version không ghi đè; xác nhận hàng loạt không bỏ qua quyền."
+      },
+      "requirement_ids": [
+        "QT14",
+        "QT19",
+        "QT20",
+        "QT21",
+        "QT30",
+        "QT31",
+        "RQ-PDF-RESULT"
+      ],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T07",
+      "description": "Phân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới.",
+      "owner_positions": "K/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:523",
+        "quote": "T07\nPhân hạng bằng điểmTừng môn có fixture 2 và 3 bên bằng điểm; chuyển tiêu chí đúng, fair-play 1/3/3/4, Vovinam cân bằng 0,1 kg thì tổ trưởng quyết định; không bảng phụ mới."
+      },
+      "requirement_ids": ["QT11", "QT26", "RQ-PDF-VOVINAM", "RQ-PDF-CHESS"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T08",
+      "description": "Huy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả.",
+      "owner_positions": "K/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:526",
+        "quote": "T08\nHuy chương và hủy3–4 vàng/bạc, 5 một đồng; miễn nhưng không đấu không tính; 5 thi/3 hợp lệ đủ trường vẫn đồng; thiếu hợp lệ hủy; tranh đồng đã đấu bị hủy không dùng kết quả."
+      },
+      "requirement_ids": ["QT10", "QT23", "QT26", "RQ-PDF-MEDALS"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T09",
+      "description": "Vắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên.",
+      "owner_positions": "K/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:529",
+        "quote": "T09\nVắng và phục hồiChung kết phép bạc 9, có mặt vàng 11; không phép/truất mất điểm; không đôn người thua; phục hồi loại trực tiếp/vòng tròn đúng giới hạn, trận thật giữ nguyên."
+      },
+      "requirement_ids": ["QT27"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T10",
+      "description": "Môn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần.",
+      "owner_positions": "K/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:532",
+        "quote": "T10\nMôn và toàn đoànQuy đổi hạng môn rồi hệ số 3, phạt trừ riêng/min 0; môn bắt buộc phải thi, miễn khi BTC hủy hợp lệ; nhiều nội dung một người chỉ đếm một lần."
+      },
+      "requirement_ids": ["QT26"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T11",
+      "description": "Ngoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission.",
+      "owner_positions": "F/S/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:535",
+        "quote": "T11\nNgoại tuyến và tệpHai thiết bị nhập khác nhau; reconnect lặp; phân công bị đổi; không tự ghi chính thức; biên bản bổ sung; tải Drive lỗi không mất submission."
+      },
+      "requirement_ids": ["QT32", "QT33", "RQ-USER-001"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "T12",
+      "description": "Công khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã.",
+      "owner_positions": "F/O/Q",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:538",
+        "quote": "T12\nCông khai chốt và restoreAPI trực tiếp không lộ PII/pending; sửa sau chốt thành sơ bộ; backup có file/schema; restore thử khớp kết quả, không phục hồi thiếu khóa giải mã."
+      },
+      "requirement_ids": [
+        "QT18",
+        "QT21",
+        "QT22",
+        "QT34",
+        "QT35",
+        "QT36",
+        "RQ-USER-001",
+        "RQ-PDF-PUBLIC"
+      ],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG01",
+      "description": "Admin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống",
+      "owner_positions": "Q02 và Q03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1337",
+        "quote": "TG01 Tạo mới\nAdmin tạo được giải có ID riêng ở trạng thái Nháp; dữ liệu thi đấu ban đầu trống"
+      },
+      "requirement_ids": ["RQ-TG01"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG02",
+      "description": "Chỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập",
+      "owner_positions": "Q02 và Q03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1340",
+        "quote": "TG02 Sao chép có chọn lọc\nChỉ cấu hình đã chọn được lấy đúng phiên bản; tên/thời gian của giải mới do Admin nhập"
+      },
+      "requirement_ids": ["RQ-TG02"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG03",
+      "description": "Giải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này",
+      "owner_positions": "Q02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1343",
+        "quote": "TG03 Dữ liệu không đi theo\nGiải nguồn có VĐV, đội, lịch, kết quả, huy chương và xác nhận; giải mới không chứa các dữ liệu này"
+      },
+      "requirement_ids": ["QT12", "RQ-TG03"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG04",
+      "description": "Tài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp",
+      "owner_positions": "Q02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1346",
+        "quote": "TG04 Phân quyền\nTài khoản chỉ có vai trò trường/trọng tài/tổ trưởng/người theo dõi bị từ chối cả khi gọi API trực tiếp"
+      },
+      "requirement_ids": ["RQ-TG04"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG05",
+      "description": "Thiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký",
+      "owner_positions": "Q03 và L02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1349",
+        "quote": "TG05 Mở đăng ký\nThiếu thông tin hoặc cấu hình bắt buộc thì giữ Nháp và báo lỗi; đủ cấu hình thì Admin mở được đăng ký"
+      },
+      "requirement_ids": ["RQ-TG05"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG06",
+      "description": "Có hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu",
+      "owner_positions": "Q02 và Q03",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1352",
+        "quote": "TG06 Cách ly giải\nCó hai giải cùng môn và tài khoản dùng chung; đăng ký, phân công, trận, xác nhận và xếp hạng đúng giải, không lẫn dữ liệu"
+      },
+      "requirement_ids": ["QT09", "RQ-TG06"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG07",
+      "description": "Sao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn",
+      "owner_positions": "Q02",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1355",
+        "quote": "TG07 Bảo toàn giải nguồn\nSao chép rồi sửa giải mới không đổi snapshot, đăng ký, kết quả, quyền hoặc trạng thái giải nguồn"
+      },
+      "requirement_ids": ["QT12", "RQ-TG07"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "TG08",
+      "description": "Gửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản",
+      "owner_positions": "Q02 và P01",
+      "source": {
+        "source_id": "SRC-PLAN-14",
+        "locator": "line:1358",
+        "quote": "TG08 Giao dịch và lịch sử\nGửi lại cùng lệnh không tạo giải trùng; lỗi giữa chừng không để lại giải nửa hoàn chỉnh; audit ghi người, nguồn và phiên bản"
+      },
+      "requirement_ids": ["RQ-TG08"],
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "needs_source_reconciliation",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "A05-CODE",
+      "description": "Trùng mã cùng giải/trường bị phát hiện; liên cấp dùng chung dãy mã",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q045", "PDF-Q047", "PDF-Q048"],
+      "requirement_ids": ["RQ-PDF-G06"],
+      "input": {
+        "dataset": "default",
+        "mutation": "duplicate scoped athlete_code"
+      },
+      "expected": "Reject duplicate; primary/secondary share one sequence",
+      "status": "fixture_checked",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "fixture_integrity"
+    },
+    {
+      "id": "A05-FOLDER",
+      "description": "Mỗi VĐV có đúng một thư mục logic",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q057"],
+      "requirement_ids": ["RQ-USER-001"],
+      "input": {
+        "dataset": "default",
+        "folder_count": 500
+      },
+      "expected": "Unique edition_id/athlete_id; storage deferred",
+      "status": "fixture_checked",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "fixture_integrity"
+    },
+    {
+      "id": "A05-FORMAT",
+      "description": "Đối kháng cá nhân: 3–5 vòng tròn, 6+ KO",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q076", "PDF-Q190"],
+      "requirement_ids": ["RQ-PDF-G10", "RQ-PDF-G12", "RQ-PDF-KO"],
+      "input": {
+        "cohorts": [3, 4, 5, 6, 7, 8, 9]
+      },
+      "expected": "For N6/7/8/9: capacity8/8/8/16; ghosts first round only; no ghost versus ghost",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_engine"
+    },
+    {
+      "id": "A05-TRANSFER",
+      "description": "Chuyển hạng khi cả hai chưa bắt đầu, dựng lại cả hai",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q279", "PDF-Q281", "PDF-Q287", "PDF-Q289"],
+      "requirement_ids": ["RQ-PDF-G09", "RQ-PDF-KO", "RQ-PDF-TRANSFER"],
+      "input": {
+        "old_count": 5,
+        "new_count": 5,
+        "old_started": false,
+        "new_started": false
+      },
+      "expected": "After transfer counts4/6, round_robin/knockout; rebuild both after eligibility/quota checks",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_backend"
+    },
+    {
+      "id": "A05-TRANSFER-LOCK",
+      "description": "Một hạng đã bắt đầu thì không chuyển",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q284"],
+      "requirement_ids": ["RQ-PDF-G09", "RQ-PDF-TRANSFER"],
+      "input": {
+        "old_started": true,
+        "new_started": false
+      },
+      "expected": "Reject transfer; do not move athlete or rewrite bracket",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_backend"
+    },
+    {
+      "id": "A05-OFFICIAL",
+      "description": "Sửa chưa xác nhận giữ nguyên official",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q291"],
+      "requirement_ids": ["RQ-PDF-G14", "RQ-PDF-RESULT"],
+      "input": {
+        "official_version": 1,
+        "pending_submission_version": 2
+      },
+      "expected": "Only confirmation of exact submitted version replaces official",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_backend"
+    },
+    {
+      "id": "A05-PUBLIC",
+      "description": "Hai khung công khai chỉ dữ liệu đã xác nhận",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q130", "PDF-Q292"],
+      "requirement_ids": ["RQ-PDF-G19", "RQ-PDF-PUBLIC"],
+      "input": {
+        "pending_submission": true,
+        "official_version": 1
+      },
+      "expected": "Show official only; no DOB/student_id/CCCD/private attachments",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_backend_or_uat"
+    },
+    {
+      "id": "A05-TEAM",
+      "description": "Kéo co hỗn hợp đủ 8–12 và 4–6 mỗi giới",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q165", "PDF-Q168"],
+      "requirement_ids": ["RQ-PDF-G07", "RQ-PDF-TEAM"],
+      "input": {
+        "valid_male_female": [
+          [4, 4],
+          [5, 5],
+          [6, 6]
+        ],
+        "invalid_male_female": [
+          [3, 5],
+          [4, 7]
+        ]
+      },
+      "expected": "Accept valid compositions; reject invalid when submitting; draft may be incomplete",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_backend"
+    },
+    {
+      "id": "A05-CHECKLIST",
+      "description": "Không có Cập nhật hộ; khóa dòng cùng trường",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q144", "PDF-Q145", "PDF-Q150"],
+      "requirement_ids": ["RQ-PDF-G04", "RQ-PDF-CHECKLIST"],
+      "input": {
+        "same_school": true,
+        "assigned_sport": true,
+        "checked_event": true
+      },
+      "expected": "Referee cannot enter own-school row; server checks assignment and checklist",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_backend"
+    },
+    {
+      "id": "A05-MEDALS",
+      "description": "3–4 thực đấu không đồng; 5 thực đấu một đồng",
+      "owner_positions": ["Q01", "Q02", "Q03"],
+      "source_question_ids": ["PDF-Q246", "PDF-Q247", "PDF-Q248"],
+      "requirement_ids": ["RQ-PDF-G16", "RQ-PDF-MEDALS"],
+      "input": {
+        "actual_counts": [3, 4, 5],
+        "eligibility": "valid participants and schools must also satisfy event rules"
+      },
+      "expected": "3:11/9/7; 4:11/9/7/6; 5:11/9/8/7/6; only actual participation counts",
+      "status": "awaiting_module_implementation",
+      "expected_result_status": "source_recorded",
+      "execution_kind": "future_engine"
+    }
+  ]
+}

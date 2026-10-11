@@ -17,7 +17,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "build": "npm run build --workspaces --if-present",
-    "check": "npm run business:check && npm run contracts:check && npm run lint && npm run typecheck && npm test && npm run build",
+    "check": "npm run business:check && npm run group-a:check && npm run contracts:check && npm run lint && npm run typecheck && npm test && npm run build",
     "env:init": "node scripts/environment.mjs init",
     "env:check": "node scripts/environment.mjs check",
     "dev:api": "node scripts/environment.mjs api dev",
@@ -35,7 +35,10 @@
     "dev:mock": "node scripts/mock-api.mjs",
     "github:audit": "node scripts/github-audit.mjs",
     "business:generate": "node scripts/business-baseline.mjs --generate",
-    "business:check": "node scripts/business-baseline.mjs --check"
+    "business:check": "node scripts/business-baseline.mjs --check",
+    "group-a:generate": "node scripts/group-a.mjs --generate",
+    "group-a:check": "node scripts/group-a.mjs --check",
+    "fixtures:a05": "node scripts/export-a05.mjs"
   },
   "dependencies": {
     "fastify": "5.12.5",
