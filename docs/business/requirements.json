@@ -1844,13 +1844,19 @@
         }
       ],
       "decision_status": "source_recorded",
-      "delivery_status": "not_implemented",
+      "delivery_status": "partial",
       "module": "data",
       "owner_positions": ["P01", "L01"],
       "wbs_ids": ["B02", "I04"],
       "scenario_ids": ["T12"],
       "open_issue_ids": ["U06"],
-      "artifact_paths": [],
+      "artifact_paths": [
+        "infra/db/scripts/check_migrations.sh",
+        "infra/db/scripts/migrate.sh",
+        "infra/db/tests/test_check_migrations.sh",
+        "tests/b02-intake.test.mjs",
+        "docs/B02/README.md"
+      ],
       "change_ids": [],
       "superseded_by": []
     },

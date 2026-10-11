@@ -31,9 +31,16 @@ async function fixture() {
   await cp(join(repository, "docs/business"), join(root, "docs/business"), {
     recursive: true,
   });
-  for (const entry of ["apps", "packages", "tests", ".github", "node_modules"])
+  for (const entry of [
+    "apps",
+    "packages",
+    "tests",
+    "infra",
+    ".github",
+    "node_modules",
+  ])
     await symlink(join(repository, entry), join(root, entry));
-  for (const entry of ["api", "architecture", "runbooks"])
+  for (const entry of ["api", "architecture", "runbooks", "B02"])
     await symlink(join(repository, "docs", entry), join(root, "docs", entry));
   for (const entry of await readdir(join(repository, "scripts"))) {
     const target = join(root, "scripts", entry);

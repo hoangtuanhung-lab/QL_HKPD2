@@ -1,0 +1,9 @@
+{
+  "uploaded_file": "B02_snapshot_review_20261011.zip",
+  "sha256": "f08b6a14671eba56902bcd280de489f73cd49bf5337675f1c899ab63a03e75dc",
+  "contributor_identity": "not supplied",
+  "source_role": "P01/B02 from supplied documents; not a verified person",
+  "base_snapshot": "original archive did not include Git base commit",
+  "intake_base": "14b499a2880d544b328b2c86f05b650793f40050",
+  "policy": "SQL execution deferred by CR-004; no DB runtime enabled in this intake"
+}

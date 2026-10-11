@@ -1,0 +1,216 @@
+B02 intake validation — final local run after mock isolation correction; no PostgreSQL started.
+
+
+> hkpd-platform@0.1.0 check
+> npm run business:check && npm run group-a:check && npm run contracts:check && npm run db:check && npm run lint && npm run typecheck && npm test && npm run build
+
+
+> hkpd-platform@0.1.0 business:check
+> node scripts/business-baseline.mjs --check
+
+A01: 93 requirements, 58 WBS, 20 source scenarios; citations/replacements/current backlog verified. 293/293 PDF questions mapped in 22 groups; source receipt is not feature acceptance.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 group-a:check
+> node scripts/group-a.mjs --check
+
+Group A: 58 WBS, 28 positions, 30 scenario specifications; 7 synthetic schools / 500 athletes / 500 deferred logical folders validated. No backend/UAT acceptance claimed.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 contracts:check
+> node scripts/contracts-check.mjs
+
+A03: 52 schemas, 24 operations, 19 synthetic fixtures; generated DTOs synchronized.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 db:check
+> bash infra/db/tests/run_all.sh
+
+# B02 kiểm thử — 2026-10-11T05:34:27Z
+## Bash syntax check_migrations.sh
+## kết thúc (exit 0)
+
+## Bash syntax cycle_test.sh
+## kết thúc (exit 0)
+
+## Bash syntax db_reset.sh
+## kết thúc (exit 0)
+
+## Bash syntax env.sh
+## kết thúc (exit 0)
+
+## Bash syntax migrate.sh
+## kết thúc (exit 0)
+
+## Bash syntax pg_local.sh
+## kết thúc (exit 0)
+
+## Bash syntax recovery_drill.sh
+## kết thúc (exit 0)
+
+## Bash syntax scan_sensitive.sh
+## kết thúc (exit 0)
+
+## Bash syntax seed_guard.sh
+## kết thúc (exit 0)
+
+## Bash syntax lib.sh
+## kết thúc (exit 0)
+
+## Bash syntax run_all.sh
+## kết thúc (exit 0)
+
+## Bash syntax test_check_migrations.sh
+## kết thúc (exit 0)
+
+## Bash syntax test_env_guard.sh
+## kết thúc (exit 0)
+
+## Bash syntax test_seed_guard.sh
+## kết thúc (exit 0)
+
+## TC16 check_migrations (không cần DB)
+ok 1 - TC16 bộ mẫu hợp lệ
+ok 2 - TC16 có lock, không đổi gì
+ok 3 - TC16 ID trùng
+ok 4 - TC16 thiếu .down
+ok 5 - TC16 tên file sai
+ok 6 - TC16 DROP COLUMN trong .up
+ok 7 - TC16 DROP COLUMN có allow-destructive kèm lý do
+ok 8 - TC16 allow-destructive thiếu lý do vẫn bị chặn
+ok 9 - TC16 phá vỡ tương thích bị chặn: ALTER TABLE sample_item RENAME COLUMN note TO memo;
+ok 10 - TC16 phá vỡ tương thích bị chặn: ALTER TABLE sample_item RENAME TO sample_item2;
+ok 11 - TC16 phá vỡ tương thích bị chặn: ALTER TABLE sample_item ALTER COLUMN note TYPE varchar(10);
+ok 12 - TC16 phá vỡ tương thích bị chặn: TRUNCATE sample_item;
+ok 13 - TC16 phá vỡ tương thích bị chặn: DROP SCHEMA public;
+ok 14 - TC16 RENAME có allow-destructive kèm lý do
+ok 15 - TC16 tên cột chứa 'rename/truncate' không báo oan
+ok 16 - TC16 double precision
+ok 17 - TC16 real
+ok 18 - TC16 từ 'real/float' chỉ trong chú thích không bị báo oan
+ok 19 - TC16 timestamp không múi giờ
+ok 20 - TC16 timestamp without time zone
+ok 21 - TC16 timestamptz và timestamp with time zone hợp lệ
+ok 22 - TC16 ON DELETE CASCADE
+ok 23 - TC16 sửa migration đã khóa
+ok 24 - TC16 xóa migration đã khóa
+ok 25 - TC16 chèn migration vào quá khứ
+ok 26 - TC16 --update-lock --force-relock cho phép ghi đè lock
+ok 27 - TC16 sau force-relock kiểm lại đạt
+ok 28 - TC16 thêm migration mới sau lock hợp lệ
+1..28
+# tổng: 28, lỗi: 0
+## kết thúc (exit 0)
+
+# SQL/seed/cycle/recovery thật chưa chạy: hoãn theo CR-004.
+# tổng nhóm lỗi: 0
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 lint
+> eslint . && prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /workspace/QL_HKPD
+
+
+ Test Files  13 passed (13)
+      Tests  95 passed (95)
+   Start at  05:34:39
+   Duration  6.93s (tests 84%, import 8%, environment 4%, transform 4%, worker 1%)
+
+    Isolate  13 workers spawned · ~162ms startup each (spawn + environment, per file)
+             at least ~891ms faster with isolate: false — reuses workers across files instead of one per file
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> hkpd-platform@0.1.0 build
+> npm run build --workspaces --if-present
+
+
+> @hkpd/api@0.1.0 build
+> tsc -p tsconfig.build.json
+
+
+> @hkpd/web@0.1.0 build
+> vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.42 kB │ gzip:  0.30 kB
+dist/assets/index-CVDeWnLn.css    4.35 kB │ gzip:  1.47 kB
+dist/assets/index-BMx0e9Jq.js   233.77 kB │ gzip: 73.26 kB
+
+✓ built in 138ms
+
+> @hkpd/worker@0.1.0 build
+> tsc -p tsconfig.build.json
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+
+> hkpd-platform@0.1.0 secret:scan
+> node scripts/secret-scan.mjs
+
+Current tracked/untracked project files scanned, including tracked dotfiles.
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

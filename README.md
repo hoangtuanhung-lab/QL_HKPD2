@@ -80,3 +80,7 @@ Trường tự tạo phiếu theo kỳ giải, thêm/sửa/xóa VĐV và xuất/
 ## Bàn giao nhóm A
 
 Xem [trạng thái A01–A06](docs/planning/group-a-handover.md), [wireframe sáu luồng](docs/design/A04-role-flows.md), [fixture A05](packages/test-fixtures/a05/README.md) và [backlog A06](docs/planning/backlog.md). `npm run group-a:check` kiểm board/fixture theo A01; `npm run group-a:generate` cập nhật bảng backlog. Tên thật 28 vị trí chưa nhận; dữ liệu 7 trường/500 VĐV chỉ là bộ thử, ứng dụng không tự nạp.
+
+## B02 — Khung migration/seed
+
+Tiếp nhận snapshot B02 tại [hồ sơ bàn giao](docs/B02/README.md). `npm run db:check` chỉ kiểm tĩnh; test bổ sung dùng công cụ giả. SQL thật khóa mặc định theo CR-004, chưa có migration/domain seed và chưa nghiệm thu database/recovery.
