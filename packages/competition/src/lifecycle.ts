@@ -80,7 +80,12 @@ export function confirmDraw(
         .filter((e) => !snapshot.withdrawnIds.includes(e.id))
         .every((e) =>
           snapshot.draw!.entrants.some(
-            (d) => d.id === e.id && d.schoolId === e.schoolId,
+            (d) =>
+              d.id === e.id &&
+              d.schoolId === e.schoolId &&
+              d.personIds.length === e.personIds.length &&
+              new Set(d.personIds).size === d.personIds.length &&
+              e.personIds.every((id) => d.personIds.includes(id)),
           ),
         ),
     "Sơ đồ không khớp danh sách hiện hành.",
@@ -109,7 +114,13 @@ export function replaceDraftDraw(
           .length &&
       draw.entrants.every((e) =>
         snapshot.entrants.some(
-          (p) => p.id === e.id && p.schoolId === e.schoolId,
+          (p) =>
+            p.id === e.id &&
+            p.schoolId === e.schoolId &&
+            !snapshot.withdrawnIds.includes(p.id) &&
+            p.personIds.length === e.personIds.length &&
+            new Set(e.personIds).size === e.personIds.length &&
+            p.personIds.every((id) => e.personIds.includes(id)),
         ),
       ),
     "Danh sách bốc thăm không khớp.",

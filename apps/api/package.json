@@ -8,6 +8,7 @@
     "start": "node dist/server.js"
   },
   "dependencies": {
-    "@hkpd/foundation": "0.1.0"
+    "@hkpd/foundation": "0.1.0",
+    "@hkpd/integration": "0.1.0"
   }
 }

@@ -116,6 +116,11 @@ export class TestRegistryStore implements RegistryStore {
   audits: unknown[] = [];
   events: unknown[] = [];
   failAt: string | null = null;
+  lifecycle = {
+    locked: false,
+    startedAt: null as string | null,
+    hasSavedResults: false,
+  };
   private lock = Promise.resolve();
   constructor(state = registry()) {
     this.state = structuredClone(state);
@@ -136,6 +141,11 @@ export class TestRegistryStore implements RegistryStore {
         return await run({
           actor: async (id) => this.actors.find((a) => a.id === id) ?? null,
           registryForUpdate: async () => structuredClone(this.state),
+          eventLifecycle: async (eventId) => ({
+            editionId: this.state.editionId,
+            eventId,
+            ...this.lifecycle,
+          }),
           nextAthleteSequence: async () => ++this.sequence,
           receipt: async (key) => this.receipts.get(key) ?? null,
           save: async (next, expected) => {

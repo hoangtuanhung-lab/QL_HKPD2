@@ -296,6 +296,9 @@ export function confirmPreview(
   const s = match.submissions.find((s) => s.id === input.submission_id);
   ensure(
     s &&
+      s.edition_id === match.editionId &&
+      s.match_id === match.id &&
+      s.event_id === match.eventId &&
       s.status === "pending_confirmation" &&
       s.version === input.submission_version &&
       s.base_official_version === input.base_official_version &&

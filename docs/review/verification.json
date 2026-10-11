@@ -1,0 +1,63 @@
+{
+  "purpose": "cross-component-development-review; not real-backend UAT",
+  "groups": {
+    "A": {
+      "tasks": 6,
+      "accepted": 0
+    },
+    "B": {
+      "tasks": 8,
+      "accepted": 0
+    },
+    "R": {
+      "tasks": 10,
+      "accepted": 0
+    },
+    "C": {
+      "tasks": 10,
+      "accepted": 0
+    },
+    "K": {
+      "tasks": 11,
+      "accepted": 0
+    },
+    "I": {
+      "tasks": 8,
+      "accepted": 0
+    },
+    "D": {
+      "tasks": 5,
+      "accepted": 0
+    }
+  },
+  "before_fixes": {
+    "command": "vitest run tests/cross-group-defects.test.ts",
+    "failed": 3,
+    "cases": ["REV-01", "REV-02", "REV-03"]
+  },
+  "checks": [
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "tests_passed": 463,
+      "test_files": 35,
+      "new_cross_group_tests": 22
+    },
+    {
+      "command": "npm run secret:scan",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run env:init; node scripts/smoke.mjs",
+      "exit_code": 0,
+      "scope": "dev/staging foundation API/web/worker; shutdown verified, not business endpoints"
+    },
+    {
+      "command": "node scripts/release-readiness.mjs",
+      "exit_code": 2,
+      "outcome": "expected blocked; pending real backend/UAT/RC/restore evidence"
+    }
+  ],
+  "deferred": ["SQL execution", "Google/OAuth/Drive", "Netlify deployment"],
+  "group_I_implemented_this_review": false
+}

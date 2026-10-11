@@ -23,6 +23,17 @@ export function projectMatches(
       new Set(ids).size === matches.length,
     "Mỗi trận cần UUID riêng, không thiếu hoặc trùng.",
   );
+  const participantKeys = draw.entrants.map((e) => {
+    const p = context.participants.get(e.id);
+    ensure(p, "Thiếu ánh xạ đối tượng thi đấu.");
+    return p.kind === "athlete"
+      ? `athlete:${p.athlete_id}`
+      : `team:${p.team_id}`;
+  });
+  ensure(
+    new Set(participantKeys).size === draw.entrants.length,
+    "Hai đối tượng bị ánh xạ chung một VĐV/đội.",
+  );
   return freeze(
     matches.map((match) => ({
       id: context.matchIds.get(match.id)!,

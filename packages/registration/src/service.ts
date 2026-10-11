@@ -77,6 +77,14 @@ export interface RegistryTransaction {
   registryForUpdate(editionId: string): Promise<Registry>;
   /** Atomically increment scoped edition/school sequence; never SELECT MAX at client. */
   nextAthleteSequence(editionId: string, schoolId: string): Promise<number>;
+  /** Lock C/K lifecycle with registry in the SAME transaction; no client flags or permissive default. */
+  eventLifecycle(eventId: string): Promise<{
+    editionId: string;
+    eventId: string;
+    locked: boolean;
+    startedAt: string | null;
+    hasSavedResults: boolean;
+  }>;
   receipt(key: string): Promise<Receipt | null>;
   /** CAS aggregate version; enforce UNIQUE(edition,student), UNIQUE(edition,code),
    * one root team per school/event (preserve replacement snapshots),
@@ -206,6 +214,23 @@ export function executeRegistration(
       "Dữ liệu đã thay đổi; tải lại bản mới.",
     );
     if (!admin) assertWindow(state, clock());
+    const eventId = "eventId" in op ? op.eventId : registration?.eventId;
+    if (eventId && op.type !== "return") {
+      const lifecycle = await tx.eventLifecycle(eventId);
+      ensure(
+        lifecycle.editionId === state.editionId &&
+          lifecycle.eventId === eventId,
+        "FORBIDDEN",
+        "Không đúng phạm vi trạng thái thi đấu.",
+      );
+      ensure(
+        !lifecycle.locked &&
+          lifecycle.startedAt === null &&
+          !lifecycle.hasSavedResults,
+        "EVENT_LOCKED",
+        "Sơ đồ đã chốt, nội dung bắt đầu hoặc đã có bản kết quả; không đổi đăng ký.",
+      );
+    }
     let next: Registry = structuredClone(state),
       resourceId = state.editionId,
       resourceVersion = version + 1;

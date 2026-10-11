@@ -40,8 +40,8 @@
     "group-a:check": "node scripts/group-a.mjs --check",
     "fixtures:a05": "node scripts/export-a05.mjs",
     "db:check": "bash infra/db/tests/run_all.sh",
-    "prebuild": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition --workspace @hkpd/registration --workspace @hkpd/results",
-    "pretest": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition --workspace @hkpd/registration --workspace @hkpd/results",
+    "prebuild": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition --workspace @hkpd/registration --workspace @hkpd/results --workspace @hkpd/integration",
+    "pretest": "npm run build --workspace @hkpd/foundation --workspace @hkpd/competition --workspace @hkpd/registration --workspace @hkpd/results --workspace @hkpd/integration",
     "release:audit": "node scripts/release-readiness.mjs",
     "data:reconcile": "node scripts/reconcile-data.mjs"
   },
