@@ -71,7 +71,8 @@ export function rankRoundRobin(
       "Cần thứ tự tiêu chí Cầu lông/Đá cầu đã đối chiếu nguồn.",
     );
   const confirmed = results.filter((r) => r.confirmed),
-    seen = new Set<string>();
+    seen = new Set<string>(),
+    seenIds = new Set<string>();
   for (const r of confirmed) {
     ensure(
       r.id &&
@@ -83,11 +84,12 @@ export function rankRoundRobin(
     );
     const pair = [r.left, r.right].sort().join("|");
     ensure(
-      !seen.has(pair),
+      !seen.has(pair) && !seenIds.has(r.id),
       "DUPLICATE_MATCH",
       "Mỗi cặp chỉ có một kết quả chính thức.",
     );
     seen.add(pair);
+    seenIds.add(r.id);
     integer(r.leftScore);
     integer(r.rightScore);
     if (options.sport !== "football")

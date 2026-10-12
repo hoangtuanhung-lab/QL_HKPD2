@@ -33,6 +33,13 @@ export function changeParticipation(
   },
 ) {
   ensure(
+    ["active", "excused", "absent", "disqualified"].includes(p.status) &&
+      ["active", "excused", "absent", "disqualified"].includes(next) &&
+      ["knockout", "round_robin"].includes(context.format),
+    "STATUS_INPUT",
+    "Trạng thái/thể thức không được hỗ trợ.",
+  );
+  ensure(
     p.eventId === context.eventId &&
       !context.editionLocked &&
       context.actorId &&
@@ -82,6 +89,21 @@ export function participationCounts(
       new Set(all.map((p) => p.eventId)).size <= 1,
     "COUNT_SCOPE",
     "Số đếm hoặc phạm vi nội dung không hợp lệ.",
+  );
+  ensure(
+    all.every(
+      (p) =>
+        ["active", "excused", "absent", "disqualified"].includes(p.status) &&
+        typeof p.performed === "boolean" &&
+        typeof p.validAchievement === "boolean" &&
+        Array.isArray(p.playedMatchIds) &&
+        p.playedMatchIds.every(
+          (id) => typeof id === "string" && id.trim().length > 0,
+        ) &&
+        new Set(p.playedMatchIds).size === p.playedMatchIds.length,
+    ),
+    "COUNT_SCOPE",
+    "Trạng thái/chứng cứ thực đấu không hợp lệ; cần đối chiếu trận chính thức.",
   );
   const actual = all.filter((p) => p.performed || p.playedMatchIds.length > 0);
   ensure(

@@ -34,6 +34,11 @@ export function allRoundPoints(
     "Khoản phạt bị trùng ID.",
   );
   for (const p of penalties) {
+    ensure(
+      typeof p.waived === "boolean",
+      "PENALTY_INPUT",
+      "Cờ miễn phạt phải là boolean.",
+    );
     integer(p.points);
     ensure(
       p.reason.trim() && p.decidedBy,
@@ -48,7 +53,8 @@ export function allRoundPoints(
         s.rank > 0 &&
         s.schoolId &&
         s.block &&
-        s.sportId,
+        s.sportId &&
+        ["football", "tug_of_war", "other"].includes(s.sportKind),
       "SPORT_RANK",
       "Hạng môn không hợp lệ.",
     );

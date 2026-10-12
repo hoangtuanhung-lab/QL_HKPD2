@@ -94,6 +94,16 @@ export function integer(value: number) {
   );
   return value;
 }
+function record(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+function fields(value: unknown, keys: readonly string[]): boolean {
+  return (
+    record(value) &&
+    Object.keys(value).length === keys.length &&
+    keys.every((k) => Object.hasOwn(value, k))
+  );
+}
 export function validatePayload(payload: Payload, match: ResultMatch) {
   ensure(
     Object.keys(payload).every((k) =>
@@ -111,6 +121,31 @@ export function validatePayload(payload: Payload, match: ResultMatch) {
     "INVALID_PAYLOAD",
     "Payload hoặc rule snapshot không hợp lệ.",
   );
+  for (const entry of payload.entries) {
+    ensure(
+      fields(entry, ["participant", "value"]) && record(entry.participant),
+      "INVALID_PAYLOAD",
+      "Dòng thành tích/đối tượng không hợp lệ.",
+    );
+    const p = entry.participant;
+    ensure(
+      (p.kind === "athlete" &&
+        fields(p, ["kind", "athlete_id"]) &&
+        typeof p.athlete_id === "string" &&
+        p.athlete_id.trim()) ||
+        (p.kind === "team" &&
+          fields(p, ["kind", "team_id"]) &&
+          typeof p.team_id === "string" &&
+          p.team_id.trim()),
+      "INVALID_PAYLOAD",
+      "Đối tượng chứa trường ngoài hợp đồng hoặc thiếu định danh.",
+    );
+    ensure(
+      record(entry.value),
+      "INVALID_VALUE",
+      "Thành tích phải là object hợp lệ.",
+    );
+  }
   const keys = payload.entries.map((e) => participantKey(e.participant));
   ensure(
     new Set(keys).size === keys.length &&
@@ -162,13 +197,19 @@ export function validatePayload(payload: Payload, match: ResultMatch) {
         break;
       case "sets":
         ensure(
-          value.sets.length > 0 &&
+          Array.isArray(value.sets) &&
+            value.sets.length > 0 &&
             match.rule.maxSets !== undefined &&
             value.sets.length <= match.rule.maxSets,
           "SETS_RULE",
           "Thiếu giới hạn hiệp hoặc số hiệp không hợp lệ.",
         );
         value.sets.forEach((s) => {
+          ensure(
+            fields(s, ["scored", "conceded"]),
+            "INVALID_VALUE",
+            "Dòng hiệp chứa trường lạ hoặc thiếu dữ liệu.",
+          );
           integer(s.scored);
           integer(s.conceded);
         });

@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Saigon",
+  "baseCommit": "63c6527da93957dddfd750f54f21d3cfb10f2884",
+  "basePullRequest": 17,
+  "fullCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "testFiles": 43,
+    "testsPassed": 620,
+    "includes": [
+      "lint",
+      "typecheck",
+      "build",
+      "business rules",
+      "schema drift",
+      "static SQL checks"
+    ],
+    "actualSqlExecuted": false
+  },
+  "focusedCheck": {
+    "command": "npx vitest run tests/acceptance-round-three-regression.test.ts tests/group-r-rules.test.ts tests/group-c-schedule-transfer.test.ts",
+    "exitCode": 0,
+    "testFiles": 3,
+    "testsPassed": 77,
+    "newRegressionTests": 32
+  },
+  "smoke": {
+    "command": "node scripts/smoke.mjs",
+    "exitCode": 0,
+    "verified": [
+      "dev API/web/worker",
+      "staging API/web/worker",
+      "managed shutdown",
+      "single-service shutdown"
+    ],
+    "scope": "Foundation startup/shutdown; not business-route/session acceptance"
+  },
+  "secretScan": { "command": "npm run secret:scan", "exitCode": 0 },
+  "newFindingsReproduction": {
+    "command": "node docs/review/acceptance-round-3-2026-10-12/new-findings.mjs",
+    "exitCode": 0,
+    "meaning": "Five unwanted library behaviors reproduced with synthetic fixtures, not acceptance success",
+    "findings": ["P-01", "P-02", "P-03", "P-04", "P-05"],
+    "fixedThisRound": false
+  },
+  "externalServicesUsed": [],
+  "overallAcceptance": "notAccepted"
+}

@@ -1,5 +1,7 @@
 # Sửa năm lỗi nghiệm thu và năm đề xuất tiếp theo
 
+**Cập nhật vòng sau:** N-01–N-05 đã được sửa tại [vòng sửa tiếp theo](../acceptance-round-2-2026-10-12/README.md). Phần N dưới đây là hồ sơ phát hiện ban đầu trên PR #16, không còn là trạng thái hiện hành; script cũ kỳ vọng hành vi sai sẽ fail sau sửa.
+
 Ngày 12/10/2026, Asia/Saigon. Người dùng yêu cầu sửa Q-01–Q-05 và đề xuất năm lỗi khác, bỏ qua SQL, Google/Drive, Netlify để ổn định mã trước kết nối. Không thêm tích hợp dịch vụ ngoài hoặc thay luật thi đấu. [Báo cáo phát hiện ban đầu](../acceptance-2026-10-12/README.md) là bằng chứng lịch sử trên tree PR #15; các mô tả năm lỗi ở đó không còn là trạng thái hiện hành sau PR sửa này.
 
 ## Các lỗi đã sửa
