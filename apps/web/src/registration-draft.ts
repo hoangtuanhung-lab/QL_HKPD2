@@ -1,3 +1,9 @@
+import {
+  eventOptions,
+  sportNames,
+  type EventPreference,
+  type SportId,
+} from "./athlete-event-options.js";
 export interface AthleteDraft {
   draftId: string;
   fullName: string;
@@ -7,6 +13,8 @@ export interface AthleteDraft {
   birthDate?: string;
   gender?: "male" | "female";
   note?: string;
+  photoDataUrl?: string;
+  eventSelections?: EventPreference[];
 }
 export interface SchoolDraft {
   draftId: string;
@@ -16,7 +24,7 @@ export interface SchoolDraft {
 }
 export interface RegistrationSheet {
   format: "hkpd-school-registration-draft";
-  formatVersion: 1 | 2;
+  formatVersion: 1 | 2 | 3;
   editionName: string;
   schoolName: string;
   athletes: Omit<AthleteDraft, "draftId">[];
@@ -35,10 +43,17 @@ export function toSheet(school: SchoolDraft): RegistrationSheet {
   return {
     format: "hkpd-school-registration-draft",
     formatVersion: school.athletes.some(
-      (a) => extraKeys.some((k) => k in a) || !a.className || !a.requestedEvent,
+      (a) => a.photoDataUrl !== undefined || a.eventSelections !== undefined,
     )
-      ? 2
-      : 1,
+      ? 3
+      : school.athletes.some(
+            (a) =>
+              extraKeys.some((k) => k in a) ||
+              !a.className ||
+              !a.requestedEvent,
+          )
+        ? 2
+        : 1,
     editionName: school.editionName,
     schoolName: school.schoolName,
     athletes: school.athletes.map((athlete) => ({
@@ -58,11 +73,17 @@ function text(value: unknown): value is string {
 function hasOnly(value: Record<string, unknown>, keys: string[]) {
   return Object.keys(value).every((key) => keys.includes(key));
 }
-const extraKeys = ["identityNumber", "birthDate", "gender", "note"] as const;
+const profileKeys = ["identityNumber", "birthDate", "gender", "note"] as const;
+const extraKeys = [...profileKeys, "photoDataUrl", "eventSelections"] as const;
 export function athleteDetails(value: Record<string, unknown>) {
   const details: Pick<
     AthleteDraft,
-    "identityNumber" | "birthDate" | "gender" | "note"
+    | "identityNumber"
+    | "birthDate"
+    | "gender"
+    | "note"
+    | "photoDataUrl"
+    | "eventSelections"
   > = {};
   if (value.identityNumber !== undefined) {
     if (
@@ -97,6 +118,52 @@ export function athleteDetails(value: Record<string, unknown>) {
       throw new Error("Ghi chú không hợp lệ hoặc vượt 2.000 ký tự.");
     details.note = value.note.trim();
   }
+  if (value.photoDataUrl !== undefined) {
+    if (
+      typeof value.photoDataUrl !== "string" ||
+      value.photoDataUrl.length > 700000 ||
+      (value.photoDataUrl !== "" &&
+        !/^data:image\/(?:png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(
+          value.photoDataUrl,
+        ))
+    )
+      throw new Error("Ảnh bản nháp không hợp lệ hoặc vượt 500 KB.");
+    details.photoDataUrl = value.photoDataUrl;
+  }
+  if (value.eventSelections !== undefined) {
+    if (
+      !Array.isArray(value.eventSelections) ||
+      value.eventSelections.length > 50
+    )
+      throw new Error("Danh sách môn đăng ký nháp không hợp lệ.");
+    const seen = new Set<string>();
+    details.eventSelections = Array.from(
+      value.eventSelections,
+      (item: unknown) => {
+        if (
+          !object(item) ||
+          !hasOnly(item, ["sportId", "level", "eventLabel"]) ||
+          typeof item.sportId !== "string" ||
+          !Object.hasOwn(sportNames, item.sportId) ||
+          (item.level !== "TH" && item.level !== "THCS") ||
+          typeof item.eventLabel !== "string"
+        )
+          throw new Error("Nội dung đăng ký nháp không hợp lệ.");
+        const sportId = item.sportId as SportId;
+        if (
+          ![
+            ...eventOptions(sportId, item.level, "male"),
+            ...eventOptions(sportId, item.level, "female"),
+          ].includes(item.eventLabel)
+        )
+          throw new Error("Nội dung không nằm trong danh mục tham khảo.");
+        const key = JSON.stringify([sportId, item.level, item.eventLabel]);
+        if (seen.has(key)) throw new Error("Nội dung đăng ký nháp bị trùng.");
+        seen.add(key);
+        return { sportId, level: item.level, eventLabel: item.eventLabel };
+      },
+    );
+  }
   return details;
 }
 export function fromSheet(value: unknown): SchoolDraft {
@@ -110,13 +177,15 @@ export function fromSheet(value: unknown): SchoolDraft {
       "athletes",
     ]) ||
     value.format !== "hkpd-school-registration-draft" ||
-    (value.formatVersion !== 1 && value.formatVersion !== 2) ||
+    (value.formatVersion !== 1 &&
+      value.formatVersion !== 2 &&
+      value.formatVersion !== 3) ||
     !text(value.editionName) ||
     !text(value.schoolName) ||
     !Array.isArray(value.athletes)
   ) {
     throw new Error(
-      "Phiếu đăng ký không đúng định dạng bản nháp phiên bản 1 hoặc 2.",
+      "Phiếu đăng ký không đúng định dạng bản nháp phiên bản 1, 2 hoặc 3.",
     );
   }
   const athletes: AthleteDraft[] = Array.from(
@@ -128,13 +197,17 @@ export function fromSheet(value: unknown): SchoolDraft {
           "fullName",
           "className",
           "requestedEvent",
-          ...(value.formatVersion === 2 ? extraKeys : []),
+          ...(value.formatVersion === 3
+            ? extraKeys
+            : value.formatVersion === 2
+              ? profileKeys
+              : []),
         ]) ||
         !text(athlete.fullName) ||
-        !(value.formatVersion === 2
+        !(value.formatVersion !== 1
           ? typeof athlete.className === "string"
           : text(athlete.className)) ||
-        !(value.formatVersion === 2
+        !(value.formatVersion !== 1
           ? typeof athlete.requestedEvent === "string"
           : text(athlete.requestedEvent))
       ) {

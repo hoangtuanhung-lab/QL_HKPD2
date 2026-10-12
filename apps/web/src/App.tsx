@@ -241,6 +241,9 @@ export function App() {
           activeId={activeId}
           onSelect={selectSchool}
           onDirty={setTableDirty}
+          storageStatus={
+            storageError ? "error" : pendingWrites ? "saving" : "saved"
+          }
           onSave={(updated) =>
             commit(
               draftsRef.current.map((s) =>
