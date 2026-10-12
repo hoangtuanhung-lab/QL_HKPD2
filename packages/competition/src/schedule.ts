@@ -109,7 +109,7 @@ export interface ScheduleTask extends Omit<
   durationMinutes: number;
   venueIds: readonly string[];
 }
-/** Conservative greedy proposal; caller supplies approved global occupancy and dependency graph. */
+/** Constrained-first greedy proposal (not an exhaustive feasibility solver); caller supplies approved global occupancy and dependency graph. */
 export function proposeSchedule(
   tasks: readonly ScheduleTask[],
   existing: readonly ScheduleItem[],
@@ -132,9 +132,18 @@ export function proposeSchedule(
   const proposed: ScheduleItem[] = [];
   const pending = [...tasks];
   while (pending.length) {
-    const index = pending.findIndex((t) =>
-      t.dependsOnIds.every((id) => scheduled.some((s) => s.id === id)),
-    );
+    // Among ready tasks, reserve scarce venue choices first; stable IDs break ties.
+    const ready = pending
+      .filter((t) =>
+        t.dependsOnIds.every((id) => scheduled.some((s) => s.id === id)),
+      )
+      .sort(
+        (a, b) =>
+          new Set(a.venueIds).size - new Set(b.venueIds).size ||
+          b.durationMinutes - a.durationMinutes ||
+          a.id.localeCompare(b.id),
+      );
+    const index = ready[0] ? pending.indexOf(ready[0]) : -1;
     ensure(index >= 0, "Lịch có phụ thuộc thiếu hoặc vòng phụ thuộc.");
     const task = pending.splice(index, 1)[0]!;
     ensure(

@@ -33,6 +33,12 @@ export class CursorCodec {
       throw new Error("Invalid cursor configuration.");
   }
   encode(lastId: string, scope: CursorScope, now = Date.now()): string {
+    if (
+      !Number.isSafeInteger(now) ||
+      now < 0 ||
+      !Number.isSafeInteger(now + this.ttlMs)
+    )
+      throw new FoundationError("VALIDATION_ERROR");
     const iv = randomBytes(12);
     const cipher = createCipheriv("aes-256-gcm", this.key, iv);
     const encrypted = Buffer.concat([
@@ -52,6 +58,7 @@ export class CursorCodec {
   }
   decode(token: string, scope: CursorScope, now = Date.now()): string {
     try {
+      if (!Number.isSafeInteger(now) || now < 0) throw new Error();
       if (!/^[A-Za-z0-9_-]{40,4096}$/.test(token)) throw new Error();
       const data = Buffer.from(token, "base64url");
       if (data.toString("base64url") !== token) throw new Error();

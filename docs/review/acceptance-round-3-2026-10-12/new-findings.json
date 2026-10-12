@@ -1,0 +1,39 @@
+{
+  "purpose": "Unwanted behaviors reproduced on built libraries; exit zero is not acceptance success",
+  "externalServicesUsed": [],
+  "findings": [
+    {
+      "id": "P-01",
+      "issue": "C draw input is not captured across authorization await",
+      "authorizedActor": "allowed-actor",
+      "authorizedEvent": "allowed-event",
+      "savedEvent": "other-event",
+      "auditedActor": "other-actor"
+    },
+    {
+      "id": "P-02",
+      "issue": "Outbox delivery checks one event identity but handles and marks another after caller mutation",
+      "lookedUp": ["original-event"],
+      "handled": ["changed-event"],
+      "marked": ["changed-event"]
+    },
+    {
+      "id": "P-03",
+      "issue": "Registration revision accepts negative matching CAS versions and produces version zero",
+      "inputVersion": -1,
+      "outputVersion": 0
+    },
+    {
+      "id": "P-04",
+      "issue": "Publication readiness string false passes truthiness gates",
+      "booleanFalseRejected": true,
+      "stringFalseStatus": "finalized"
+    },
+    {
+      "id": "P-05",
+      "issue": "Public projection emits finalized result without required value for unsupported persisted value kind",
+      "returnedRows": 1,
+      "serializedHasRequiredValue": false
+    }
+  ]
+}
