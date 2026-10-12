@@ -96,20 +96,15 @@ export function finalizePublication(
     status: "finalized" as const,
   });
 }
+export type PublicLabel = {
+  eventLabel: string;
+  displayName: string;
+  schoolLabel: string;
+} & ({ kind?: "athlete"; athleteCode: string } | { kind: "team" });
 export function publicResults(
   p: Publication,
   official: Official,
-  labels: Readonly<
-    Record<
-      string,
-      {
-        eventLabel: string;
-        athleteCode: string;
-        displayName: string;
-        schoolLabel: string;
-      }
-    >
-  >,
+  labels: Readonly<Record<string, PublicLabel>>,
 ): components["schemas"]["PublicResult"][] {
   validatePublication(p);
   if (p.status !== "finalized") return [];
@@ -120,24 +115,41 @@ export function publicResults(
     "Phiên bản công bố không khớp kết quả.",
   );
   return official.payload.entries.map((entry) => {
+    const participant = entry.participant;
     ensure(
-      entry.participant.kind === "athlete",
-      "PUBLIC_TEAM_CONTRACT",
-      "DTO công khai đội cần được chốt, không gán mã VĐV giả cho đội.",
+      participant.kind === "athlete" || participant.kind === "team",
+      "PUBLIC_LABEL",
+      "Loại đối tượng công khai không hợp lệ.",
     );
-    const key = entry.participant.athlete_id;
+    const key =
+      participant.kind === "athlete"
+        ? participant.athlete_id
+        : participant.team_id;
     const label = labels[key];
     ensure(label, "PUBLIC_LABEL", "Thiếu whitelist thông tin công khai.");
-    return {
+    const common = {
       publication_id: p.id,
       edition_id: p.editionId,
       event_label: label.eventLabel,
-      athlete_code: label.athleteCode,
       display_name: label.displayName,
       school_label: label.schoolLabel,
       value: publicValue(entry.value),
-      publication_status: "finalized",
+      publication_status: "finalized" as const,
     };
+    if (participant.kind === "team") {
+      ensure(
+        label.kind === "team",
+        "PUBLIC_LABEL",
+        "Đội cần nhãn công khai riêng, không dùng mã VĐV.",
+      );
+      return { ...common, participant_kind: "team" as const, team_id: key };
+    }
+    ensure(
+      label.kind !== "team",
+      "PUBLIC_LABEL",
+      "Nhãn VĐV không khớp loại đối tượng.",
+    );
+    return { ...common, athlete_code: label.athleteCode };
   });
 }
 /** CSV fallback export, NOT XLSX; formulas are escaped, correction note is retained. */

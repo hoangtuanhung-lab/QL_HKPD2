@@ -69,7 +69,10 @@ export function scaled(
       precision <= 6 &&
       typeof value === "string" &&
       value.length <= 32 &&
-      (signed ? /^-?\d+(?:\.\d+)?$/ : /^\d+(?:\.\d+)?$/).test(value),
+      (signed
+        ? /^-?(?:0|[1-9]\d*)(?:\.\d+)?$/
+        : /^(?:0|[1-9]\d*)(?:\.\d+)?$/
+      ).test(value),
     "INVALID_VALUE",
     "Thành tích hoặc độ chính xác không hợp lệ.",
   );
@@ -204,7 +207,7 @@ export function validatePayload(payload: Payload, match: ResultMatch) {
           "SETS_RULE",
           "Thiếu giới hạn hiệp hoặc số hiệp không hợp lệ.",
         );
-        value.sets.forEach((s) => {
+        for (const s of value.sets) {
           ensure(
             fields(s, ["scored", "conceded"]),
             "INVALID_VALUE",
@@ -212,7 +215,7 @@ export function validatePayload(payload: Payload, match: ResultMatch) {
           );
           integer(s.scored);
           integer(s.conceded);
-        });
+        }
         break;
       case "cards":
         integer(value.yellow);

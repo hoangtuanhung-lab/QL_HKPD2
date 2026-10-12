@@ -17,7 +17,8 @@ export interface RegistrationSheet {
   schoolName: string;
   athletes: Omit<AthleteDraft, "draftId">[];
 }
-export const storageKey = "hkpd.a04.school-drafts.v1";
+export const storageKey = "hkpd.a04.school-drafts.v2";
+export const legacyStorageKey = "hkpd.a04.school-drafts.v1";
 export const newDraftId = () => `draft_${crypto.randomUUID()}`;
 export const clean = (value: string) => value.trim().replace(/\s+/g, " ");
 export const sameSchool = (left: SchoolDraft, right: SchoolDraft) =>
@@ -94,30 +95,169 @@ export function fromSheet(value: unknown): SchoolDraft {
     athletes,
   };
 }
-export function saveDrafts(
-  storage: Pick<Storage, "setItem">,
-  drafts: SchoolDraft[],
-) {
-  // Reuse the external format: browser storage never contains server IDs or approval state.
-  storage.setItem(storageKey, JSON.stringify(drafts.map(toSheet)));
+export interface DraftSnapshot {
+  revision: number;
+  token: string | null;
+  drafts: SchoolDraft[];
 }
-export function loadDrafts(storage: Pick<Storage, "getItem">): SchoolDraft[] {
-  const raw = storage.getItem(storageKey);
-  if (!raw) return [];
-  const value: unknown = JSON.parse(raw);
-  if (!Array.isArray(value))
-    throw new Error("Dữ liệu nháp đã lưu không đúng định dạng.");
-  const result = value.map(fromSheet);
+export interface DraftLocks {
+  request<T>(name: string, callback: () => T | Promise<T>): Promise<T>;
+}
+export class DraftConflict extends Error {
+  constructor() {
+    super(
+      "Bản đã lưu đã thay đổi ở tab khác. Bản đang sửa được giữ trong phiên này; hãy xuất phiếu trước khi tải lại.",
+    );
+  }
+}
+function validateStored(drafts: unknown): SchoolDraft[] {
+  if (!Array.isArray(drafts)) throw new Error("Dữ liệu nháp không hợp lệ.");
+  const schoolIds = new Set<string>(),
+    athleteIds = new Set<string>();
+  const result = Array.from(drafts, (value) => {
+    if (
+      !object(value) ||
+      !hasOnly(value, ["draftId", "editionName", "schoolName", "athletes"]) ||
+      !text(value.draftId) ||
+      !text(value.editionName) ||
+      !text(value.schoolName) ||
+      !Array.isArray(value.athletes) ||
+      schoolIds.has(value.draftId)
+    )
+      throw new Error("Phiếu nháp đã lưu không hợp lệ.");
+    schoolIds.add(value.draftId);
+    const athletes = Array.from(value.athletes, (a) => {
+      if (
+        !object(a) ||
+        !hasOnly(a, ["draftId", "fullName", "className", "requestedEvent"]) ||
+        !text(a.draftId) ||
+        !text(a.fullName) ||
+        !text(a.className) ||
+        !text(a.requestedEvent) ||
+        athleteIds.has(a.draftId)
+      )
+        throw new Error("VĐV nháp đã lưu không hợp lệ.");
+      athleteIds.add(a.draftId);
+      return {
+        draftId: a.draftId,
+        fullName: clean(a.fullName),
+        className: clean(a.className),
+        requestedEvent: clean(a.requestedEvent),
+      };
+    });
+    return {
+      draftId: value.draftId,
+      editionName: clean(value.editionName),
+      schoolName: clean(value.schoolName),
+      athletes,
+    };
+  });
   if (
     result.some((school, index) =>
       result.slice(0, index).some((other) => sameSchool(school, other)),
     )
-  ) {
+  )
     throw new Error(
       "Dữ liệu đã lưu có nhiều phiếu cho cùng trường và kỳ giải.",
     );
-  }
   return result;
+}
+export function readDraftSnapshot(
+  storage: Pick<Storage, "getItem">,
+): DraftSnapshot {
+  const raw = storage.getItem(storageKey) ?? storage.getItem(legacyStorageKey);
+  if (!raw) return { revision: 0, token: null, drafts: [] };
+  const value: unknown = JSON.parse(raw);
+  if (Array.isArray(value)) {
+    const drafts = value.map(fromSheet);
+    return { revision: 0, token: raw, drafts: validateStored(drafts) };
+  }
+  if (
+    !object(value) ||
+    !hasOnly(value, ["formatVersion", "revision", "drafts"]) ||
+    value.formatVersion !== 2 ||
+    !Number.isSafeInteger(value.revision) ||
+    Number(value.revision) < 1
+  )
+    throw new Error("Dữ liệu nháp đã lưu không đúng định dạng.");
+  return {
+    revision: Number(value.revision),
+    token: raw,
+    drafts: validateStored(value.drafts),
+  };
+}
+export const loadDrafts = (storage: Pick<Storage, "getItem">) =>
+  readDraftSnapshot(storage).drafts;
+/** Shared-origin lock + revision CAS. No unsafe read/write fallback when Web Locks is unavailable. */
+export async function saveDrafts(
+  storage: Pick<Storage, "getItem" | "setItem">,
+  drafts: SchoolDraft[],
+  expected: Pick<DraftSnapshot, "revision" | "token">,
+  locks: DraftLocks | undefined = globalThis.navigator?.locks,
+): Promise<DraftSnapshot> {
+  const captured = validateStored(structuredClone(drafts));
+  const expectedRevision = expected.revision;
+  const expectedToken = expected.token;
+  if (
+    !Number.isSafeInteger(expectedRevision) ||
+    expectedRevision < 0 ||
+    expectedRevision >= Number.MAX_SAFE_INTEGER
+  )
+    throw new DraftConflict();
+  if (!locks)
+    throw new Error(
+      "Trình duyệt chưa hỗ trợ lưu an toàn giữa các tab. Hãy xuất phiếu trước khi đóng trang.",
+    );
+  return locks.request(storageKey, () => {
+    const current = readDraftSnapshot(storage);
+    if (
+      current.revision !== expectedRevision ||
+      current.token !== expectedToken
+    )
+      throw new DraftConflict();
+    const revision = current.revision + 1;
+    const token = JSON.stringify({
+      formatVersion: 2,
+      revision,
+      drafts: captured,
+    });
+    storage.setItem(storageKey, token);
+    return { revision, token, drafts: captured };
+  });
+}
+/** Serializes this tab's own writes, but stops after conflict/quota errors without rebasing stale data. */
+export class DraftWriter {
+  private tail = Promise.resolve();
+  private failure: unknown;
+  private stopped = false;
+  constructor(
+    private readonly storage: Pick<Storage, "getItem" | "setItem">,
+    private expected: Pick<DraftSnapshot, "revision" | "token">,
+    private readonly locks: DraftLocks | undefined = globalThis.navigator
+      ?.locks,
+  ) {
+    this.expected = { revision: expected.revision, token: expected.token };
+  }
+  save(drafts: SchoolDraft[]): Promise<void> {
+    const captured = structuredClone(drafts);
+    const operation = this.tail.then(async () => {
+      if (this.stopped) throw this.failure;
+      try {
+        this.expected = await saveDrafts(
+          this.storage,
+          captured,
+          this.expected,
+          this.locks,
+        );
+      } catch (error) {
+        this.stopped = true;
+        this.failure = error;
+        throw error;
+      }
+    });
+    this.tail = operation.catch(() => {});
+    return operation;
+  }
 }
 export function upsertAthlete(
   school: SchoolDraft,

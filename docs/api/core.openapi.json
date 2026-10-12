@@ -2940,50 +2940,15 @@
         ]
       },
       "PublicResult": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "publication_id": {
-            "type": "string",
-            "format": "uuid"
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/PublicAthleteResult"
           },
-          "edition_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "event_label": {
-            "type": "string",
-            "minLength": 1
-          },
-          "athlete_code": {
-            "$ref": "#/components/schemas/AthleteCode"
-          },
-          "display_name": {
-            "type": "string",
-            "minLength": 1
-          },
-          "school_label": {
-            "type": "string",
-            "minLength": 1
-          },
-          "value": {
-            "$ref": "#/components/schemas/ResultValue"
-          },
-          "publication_status": {
-            "type": "string",
-            "enum": ["finalized"]
+          {
+            "$ref": "#/components/schemas/PublicTeamResult"
           }
-        },
-        "required": [
-          "publication_id",
-          "edition_id",
-          "event_label",
-          "athlete_code",
-          "display_name",
-          "school_label",
-          "value",
-          "publication_status"
         ],
+        "description": "Whitelist công khai: VĐV giữ hợp đồng cũ; đội có participant_kind=team và team_id, không gán athlete_code giả hoặc công khai thành viên.",
         "examples": [
           {
             "publication_id": "00000000-0000-4000-8000-000000000012",
@@ -2997,6 +2962,20 @@
               "seconds": "12.340"
             },
             "publication_status": "finalized"
+          },
+          {
+            "publication_id": "00000000-0000-4000-8000-000000000012",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "event_label": "NỘI DUNG GIẢ LẬP",
+            "display_name": "ĐỘI GIẢ LẬP",
+            "school_label": "TRƯỜNG GIẢ LẬP",
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            },
+            "publication_status": "finalized",
+            "participant_kind": "team",
+            "team_id": "00000000-0000-4000-8000-000000000019"
           }
         ]
       },
@@ -3340,6 +3319,135 @@
           {
             "kind": "external_rank",
             "rank": 1
+          }
+        ]
+      },
+      "PublicAthleteResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "publication_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "athlete_code": {
+            "$ref": "#/components/schemas/AthleteCode"
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "school_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "publication_status": {
+            "type": "string",
+            "enum": ["finalized"]
+          }
+        },
+        "required": [
+          "publication_id",
+          "edition_id",
+          "event_label",
+          "athlete_code",
+          "display_name",
+          "school_label",
+          "value",
+          "publication_status"
+        ],
+        "examples": [
+          {
+            "publication_id": "00000000-0000-4000-8000-000000000012",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "event_label": "NỘI DUNG GIẢ LẬP",
+            "athlete_code": "01.012",
+            "display_name": "VĐV GIẢ LẬP 012",
+            "school_label": "TRƯỜNG GIẢ LẬP",
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            },
+            "publication_status": "finalized"
+          }
+        ]
+      },
+      "PublicTeamResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "publication_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "edition_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "school_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "publication_status": {
+            "type": "string",
+            "enum": ["finalized"]
+          },
+          "participant_kind": {
+            "type": "string",
+            "enum": ["team"]
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "publication_id",
+          "edition_id",
+          "event_label",
+          "display_name",
+          "school_label",
+          "value",
+          "publication_status",
+          "participant_kind",
+          "team_id"
+        ],
+        "examples": [
+          {
+            "publication_id": "00000000-0000-4000-8000-000000000012",
+            "edition_id": "00000000-0000-4000-8000-000000000001",
+            "event_label": "NỘI DUNG GIẢ LẬP",
+            "display_name": "ĐỘI GIẢ LẬP",
+            "school_label": "TRƯỜNG GIẢ LẬP",
+            "value": {
+              "kind": "time",
+              "seconds": "12.340"
+            },
+            "publication_status": "finalized",
+            "participant_kind": "team",
+            "team_id": "00000000-0000-4000-8000-000000000019"
           }
         ]
       }

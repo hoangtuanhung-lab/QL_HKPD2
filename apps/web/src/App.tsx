@@ -4,14 +4,14 @@ import { ResultsWorkspace } from "./results-ui.js";
 import { RegistrationWorkspace } from "./registration-ui.js";
 import { ScheduleWorkspace } from "./schedule-ui.js";
 import { FormField } from "@hkpd/ui";
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   clean,
   fromSheet,
-  loadDrafts,
+  readDraftSnapshot,
+  DraftWriter,
   newDraftId,
   sameSchool,
-  saveDrafts,
   toSheet,
   upsertAthlete,
   type AthleteDraft,
@@ -64,10 +64,12 @@ const outlines: Record<
 };
 function initialDrafts() {
   try {
-    return { drafts: loadDrafts(localStorage), error: "" };
+    return { ...readDraftSnapshot(localStorage), error: "" };
   } catch {
     return {
       drafts: [] as SchoolDraft[],
+      revision: 0,
+      token: null,
       error:
         "Không đọc được bản nháp đã lưu. Dữ liệu cũ vẫn được giữ; hãy nhập phiếu đã xuất hoặc dùng trình duyệt khác.",
     };
@@ -76,11 +78,28 @@ function initialDrafts() {
 export function App() {
   const [initial] = useState(initialDrafts);
   const [drafts, setDrafts] = useState(initial.drafts);
+  const [writer] = useState(
+    () =>
+      new DraftWriter(localStorage, {
+        revision: initial.revision,
+        token: initial.token,
+      }),
+  );
   const [activeId, setActiveId] = useState(initial.drafts[0]?.draftId ?? "");
   const [step, setStep] = useState<Step>("Đăng ký VĐV");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(initial.error);
   const [storageError, setStorageError] = useState("");
+  const [pendingWrites, setPendingWrites] = useState(0);
+  useEffect(() => {
+    if (!pendingWrites && (!storageError || !drafts.length)) return;
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [pendingWrites, storageError, drafts.length]);
   const [editionName, setEditionName] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [athlete, setAthlete] = useState<AthleteDraft>({
@@ -105,14 +124,17 @@ export function App() {
       );
       return;
     }
-    try {
-      saveDrafts(localStorage, next);
-      setStorageError("");
-    } catch {
-      setStorageError(
-        "Không lưu được trên trình duyệt. Bản nháp vẫn ở phiên này; hãy xuất phiếu trước khi đóng trang.",
-      );
-    }
+    setPendingWrites((count) => count + 1);
+    void writer
+      .save(next)
+      .catch((failure: unknown) => {
+        setStorageError(
+          failure instanceof Error
+            ? `Không lưu được trên trình duyệt. ${failure.message} Bản nháp vẫn ở phiên này; hãy xuất phiếu trước khi đóng trang.`
+            : "Không lưu được trên trình duyệt. Bản nháp vẫn ở phiên này; hãy xuất phiếu trước khi đóng trang.",
+        );
+      })
+      .finally(() => setPendingWrites((count) => count - 1));
   }
   function resetAthlete() {
     setAthlete({
@@ -168,7 +190,7 @@ export function App() {
       );
       resetAthlete();
       setError("");
-      setMessage("Đã lưu VĐV vào phiếu nháp của trường.");
+      setMessage("Đã thêm VĐV vào phiếu nháp; đang lưu trên trình duyệt.");
     } catch (failure) {
       setError((failure as Error).message);
     }

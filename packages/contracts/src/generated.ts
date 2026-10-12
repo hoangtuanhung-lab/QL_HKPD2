@@ -931,6 +931,7 @@ export interface components {
       storage_status: "deferred" | "pending" | "ready" | "failed";
     };
     /**
+     * @description Whitelist công khai: VĐV giữ hợp đồng cũ; đội có participant_kind=team và team_id, không gán athlete_code giả hoặc công khai thành viên.
      * @example {
      *       "publication_id": "00000000-0000-4000-8000-000000000012",
      *       "edition_id": "00000000-0000-4000-8000-000000000001",
@@ -944,20 +945,24 @@ export interface components {
      *       },
      *       "publication_status": "finalized"
      *     }
+     * @example {
+     *       "publication_id": "00000000-0000-4000-8000-000000000012",
+     *       "edition_id": "00000000-0000-4000-8000-000000000001",
+     *       "event_label": "NỘI DUNG GIẢ LẬP",
+     *       "display_name": "ĐỘI GIẢ LẬP",
+     *       "school_label": "TRƯỜNG GIẢ LẬP",
+     *       "value": {
+     *         "kind": "time",
+     *         "seconds": "12.340"
+     *       },
+     *       "publication_status": "finalized",
+     *       "participant_kind": "team",
+     *       "team_id": "00000000-0000-4000-8000-000000000019"
+     *     }
      */
-    PublicResult: {
-      /** Format: uuid */
-      publication_id: string;
-      /** Format: uuid */
-      edition_id: string;
-      event_label: string;
-      athlete_code: components["schemas"]["AthleteCode"];
-      display_name: string;
-      school_label: string;
-      value: components["schemas"]["ResultValue"];
-      /** @enum {string} */
-      publication_status: "finalized";
-    };
+    PublicResult:
+      | components["schemas"]["PublicAthleteResult"]
+      | components["schemas"]["PublicTeamResult"];
     /**
      * @example {
      *       "operation_id": "00000000-0000-4000-8000-000000000015",
@@ -1068,6 +1073,66 @@ export interface components {
        */
       kind: "external_rank";
       rank: number;
+    };
+    /**
+     * @example {
+     *       "publication_id": "00000000-0000-4000-8000-000000000012",
+     *       "edition_id": "00000000-0000-4000-8000-000000000001",
+     *       "event_label": "NỘI DUNG GIẢ LẬP",
+     *       "athlete_code": "01.012",
+     *       "display_name": "VĐV GIẢ LẬP 012",
+     *       "school_label": "TRƯỜNG GIẢ LẬP",
+     *       "value": {
+     *         "kind": "time",
+     *         "seconds": "12.340"
+     *       },
+     *       "publication_status": "finalized"
+     *     }
+     */
+    PublicAthleteResult: {
+      /** Format: uuid */
+      publication_id: string;
+      /** Format: uuid */
+      edition_id: string;
+      event_label: string;
+      athlete_code: components["schemas"]["AthleteCode"];
+      display_name: string;
+      school_label: string;
+      value: components["schemas"]["ResultValue"];
+      /** @enum {string} */
+      publication_status: "finalized";
+    };
+    /**
+     * @example {
+     *       "publication_id": "00000000-0000-4000-8000-000000000012",
+     *       "edition_id": "00000000-0000-4000-8000-000000000001",
+     *       "event_label": "NỘI DUNG GIẢ LẬP",
+     *       "display_name": "ĐỘI GIẢ LẬP",
+     *       "school_label": "TRƯỜNG GIẢ LẬP",
+     *       "value": {
+     *         "kind": "time",
+     *         "seconds": "12.340"
+     *       },
+     *       "publication_status": "finalized",
+     *       "participant_kind": "team",
+     *       "team_id": "00000000-0000-4000-8000-000000000019"
+     *     }
+     */
+    PublicTeamResult: {
+      /** Format: uuid */
+      publication_id: string;
+      /** Format: uuid */
+      edition_id: string;
+      event_label: string;
+      display_name: string;
+      school_label: string;
+      value: components["schemas"]["ResultValue"];
+      /** @enum {string} */
+      publication_status: "finalized";
+      /** @enum {string} */
+      participant_kind: "team";
+      /** Format: uuid */
+      team_id: string;
     };
   };
   responses: {
