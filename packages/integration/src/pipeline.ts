@@ -25,6 +25,8 @@ type Participant = components["schemas"]["Participant"];
 export interface EventBundle {
   competition: CompetitionSnapshot;
   catalogSnapshotId: string;
+  /** Immutable R catalog version used when this draft was prepared. */
+  catalogSourceVersion: number;
   rule: ResultRule;
   matchIds: Readonly<Record<string, string>>;
   participants: Readonly<Record<string, Participant>>;
@@ -38,6 +40,12 @@ export function prepareEvent(
   newId: () => string,
   options: DrawOptions = {},
 ): EventBundle {
+  ensure(
+    Number.isSafeInteger(registry.catalog.sourceVersion) &&
+      registry.catalog.sourceVersion > 0,
+    "ROSTER_STALE",
+    "Phiên bản danh mục không hợp lệ.",
+  );
   const event = resolveEvent(registry.catalog, eventId);
   ensure(
     event.active &&
@@ -65,6 +73,7 @@ export function prepareEvent(
   });
   return freeze({
     catalogSnapshotId: registry.catalog.id,
+    catalogSourceVersion: registry.catalog.sourceVersion,
     rule: structuredClone(rule),
     matchIds,
     participants,
@@ -90,9 +99,22 @@ export function assertRosterCurrent(bundle: EventBundle, registry: Registry) {
   const c = bundle.competition;
   ensure(
     registry.editionId === c.editionId &&
-      registry.catalog.id === bundle.catalogSnapshotId,
+      registry.catalog.editionId === c.editionId &&
+      registry.catalog.id === bundle.catalogSnapshotId &&
+      Number.isSafeInteger(bundle.catalogSourceVersion) &&
+      bundle.catalogSourceVersion > 0 &&
+      registry.catalog.sourceVersion === bundle.catalogSourceVersion,
     "ROSTER_STALE",
     "Danh mục/kỳ giải đã thay đổi.",
+  );
+  const event = resolveEvent(registry.catalog, c.eventId);
+  ensure(
+    event.active &&
+      event.sportId === c.sportId &&
+      ["individual_combat", "team"].includes(c.kind) &&
+      event.node.participantKind === (c.kind === "team" ? "team" : "athlete"),
+    "ROSTER_STALE",
+    "Nội dung/môn đã ngừng hoặc không khớp cấu hình sơ đồ.",
   );
   const approved = approvedEntries(registry, c.eventId);
   ensure(
