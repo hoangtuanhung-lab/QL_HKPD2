@@ -1,3 +1,4 @@
+import { eventByCode } from "./athlete-catalog.js";
 import {
   eventOptions,
   sportNames,
@@ -15,6 +16,8 @@ export interface AthleteDraft {
   note?: string;
   photoDataUrl?: string;
   eventSelections?: EventPreference[];
+  catalogSelections?: string[];
+  educationLevel?: "TH" | "THCS";
 }
 export interface SchoolDraft {
   draftId: string;
@@ -24,7 +27,7 @@ export interface SchoolDraft {
 }
 export interface RegistrationSheet {
   format: "hkpd-school-registration-draft";
-  formatVersion: 1 | 2 | 3;
+  formatVersion: 1 | 2 | 3 | 4;
   editionName: string;
   schoolName: string;
   athletes: Omit<AthleteDraft, "draftId">[];
@@ -43,17 +46,23 @@ export function toSheet(school: SchoolDraft): RegistrationSheet {
   return {
     format: "hkpd-school-registration-draft",
     formatVersion: school.athletes.some(
-      (a) => a.photoDataUrl !== undefined || a.eventSelections !== undefined,
+      (a) =>
+        a.catalogSelections !== undefined || a.educationLevel !== undefined,
     )
-      ? 3
+      ? 4
       : school.athletes.some(
             (a) =>
-              extraKeys.some((k) => k in a) ||
-              !a.className ||
-              !a.requestedEvent,
+              a.photoDataUrl !== undefined || a.eventSelections !== undefined,
           )
-        ? 2
-        : 1,
+        ? 3
+        : school.athletes.some(
+              (a) =>
+                extraKeys.some((k) => k in a) ||
+                !a.className ||
+                !a.requestedEvent,
+            )
+          ? 2
+          : 1,
     editionName: school.editionName,
     schoolName: school.schoolName,
     athletes: school.athletes.map((athlete) => ({
@@ -74,7 +83,8 @@ function hasOnly(value: Record<string, unknown>, keys: string[]) {
   return Object.keys(value).every((key) => keys.includes(key));
 }
 const profileKeys = ["identityNumber", "birthDate", "gender", "note"] as const;
-const extraKeys = [...profileKeys, "photoDataUrl", "eventSelections"] as const;
+const v3Keys = [...profileKeys, "photoDataUrl", "eventSelections"] as const;
+const extraKeys = [...v3Keys, "catalogSelections", "educationLevel"] as const;
 export function athleteDetails(value: Record<string, unknown>) {
   const details: Pick<
     AthleteDraft,
@@ -84,6 +94,8 @@ export function athleteDetails(value: Record<string, unknown>) {
     | "note"
     | "photoDataUrl"
     | "eventSelections"
+    | "catalogSelections"
+    | "educationLevel"
   > = {};
   if (value.identityNumber !== undefined) {
     if (
@@ -164,6 +176,28 @@ export function athleteDetails(value: Record<string, unknown>) {
       },
     );
   }
+  if (value.educationLevel !== undefined) {
+    if (value.educationLevel !== "TH" && value.educationLevel !== "THCS")
+      throw Error("Cấp học không hợp lệ.");
+    details.educationLevel = value.educationLevel;
+  }
+  if (value.catalogSelections !== undefined) {
+    if (
+      !Array.isArray(value.catalogSelections) ||
+      value.catalogSelections.length > 50
+    )
+      throw Error("Danh sách mã môn không hợp lệ.");
+    const seen = new Set<string>();
+    details.catalogSelections = Array.from(
+      value.catalogSelections,
+      (code: unknown) => {
+        if (typeof code !== "string" || !eventByCode(code) || seen.has(code))
+          throw Error("Mã môn không có trong danh mục hoặc bị trùng.");
+        seen.add(code);
+        return code;
+      },
+    );
+  }
   return details;
 }
 export function fromSheet(value: unknown): SchoolDraft {
@@ -179,13 +213,14 @@ export function fromSheet(value: unknown): SchoolDraft {
     value.format !== "hkpd-school-registration-draft" ||
     (value.formatVersion !== 1 &&
       value.formatVersion !== 2 &&
-      value.formatVersion !== 3) ||
+      value.formatVersion !== 3 &&
+      value.formatVersion !== 4) ||
     !text(value.editionName) ||
     !text(value.schoolName) ||
     !Array.isArray(value.athletes)
   ) {
     throw new Error(
-      "Phiếu đăng ký không đúng định dạng bản nháp phiên bản 1, 2 hoặc 3.",
+      "Phiếu đăng ký không đúng định dạng bản nháp phiên bản 1, 2, 3 hoặc 4.",
     );
   }
   const athletes: AthleteDraft[] = Array.from(
@@ -197,11 +232,13 @@ export function fromSheet(value: unknown): SchoolDraft {
           "fullName",
           "className",
           "requestedEvent",
-          ...(value.formatVersion === 3
+          ...(value.formatVersion === 4
             ? extraKeys
-            : value.formatVersion === 2
-              ? profileKeys
-              : []),
+            : value.formatVersion === 3
+              ? v3Keys
+              : value.formatVersion === 2
+                ? profileKeys
+                : []),
         ]) ||
         !text(athlete.fullName) ||
         !(value.formatVersion !== 1

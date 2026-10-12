@@ -17,7 +17,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "build": "npm run build --workspaces --if-present",
-    "check": "npm run business:check && npm run group-a:check && npm run contracts:check && npm run offline:check && npm run db:check && npm run lint && npm run typecheck && npm test && npm run build",
+    "check": "npm run business:check && npm run group-a:check && npm run contracts:check && npm run catalog:check && npm run offline:check && npm run db:check && npm run lint && npm run typecheck && npm test && npm run build",
     "env:init": "node scripts/environment.mjs init",
     "env:check": "node scripts/environment.mjs check",
     "dev:api": "node scripts/environment.mjs api dev",
@@ -45,7 +45,9 @@
     "release:audit": "node scripts/release-readiness.mjs",
     "data:reconcile": "node scripts/reconcile-data.mjs",
     "offline:schema": "node scripts/offline-schema.mjs",
-    "offline:check": "node scripts/offline-schema.mjs --check"
+    "offline:check": "node scripts/offline-schema.mjs --check",
+    "catalog:generate": "node scripts/import-athlete-catalog.mjs",
+    "catalog:check": "node scripts/import-athlete-catalog.mjs --check"
   },
   "dependencies": {
     "fastify": "5.12.5",

@@ -1,20 +1,22 @@
-import {
-  addContentRow,
-  addSportRow,
-  changeRowSport,
-  initialEventRows,
-  isAdditionalEvent,
-  removeEventRow,
-  rowPreferences,
-  splitEventLabel,
-  type EventRow,
-} from "./athlete-event-rows.js";
 import { useEffect, useRef, useState } from "react";
 import {
-  eventOptions,
-  sportNames,
-  type SportId,
-} from "./athlete-event-options.js";
+  blankCatalogRow,
+  catalogContents,
+  catalogGroups,
+  catalogSports,
+  educationLevel,
+  eligibleCatalog,
+  eventByCode,
+  hasCatalogGroups,
+  migrateLegacyPreferences,
+  rowFromCode,
+  scopeIssue,
+  selectCatalogSport,
+  validateCatalogRow,
+  validateCatalogRows,
+  type CatalogRow,
+  type StudentScope,
+} from "./athlete-catalog.js";
 import type { AthleteDraft, SchoolDraft } from "./registration-draft.js";
 export function AthleteEventDialog({
   athlete,
@@ -31,18 +33,27 @@ export function AthleteEventDialog({
   const photoFile = useRef<HTMLInputElement>(null);
   const base = useRef(JSON.stringify(school.athletes));
   const [photo, setPhoto] = useState(athlete.photoDataUrl ?? "");
-  const [rows, setRows] = useState(() =>
-    initialEventRows(athlete.eventSelections ?? []),
+  const inferredLevel = educationLevel(athlete);
+  const [level, setLevel] = useState<StudentScope["level"]>(inferredLevel);
+  const birthYear = athlete.birthDate
+    ? Number(athlete.birthDate.slice(0, 4))
+    : null;
+  const scope: StudentScope = {
+    level,
+    gender: athlete.gender ?? "",
+    birthYear,
+    year: 2026,
+  };
+  const available = eligibleCatalog(scope);
+  const sports = catalogSports(available);
+  const [initial] = useState(() =>
+    athlete.catalogSelections !== undefined
+      ? { codes: athlete.catalogSelections, unresolved: [] }
+      : migrateLegacyPreferences(athlete.eventSelections ?? [], available),
   );
-  const [activeGroup, setActiveGroup] = useState("");
-  const grade = Number(athlete.className.match(/^\s*(\d+)/)?.[1]);
-  const [level, setLevel] = useState<"TH" | "THCS" | "">(
-    athlete.eventSelections?.[0]?.level ??
-      (grade >= 1 && grade <= 5
-        ? "TH"
-        : grade >= 6 && grade <= 9
-          ? "THCS"
-          : ""),
+  const [legacy, setLegacy] = useState(initial.unresolved);
+  const [rows, setRows] = useState<CatalogRow[]>(() =>
+    initial.codes.length ? initial.codes.map(rowFromCode) : [blankCatalogRow()],
   );
   const [dirty, setDirty] = useState(false),
     [busy, setBusy] = useState(false),
@@ -118,52 +129,58 @@ export function AthleteEventDialog({
       if (alive.current) setBusy(false);
     }
   }
-  const currentGroup =
-    rows.find((r) => r.groupId === activeGroup)?.groupId ??
-    rows.at(-1)!.groupId;
-  function updateRows(next: EventRow[]) {
+  function updateRows(next: CatalogRow[]) {
     setRows(next);
     setDirty(true);
     setError("");
   }
   function addSport() {
-    try {
-      const next = addSportRow(rows);
-      updateRows(next);
-      setActiveGroup(next.at(-1)!.groupId);
-    } catch (e) {
-      setError((e as Error).message);
+    if (
+      new Set(rows.filter((r) => r.sportCode).map((r) => r.sportCode)).size >= 2
+    ) {
+      setError(
+        "Mỗi VĐV chỉ được đăng ký tối đa 2 môn. Dùng Thêm nội dung để thêm nội dung của môn đã chọn.",
+      );
+      return;
     }
+    updateRows([...rows, blankCatalogRow()]);
   }
   function addContent() {
+    const last = rows.at(-1);
+    if (!last?.sportCode) {
+      setError("Chọn môn ở dòng cuối trước khi thêm nội dung.");
+      return;
+    }
+    updateRows([...rows, blankCatalogRow(last.sportCode, last.group)]);
+  }
+  function saveRow(id: string) {
     try {
-      updateRows(addContentRow(rows, currentGroup));
+      const row = rows.find((r) => r.id === id)!;
+      validateCatalogRow(row, available);
+      if (rows.some((r) => r.id !== id && r.eventCode === row.eventCode))
+        throw Error("Nội dung đã được đăng ký, không chọn trùng.");
+      if (
+        new Set(rows.filter((r) => r.sportCode).map((r) => r.sportCode)).size >
+        2
+      )
+        throw Error("Mỗi VĐV tối đa 2 môn thi đấu.");
+      updateRows(
+        rows.map((r) => (r.id === id ? { ...r, isEditing: false } : r)),
+      );
     } catch (e) {
       setError((e as Error).message);
     }
   }
-  function changeLevel(next: "TH" | "THCS") {
-    if (next === level) return;
+  function changeLevel(next: StudentScope["level"]) {
     if (
-      rows.some((r) => r.eventLabel || r.extraEventLabels.length) &&
+      rows.some((r) => r.sportCode) &&
       !window.confirm(
-        "Đổi cấp học sẽ xóa nội dung đã chọn để chọn lại cho phù hợp. Bạn muốn tiếp tục?",
+        "Đổi cấp học sẽ xóa lựa chọn trong bảng để lọc lại theo cấp học. Bạn muốn tiếp tục?",
       )
     )
       return;
     setLevel(next);
-    updateRows(
-      rows.map((r) => ({
-        ...r,
-        sportId:
-          r.sportId && eventOptions(r.sportId, next, athlete.gender).length
-            ? r.sportId
-            : "",
-        content: "",
-        eventLabel: "",
-        extraEventLabels: [],
-      })),
-    );
+    updateRows([blankCatalogRow()]);
   }
   function save() {
     try {
@@ -171,20 +188,22 @@ export function AthleteEventDialog({
         throw Error(
           "Phiếu đã thay đổi trong lúc đăng ký môn. Bản đang nhập vẫn giữ trong cửa sổ này; hãy đối chiếu trước khi lưu.",
         );
-      const selections = rowPreferences(rows, level, athlete.gender);
+      if (legacy.length)
+        throw Error(
+          "Có lựa chọn cũ chưa đối chiếu được với danh mục. Chọn lại hoặc xóa từng lựa chọn cũ trước khi lưu.",
+        );
+      const codes = validateCatalogRows(rows, available);
       onApply({
         photoDataUrl: photo,
-        eventSelections: selections,
-        requestedEvent: selections.length
-          ? selections
-              .map(
-                (s) =>
-                  `${sportNames[s.sportId]} – ${s.eventLabel} (${s.level})`,
-              )
-              .join("; ")
-          : athlete.eventSelections?.length
-            ? ""
-            : athlete.requestedEvent,
+        catalogSelections: codes,
+        eventSelections: [],
+        ...(level ? { educationLevel: level } : {}),
+        requestedEvent: codes
+          .map((code) => {
+            const e = eventByCode(code)!;
+            return `${e.sportName} – ${e.name} (${e.code})`;
+          })
+          .join("; "),
       });
       onClose();
     } catch (e) {
@@ -194,7 +213,7 @@ export function AthleteEventDialog({
   return (
     <dialog
       ref={dialog}
-      className="athlete-event-dialog"
+      className="athlete-event-dialog catalog-athlete-dialog"
       aria-labelledby="athlete-event-title"
       onCancel={(e) => {
         e.preventDefault();
@@ -225,7 +244,7 @@ export function AthleteEventDialog({
           <select
             id="athlete-school-level"
             value={level}
-            disabled={busy}
+            disabled={busy || Boolean(inferredLevel)}
             onChange={(e) => changeLevel(e.target.value as "TH" | "THCS")}
           >
             <option value="" disabled>
@@ -235,6 +254,7 @@ export function AthleteEventDialog({
             <option value="THCS">Trung học cơ sở</option>
           </select>
         </section>
+        <h3 className="catalog-info-heading">Thông tin chung</h3>
         <div className="event-profile">
           <section className="event-photo-card">
             {photo ? (
@@ -309,6 +329,10 @@ export function AthleteEventDialog({
                 </dd>
               </div>
               <div>
+                <dt>Năm sinh</dt>
+                <dd>{birthYear ?? "Chưa nhập"}</dd>
+              </div>
+              <div>
                 <dt>Giới tính</dt>
                 <dd>
                   {athlete.gender === "male"
@@ -332,216 +356,256 @@ export function AthleteEventDialog({
         )}
         <section className="event-choice-panel">
           <div className="event-panel-title">
-            <h3>Đăng ký môn và nội dung thi đấu</h3>
-            <span>
-              {rows.filter((r) => r.eventLabel).length +
-                rows.reduce((n, r) => n + r.extraEventLabels.length, 0)}{" "}
-              nội dung đã chọn
-            </span>
+            <h3>Danh sách đăng ký</h3>
+            <span>{rows.filter((r) => r.eventCode).length} nội dung</span>
           </div>
+          {scopeIssue(scope) && (
+            <p className="notice error">{scopeIssue(scope)}</p>
+          )}
+          {legacy.length > 0 && (
+            <div className="notice error">
+              <p>
+                Lựa chọn cũ chưa đối chiếu được với danh mục mới. Dữ liệu vẫn
+                được giữ; chọn lại nội dung hoặc xóa lựa chọn cũ để tiếp tục.
+              </p>
+              <ul>
+                {legacy.map((p, i) => (
+                  <li key={`${p.sportId}-${p.level}-${p.eventLabel}`}>
+                    <span>
+                      {p.eventLabel} ({p.level})
+                    </span>
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => {
+                        setLegacy((current) =>
+                          current.filter((_, n) => n !== i),
+                        );
+                        setDirty(true);
+                      }}
+                    >
+                      Xóa lựa chọn cũ {i + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div className="event-registration-scroll">
-            <table className="event-registration-table">
+            <table className="event-registration-table catalog-registration-table">
               <colgroup>
-                <col style={{ width: "40px" }} />
-                <col style={{ width: "20%" }} />
-                <col style={{ width: "20%" }} />
-                <col style={{ width: "20%" }} />
+                <col style={{ width: 44 }} />
+                <col style={{ width: "24%" }} />
+                <col style={{ width: "16%" }} />
+                <col style={{ width: "16%" }} />
                 <col />
+                <col style={{ width: 90 }} />
               </colgroup>
               <thead>
                 <tr>
-                  {["STT", "Môn thi", "Nội dung", "Chi tiết", "Ghi chú"].map(
-                    (h) => (
-                      <th key={h}>{h}</th>
-                    ),
-                  )}
+                  {[
+                    "STT",
+                    "Mã môn",
+                    "Môn",
+                    "Phân nhóm",
+                    "Tên nội dung",
+                    "Trạng thái",
+                  ].map((h) => (
+                    <th key={h}>{h}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
                 {rows.map((row, index) => {
-                  const head =
-                    rows.find((r) => r.groupId === row.groupId)?.id === row.id;
-                  const options =
-                    row.sportId && level
-                      ? eventOptions(row.sportId, level, athlete.gender)
-                      : [];
-                  const individual = options.filter(
-                    (label) => !isAdditionalEvent(label),
-                  );
-                  const contents = [
-                    ...new Set(
-                      individual.map(
-                        (label) =>
-                          splitEventLabel(row.sportId as SportId, label)
-                            .content,
-                      ),
+                  const selected = eventByCode(row.eventCode),
+                    groups = catalogGroups(available, row.sportCode),
+                    contents = catalogContents(
+                      available,
+                      row.sportCode,
+                      row.group,
                     ),
-                  ];
-                  const details = individual.filter(
-                    (label) =>
-                      splitEventLabel(row.sportId as SportId, label).content ===
-                      row.content,
-                  );
-                  const hasDetails = details.some(
-                    (label) =>
-                      splitEventLabel(row.sportId as SportId, label).detail,
-                  );
+                    editable = row.isEditing;
                   return (
                     <tr
                       key={row.id}
-                      onFocus={() => setActiveGroup(row.groupId)}
-                      className={
-                        row.groupId === currentGroup ? "event-active-group" : ""
-                      }
+                      className={editable ? "catalog-edit-row" : ""}
                     >
                       <td>{index + 1}</td>
                       <td>
-                        <select
-                          aria-label={`Môn thi dòng ${index + 1}`}
-                          value={row.sportId}
-                          disabled={busy || !head || !level}
-                          onChange={(e) => {
-                            try {
+                        <span className="catalog-event-code">
+                          {row.eventCode || "—"}
+                        </span>
+                        {row.eventCode &&
+                          !available.some((e) => e.code === row.eventCode) && (
+                            <small className="catalog-invalid-choice">
+                              Cần chọn lại theo hồ sơ hiện tại
+                            </small>
+                          )}
+                      </td>
+                      <td>
+                        {editable ? (
+                          <select
+                            aria-label={`Môn dòng ${index + 1}`}
+                            value={row.sportCode}
+                            disabled={busy || Boolean(scopeIssue(scope))}
+                            onChange={(e) =>
                               updateRows(
-                                changeRowSport(
-                                  rows,
-                                  row.groupId,
-                                  e.target.value as SportId | "",
+                                rows.map((r) =>
+                                  r.id === row.id
+                                    ? selectCatalogSport(
+                                        r,
+                                        e.target.value,
+                                        available,
+                                      )
+                                    : r,
                                 ),
-                              );
-                            } catch (e) {
-                              setError((e as Error).message);
+                              )
                             }
-                          }}
-                        >
-                          <option value="">-- Chọn môn --</option>
-                          {Object.entries(sportNames).map(([id, name]) => (
-                            <option
-                              key={id}
-                              value={id}
-                              disabled={
-                                !level ||
-                                !eventOptions(
-                                  id as SportId,
-                                  level,
-                                  athlete.gender,
-                                ).length
-                              }
-                            >
-                              {name}
-                            </option>
-                          ))}
-                        </select>
-                        {!head && <small>Kế thừa môn ở hàng đầu</small>}
-                      </td>
-                      <td>
-                        <select
-                          aria-label={`Nội dung dòng ${index + 1}`}
-                          disabled={busy || !row.sportId || !contents.length}
-                          value={row.content}
-                          onChange={(e) => {
-                            const content = e.target.value;
-                            const matches = individual.filter(
-                              (label) =>
-                                splitEventLabel(row.sportId as SportId, label)
-                                  .content === content,
-                            );
-                            updateRows(
-                              rows.map((r) =>
-                                r.id === row.id
-                                  ? {
-                                      ...r,
-                                      content,
-                                      eventLabel:
-                                        matches.length === 1 ? matches[0]! : "",
-                                    }
-                                  : r,
-                              ),
-                            );
-                          }}
-                        >
-                          <option value="">-- Chọn nội dung --</option>
-                          {contents.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      </td>
-                      <td>
-                        <select
-                          aria-label={`Chi tiết dòng ${index + 1}`}
-                          value={hasDetails ? row.eventLabel : ""}
-                          disabled={busy || !row.content || !hasDetails}
-                          onChange={(e) =>
-                            updateRows(
-                              rows.map((r) =>
-                                r.id === row.id
-                                  ? { ...r, eventLabel: e.target.value }
-                                  : r,
-                              ),
-                            )
-                          }
-                        >
-                          <option value="">
-                            {row.content && !hasDetails
-                              ? "—"
-                              : "-- Chọn chi tiết --"}
-                          </option>
-                          {hasDetails &&
-                            details.map((label) => (
-                              <option key={label} value={label}>
-                                {
-                                  splitEventLabel(row.sportId as SportId, label)
-                                    .detail
-                                }
+                          >
+                            <option value="">-- Chọn môn --</option>
+                            {sports.map((s) => (
+                              <option key={s.code} value={s.code}>
+                                {s.name}
                               </option>
                             ))}
-                        </select>
+                          </select>
+                        ) : (
+                          (selected?.sportName ?? row.sportCode)
+                        )}
                       </td>
-                      <td className="event-row-notes">
-                        {head &&
-                          options.filter(isAdditionalEvent).map((label) => (
-                            <label key={label}>
-                              <input
-                                type="checkbox"
-                                aria-label={`${label} môn ${sportNames[row.sportId as SportId]}`}
-                                checked={row.extraEventLabels.includes(label)}
-                                disabled={busy}
-                                onChange={() =>
-                                  updateRows(
-                                    rows.map((r) =>
+                      <td>
+                        {editable ? (
+                          <select
+                            aria-label={`Phân nhóm dòng ${index + 1}`}
+                            value={row.group}
+                            disabled={
+                              busy ||
+                              !row.sportCode ||
+                              !hasCatalogGroups(row.sportCode)
+                            }
+                            onChange={(e) =>
+                              updateRows(
+                                rows.map((r) =>
+                                  r.id === row.id
+                                    ? {
+                                        ...r,
+                                        group: e.target.value,
+                                        eventCode: "",
+                                      }
+                                    : r,
+                                ),
+                              )
+                            }
+                          >
+                            <option value="">
+                              {row.sportCode && !hasCatalogGroups(row.sportCode)
+                                ? "Không phân nhóm"
+                                : "-- Chọn nhóm --"}
+                            </option>
+                            {groups.map((g) => (
+                              <option key={g} value={g}>
+                                {g}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          row.group || "—"
+                        )}
+                      </td>
+                      <td>
+                        {editable ? (
+                          <select
+                            aria-label={`Tên nội dung dòng ${index + 1}`}
+                            value={row.eventCode}
+                            disabled={
+                              busy ||
+                              !row.sportCode ||
+                              (hasCatalogGroups(row.sportCode) && !row.group) ||
+                              row.sportCode === "BD"
+                            }
+                            onChange={(e) =>
+                              updateRows(
+                                rows.map((r) =>
+                                  r.id === row.id
+                                    ? { ...r, eventCode: e.target.value }
+                                    : r,
+                                ),
+                              )
+                            }
+                          >
+                            <option value="">-- Chọn nội dung --</option>
+                            {contents.map((e) => (
+                              <option key={e.code} value={e.code}>
+                                {e.name}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          (selected?.name ?? "Mã không còn trong danh mục")
+                        )}
+                      </td>
+                      <td className="catalog-row-actions">
+                        <div>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            className={
+                              editable ? "catalog-save" : "catalog-edit"
+                            }
+                            aria-label={`${editable ? "Lưu" : "Sửa"} đăng ký dòng ${index + 1}`}
+                            title={editable ? "Lưu dòng" : "Sửa dòng"}
+                            onClick={() =>
+                              editable
+                                ? saveRow(row.id)
+                                : setRows((current) =>
+                                    current.map((r) =>
                                       r.id === row.id
-                                        ? {
-                                            ...r,
-                                            extraEventLabels:
-                                              r.extraEventLabels.includes(label)
-                                                ? r.extraEventLabels.filter(
-                                                    (v) => v !== label,
-                                                  )
-                                                : [
-                                                    ...r.extraEventLabels,
-                                                    label,
-                                                  ],
-                                          }
+                                        ? { ...r, isEditing: true }
                                         : r,
                                     ),
                                   )
+                            }
+                          >
+                            <svg
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              width="17"
+                              height="17"
+                              fill="currentColor"
+                            >
+                              <path
+                                d={
+                                  editable
+                                    ? "M3 2h15l4 4v16H2V2h1zm3 1v7h11V3H6zm0 11v7h12v-7H6z"
+                                    : "M3 17v4h4L20 8l-4-4L3 17zm14-14 2-2 4 4-2 2-4-4z"
                                 }
                               />
-                              {label}
-                            </label>
-                          ))}
-                        <button
-                          type="button"
-                          aria-label={`Xóa dòng đăng ký ${index + 1}`}
-                          disabled={busy}
-                          onClick={() =>
-                            updateRows(removeEventRow(rows, row.id))
-                          }
-                        >
-                          ×
-                        </button>
+                            </svg>
+                          </button>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            className="catalog-delete"
+                            aria-label={`Xóa đăng ký dòng ${index + 1}`}
+                            title="Xóa dòng"
+                            onClick={() => {
+                              const next = rows.filter((r) => r.id !== row.id);
+                              updateRows(
+                                next.length ? next : [blankCatalogRow()],
+                              );
+                            }}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              viewBox="0 0 24 24"
+                              width="17"
+                              height="17"
+                              fill="currentColor"
+                            >
+                              <path d="M4 6h16v2H4V6zm3 3h10l-1 13H8L7 9zm2-7h6l1 3H8l1-3z" />
+                            </svg>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -551,21 +615,20 @@ export function AthleteEventDialog({
           </div>
           <div className="event-table-add">
             <button type="button" disabled={busy} onClick={addSport}>
-              ＋ Thêm môn
+              ＋ Thêm môn thi
             </button>
             <button type="button" disabled={busy} onClick={addContent}>
               ＋ Thêm nội dung
             </button>
           </div>
           <p className="event-reference-note">
-            Thêm môn tạo hàng cho môn thứ hai. Thêm nội dung kế thừa môn của
-            nhóm hàng đang chọn. Mỗi VĐV tối đa 2 môn; ô đôi/tiếp sức chỉ hiện ở
-            hàng đầu của môn.
+            Danh mục: 133 nội dung từ tệp Excel đã cung cấp. Tuổi = 2026 − năm
+            sinh. Thêm nội dung kế thừa môn và phân nhóm của dòng cuối; lưu toàn
+            bộ bằng nút Lưu đăng ký môn.
           </p>
           <p className="event-reference-note">
-            Danh mục tham khảo theo điều lệ 2026. Nhóm tuổi, hạng cân, hạn mức
-            và đội/đôi cần được kiểm tra khi gửi duyệt; lựa chọn này chưa cấp mã
-            đăng ký chính thức.
+            Đăng ký đang lưu nháp; quota trường, đội/đôi và duyệt chính thức sẽ
+            được kiểm tra ở bước tích hợp.
           </p>
         </section>
       </div>
