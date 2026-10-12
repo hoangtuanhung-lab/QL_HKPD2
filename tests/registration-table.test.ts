@@ -62,6 +62,8 @@ describe("Registration table", () => {
     fill("Ngày sinh dòng 1", "2012-05-15");
     fill("Giới tính dòng 1", "female");
     fill("Ghi chú dòng 1", "Đăng ký mới");
+    fill("Lớp / nhóm dòng 1", " 6A ");
+    fill("Nội dung thi đấu dòng 1", " Chạy 60 m ");
     fill("Trường đăng ký:", "school-b");
     fill("Họ tên dòng 1", "VĐV trường B");
     fill("Trường đăng ký:", "school-a");
@@ -75,8 +77,8 @@ describe("Registration table", () => {
       birthDate: "2012-05-15",
       gender: "female",
       note: "Đăng ký mới",
-      className: "",
-      requestedEvent: "",
+      className: "6A",
+      requestedEvent: "Chạy 60 m",
     });
     expect(output.dirty).toBe(true);
     fill("Trường đăng ký:", "school-b");
