@@ -14,6 +14,8 @@ export async function deliver<T extends DeliveryTransaction>(
   event: Event,
   handle: (tx: T, event: Event) => Promise<void>,
 ): Promise<"processed" | "duplicate"> {
+  // Event fields are scalar; freeze the detached snapshot also against handler mutation.
+  event = Object.freeze(structuredClone(event));
   if (!consumer || !event.id)
     throw new Error("Consumer and event ID are required.");
   return store.transaction(async (tx) => {

@@ -32,6 +32,7 @@ export function deliverResultConfirmed(
   store: DeliveryStore<ResultDeliveryTransaction>,
   event: Event,
 ) {
+  event = structuredClone(event);
   ensure(
     event.type === "OfficialResultConfirmed" &&
       Number.isSafeInteger(event.version) &&

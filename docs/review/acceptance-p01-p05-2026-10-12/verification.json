@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Saigon",
+  "baseCommit": "7ba14310bf0708a8af10b59c242192bebd8170d4",
+  "baseBranch": "fix/acceptance-next-five",
+  "fixes": ["P-01", "P-02", "P-03", "P-04", "P-05"],
+  "fullCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "testFiles": 44,
+    "testsPassed": 657,
+    "includes": [
+      "lint",
+      "typecheck",
+      "build",
+      "business rules",
+      "schema drift",
+      "static SQL checks"
+    ],
+    "actualSqlExecuted": false
+  },
+  "focusedCheck": {
+    "command": "npx vitest run tests/acceptance-p01-p05-regression.test.ts tests/group-c-integration.test.ts tests/cross-group-consumer.test.ts",
+    "exitCode": 0,
+    "testFiles": 3,
+    "testsPassed": 63,
+    "newRegressionTests": 37
+  },
+  "smoke": {
+    "command": "node scripts/smoke.mjs",
+    "exitCode": 0,
+    "verified": [
+      "dev API/web/worker",
+      "staging API/web/worker",
+      "managed shutdown",
+      "single-service shutdown"
+    ],
+    "scope": "Foundation startup/shutdown, not complete business-route/session acceptance"
+  },
+  "secretScan": { "command": "npm run secret:scan", "exitCode": 0 },
+  "externalServicesUsed": [],
+  "overallAcceptance": "notAccepted"
+}

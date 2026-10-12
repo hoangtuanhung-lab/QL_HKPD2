@@ -77,8 +77,8 @@ export function finalizePublication(
   validVersion(expectedVersion);
   validSources(currentVersions);
   ensure(
-    readiness.rankingsResolved &&
-      readiness.allResultsConfirmed &&
+    readiness?.rankingsResolved === true &&
+      readiness?.allResultsConfirmed === true &&
       Object.keys(currentVersions).length > 0,
     "PUBLICATION_UNRESOLVED",
     "Chưa đủ kết quả/tiêu chí để chốt bảng.",
@@ -199,6 +199,11 @@ export function notificationIntent(
 
 /** Explicit value whitelist even if a repository record contains unexpected extra fields. */
 export function publicValue(value: Value): Value {
+  ensure(
+    value && typeof value === "object" && !Array.isArray(value),
+    "INVALID_VALUE",
+    "Thành tích công khai không hợp lệ.",
+  );
   switch (value.kind) {
     case "time":
       scaled(value.seconds, 6);
@@ -216,12 +221,21 @@ export function publicValue(value: Value): Value {
         conceded: integer(value.conceded),
       };
     case "sets":
+      ensure(
+        Array.isArray(value.sets) && value.sets.length > 0,
+        "INVALID_VALUE",
+        "Thành tích hiệp cần có dữ liệu.",
+      );
       return {
         kind: value.kind,
-        sets: value.sets.map((s) => ({
-          scored: integer(s.scored),
-          conceded: integer(s.conceded),
-        })),
+        sets: Array.from(value.sets, (s) => {
+          ensure(
+            s && typeof s === "object" && !Array.isArray(s),
+            "INVALID_VALUE",
+            "Dòng hiệp không hợp lệ.",
+          );
+          return { scored: integer(s.scored), conceded: integer(s.conceded) };
+        }),
       };
     case "cards":
       return {
@@ -232,5 +246,11 @@ export function publicValue(value: Value): Value {
     case "external_rank":
       ensure(value.rank > 0, "INVALID_VALUE", "Vị thứ ngoài không hợp lệ.");
       return { kind: value.kind, rank: integer(value.rank) };
+    default:
+      ensure(
+        false,
+        "INVALID_VALUE",
+        "Loại thành tích công khai không được hỗ trợ.",
+      );
   }
 }
