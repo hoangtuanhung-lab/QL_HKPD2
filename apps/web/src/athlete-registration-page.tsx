@@ -126,6 +126,8 @@ export function AthleteRegistrationPage({
         return {
           ...a,
           fullName: clean(a.fullName),
+          className: clean(a.className),
+          requestedEvent: clean(a.requestedEvent),
           ...athleteDetails({ ...a }),
         };
       });
@@ -273,6 +275,8 @@ export function AthleteRegistrationPage({
             <col />
             <col className="registration-gender" />
             <col />
+            <col className="registration-class" />
+            <col />
           </colgroup>
           <thead>
             <tr>
@@ -283,6 +287,8 @@ export function AthleteRegistrationPage({
                 "NGÀY SINH",
                 "GIỚI TÍNH",
                 "GHI CHÚ",
+                "LỚP / NHÓM",
+                "NỘI DUNG THI ĐẤU",
               ].map((h) => (
                 <th key={h}>{h}</th>
               ))}
@@ -352,7 +358,7 @@ export function AthleteRegistrationPage({
                     <option value="female">Nữ</option>
                   </select>
                 </td>
-                <td>
+                <td className="registration-note">
                   <input
                     aria-label={`Ghi chú dòng ${i + 1}`}
                     placeholder="Ghi chú..."
@@ -382,11 +388,36 @@ export function AthleteRegistrationPage({
                     ×
                   </button>
                 </td>
+                <td>
+                  <input
+                    aria-label={`Lớp / nhóm dòng ${i + 1}`}
+                    placeholder="Nhập lớp..."
+                    value={a.className}
+                    disabled={busy}
+                    onChange={(e) =>
+                      change(a.draftId, { className: e.target.value })
+                    }
+                  />
+                </td>
+                <td>
+                  <input
+                    aria-label={`Nội dung thi đấu dòng ${i + 1}`}
+                    placeholder="Nhập nội dung..."
+                    value={a.requestedEvent}
+                    disabled={busy}
+                    onChange={(e) =>
+                      change(a.draftId, { requestedEvent: e.target.value })
+                    }
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <p className="registration-scroll-hint">
+        Kéo bảng sang ngang để xem đủ 8 cột trên màn hình nhỏ.
+      </p>
       <div className="registration-bottom">
         <button
           type="button"

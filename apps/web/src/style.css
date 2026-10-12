@@ -489,7 +489,7 @@ fieldset:disabled {
 
 /* School entry sheet: styles stay scoped so competition/result screens keep their layout. */
 .registration-mode {
-  max-width: 1060px;
+  max-width: 1280px;
   padding: 26px;
   background: white;
   border: 1px solid #e1e4e9;
@@ -605,7 +605,7 @@ fieldset:disabled {
 }
 .registration-table {
   width: 100%;
-  min-width: 660px;
+  min-width: 1040px;
   table-layout: fixed;
   font-size: 13px;
   color: #072957;
@@ -614,10 +614,24 @@ fieldset:disabled {
   width: 42px;
 }
 .registration-table .registration-name {
-  width: 24%;
+  width: 19%;
 }
 .registration-table .registration-gender {
-  width: 12%;
+  width: 8%;
+}
+.registration-table .registration-class {
+  width: 8%;
+}
+.registration-scroll-hint {
+  display: none;
+  color: #63748e;
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+@media (max-width: 1120px) {
+  .registration-scroll-hint {
+    display: block;
+  }
 }
 .registration-table th {
   color: #1045ba;
@@ -659,7 +673,7 @@ fieldset:disabled {
 .registration-table input::placeholder {
   color: #909caf;
 }
-.registration-table td:last-child {
+.registration-table td.registration-note {
   position: relative;
   padding-right: 22px;
 }

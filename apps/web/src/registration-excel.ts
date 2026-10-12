@@ -13,8 +13,8 @@ export const excelHeaders = [
   "NGÀY SINH",
   "GIỚI TÍNH",
   "GHI CHÚ",
-  "LỚP/NHÓM",
-  "NỘI DUNG DỰ KIẾN",
+  "LỚP / NHÓM",
+  "NỘI DUNG THI ĐẤU",
 ];
 async function workbook(): Promise<Workbook> {
   const { default: ExcelJS } = await import("exceljs");
@@ -75,7 +75,8 @@ export async function readRegistrationWorkbook(
       sheet.getRow(1).getCell(index + 1).value,
       "Tiêu đề",
     );
-    if (header && header !== excelHeaders[index])
+    const legacyHeader = index === 6 ? "LỚP/NHÓM" : "NỘI DUNG DỰ KIẾN";
+    if (header && header !== excelHeaders[index] && header !== legacyHeader)
       throw new Error("Cột bổ sung không đúng biểu mẫu.");
   }
   const athletes: AthleteDraft[] = [];

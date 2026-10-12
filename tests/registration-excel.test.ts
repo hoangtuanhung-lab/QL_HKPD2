@@ -17,6 +17,28 @@ const sample = {
 };
 const arrayBuffer = (bytes: Uint8Array) => bytes.slice().buffer as ArrayBuffer;
 describe("Registration Excel", () => {
+  it("continues reading old templates with the previous class/event column names", async () => {
+    const book = new ExcelJS.Workbook();
+    const sheet = book.addWorksheet("Đăng ký");
+    sheet.addRow([...excelHeaders.slice(0, 6), "LỚP/NHÓM", "NỘI DUNG DỰ KIẾN"]);
+    sheet.addRow([
+      1,
+      sample.fullName,
+      sample.identityNumber,
+      "15/05/2012",
+      "Nữ",
+      sample.note,
+      sample.className,
+      sample.requestedEvent,
+    ]);
+    const imported = await readRegistrationWorkbook(
+      arrayBuffer(new Uint8Array(await book.xlsx.writeBuffer())),
+    );
+    expect(imported[0]).toMatchObject({
+      ...sample,
+      draftId: expect.any(String),
+    });
+  });
   it("writes a real xlsx and preserves leading zeros, dates, gender, notes and legacy fields", async () => {
     const bytes = await registrationWorkbook([sample]);
     expect([...bytes.slice(0, 2)]).toEqual([80, 75]);
