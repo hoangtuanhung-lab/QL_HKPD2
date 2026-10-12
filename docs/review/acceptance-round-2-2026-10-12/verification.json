@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Saigon",
+  "baseCommit": "04748cd263ac5578f48df7b890c251b6cf7851a9",
+  "fullCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "testFiles": 42,
+    "testsPassed": 588,
+    "includes": [
+      "lint",
+      "typecheck",
+      "build",
+      "business rules",
+      "schema drift",
+      "static SQL checks"
+    ],
+    "actualSqlExecuted": false
+  },
+  "newRegression": {
+    "command": "npx vitest run tests/acceptance-next-five-regression.test.ts",
+    "exitCode": 0,
+    "testsPassed": 34
+  },
+  "smoke": {
+    "command": "node scripts/smoke.mjs",
+    "exitCode": 0,
+    "verified": [
+      "dev API/web/worker",
+      "staging API/web/worker",
+      "managed shutdown",
+      "single-service shutdown"
+    ],
+    "scope": "Foundation startup/shutdown; not business-route or session acceptance"
+  },
+  "secretScan": { "command": "npm run secret:scan", "exitCode": 0 },
+  "newFindingsReproduction": {
+    "command": "node docs/review/acceptance-round-2-2026-10-12/new-findings.mjs",
+    "exitCode": 0,
+    "meaning": "Five unwanted behaviors reproduced on built libraries, not acceptance success",
+    "findings": ["M-01", "M-02", "M-03", "M-04", "M-05"],
+    "fixedThisRound": false
+  },
+  "externalServicesUsed": [],
+  "overallAcceptance": "notAccepted"
+}

@@ -11,9 +11,11 @@ export interface PreviewRow {
   existingStudentId: string | null;
 }
 export function maskIdentity(value: string): string {
-  return value
-    ? `${"*".repeat(Math.max(0, value.length - 4))}${value.slice(-4)}`
-    : "";
+  if (!value) return "";
+  // Never display the original malformed value, even if it is shorter than last4.
+  return /^\d{12}$/.test(value)
+    ? `${"*".repeat(8)}${value.slice(-4)}`
+    : "*".repeat(value.length);
 }
 /** Strict RFC-style quoted CSV. Technical byte limit is not an athlete quota. */
 export function parseCsv(text: string): string[][] {

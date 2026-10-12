@@ -1,0 +1,50 @@
+{
+  "purpose": "Additional observed defects/limitation; exit0 means reproduced, not acceptance passed",
+  "externalServicesUsed": [],
+  "findings": [
+    {
+      "id": "M-01",
+      "issue": "Penalty waived string false is treated as truthy and removes the deduction",
+      "validFalseTotal": 23,
+      "stringFalseTotal": 33
+    },
+    {
+      "id": "M-02",
+      "issue": "Empty played match references count as actual participation",
+      "performed": false,
+      "onlyMatchId": "",
+      "actual": 3,
+      "medals": ["gold", "silver", null]
+    },
+    {
+      "id": "M-03",
+      "issue": "Approved roster projection accepts an empty approved team",
+      "exportedEntries": 1,
+      "personIds": []
+    },
+    {
+      "id": "M-04",
+      "issue": "Invalid NaN clock bypasses cursor expiry comparison",
+      "expiredAtValidClockRejected": true,
+      "invalidClockAccepted": true
+    },
+    {
+      "id": "M-05",
+      "issue": "Greedy scheduler fails a feasible two-task two-venue input order",
+      "classification": "documented greedy limitation; improvement proposal",
+      "inputOrderRejected": ["flex", "fixed"],
+      "alternativeFeasible": [
+        {
+          "id": "fixed",
+          "venue": "A",
+          "start": "2026-10-12T08:00:00.000Z"
+        },
+        {
+          "id": "flex",
+          "venue": "B",
+          "start": "2026-10-12T08:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}

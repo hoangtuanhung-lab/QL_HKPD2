@@ -14,11 +14,42 @@ export interface Publication {
   status: "provisional" | "finalized";
   sourceVersions: Readonly<Record<string, number>>;
 }
+function validVersion(value: number, increment = false) {
+  ensure(
+    Number.isSafeInteger(value) &&
+      value > 0 &&
+      (!increment || value < Number.MAX_SAFE_INTEGER),
+    "INVALID_VERSION",
+    "Phiên bản phải là số nguyên dương an toàn, không vượt giới hạn tăng.",
+  );
+}
+function validSources(sources: Readonly<Record<string, number>>) {
+  ensure(
+    sources && typeof sources === "object" && !Array.isArray(sources),
+    "INVALID_VERSION",
+    "Nguồn phiên bản không hợp lệ.",
+  );
+  for (const [id, version] of Object.entries(sources)) {
+    ensure(id.trim(), "INVALID_VERSION", "Thiếu ID nguồn.");
+    validVersion(version);
+  }
+}
+function validatePublication(p: Publication) {
+  validVersion(p.version);
+  validSources(p.sourceVersions);
+  ensure(
+    p.id && p.editionId && ["provisional", "finalized"].includes(p.status),
+    "INVALID_STATE",
+    "Phạm vi/trạng thái công bố không hợp lệ.",
+  );
+}
 export function invalidatePublication(
   p: Publication,
   matchId: string,
   officialVersion: number,
 ): Publication {
+  validatePublication(p);
+  ensure(matchId.trim(), "INVALID_VERSION", "Thiếu ID nguồn.");
   integer(officialVersion);
   ensure(
     officialVersion > 0,
@@ -27,6 +58,7 @@ export function invalidatePublication(
   );
   // Delayed or duplicate outbox delivery must never roll a source back.
   if ((p.sourceVersions[matchId] ?? 0) >= officialVersion) return p;
+  validVersion(p.version, true);
   return freeze({
     ...structuredClone(p),
     version: p.version + 1,
@@ -40,6 +72,10 @@ export function finalizePublication(
   expectedVersion: number,
   readiness: { rankingsResolved: boolean; allResultsConfirmed: boolean },
 ) {
+  validatePublication(p);
+  validVersion(p.version, true);
+  validVersion(expectedVersion);
+  validSources(currentVersions);
   ensure(
     readiness.rankingsResolved &&
       readiness.allResultsConfirmed &&
@@ -75,6 +111,7 @@ export function publicResults(
     >
   >,
 ): components["schemas"]["PublicResult"][] {
+  validatePublication(p);
   if (p.status !== "finalized") return [];
   ensure(
     p.editionId === official.edition_id &&

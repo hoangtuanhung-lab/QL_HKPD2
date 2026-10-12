@@ -33,6 +33,13 @@ export function changeParticipation(
   },
 ) {
   ensure(
+    ["active", "excused", "absent", "disqualified"].includes(p.status) &&
+      ["active", "excused", "absent", "disqualified"].includes(next) &&
+      ["knockout", "round_robin"].includes(context.format),
+    "STATUS_INPUT",
+    "Trạng thái/thể thức không được hỗ trợ.",
+  );
+  ensure(
     p.eventId === context.eventId &&
       !context.editionLocked &&
       context.actorId &&
