@@ -716,6 +716,30 @@ fieldset:disabled {
   gap: 24px;
   margin-bottom: 22px;
 }
+.event-level-banner {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 16px;
+  background: #eef4ff;
+  border: 1px solid #d2def1;
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+.event-level-banner label {
+  margin: 0;
+  font-size: 13px;
+  color: #1643a2;
+}
+.event-level-banner select {
+  width: auto;
+  min-width: 180px;
+  padding: 6px 10px;
+  border: 0;
+  background: transparent;
+  font-weight: 700;
+  color: #1643a2;
+}
 .event-photo-card {
   text-align: center;
 }
@@ -811,6 +835,85 @@ fieldset:disabled {
   border-radius: 8px;
   padding: 18px;
   background: #fbfcff;
+}
+.event-registration-scroll {
+  overflow-x: auto;
+}
+.event-registration-table {
+  min-width: 680px;
+  table-layout: fixed;
+  background: white;
+}
+.event-registration-table th {
+  background: #eff5ff;
+  color: #1643a2;
+  border: 1px solid #b8c8df;
+  font-size: 12px;
+}
+.event-registration-table td {
+  border: 1px solid #c7d4e6;
+  vertical-align: top;
+  padding: 9px 6px;
+}
+.event-registration-table td:first-child {
+  text-align: center;
+}
+.event-registration-table select {
+  padding: 6px 4px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+.event-registration-table small {
+  display: block;
+  font-size: 10px;
+  color: #63748e;
+  margin-top: 5px;
+}
+.event-active-group {
+  background: #f7faff;
+}
+.event-row-notes {
+  position: relative;
+  padding-right: 20px !important;
+}
+.event-row-notes label {
+  display: flex;
+  gap: 5px;
+  align-items: start;
+  margin: 2px 0 6px;
+  font-size: 11px;
+  font-weight: 400;
+}
+.event-row-notes input {
+  width: auto;
+  margin: 3px 0 0;
+  accent-color: #285ded;
+}
+.event-row-notes button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  background: transparent;
+  border: 0;
+  color: #b23939;
+  padding: 0 2px;
+}
+.event-table-add {
+  display: flex;
+  gap: 10px;
+  padding-top: 14px;
+}
+.event-table-add button {
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 4px;
+  background: #285ded;
+  border: 0;
+}
+.event-table-add button:last-child {
+  color: #1643a2;
+  background: white;
+  border: 1px solid #bacde7;
 }
 .event-panel-title {
   display: flex;

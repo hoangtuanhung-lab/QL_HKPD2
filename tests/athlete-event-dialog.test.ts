@@ -81,6 +81,14 @@ function Page() {
   );
 }
 const output = () => JSON.parse(document.querySelector("output")!.textContent!);
+function choose(label: string, value: string) {
+  fireEvent.change(screen.getByLabelText(label), { target: { value } });
+}
+function chooseRun() {
+  choose("Môn thi dòng 1", "athletics");
+  choose("Nội dung dòng 1", "Chạy");
+  choose("Chi tiết dòng 1", "Chạy 100 m");
+}
 describe("Athlete row actions and sport registration", () => {
   it("saves one edited row without saving or deleting another pending row and retains order", () => {
     render(createElement(Page));
@@ -112,18 +120,21 @@ describe("Athlete row actions and sport registration", () => {
     fireEvent.click(screen.getByLabelText("Đăng ký môn cho VĐV A"));
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).getByText("VĐV A")).toBeTruthy();
-    fireEvent.click(within(dialog).getByLabelText("Chạy 100 m"));
-    fireEvent.click(within(dialog).getByLabelText("Nhảy xa"));
+    chooseRun();
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: /Thêm nội dung/ }),
+    );
+    choose("Nội dung dòng 2", "Nhảy xa");
     fireEvent.click(within(dialog).getByText(/Lưu đăng ký môn/));
     expect(screen.queryByRole("dialog")).toBeNull();
     expect(output().school.athletes[0].eventSelections).toHaveLength(2);
     expect(output().school.athletes[1].eventSelections).toBeUndefined();
     fireEvent.click(screen.getByLabelText("Đăng ký môn cho VĐV A"));
     expect(
-      (screen.getByLabelText("Chạy 100 m") as HTMLInputElement).checked,
-    ).toBe(true);
-    fireEvent.click(screen.getByLabelText("Chạy 100 m"));
-    fireEvent.click(screen.getByLabelText("Nhảy xa"));
+      (screen.getByLabelText("Chi tiết dòng 1") as HTMLSelectElement).value,
+    ).toBe("Chạy 100 m");
+    fireEvent.click(screen.getByLabelText("Xóa dòng đăng ký 2"));
+    fireEvent.click(screen.getByLabelText("Xóa dòng đăng ký 1"));
     fireEvent.click(screen.getByText(/Lưu đăng ký môn/));
     expect(output().school.athletes[0].eventSelections).toEqual([]);
     expect(output().school.athletes[0].requestedEvent).toBe("");
@@ -139,7 +150,7 @@ describe("Athlete row actions and sport registration", () => {
         onClose: close,
       }),
     );
-    fireEvent.click(screen.getByLabelText("Chạy 100 m"));
+    chooseRun();
     vi.spyOn(window, "confirm").mockReturnValue(false);
     fireEvent.click(screen.getByText("Quay lại"));
     expect(close).not.toHaveBeenCalled();
@@ -157,8 +168,54 @@ describe("Athlete row actions and sport registration", () => {
     expect(apply).not.toHaveBeenCalled();
     expect(screen.getByRole("alert").textContent).toMatch(/Phiếu đã thay đổi/);
     expect(
-      (screen.getByLabelText("Chạy 100 m") as HTMLInputElement).checked,
+      (screen.getByLabelText("Chi tiết dòng 1") as HTMLSelectElement).value,
+    ).toBe("Chạy 100 m");
+  });
+  it("starts with one empty row, adds a new sport and inherits that sport for an extra content row", () => {
+    const apply = vi.fn();
+    render(
+      createElement(AthleteEventDialog, {
+        school: initial,
+        athlete: initial.athletes[0]!,
+        onApply: apply,
+        onClose: vi.fn(),
+      }),
+    );
+    expect(
+      screen.getAllByRole("columnheader").map((h) => h.textContent),
+    ).toEqual(["STT", "Môn thi", "Nội dung", "Chi tiết", "Ghi chú"]);
+    expect(
+      (screen.getByLabelText("Môn thi dòng 1") as HTMLSelectElement).value,
+    ).toBe("");
+    expect(screen.queryByLabelText("Môn thi dòng 2")).toBeNull();
+    const banner = document.querySelector(".event-level-banner")!,
+      profile = document.querySelector(".event-profile")!;
+    expect(
+      banner.compareDocumentPosition(profile) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    chooseRun();
+    fireEvent.click(screen.getByRole("button", { name: /Thêm môn/ }));
+    choose("Môn thi dòng 2", "swimming");
+    choose("Nội dung dòng 2", "Ếch");
+    choose("Chi tiết dòng 2", "Ếch 50 m");
+    fireEvent.click(screen.getByRole("button", { name: /Thêm nội dung/ }));
+    expect(
+      (screen.getByLabelText("Môn thi dòng 3") as HTMLSelectElement).value,
+    ).toBe("swimming");
+    expect(
+      (screen.getByLabelText("Môn thi dòng 3") as HTMLSelectElement).disabled,
     ).toBe(true);
+    choose("Nội dung dòng 3", "Ếch");
+    choose("Chi tiết dòng 3", "Ếch 100 m");
+    fireEvent.click(screen.getByRole("button", { name: /Thêm môn/ }));
+    expect(screen.getByRole("alert").textContent).toMatch(/2 môn/);
+    fireEvent.click(screen.getByText(/Lưu đăng ký môn/));
+    expect(apply.mock.calls[0]![0].eventSelections).toEqual([
+      { sportId: "athletics", level: "THCS", eventLabel: "Chạy 100 m" },
+      { sportId: "swimming", level: "THCS", eventLabel: "Ếch 50 m" },
+      { sportId: "swimming", level: "THCS", eventLabel: "Ếch 100 m" },
+    ]);
   });
   it("rejects unsupported photo uploads without changing the athlete", async () => {
     render(
