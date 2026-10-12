@@ -1,0 +1,15 @@
+{
+  "received_date": "2026-10-13",
+  "timezone": "Asia/Saigon",
+  "catalog_entries": 133,
+  "sources": {
+    "catalog": {
+      "path": "docs/catalog/DanhMuc_Mon_NoiDung_HKPD.xlsx",
+      "sha256": "a6e2557ad099bd4c9b38e5a564a05843fadc03ca04b8d846b8825098c80adb4a"
+    },
+    "ui_reference": {
+      "path": "docs/ui-references/dangkymonthi.tsx.txt",
+      "sha256": "ba7d80f4acf1f6b085ca823e7f6dd1c3bda6a4057a25f0a86b071ca8b6288838"
+    }
+  }
+}

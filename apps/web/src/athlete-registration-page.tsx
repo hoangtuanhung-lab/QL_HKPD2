@@ -455,7 +455,13 @@ export function AthleteRegistrationPage({
                     placeholder="Nhập nội dung..."
                     value={a.requestedEvent}
                     disabled={busy}
-                    readOnly={locked(a) || Boolean(a.eventSelections?.length)}
+                    readOnly={
+                      locked(a) ||
+                      Boolean(
+                        a.catalogSelections?.length ||
+                        a.eventSelections?.length,
+                      )
+                    }
                     onChange={(e) =>
                       change(a.draftId, { requestedEvent: e.target.value })
                     }
@@ -467,8 +473,9 @@ export function AthleteRegistrationPage({
                       ? "Chưa lưu an toàn"
                       : storageStatus === "saving"
                         ? "Đang lưu…"
-                        : a.eventSelections?.length
-                          ? `${a.eventSelections.length} nội dung nháp`
+                        : (a.catalogSelections?.length ??
+                            a.eventSelections?.length)
+                          ? `${a.catalogSelections?.length ?? a.eventSelections?.length ?? 0} nội dung nháp`
                           : locked(a)
                             ? "Đã lưu nháp"
                             : "Đang sửa"}

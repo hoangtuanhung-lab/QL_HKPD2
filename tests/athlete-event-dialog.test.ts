@@ -85,10 +85,10 @@ function choose(label: string, value: string) {
   fireEvent.change(screen.getByLabelText(label), { target: { value } });
 }
 function chooseRun() {
-  choose("Môn thi dòng 1", "athletics");
-  choose("Nội dung dòng 1", "Chạy");
-  choose("Chi tiết dòng 1", "Chạy 100 m");
+  choose("Môn dòng 1", "DK");
+  choose("Tên nội dung dòng 1", "DK_THCS_NAM_TC_100M");
 }
+
 describe("Athlete row actions and sport registration", () => {
   it("saves one edited row without saving or deleting another pending row and retains order", () => {
     render(createElement(Page));
@@ -124,19 +124,19 @@ describe("Athlete row actions and sport registration", () => {
     fireEvent.click(
       within(dialog).getByRole("button", { name: /Thêm nội dung/ }),
     );
-    choose("Nội dung dòng 2", "Nhảy xa");
-    fireEvent.click(within(dialog).getByText(/Lưu đăng ký môn/));
+    choose("Tên nội dung dòng 2", "DK_THCS_NAM_TC_NHAYXA");
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: /Lưu đăng ký môn/ }),
+    );
     expect(screen.queryByRole("dialog")).toBeNull();
-    expect(output().school.athletes[0].eventSelections).toHaveLength(2);
+    expect(output().school.athletes[0].catalogSelections).toHaveLength(2);
     expect(output().school.athletes[1].eventSelections).toBeUndefined();
     fireEvent.click(screen.getByLabelText("Đăng ký môn cho VĐV A"));
-    expect(
-      (screen.getByLabelText("Chi tiết dòng 1") as HTMLSelectElement).value,
-    ).toBe("Chạy 100 m");
-    fireEvent.click(screen.getByLabelText("Xóa dòng đăng ký 2"));
-    fireEvent.click(screen.getByLabelText("Xóa dòng đăng ký 1"));
-    fireEvent.click(screen.getByText(/Lưu đăng ký môn/));
-    expect(output().school.athletes[0].eventSelections).toEqual([]);
+    expect(screen.getByText("DK_THCS_NAM_TC_100M")).toBeTruthy();
+    fireEvent.click(screen.getByLabelText("Xóa đăng ký dòng 2"));
+    fireEvent.click(screen.getByLabelText("Xóa đăng ký dòng 1"));
+    fireEvent.click(screen.getByRole("button", { name: /Lưu đăng ký môn/ }));
+    expect(output().school.athletes[0].catalogSelections).toEqual([]);
     expect(output().school.athletes[0].requestedEvent).toBe("");
   });
   it("preserves unsaved event choices when cancel is rejected and blocks stale modal saves", () => {
@@ -164,14 +164,14 @@ describe("Athlete row actions and sport registration", () => {
         onClose: close,
       }),
     );
-    fireEvent.click(screen.getByText(/Lưu đăng ký môn/));
+    fireEvent.click(screen.getByRole("button", { name: /Lưu đăng ký môn/ }));
     expect(apply).not.toHaveBeenCalled();
     expect(screen.getByRole("alert").textContent).toMatch(/Phiếu đã thay đổi/);
     expect(
-      (screen.getByLabelText("Chi tiết dòng 1") as HTMLSelectElement).value,
-    ).toBe("Chạy 100 m");
+      (screen.getByLabelText("Tên nội dung dòng 1") as HTMLSelectElement).value,
+    ).toBe("DK_THCS_NAM_TC_100M");
   });
-  it("starts with one empty row, adds a new sport and inherits that sport for an extra content row", () => {
+  it("uses the six catalog columns, locks football groups and preserves inherited sport/group on a new content row", () => {
     const apply = vi.fn();
     render(
       createElement(AthleteEventDialog, {
@@ -183,38 +183,52 @@ describe("Athlete row actions and sport registration", () => {
     );
     expect(
       screen.getAllByRole("columnheader").map((h) => h.textContent),
-    ).toEqual(["STT", "Môn thi", "Nội dung", "Chi tiết", "Ghi chú"]);
+    ).toEqual([
+      "STT",
+      "Mã môn",
+      "Môn",
+      "Phân nhóm",
+      "Tên nội dung",
+      "Trạng thái",
+    ]);
     expect(
-      (screen.getByLabelText("Môn thi dòng 1") as HTMLSelectElement).value,
+      (screen.getByLabelText("Môn dòng 1") as HTMLSelectElement).value,
     ).toBe("");
-    expect(screen.queryByLabelText("Môn thi dòng 2")).toBeNull();
-    const banner = document.querySelector(".event-level-banner")!,
-      profile = document.querySelector(".event-profile")!;
+    expect(screen.queryByLabelText("Môn dòng 2")).toBeNull();
+    expect(screen.getByText("2012")).toBeTruthy();
+    choose("Môn dòng 1", "BD");
     expect(
-      banner.compareDocumentPosition(profile) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
-    chooseRun();
-    fireEvent.click(screen.getByRole("button", { name: /Thêm môn/ }));
-    choose("Môn thi dòng 2", "swimming");
-    choose("Nội dung dòng 2", "Ếch");
-    choose("Chi tiết dòng 2", "Ếch 50 m");
+      (screen.getByLabelText("Phân nhóm dòng 1") as HTMLSelectElement).disabled,
+    ).toBe(true);
+    expect(screen.getByText("BD_THCS")).toBeTruthy();
+    expect(
+      (screen.getByLabelText("Tên nội dung dòng 1") as HTMLSelectElement).value,
+    ).toBe("BD_THCS");
+    fireEvent.click(screen.getByLabelText("Lưu đăng ký dòng 1"));
+    expect(screen.getByLabelText("Sửa đăng ký dòng 1")).toBeTruthy();
+    fireEvent.click(screen.getByLabelText("Sửa đăng ký dòng 1"));
+    choose("Môn dòng 1", "BOI");
+    expect(
+      (screen.getByLabelText("Tên nội dung dòng 1") as HTMLSelectElement).value,
+    ).toBe("");
+    expect(
+      (screen.getByLabelText("Tên nội dung dòng 1") as HTMLSelectElement)
+        .disabled,
+    ).toBe(true);
+    choose("Phân nhóm dòng 1", "13 - 14 tuổi");
+    choose("Tên nội dung dòng 1", "BOI_THCS_NAM_1415_ECH50");
     fireEvent.click(screen.getByRole("button", { name: /Thêm nội dung/ }));
     expect(
-      (screen.getByLabelText("Môn thi dòng 3") as HTMLSelectElement).value,
-    ).toBe("swimming");
+      (screen.getByLabelText("Môn dòng 2") as HTMLSelectElement).value,
+    ).toBe("BOI");
     expect(
-      (screen.getByLabelText("Môn thi dòng 3") as HTMLSelectElement).disabled,
-    ).toBe(true);
-    choose("Nội dung dòng 3", "Ếch");
-    choose("Chi tiết dòng 3", "Ếch 100 m");
-    fireEvent.click(screen.getByRole("button", { name: /Thêm môn/ }));
-    expect(screen.getByRole("alert").textContent).toMatch(/2 môn/);
-    fireEvent.click(screen.getByText(/Lưu đăng ký môn/));
-    expect(apply.mock.calls[0]![0].eventSelections).toEqual([
-      { sportId: "athletics", level: "THCS", eventLabel: "Chạy 100 m" },
-      { sportId: "swimming", level: "THCS", eventLabel: "Ếch 50 m" },
-      { sportId: "swimming", level: "THCS", eventLabel: "Ếch 100 m" },
+      (screen.getByLabelText("Phân nhóm dòng 2") as HTMLSelectElement).value,
+    ).toBe("13 - 14 tuổi");
+    choose("Tên nội dung dòng 2", "BOI_THCS_NAM_1415_ECH100");
+    fireEvent.click(screen.getByRole("button", { name: /Lưu đăng ký môn/ }));
+    expect(apply.mock.calls[0]![0].catalogSelections).toEqual([
+      "BOI_THCS_NAM_1415_ECH50",
+      "BOI_THCS_NAM_1415_ECH100",
     ]);
   });
   it("rejects unsupported photo uploads without changing the athlete", async () => {
@@ -233,6 +247,75 @@ describe("Athlete row actions and sport registration", () => {
     });
     expect((await screen.findByRole("alert")).textContent).toMatch(/JPG, PNG/);
     expect(screen.queryByRole("img")).toBeNull();
+  });
+  it("does not offer football to girls or THCS content to a primary pupil", () => {
+    const female = { ...initial.athletes[0]!, gender: "female" as const };
+    const view = render(
+      createElement(AthleteEventDialog, {
+        school: initial,
+        athlete: female,
+        onApply: vi.fn(),
+        onClose: vi.fn(),
+      }),
+    );
+    expect(
+      within(screen.getByLabelText("Môn dòng 1")).queryByRole("option", {
+        name: "Bóng đá",
+      }),
+    ).toBeNull();
+    view.unmount();
+    const primary = {
+      ...initial.athletes[0]!,
+      className: "4A",
+      birthDate: "2016-05-15",
+    };
+    render(
+      createElement(AthleteEventDialog, {
+        school: initial,
+        athlete: primary,
+        onApply: vi.fn(),
+        onClose: vi.fn(),
+      }),
+    );
+    choose("Môn dòng 1", "BD");
+    expect(screen.getByText("BD_TH")).toBeTruthy();
+    expect(screen.queryByText("BD_THCS")).toBeNull();
+    expect((screen.getByLabelText("Cấp học") as HTMLSelectElement).value).toBe(
+      "TH",
+    );
+  });
+  it("retains an unresolved old preference until explicitly replaced rather than dropping it on save", () => {
+    const apply = vi.fn();
+    const athlete = {
+      ...initial.athletes[0]!,
+      eventSelections: [
+        {
+          sportId: "chess" as const,
+          level: "THCS" as const,
+          eventLabel: "Cá nhân nam",
+        },
+      ],
+    };
+    render(
+      createElement(AthleteEventDialog, {
+        school: initial,
+        athlete,
+        onApply: apply,
+        onClose: vi.fn(),
+      }),
+    );
+    expect(screen.getByText("Cá nhân nam (THCS)")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: /Lưu đăng ký môn/ }));
+    expect(apply).not.toHaveBeenCalled();
+    expect(screen.getByRole("alert").textContent).toMatch(/chưa đối chiếu/);
+    fireEvent.click(screen.getByRole("button", { name: "Xóa lựa chọn cũ 1" }));
+    choose("Môn dòng 1", "CV");
+    choose("Phân nhóm dòng 1", "13 - 14 tuổi");
+    choose("Tên nội dung dòng 1", "CV_THCS_NAM_1415_CANHAN");
+    fireEvent.click(screen.getByRole("button", { name: /Lưu đăng ký môn/ }));
+    expect(apply.mock.calls[0]![0].catalogSelections).toEqual([
+      "CV_THCS_NAM_1415_CANHAN",
+    ]);
   });
   it("round trips preferences and photo through portable v3 and locked storage; blocks invalid payloads", async () => {
     const next = structuredClone(initial);
