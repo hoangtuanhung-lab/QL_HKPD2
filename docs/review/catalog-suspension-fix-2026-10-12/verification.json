@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Saigon",
+  "baseCommit": "8d7ec376611a2834348f7e173ecba56019319093",
+  "fix": "AUD-01",
+  "fullCheck": {
+    "command": "npm run check",
+    "exitCode": 0,
+    "testFiles": 45,
+    "testsPassed": 677,
+    "includes": [
+      "lint",
+      "typecheck",
+      "build",
+      "business rules",
+      "schema drift",
+      "static SQL checks"
+    ],
+    "actualSqlExecuted": false
+  },
+  "focusedCheck": {
+    "command": "npx vitest run tests/catalog-suspension-regression.test.ts tests/cross-group-pipeline.test.ts tests/cross-group-consumer.test.ts",
+    "exitCode": 0,
+    "testFiles": 3,
+    "testsPassed": 30,
+    "newRegressionTests": 20
+  },
+  "smoke": {
+    "command": "node scripts/smoke.mjs",
+    "exitCode": 0,
+    "verified": [
+      "dev API/web/worker",
+      "staging API/web/worker",
+      "managed shutdown",
+      "single-service shutdown"
+    ],
+    "scope": "Foundation startup/shutdown, not complete business-route/session acceptance"
+  },
+  "secretScan": { "command": "npm run secret:scan", "exitCode": 0 },
+  "legacyBundlePolicy": "Missing catalogSourceVersion requires draft review/repreparation, not silent backfill",
+  "externalServicesUsedForValidation": [],
+  "overallAcceptance": "notAccepted"
+}
