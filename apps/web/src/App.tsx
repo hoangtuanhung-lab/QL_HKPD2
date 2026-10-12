@@ -1,3 +1,4 @@
+import { AthleteRegistrationPage } from "./athlete-registration-page.js";
 import { OfflineWorkspace } from "./offline-ui.js";
 import { CompetitionWorkspace } from "./competition-ui.js";
 import { ResultsWorkspace } from "./results-ui.js";
@@ -87,6 +88,7 @@ export function App() {
   );
   const [activeId, setActiveId] = useState(initial.drafts[0]?.draftId ?? "");
   const [step, setStep] = useState<Step>("Đăng ký VĐV");
+  const [tableDirty, setTableDirty] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(initial.error);
   const [storageError, setStorageError] = useState("");
@@ -232,7 +234,22 @@ export function App() {
     setMessage("Đã xuất phiếu nháp để bàn giao. Phiếu chưa được gửi duyệt.");
   }
   return (
-    <main>
+    <main className={step === "Đăng ký VĐV" ? "registration-mode" : ""}>
+      {step === "Đăng ký VĐV" && (
+        <AthleteRegistrationPage
+          schools={drafts}
+          activeId={activeId}
+          onSelect={selectSchool}
+          onDirty={setTableDirty}
+          onSave={(updated) =>
+            commit(
+              draftsRef.current.map((s) =>
+                s.draftId === updated.draftId ? updated : s,
+              ),
+            )
+          }
+        />
+      )}
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark" aria-hidden="true">
@@ -278,7 +295,17 @@ export function App() {
             type="button"
             aria-current={step === item ? "page" : undefined}
             className={step === item ? "selected" : ""}
-            onClick={() => setStep(item)}
+            onClick={() => {
+              if (
+                item !== step &&
+                tableDirty &&
+                !window.confirm(
+                  "Bảng đăng ký có thay đổi chưa lưu. Chuyển màn hình sẽ bỏ các thay đổi này. Bạn muốn tiếp tục?",
+                )
+              )
+                return;
+              setStep(item);
+            }}
           >
             {item}
           </button>
@@ -300,234 +327,242 @@ export function App() {
         </p>
       )}
       {step === "Đăng ký VĐV" ? (
-        <div className="workspace">
-          <aside className="card">
-            <h2>Phiếu của nhà trường</h2>
-            <p>
-              Tạo theo trường và kỳ giải. Số lượng tăng theo danh sách đăng ký.
-            </p>
-            <form onSubmit={addSchool}>
-              <FormField
-                label="Tên kỳ giải"
-                required
-                value={editionName}
-                onChange={(event) => setEditionName(event.target.value)}
-                placeholder="Nhập kỳ giải muốn tham gia"
-              />
-              <FormField
-                label="Tên trường"
-                required
-                value={schoolName}
-                onChange={(event) => setSchoolName(event.target.value)}
-                placeholder="Nhập tên trường"
-              />
-              <button type="submit">Tạo / mở phiếu nháp</button>
-            </form>
-            <div className="school-list">
-              {drafts.map((school) => (
-                <button
-                  key={school.draftId}
-                  className={
-                    school.draftId === activeId
-                      ? "school-item selected"
-                      : "school-item"
-                  }
-                  type="button"
-                  onClick={() => selectSchool(school.draftId)}
-                >
-                  <strong>{school.schoolName}</strong>
-                  <span>
-                    {school.editionName} · {school.athletes.length} VĐV
-                  </span>
-                </button>
-              ))}
-            </div>
-            <input
-              ref={fileInput}
-              type="file"
-              accept="application/json,.json"
-              hidden
-              onChange={(event) => {
-                void importSheet(event.target.files?.[0]);
-              }}
-            />
-            <button
-              className="secondary"
-              type="button"
-              onClick={() => fileInput.current?.click()}
-            >
-              Nhập phiếu từ tệp
-            </button>
-          </aside>
-          <section className="card roster">
-            {active ? (
-              <>
-                <div className="section-heading">
-                  <div>
-                    <p className="eyebrow">DANH SÁCH BẢN NHÁP</p>
-                    <h2>{active.schoolName}</h2>
-                    <p>{active.editionName}</p>
-                  </div>
+        <details className="registration-tools">
+          <summary>Thiết lập phiếu trường và công cụ bổ sung</summary>
+          <div className="workspace">
+            <aside className="card">
+              <h2>Phiếu của nhà trường</h2>
+              <p>
+                Tạo theo trường và kỳ giải. Số lượng tăng theo danh sách đăng
+                ký.
+              </p>
+              <form onSubmit={addSchool}>
+                <FormField
+                  label="Tên kỳ giải"
+                  required
+                  value={editionName}
+                  onChange={(event) => setEditionName(event.target.value)}
+                  placeholder="Nhập kỳ giải muốn tham gia"
+                />
+                <FormField
+                  label="Tên trường"
+                  required
+                  value={schoolName}
+                  onChange={(event) => setSchoolName(event.target.value)}
+                  placeholder="Nhập tên trường"
+                />
+                <button type="submit">Tạo / mở phiếu nháp</button>
+              </form>
+              <div className="school-list">
+                {drafts.map((school) => (
                   <button
+                    key={school.draftId}
+                    className={
+                      school.draftId === activeId
+                        ? "school-item selected"
+                        : "school-item"
+                    }
                     type="button"
-                    className="secondary"
-                    onClick={exportSheet}
+                    onClick={() => selectSchool(school.draftId)}
                   >
-                    Xuất phiếu đăng ký
+                    <strong>{school.schoolName}</strong>
+                    <span>
+                      {school.editionName} · {school.athletes.length} VĐV
+                    </span>
                   </button>
-                </div>
-                <form className="athlete-form" onSubmit={addAthlete}>
-                  <label>
-                    Họ và tên VĐV
-                    <input
-                      required
-                      value={athlete.fullName}
-                      onChange={(event) =>
-                        setAthlete({ ...athlete, fullName: event.target.value })
-                      }
-                    />
-                  </label>
-                  <label>
-                    Lớp / nhóm học
-                    <input
-                      required
-                      value={athlete.className}
-                      onChange={(event) =>
-                        setAthlete({
-                          ...athlete,
-                          className: event.target.value,
-                        })
-                      }
-                      placeholder="Theo thông tin của trường"
-                    />
-                  </label>
-                  <label>
-                    Nội dung muốn tham gia
-                    <input
-                      required
-                      value={athlete.requestedEvent}
-                      onChange={(event) =>
-                        setAthlete({
-                          ...athlete,
-                          requestedEvent: event.target.value,
-                        })
-                      }
-                      placeholder="Nguyện vọng; chờ đối chiếu danh mục"
-                    />
-                  </label>
-                  <div className="form-actions">
-                    <button type="submit">
-                      {athlete.draftId ? "Lưu thay đổi" : "Thêm VĐV"}
-                    </button>
-                    {athlete.draftId && (
-                      <button
-                        className="secondary"
-                        type="button"
-                        onClick={resetAthlete}
-                      >
-                        Hủy sửa
-                      </button>
-                    )}
-                  </div>
-                </form>
-                {active.athletes.length ? (
-                  <div className="table-scroll">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>STT</th>
-                          <th>VĐV / lớp</th>
-                          <th>Nội dung dự kiến</th>
-                          <th>Mã VĐV</th>
-                          <th>Thao tác</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {active.athletes.map((item, index) => (
-                          <tr key={item.draftId}>
-                            <td>{index + 1}</td>
-                            <td>
-                              <strong>{item.fullName}</strong>
-                              <span className="muted block">
-                                {item.className}
-                              </span>
-                            </td>
-                            <td>{item.requestedEvent}</td>
-                            <td className="muted">Chờ cấp mã</td>
-                            <td>
-                              <div className="row-actions">
-                                <button
-                                  type="button"
-                                  className="text-button"
-                                  onClick={() => {
-                                    setAthlete({ ...item });
-                                    setMessage(
-                                      "Đang sửa bản nháp; bấm Lưu thay đổi để hoàn tất.",
-                                    );
-                                  }}
-                                >
-                                  Sửa
-                                </button>
-                                <button
-                                  type="button"
-                                  className="text-button danger"
-                                  onClick={() => {
-                                    commit(
-                                      drafts.map((school) =>
-                                        school.draftId === active.draftId
-                                          ? {
-                                              ...school,
-                                              athletes: school.athletes.filter(
-                                                (entry) =>
-                                                  entry.draftId !==
-                                                  item.draftId,
-                                              ),
-                                            }
-                                          : school,
-                                      ),
-                                    );
-                                    if (athlete.draftId === item.draftId)
-                                      resetAthlete();
-                                    setMessage("Đã xóa VĐV khỏi bản nháp.");
-                                  }}
-                                >
-                                  Xóa
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : (
-                  <div className="empty">
-                    <h3>Chưa có VĐV trong phiếu</h3>
-                    <p>
-                      Nhà trường nhập từng VĐV khi có danh sách. Có thể bổ sung
-                      sau.
-                    </p>
-                  </div>
-                )}
-                <p className="footer-note">
-                  STT chỉ là thứ tự trong phiếu. Mã VĐV và kiểm điều kiện đăng
-                  ký sẽ do hệ thống cấp và kiểm tra khi gửi duyệt.
-                </p>
-              </>
-            ) : (
-              <div className="empty">
-                <span className="empty-symbol" aria-hidden="true">
-                  +
-                </span>
-                <h2>Bắt đầu bằng phiếu của trường</h2>
-                <p>
-                  Nhập tên kỳ giải và tên trường, sau đó thêm VĐV hoặc nhập
-                  phiếu đã xuất.
-                </p>
+                ))}
               </div>
-            )}
-          </section>
-        </div>
+              <input
+                ref={fileInput}
+                type="file"
+                accept="application/json,.json"
+                hidden
+                onChange={(event) => {
+                  void importSheet(event.target.files?.[0]);
+                }}
+              />
+              <button
+                className="secondary"
+                type="button"
+                onClick={() => fileInput.current?.click()}
+              >
+                Nhập phiếu từ tệp
+              </button>
+            </aside>
+            <section className="card roster">
+              {active ? (
+                <>
+                  <div className="section-heading">
+                    <div>
+                      <p className="eyebrow">DANH SÁCH BẢN NHÁP</p>
+                      <h2>{active.schoolName}</h2>
+                      <p>{active.editionName}</p>
+                    </div>
+                    <button
+                      type="button"
+                      className="secondary"
+                      onClick={exportSheet}
+                    >
+                      Xuất phiếu đăng ký
+                    </button>
+                  </div>
+                  <form className="athlete-form" onSubmit={addAthlete}>
+                    <label>
+                      Họ và tên VĐV
+                      <input
+                        required
+                        value={athlete.fullName}
+                        onChange={(event) =>
+                          setAthlete({
+                            ...athlete,
+                            fullName: event.target.value,
+                          })
+                        }
+                      />
+                    </label>
+                    <label>
+                      Lớp / nhóm học
+                      <input
+                        required
+                        value={athlete.className}
+                        onChange={(event) =>
+                          setAthlete({
+                            ...athlete,
+                            className: event.target.value,
+                          })
+                        }
+                        placeholder="Theo thông tin của trường"
+                      />
+                    </label>
+                    <label>
+                      Nội dung muốn tham gia
+                      <input
+                        required
+                        value={athlete.requestedEvent}
+                        onChange={(event) =>
+                          setAthlete({
+                            ...athlete,
+                            requestedEvent: event.target.value,
+                          })
+                        }
+                        placeholder="Nguyện vọng; chờ đối chiếu danh mục"
+                      />
+                    </label>
+                    <div className="form-actions">
+                      <button type="submit">
+                        {athlete.draftId ? "Lưu thay đổi" : "Thêm VĐV"}
+                      </button>
+                      {athlete.draftId && (
+                        <button
+                          className="secondary"
+                          type="button"
+                          onClick={resetAthlete}
+                        >
+                          Hủy sửa
+                        </button>
+                      )}
+                    </div>
+                  </form>
+                  {active.athletes.length ? (
+                    <div className="table-scroll">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>VĐV / lớp</th>
+                            <th>Nội dung dự kiến</th>
+                            <th>Mã VĐV</th>
+                            <th>Thao tác</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {active.athletes.map((item, index) => (
+                            <tr key={item.draftId}>
+                              <td>{index + 1}</td>
+                              <td>
+                                <strong>{item.fullName}</strong>
+                                <span className="muted block">
+                                  {item.className}
+                                </span>
+                              </td>
+                              <td>{item.requestedEvent}</td>
+                              <td className="muted">Chờ cấp mã</td>
+                              <td>
+                                <div className="row-actions">
+                                  <button
+                                    type="button"
+                                    className="text-button"
+                                    onClick={() => {
+                                      setAthlete({ ...item });
+                                      setMessage(
+                                        "Đang sửa bản nháp; bấm Lưu thay đổi để hoàn tất.",
+                                      );
+                                    }}
+                                  >
+                                    Sửa
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="text-button danger"
+                                    onClick={() => {
+                                      commit(
+                                        drafts.map((school) =>
+                                          school.draftId === active.draftId
+                                            ? {
+                                                ...school,
+                                                athletes:
+                                                  school.athletes.filter(
+                                                    (entry) =>
+                                                      entry.draftId !==
+                                                      item.draftId,
+                                                  ),
+                                              }
+                                            : school,
+                                        ),
+                                      );
+                                      if (athlete.draftId === item.draftId)
+                                        resetAthlete();
+                                      setMessage("Đã xóa VĐV khỏi bản nháp.");
+                                    }}
+                                  >
+                                    Xóa
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="empty">
+                      <h3>Chưa có VĐV trong phiếu</h3>
+                      <p>
+                        Nhà trường nhập từng VĐV khi có danh sách. Có thể bổ
+                        sung sau.
+                      </p>
+                    </div>
+                  )}
+                  <p className="footer-note">
+                    STT chỉ là thứ tự trong phiếu. Mã VĐV và kiểm điều kiện đăng
+                    ký sẽ do hệ thống cấp và kiểm tra khi gửi duyệt.
+                  </p>
+                </>
+              ) : (
+                <div className="empty">
+                  <span className="empty-symbol" aria-hidden="true">
+                    +
+                  </span>
+                  <h2>Bắt đầu bằng phiếu của trường</h2>
+                  <p>
+                    Nhập tên kỳ giải và tên trường, sau đó thêm VĐV hoặc nhập
+                    phiếu đã xuất.
+                  </p>
+                </div>
+              )}
+            </section>
+          </div>
+        </details>
       ) : step === "Ngoại tuyến" ? (
         <OfflineWorkspace />
       ) : step === "Xác nhận kết quả" ? (

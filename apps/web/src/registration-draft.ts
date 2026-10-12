@@ -3,6 +3,10 @@ export interface AthleteDraft {
   fullName: string;
   className: string;
   requestedEvent: string;
+  identityNumber?: string;
+  birthDate?: string;
+  gender?: "male" | "female";
+  note?: string;
 }
 export interface SchoolDraft {
   draftId: string;
@@ -12,7 +16,7 @@ export interface SchoolDraft {
 }
 export interface RegistrationSheet {
   format: "hkpd-school-registration-draft";
-  formatVersion: 1;
+  formatVersion: 1 | 2;
   editionName: string;
   schoolName: string;
   athletes: Omit<AthleteDraft, "draftId">[];
@@ -30,16 +34,19 @@ export const sameSchool = (left: SchoolDraft, right: SchoolDraft) =>
 export function toSheet(school: SchoolDraft): RegistrationSheet {
   return {
     format: "hkpd-school-registration-draft",
-    formatVersion: 1,
+    formatVersion: school.athletes.some(
+      (a) => extraKeys.some((k) => k in a) || !a.className || !a.requestedEvent,
+    )
+      ? 2
+      : 1,
     editionName: school.editionName,
     schoolName: school.schoolName,
-    athletes: school.athletes.map(
-      ({ fullName, className, requestedEvent }) => ({
-        fullName,
-        className,
-        requestedEvent,
-      }),
-    ),
+    athletes: school.athletes.map((athlete) => ({
+      fullName: athlete.fullName,
+      className: athlete.className,
+      requestedEvent: athlete.requestedEvent,
+      ...athleteDetails({ ...athlete }),
+    })),
   };
 }
 function object(value: unknown): value is Record<string, unknown> {
@@ -50,6 +57,47 @@ function text(value: unknown): value is string {
 }
 function hasOnly(value: Record<string, unknown>, keys: string[]) {
   return Object.keys(value).every((key) => keys.includes(key));
+}
+const extraKeys = ["identityNumber", "birthDate", "gender", "note"] as const;
+export function athleteDetails(value: Record<string, unknown>) {
+  const details: Pick<
+    AthleteDraft,
+    "identityNumber" | "birthDate" | "gender" | "note"
+  > = {};
+  if (value.identityNumber !== undefined) {
+    if (
+      typeof value.identityNumber !== "string" ||
+      (value.identityNumber !== "" && !/^\d{12}$/.test(value.identityNumber))
+    )
+      throw new Error("CCCD/mã định danh phải có 12 chữ số.");
+    details.identityNumber = value.identityNumber;
+  }
+  if (value.birthDate !== undefined) {
+    if (typeof value.birthDate !== "string")
+      throw new Error("Ngày sinh không hợp lệ.");
+    if (value.birthDate) {
+      const d = new Date(value.birthDate + "T00:00:00Z");
+      if (
+        !/^\d{4}-\d{2}-\d{2}$/.test(value.birthDate) ||
+        !Number.isFinite(d.getTime()) ||
+        d.toISOString().slice(0, 10) !== value.birthDate ||
+        value.birthDate > new Date().toISOString().slice(0, 10)
+      )
+        throw new Error("Ngày sinh không hợp lệ hoặc nằm trong tương lai.");
+    }
+    details.birthDate = value.birthDate;
+  }
+  if (value.gender !== undefined) {
+    if (value.gender !== "male" && value.gender !== "female")
+      throw new Error("Giới tính không hợp lệ.");
+    details.gender = value.gender;
+  }
+  if (value.note !== undefined) {
+    if (typeof value.note !== "string" || value.note.length > 2000)
+      throw new Error("Ghi chú không hợp lệ hoặc vượt 2.000 ký tự.");
+    details.note = value.note.trim();
+  }
+  return details;
 }
 export function fromSheet(value: unknown): SchoolDraft {
   if (
@@ -62,32 +110,47 @@ export function fromSheet(value: unknown): SchoolDraft {
       "athletes",
     ]) ||
     value.format !== "hkpd-school-registration-draft" ||
-    value.formatVersion !== 1 ||
+    (value.formatVersion !== 1 && value.formatVersion !== 2) ||
     !text(value.editionName) ||
     !text(value.schoolName) ||
     !Array.isArray(value.athletes)
   ) {
-    throw new Error("Phiếu đăng ký không đúng định dạng bản nháp phiên bản 1.");
+    throw new Error(
+      "Phiếu đăng ký không đúng định dạng bản nháp phiên bản 1 hoặc 2.",
+    );
   }
-  const athletes: AthleteDraft[] = value.athletes.map((athlete: unknown) => {
-    if (
-      !object(athlete) ||
-      !hasOnly(athlete, ["fullName", "className", "requestedEvent"]) ||
-      !text(athlete.fullName) ||
-      !text(athlete.className) ||
-      !text(athlete.requestedEvent)
-    ) {
-      throw new Error(
-        "Mỗi VĐV cần họ tên, lớp/nhóm và nội dung dự kiến hợp lệ.",
-      );
-    }
-    return {
-      draftId: newDraftId(),
-      fullName: clean(athlete.fullName),
-      className: clean(athlete.className),
-      requestedEvent: clean(athlete.requestedEvent),
-    };
-  });
+  const athletes: AthleteDraft[] = Array.from(
+    value.athletes,
+    (athlete: unknown) => {
+      if (
+        !object(athlete) ||
+        !hasOnly(athlete, [
+          "fullName",
+          "className",
+          "requestedEvent",
+          ...(value.formatVersion === 2 ? extraKeys : []),
+        ]) ||
+        !text(athlete.fullName) ||
+        !(value.formatVersion === 2
+          ? typeof athlete.className === "string"
+          : text(athlete.className)) ||
+        !(value.formatVersion === 2
+          ? typeof athlete.requestedEvent === "string"
+          : text(athlete.requestedEvent))
+      ) {
+        throw new Error(
+          "Mỗi VĐV cần họ tên, lớp/nhóm và nội dung dự kiến hợp lệ.",
+        );
+      }
+      return {
+        draftId: newDraftId(),
+        fullName: clean(athlete.fullName),
+        className: clean(athlete.className as string),
+        requestedEvent: clean(athlete.requestedEvent as string),
+        ...athleteDetails(athlete),
+      };
+    },
+  );
   return {
     draftId: newDraftId(),
     editionName: clean(value.editionName),
@@ -129,11 +192,17 @@ function validateStored(drafts: unknown): SchoolDraft[] {
     const athletes = Array.from(value.athletes, (a) => {
       if (
         !object(a) ||
-        !hasOnly(a, ["draftId", "fullName", "className", "requestedEvent"]) ||
+        !hasOnly(a, [
+          "draftId",
+          "fullName",
+          "className",
+          "requestedEvent",
+          ...extraKeys,
+        ]) ||
         !text(a.draftId) ||
         !text(a.fullName) ||
-        !text(a.className) ||
-        !text(a.requestedEvent) ||
+        typeof a.className !== "string" ||
+        typeof a.requestedEvent !== "string" ||
         athleteIds.has(a.draftId)
       )
         throw new Error("VĐV nháp đã lưu không hợp lệ.");
@@ -143,6 +212,7 @@ function validateStored(drafts: unknown): SchoolDraft[] {
         fullName: clean(a.fullName),
         className: clean(a.className),
         requestedEvent: clean(a.requestedEvent),
+        ...athleteDetails(a),
       };
     });
     return {

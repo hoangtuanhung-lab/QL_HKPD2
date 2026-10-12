@@ -71,6 +71,10 @@ describe("LOG-01 independent tabs cannot overwrite another committed draft", () 
       fireEvent.change(view.getByLabelText("Tên trường"), {
         target: { value: name },
       });
+      view
+        .getByText("Thiết lập phiếu trường và công cụ bổ sung")
+        .closest("details")
+        ?.setAttribute("open", "");
       fireEvent.click(view.getByText("Tạo / mở phiếu nháp"));
     }
     fireEvent.change(second.getByLabelText("Họ và tên VĐV"), {
