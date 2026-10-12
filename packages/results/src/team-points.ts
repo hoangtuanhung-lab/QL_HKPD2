@@ -1,4 +1,4 @@
-import { ensure, integer } from "./model.js";
+import { ensure, integer, freeze } from "./model.js";
 export interface SportStanding {
   schoolId: string;
   block: string;
@@ -69,53 +69,76 @@ export function allRoundPoints(
     "Trùng cấu hình bắt buộc trường/khối.",
   );
   ensure(
-    mandatory.every((m) => m.requiredEventIds.length > 0) &&
+    mandatory.every(
+      (m) => Array.isArray(m.requiredEventIds) && m.requiredEventIds.length > 0,
+    ) &&
       [...standings, ...penalties].every((s) =>
         mandatory.some((m) => m.schoolId === s.schoolId && m.block === s.block),
       ),
     "MANDATORY_INPUT",
     "Thiếu cấu hình môn bắt buộc hoặc trường/khối.",
   );
+  for (const m of mandatory) {
+    for (const refs of [
+      m.requiredEventIds,
+      m.actuallyPlayedEventIds,
+      m.organizerCancelledEventIds,
+    ]) {
+      ensure(
+        Array.isArray(refs) &&
+          Array.from(refs).every(
+            (id) => typeof id === "string" && id.trim().length > 0,
+          ),
+        "MANDATORY_INPUT",
+        "Mã nội dung bắt buộc/thực đấu/hủy không hợp lệ.",
+      );
+    }
+  }
   const scale = [11, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-  return mandatory.map((m) => {
-    const sports = standings
-      .filter((s) => s.schoolId === m.schoolId && s.block === m.block)
-      .map((s) => ({
-        sportId: s.sportId,
-        rank: s.rank,
-        converted: scale[s.rank - 1] ?? 0,
-        coefficient:
-          s.sportKind === "football" || s.sportKind === "tug_of_war" ? 3 : 1,
-      }));
-    const raw = sports.reduce((sum, s) => sum + s.converted * s.coefficient, 0);
-    const deductions = penalties.filter(
-      (p) => p.schoolId === m.schoolId && p.block === m.block,
-    );
-    const penalty = deductions
-      .filter((p) => !p.waived)
-      .reduce((sum, p) => sum + p.points, 0);
-    ensure(
-      Number.isSafeInteger(raw) && Number.isSafeInteger(penalty),
-      "POINT_OVERFLOW",
-      "Tổng điểm vượt phạm vi số nguyên.",
-    );
-    const missing = m.requiredEventIds.filter(
-      (id) =>
-        !m.actuallyPlayedEventIds.includes(id) &&
-        !m.organizerCancelledEventIds.includes(id),
-    );
-    return {
-      schoolId: m.schoolId,
-      block: m.block,
-      eligible: missing.length === 0,
-      missing,
-      sports,
-      penalties: deductions,
-      convertedTotal: raw,
-      penalty,
-      total: Math.max(0, raw - penalty),
-    };
-  });
+  return freeze(
+    mandatory.map((m) => {
+      const sports = standings
+        .filter((s) => s.schoolId === m.schoolId && s.block === m.block)
+        .map((s) => ({
+          sportId: s.sportId,
+          rank: s.rank,
+          converted: scale[s.rank - 1] ?? 0,
+          coefficient:
+            s.sportKind === "football" || s.sportKind === "tug_of_war" ? 3 : 1,
+        }));
+      const raw = sports.reduce(
+        (sum, s) => sum + s.converted * s.coefficient,
+        0,
+      );
+      const deductions = penalties.filter(
+        (p) => p.schoolId === m.schoolId && p.block === m.block,
+      );
+      const penalty = deductions
+        .filter((p) => !p.waived)
+        .reduce((sum, p) => sum + p.points, 0);
+      ensure(
+        Number.isSafeInteger(raw) && Number.isSafeInteger(penalty),
+        "POINT_OVERFLOW",
+        "Tổng điểm vượt phạm vi số nguyên.",
+      );
+      const missing = m.requiredEventIds.filter(
+        (id) =>
+          !m.actuallyPlayedEventIds.includes(id) &&
+          !m.organizerCancelledEventIds.includes(id),
+      );
+      return {
+        schoolId: m.schoolId,
+        block: m.block,
+        eligible: missing.length === 0,
+        missing,
+        sports,
+        penalties: structuredClone(deductions),
+        convertedTotal: raw,
+        penalty,
+        total: Math.max(0, raw - penalty),
+      };
+    }),
+  );
 }
 export interface SchoolSportTotal {
   schoolId: string;

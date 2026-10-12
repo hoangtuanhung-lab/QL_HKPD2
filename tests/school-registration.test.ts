@@ -13,13 +13,30 @@ import { App } from "../apps/web/src/App.js";
 import {
   fromSheet,
   loadDrafts,
+  readDraftSnapshot,
   saveDrafts,
   storageKey,
   toSheet,
   upsertAthlete,
 } from "../apps/web/src/registration-draft.js";
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  let tail = Promise.resolve();
+  Object.defineProperty(navigator, "locks", {
+    configurable: true,
+    value: {
+      request: <T>(_name: string, run: () => T | Promise<T>) => {
+        const result = tail.then(run);
+        tail = result.then(
+          () => undefined,
+          () => undefined,
+        );
+        return result;
+      },
+    },
+  });
+});
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
@@ -54,7 +71,7 @@ const emptySheet = {
   athletes: [],
 };
 describe("School registration drafts", () => {
-  it("starts empty, keeps same-name students separate, edits/deletes and restores the correct school", () => {
+  it("starts empty, keeps same-name students separate, edits/deletes and restores the correct school", async () => {
     const view = render(createElement(App));
     expect(screen.getByText("Bắt đầu bằng phiếu của trường")).toBeTruthy();
     school();
@@ -81,6 +98,13 @@ describe("School registration drafts", () => {
       within(screen.getByText("Nguyễn Bình").closest("tr")!).getByText("Xóa"),
     );
     expect(screen.queryByText("Nguyễn Bình")).toBeNull();
+    await waitFor(() =>
+      expect(
+        loadDrafts(localStorage)
+          .find((s) => s.schoolName === "Trường A")
+          ?.athletes.map((a) => a.fullName),
+      ).toEqual(["Nguyễn An"]),
+    );
     view.unmount();
     render(createElement(App));
     expect(screen.getByText("Nguyễn An")).toBeTruthy();
@@ -90,14 +114,14 @@ describe("School registration drafts", () => {
     expect(screen.queryByText("Trần Lan")).toBeNull();
     expect(screen.getByText(/Chưa có kết quả được công bố/)).toBeTruthy();
   });
-  it("opens an existing normalized profile, while a different edition remains separate", () => {
+  it("opens an existing normalized profile, while a different edition remains separate", async () => {
     render(createElement(App));
     school();
     athlete();
     school("  TRƯỜNG A  ");
-    expect(loadDrafts(localStorage)).toHaveLength(1);
+    await waitFor(() => expect(loadDrafts(localStorage)).toHaveLength(1));
     school("Trường A", "2027");
-    expect(loadDrafts(localStorage)).toHaveLength(2);
+    await waitFor(() => expect(loadDrafts(localStorage)).toHaveLength(2));
     expect(screen.getByText("Chưa có VĐV trong phiếu")).toBeTruthy();
   });
   it("exports a portable sheet and accepts import without overwriting an existing school", async () => {
@@ -165,7 +189,7 @@ describe("School registration drafts", () => {
     expect(localStorage.getItem(storageKey)).toBe("corrupt");
     expect(screen.getByText(/Bản nháp đang giữ trong phiên này/)).toBeTruthy();
   });
-  it("keeps entered data usable when browser storage is full", () => {
+  it("keeps entered data usable when browser storage is full", async () => {
     render(createElement(App));
     vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
       throw new Error("quota");
@@ -173,10 +197,12 @@ describe("School registration drafts", () => {
     school();
     athlete();
     expect(screen.getByText("Nguyễn An")).toBeTruthy();
-    expect(screen.getByText(/Không lưu được trên trình duyệt/)).toBeTruthy();
+    expect(
+      await screen.findByText(/Không lưu được trên trình duyệt/),
+    ).toBeTruthy();
     expect(screen.getByText("Xuất phiếu đăng ký")).toBeTruthy();
   });
-  it("does not impose the plan's fixture counts on registration", () => {
+  it("does not impose the plan's fixture counts on registration", async () => {
     const schools = Array.from({ length: 8 }, (_, i) =>
       fromSheet({ ...emptySheet, schoolName: `Trường ${i}` }),
     );
@@ -189,7 +215,7 @@ describe("School registration drafts", () => {
         requestedEvent: "Chạy",
       });
     schools[0] = first;
-    saveDrafts(localStorage, schools);
+    await saveDrafts(localStorage, schools, readDraftSnapshot(localStorage));
     const restored = loadDrafts(localStorage);
     expect(restored).toHaveLength(8);
     expect(restored[0]!.athletes).toHaveLength(501);
