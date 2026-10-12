@@ -1,3 +1,4 @@
+import { AthleteEventDialog } from "./athlete-event-dialog.js";
 import { useEffect, useRef, useState } from "react";
 import {
   athleteDetails,
@@ -21,7 +22,11 @@ const blank = (): AthleteDraft => ({
   gender: "male",
   note: "",
 });
-function Icon({ kind }: { kind: "school" | "upload" | "download" }) {
+function Icon({
+  kind,
+}: {
+  kind: "school" | "upload" | "download" | "edit" | "save" | "trash" | "book";
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -30,17 +35,22 @@ function Icon({ kind }: { kind: "school" | "upload" | "download" }) {
       height="16"
       fill="currentColor"
     >
-      {kind === "school" ? (
-        <path d="M3 5h7V2h4v3h7v16h-7v-5h-4v5H3V5zm3 3v3h2V8H6zm0 6v3h2v-3H6zm10-6v3h2V8h-2zm0 6v3h2v-3h-2zm-5-7v4h2V7h-2z" />
-      ) : (
-        <path
-          d={
-            kind === "upload"
-              ? "M5 2h9l5 5v15H5V2zm9 1v5h5L14 3zm-3 14h2v-5l2 2 1-1-4-4-4 4 1 1 2-2v5z"
-              : "M5 2h9l5 5v15H5V2zm9 1v5h5L14 3zm-3 7v5l-2-2-1 1 4 4 4-4-1-1-2 2v-5h-2z"
-          }
-        />
-      )}
+      <path
+        d={
+          {
+            school:
+              "M3 5h7V2h4v3h7v16h-7v-5h-4v5H3V5zm3 3v3h2V8H6zm0 6v3h2v-3H6zm10-6v3h2V8h-2zm0 6v3h2v-3h-2zm-5-7v4h2V7h-2z",
+            upload:
+              "M5 2h9l5 5v15H5V2zm9 1v5h5L14 3zm-3 14h2v-5l2 2 1-1-4-4-4 4 1 1 2-2v5z",
+            download:
+              "M5 2h9l5 5v15H5V2zm9 1v5h5L14 3zm-3 7v5l-2-2-1 1 4 4 4-4-1-1-2 2v-5h-2z",
+            edit: "M3 17v4h4L20 8l-4-4L3 17zm14-14 2-2 4 4-2 2-4-4z",
+            save: "M3 2h15l4 4v16H2V2h1zm3 1v7h11V3H6zm0 11v7h12v-7H6zm7-10h3v5h-3V4z",
+            trash: "M4 6h16v2H4V6zm3 3h10l-1 13H8L7 9zm2-7h6l1 3H8l1-3z",
+            book: "M4 2h16v20H4V2zm3 2v16h2V4H7zm4 3v2h6V7h-6zm0 5v2h6v-2h-6z",
+          }[kind]
+        }
+      />
     </svg>
   );
 }
@@ -50,16 +60,20 @@ export function AthleteRegistrationPage({
   onSelect,
   onSave,
   onDirty,
+  storageStatus = "saved",
 }: {
   schools: SchoolDraft[];
   activeId: string;
   onSelect: (id: string) => void;
   onSave: (school: SchoolDraft) => void;
   onDirty: (dirty: boolean) => void;
+  storageStatus?: "saving" | "error" | "saved";
 }) {
   const active = schools.find((s) => s.draftId === activeId);
   const [edited, setEdited] = useState<Record<string, AthleteDraft[]>>({});
   const [error, setError] = useState("");
+  const [editingIds, setEditingIds] = useState<Set<string>>(new Set());
+  const [openedAthleteId, setOpenedAthleteId] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
   const file = useRef<HTMLInputElement>(null);
@@ -95,7 +109,7 @@ export function AthleteRegistrationPage({
     }));
     setNotice("");
   }
-  function save() {
+  function save(rowId?: string, patch?: Partial<AthleteDraft>) {
     if (!active) return;
     try {
       if (
@@ -105,7 +119,21 @@ export function AthleteRegistrationPage({
         throw Error(
           "Phiếu đã được sửa bằng công cụ khác. Bảng đang nhập vẫn được giữ; hãy đối chiếu trước khi lưu.",
         );
-      const entered = rows.filter(
+      const candidates = rowId
+        ? [
+            ...(active.athletes.some((a) => a.draftId === rowId)
+              ? active.athletes.map((a) =>
+                  a.draftId === rowId
+                    ? { ...rows.find((r) => r.draftId === rowId)!, ...patch }
+                    : a,
+                )
+              : [
+                  ...active.athletes,
+                  { ...rows.find((r) => r.draftId === rowId)!, ...patch },
+                ]),
+          ]
+        : rows;
+      const entered = candidates.filter(
         (a) =>
           a.fullName.trim() ||
           a.identityNumber ||
@@ -132,18 +160,51 @@ export function AthleteRegistrationPage({
         };
       });
       onSave({ ...active, athletes });
-      delete bases.current[active.draftId];
+      const otherChanges =
+        rowId &&
+        JSON.stringify(
+          rows.filter(
+            (a) =>
+              a.draftId !== rowId &&
+              (a.fullName ||
+                a.identityNumber ||
+                a.birthDate ||
+                a.note ||
+                a.className ||
+                a.requestedEvent ||
+                active.athletes.some((old) => old.draftId === a.draftId)),
+          ),
+        ) !==
+          JSON.stringify(active.athletes.filter((a) => a.draftId !== rowId));
+      if (otherChanges)
+        bases.current[active.draftId] = JSON.stringify(athletes);
+      else delete bases.current[active.draftId];
       setEdited((current) => {
         const next = { ...current };
-        delete next[active.draftId];
+        if (otherChanges)
+          next[active.draftId] = rows.map((a) =>
+            a.draftId === rowId
+              ? athletes.find((saved) => saved.draftId === rowId)!
+              : a,
+          );
+        else delete next[active.draftId];
         return next;
       });
+      setEditingIds((current) =>
+        rowId ? new Set([...current].filter((id) => id !== rowId)) : new Set(),
+      );
       setError("");
       setNotice("Đã cập nhật danh sách bản nháp; chưa gửi duyệt.");
     } catch (e) {
       setError((e as Error).message);
+      if (patch) throw e;
     }
   }
+  const locked = (a: AthleteDraft) =>
+    Boolean(
+      active?.athletes.some((saved) => saved.draftId === a.draftId) &&
+      !editingIds.has(a.draftId),
+    );
   async function download() {
     setBusy(true);
     setError("");
@@ -277,6 +338,7 @@ export function AthleteRegistrationPage({
             <col />
             <col className="registration-class" />
             <col />
+            <col className="registration-state-col" />
           </colgroup>
           <thead>
             <tr>
@@ -289,6 +351,7 @@ export function AthleteRegistrationPage({
                 "GHI CHÚ",
                 "LỚP / NHÓM",
                 "NỘI DUNG THI ĐẤU",
+                "TRẠNG THÁI",
               ].map((h) => (
                 <th key={h}>{h}</th>
               ))}
@@ -311,6 +374,7 @@ export function AthleteRegistrationPage({
                     placeholder="Nhập họ và tên..."
                     value={a.fullName}
                     disabled={busy}
+                    readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { fullName: e.target.value })
                     }
@@ -324,6 +388,7 @@ export function AthleteRegistrationPage({
                     maxLength={12}
                     value={a.identityNumber ?? ""}
                     disabled={busy}
+                    readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { identityNumber: e.target.value })
                     }
@@ -335,6 +400,7 @@ export function AthleteRegistrationPage({
                     type="date"
                     value={a.birthDate ?? ""}
                     disabled={busy}
+                    readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { birthDate: e.target.value })
                     }
@@ -344,7 +410,7 @@ export function AthleteRegistrationPage({
                   <select
                     aria-label={`Giới tính dòng ${i + 1}`}
                     value={a.gender ?? ""}
-                    disabled={busy}
+                    disabled={busy || locked(a)}
                     onChange={(e) =>
                       change(a.draftId, {
                         gender: e.target.value as "male" | "female",
@@ -365,28 +431,11 @@ export function AthleteRegistrationPage({
                     maxLength={2000}
                     value={a.note ?? ""}
                     disabled={busy}
+                    readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { note: e.target.value })
                     }
                   />
-                  <button
-                    type="button"
-                    className="registration-remove"
-                    aria-label={`Xóa dòng ${i + 1}`}
-                    disabled={busy}
-                    onClick={() =>
-                      active &&
-                      (captureBase(active),
-                      setEdited((current) => ({
-                        ...current,
-                        [active.draftId]: rows.filter(
-                          (r) => r.draftId !== a.draftId,
-                        ),
-                      })))
-                    }
-                  >
-                    ×
-                  </button>
                 </td>
                 <td>
                   <input
@@ -394,6 +443,7 @@ export function AthleteRegistrationPage({
                     placeholder="Nhập lớp..."
                     value={a.className}
                     disabled={busy}
+                    readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { className: e.target.value })
                     }
@@ -405,10 +455,82 @@ export function AthleteRegistrationPage({
                     placeholder="Nhập nội dung..."
                     value={a.requestedEvent}
                     disabled={busy}
+                    readOnly={locked(a) || Boolean(a.eventSelections?.length)}
                     onChange={(e) =>
                       change(a.draftId, { requestedEvent: e.target.value })
                     }
                   />
+                </td>
+                <td className="registration-state">
+                  <span className="registration-status-label">
+                    {storageStatus === "error"
+                      ? "Chưa lưu an toàn"
+                      : storageStatus === "saving"
+                        ? "Đang lưu…"
+                        : a.eventSelections?.length
+                          ? `${a.eventSelections.length} nội dung nháp`
+                          : locked(a)
+                            ? "Đã lưu nháp"
+                            : "Đang sửa"}
+                  </span>
+                  <div className="registration-row-buttons">
+                    {locked(a) ? (
+                      <button
+                        type="button"
+                        className="row-edit"
+                        aria-label={`Sửa VĐV dòng ${i + 1}`}
+                        title="Sửa hồ sơ"
+                        disabled={busy}
+                        onClick={() =>
+                          setEditingIds(
+                            (current) => new Set([...current, a.draftId]),
+                          )
+                        }
+                      >
+                        <Icon kind="edit" />
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="row-save"
+                        aria-label={`Lưu VĐV dòng ${i + 1}`}
+                        title="Lưu hồ sơ"
+                        disabled={busy || !a.fullName.trim()}
+                        onClick={() => save(a.draftId)}
+                      >
+                        <Icon kind="save" />
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      className="row-delete"
+                      aria-label={`Xóa dòng ${i + 1}`}
+                      title="Xóa VĐV khỏi bản đang nhập"
+                      disabled={busy}
+                      onClick={() =>
+                        active &&
+                        (captureBase(active),
+                        setEdited((current) => ({
+                          ...current,
+                          [active.draftId]: rows.filter(
+                            (r) => r.draftId !== a.draftId,
+                          ),
+                        })))
+                      }
+                    >
+                      <Icon kind="trash" />
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    className="row-register"
+                    aria-label={`Đăng ký môn cho ${a.fullName || `dòng ${i + 1}`}`}
+                    disabled={busy || !a.fullName.trim()}
+                    onClick={() => setOpenedAthleteId(a.draftId)}
+                  >
+                    <Icon kind="book" />
+                    Đăng ký môn
+                  </button>
                 </td>
               </tr>
             ))}
@@ -416,7 +538,7 @@ export function AthleteRegistrationPage({
         </table>
       </div>
       <p className="registration-scroll-hint">
-        Kéo bảng sang ngang để xem đủ 8 cột trên màn hình nhỏ.
+        Kéo bảng sang ngang để xem đủ 9 cột trên màn hình nhỏ.
       </p>
       <div className="registration-bottom">
         <button
@@ -447,10 +569,21 @@ export function AthleteRegistrationPage({
       )}
       <div className="registration-save">
         <span>Bản nháp lưu trên trình duyệt; chưa gửi duyệt.</span>
-        <button type="button" disabled={!active || busy} onClick={save}>
+        <button type="button" disabled={!active || busy} onClick={() => save()}>
           Lưu danh sách
         </button>
       </div>
+      {openedAthleteId &&
+        active &&
+        rows.find((a) => a.draftId === openedAthleteId) && (
+          <AthleteEventDialog
+            key={openedAthleteId}
+            athlete={rows.find((a) => a.draftId === openedAthleteId)!}
+            school={active}
+            onClose={() => setOpenedAthleteId(null)}
+            onApply={(patch) => save(openedAthleteId, patch)}
+          />
+        )}
     </section>
   );
 }
