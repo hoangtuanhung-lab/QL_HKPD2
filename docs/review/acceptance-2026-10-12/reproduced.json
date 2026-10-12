@@ -1,0 +1,90 @@
+{
+  "reviewed_tree": "a219b5e / ff14459 identical",
+  "reproduced": [
+    {
+      "case": "Q-01",
+      "observed": "resolved despite missing set metrics",
+      "rows": [
+        {
+          "id": "a",
+          "rank": 1,
+          "criteria": [
+            "Đối đầu (không tạo bảng phụ 3 bên): thiếu dữ liệu/quyết định",
+            "Hiệu số hiệp: thiếu dữ liệu/quyết định",
+            "Ít cảnh cáo hơn"
+          ]
+        },
+        {
+          "id": "b",
+          "rank": 2,
+          "criteria": [
+            "Đối đầu (không tạo bảng phụ 3 bên): thiếu dữ liệu/quyết định",
+            "Hiệu số hiệp: thiếu dữ liệu/quyết định",
+            "Ít cảnh cáo hơn"
+          ]
+        },
+        {
+          "id": "c",
+          "rank": 3,
+          "criteria": [
+            "Đối đầu (không tạo bảng phụ 3 bên): thiếu dữ liệu/quyết định",
+            "Hiệu số hiệp: thiếu dữ liệu/quyết định",
+            "Ít cảnh cáo hơn"
+          ]
+        }
+      ]
+    },
+    {
+      "case": "Q-02",
+      "counts": {
+        "registered": 0,
+        "approved": 0,
+        "actual": 3,
+        "valid": 3,
+        "medalBasis": 3,
+        "validSchools": 3
+      },
+      "status": "resolved",
+      "awards": [
+        {
+          "id": "a",
+          "rank": 1,
+          "points": 11,
+          "medal": "gold"
+        },
+        {
+          "id": "b",
+          "rank": 2,
+          "points": 9,
+          "medal": "silver"
+        },
+        {
+          "id": "c",
+          "rank": 3,
+          "points": 7,
+          "medal": null
+        }
+      ]
+    },
+    {
+      "case": "Q-03",
+      "observed": "draw_confirmed",
+      "matchRounds": 0
+    },
+    {
+      "case": "Q-04",
+      "observed": "draft replacement accepted",
+      "entrantIds": ["a", "a", "c"]
+    },
+    {
+      "case": "Q-05",
+      "fingerprintedTTL": 30,
+      "appliedAndReplayedTTL": 120
+    },
+    {
+      "case": "G-01",
+      "route": "POST /v1/editions/{id}/sync/submissions",
+      "status": 404
+    }
+  ]
+}

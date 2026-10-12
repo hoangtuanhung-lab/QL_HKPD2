@@ -1,0 +1,49 @@
+{
+  "purpose": "Observed defects for next iteration; zero exit means reproduced, not software accepted",
+  "externalServicesUsed": [],
+  "observed": [
+    {
+      "id": "N-01",
+      "issue": "Different confirmed pairs reuse the same match ID",
+      "observedStatus": "resolved",
+      "rows": [
+        {
+          "id": "a",
+          "rank": 1
+        },
+        {
+          "id": "b",
+          "rank": 2
+        },
+        {
+          "id": "c",
+          "rank": 3
+        }
+      ]
+    },
+    {
+      "id": "N-02",
+      "issue": "Publication finalizes with official source version 0",
+      "status": "finalized",
+      "sourceVersions": {
+        "match": 0
+      }
+    },
+    {
+      "id": "N-03",
+      "issue": "Participation transition accepts status outside domain enum",
+      "status": "unknown_status"
+    },
+    {
+      "id": "N-04",
+      "issue": "Malformed short identity value is returned unmasked in preview",
+      "identityFormatError": true,
+      "fullyMasked": false
+    },
+    {
+      "id": "N-05",
+      "issue": "Result participant accepts unknown properties against A03 additionalProperties:false",
+      "unknownFieldPersisted": true
+    }
+  ]
+}

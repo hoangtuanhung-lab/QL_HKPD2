@@ -1,3 +1,4 @@
+import { validateDraw } from "./validation.js";
 import { automaticKnockout, roundRobin, type DrawOptions } from "./draw.js";
 import {
   ensure,
@@ -71,6 +72,15 @@ export function confirmDraw(
     "Sơ đồ không còn ở trạng thái nháp.",
     "INVALID_STATE",
   );
+  validateDraw(snapshot.draw);
+  ensure(
+    snapshot.draw.format ===
+      (snapshot.kind === "individual_combat" &&
+      snapshot.draw.entrants.length >= 6
+        ? "knockout"
+        : "round_robin"),
+    "Thể thức không khớp loại nội dung.",
+  );
   ensure(
     snapshot.draw.eventId === snapshot.eventId &&
       snapshot.draw.entrants.length ===
@@ -106,6 +116,14 @@ export function replaceDraftDraw(
     snapshot.status === "draft" && snapshot.startedAt === null,
     "Đã chốt bốc thăm; không được vẽ lại sơ đồ.",
     "INVALID_STATE",
+  );
+  validateDraw(draw);
+  ensure(
+    draw.format ===
+      (snapshot.kind === "individual_combat" && draw.entrants.length >= 6
+        ? "knockout"
+        : "round_robin"),
+    "Thể thức không khớp loại nội dung.",
   );
   ensure(
     draw.eventId === snapshot.eventId &&

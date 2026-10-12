@@ -134,6 +134,7 @@ export function executeRegistration(
   clock: () => Date = () => new Date(),
   newId: () => string = randomUUID,
 ): Promise<CommandResult> {
+  command = structuredClone(command);
   ensure(
     command.actorId &&
       command.editionId &&
