@@ -1,5 +1,7 @@
 # Vòng sửa N-01–N-05 và năm vấn đề tiếp theo
 
+> M-01–M-05 đã được xử lý trong [vòng 3](../acceptance-round-3-2026-10-12/README.md), kèm phạm vi và giới hạn cụ thể. Nội dung/JSON dưới đây giữ làm lịch sử trước khi sửa; script tái hiện M sẽ fail trên mã đã sửa.
+
 Ngày 12/10/2026 (Asia/Saigon). Người dùng yêu cầu tiếp tục sửa năm vấn đề của vòng trước và tìm năm vấn đề mới; giữ SQL, Google/Drive và Netlify ngoài phạm vi. Nhánh dựa trên main `04748cd263ac5578f48df7b890c251b6cf7851a9` sau merge PR #16. Không đổi điều lệ, kết nối dịch vụ ngoài hoặc đánh dấu nghiệm thu toàn bộ.
 
 ## Năm vấn đề đã sửa

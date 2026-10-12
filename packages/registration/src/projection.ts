@@ -1,3 +1,4 @@
+import { resolveEvent } from "./catalog.js";
 import type { components } from "@hkpd/contracts";
 import {
   ensure,
@@ -78,12 +79,19 @@ export function approvedEntries(state: Registry, eventId: string) {
           },
         ];
       }
+      const { node, rules } = resolveEvent(state.catalog, eventId);
       const team = state.teams.find((t) => t.id === p.teamId);
       ensure(
         team &&
           team.editionId === state.editionId &&
           team.schoolId === r.schoolId &&
           team.eventId === eventId &&
+          node.participantKind === "team" &&
+          rules.minMembers !== undefined &&
+          rules.maxMembers !== undefined &&
+          team.memberIds.length > 0 &&
+          team.memberIds.length >= rules.minMembers &&
+          team.memberIds.length <= rules.maxMembers &&
           new Set(team.memberIds).size === team.memberIds.length &&
           team.memberIds.every((id) =>
             state.athletes.some(
