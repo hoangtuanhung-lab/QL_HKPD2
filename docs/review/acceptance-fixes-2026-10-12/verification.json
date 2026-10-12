@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Saigon",
+  "scope": "Q-01 through Q-05 source fixes; N-01 through N-05 proposals only",
+  "base": "a219b5ec17fd2ed140145b00330d0a71631a7c17",
+  "checks": [
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "passed": 554,
+      "test_files": 41,
+      "new_regressions": 28,
+      "actual_sql_executed": false
+    },
+    {
+      "command": "vitest run tests/acceptance-five-regression.test.ts tests/group-b-foundation.test.ts tests/group-r-service.test.ts",
+      "exit_code": 0,
+      "passed": 83
+    },
+    {
+      "command": "node scripts/smoke.mjs",
+      "exit_code": 0,
+      "verified": [
+        "dev API/web/worker",
+        "staging API/web/worker",
+        "managed and single-service shutdown"
+      ]
+    },
+    { "command": "npm run secret:scan", "exit_code": 0 },
+    {
+      "command": "node docs/review/acceptance-fixes-2026-10-12/new-findings.mjs",
+      "exit_code": 0,
+      "meaning": "Five additional observed defects reproduced, not acceptance passed"
+    }
+  ],
+  "old_findings": "fixed_with_regressions",
+  "new_findings": "proposed_not_fixed",
+  "new_external_integrations": [],
+  "acceptance": "not_accepted; source checks do not replace UAT"
+}

@@ -109,6 +109,8 @@ export function executeResult(
   clock: () => Date = () => new Date(),
   newId: () => string = randomUUID,
 ): Promise<CommandReply> {
+  // Capture before validation, fingerprinting or the first transaction await.
+  command = structuredClone(command);
   ensure(
     command.actorId &&
       command.sessionId &&

@@ -84,6 +84,11 @@ export function participationCounts(
     "Số đếm hoặc phạm vi nội dung không hợp lệ.",
   );
   const actual = all.filter((p) => p.performed || p.playedMatchIds.length > 0);
+  ensure(
+    actual.length <= approved,
+    "COUNT_SCOPE",
+    "Số thực đấu vượt số được duyệt; cần đối chiếu cùng snapshot.",
+  );
   const valid = actual.filter(
     (p) => p.status === "active" && p.validAchievement,
   );

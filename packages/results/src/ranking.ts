@@ -167,16 +167,28 @@ export function rankRoundRobin(
   }
   const orderedGroups: string[][] = [];
   const explanations: Record<string, string[]> = {};
+  const blocked = new Set<string>();
   const split = (
     groups: string[][],
     criterion: string,
     metric: (id: string, group: readonly string[]) => bigint | null,
     ascending = false,
+    notApplicable?: (group: readonly string[]) => boolean,
   ) =>
     groups.flatMap((group) => {
-      if (group.length < 2) return [group];
+      if (group.length < 2 || group.some((id) => blocked.has(id)))
+        return [group];
+      if (notApplicable?.(group)) {
+        group.forEach((id) =>
+          (explanations[id] ??= []).push(
+            `${criterion}: không áp dụng cho nhóm này`,
+          ),
+        );
+        return [group];
+      }
       const values = group.map((id) => ({ id, value: metric(id, group) }));
       if (values.some((v) => v.value === null)) {
+        group.forEach((id) => blocked.add(id));
         group.forEach((id) =>
           (explanations[id] ??= []).push(
             `${criterion}: thiếu dữ liệu/quyết định`,
@@ -254,7 +266,13 @@ export function rankRoundRobin(
             : (["head_to_head"] as const);
       for (const criterion of criteria) {
         if (criterion === "head_to_head")
-          groups = split(groups, "Đối đầu (không tạo bảng phụ 3 bên)", h2h);
+          groups = split(
+            groups,
+            "Đối đầu (không tạo bảng phụ 3 bên)",
+            h2h,
+            false,
+            (group) => group.length !== 2,
+          );
         else if (criterion === "set_difference")
           groups = split(groups, "Hiệu số hiệp", (id) =>
             confirmed.every(
@@ -315,7 +333,9 @@ export function rankRoundRobin(
         "Thứ tự quyết định có ID trùng/sai.",
       );
       groups = groups.flatMap((g) =>
-        g.length > 1 && g.every((id) => options.manualTieOrder!.includes(id))
+        g.length > 1 &&
+        !g.some((id) => blocked.has(id)) &&
+        g.every((id) => options.manualTieOrder!.includes(id))
           ? [...g]
               .sort(
                 (a, b) =>

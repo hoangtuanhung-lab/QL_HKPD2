@@ -98,7 +98,9 @@ export async function executeCommand(
     command.path,
     command.key,
   ]);
-  const actorId = command.actor.id;
+  // Snapshot validated JSON before any async permission/transaction work.
+  command = structuredClone(command);
+  const actorId = command.actor!.id;
   return store.transaction(async (tx) => {
     const actor = await tx.actor(actorId);
     const target = await tx.target(command);
