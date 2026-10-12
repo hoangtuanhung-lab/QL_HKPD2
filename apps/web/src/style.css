@@ -486,3 +486,286 @@ fieldset:disabled {
     break-inside: avoid;
   }
 }
+
+/* School entry sheet: styles stay scoped so competition/result screens keep their layout. */
+.registration-mode {
+  max-width: 1060px;
+  padding: 26px;
+  background: white;
+  border: 1px solid #e1e4e9;
+  border-radius: 6px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  color: #12377a;
+}
+.registration-mode > .topbar,
+.registration-mode > .intro,
+.registration-mode > .stats {
+  display: none;
+}
+.registration-mode > .flow-nav {
+  order: 5;
+  border-top: 1px solid #dce3ef;
+  margin-bottom: 0;
+  padding-top: 12px;
+}
+.registration-mode > footer {
+  order: 6;
+}
+.registration-mode > .notice {
+  order: 1;
+}
+.registration-mode > [role="status"] {
+  display: none;
+}
+.registration-tools {
+  order: 2;
+  margin-top: 18px;
+  color: #19364b;
+}
+.registration-tools summary {
+  cursor: pointer;
+  color: #1643a2;
+  font-size: 13px;
+  padding: 10px 0;
+}
+.registration-title {
+  text-align: center;
+  border-bottom: 2px solid #285bea;
+  padding: 0 0 12px;
+  margin-bottom: 25px;
+}
+.registration-title h1 {
+  font-size: clamp(20px, 2.6vw, 29px);
+  color: #1643a2;
+  font-weight: 750;
+  margin: 0 0 5px;
+  line-height: 1.4;
+}
+.registration-title p {
+  font-size: 14px;
+  margin: 0;
+  color: #234674;
+}
+.registration-school {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 13px;
+}
+.registration-school label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  margin: 0;
+  font-size: 14px;
+}
+.registration-school svg {
+  color: #2459f4;
+}
+.registration-school select {
+  border: 1px solid #9aa8bd;
+  border-radius: 3px;
+  padding: 6px 12px;
+  height: 34px;
+  color: #092859;
+}
+.registration-excel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 19px;
+}
+.registration-excel button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px;
+  border: 0;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.registration-excel .excel-upload {
+  background: #13a047;
+}
+.registration-excel .excel-download {
+  background: #285ded;
+}
+.registration-page button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.registration-table-scroll {
+  overflow-x: auto;
+  border: 1px solid #98a4b8;
+  padding-bottom: 5px;
+}
+.registration-table {
+  width: 100%;
+  min-width: 660px;
+  table-layout: fixed;
+  font-size: 13px;
+  color: #072957;
+}
+.registration-table .registration-number {
+  width: 42px;
+}
+.registration-table .registration-name {
+  width: 24%;
+}
+.registration-table .registration-gender {
+  width: 12%;
+}
+.registration-table th {
+  color: #1045ba;
+  font-size: 12px;
+  background: #eff5ff;
+  height: 52px;
+  text-align: center;
+}
+.registration-table th:nth-child(2),
+.registration-table th:last-child {
+  text-align: left;
+}
+.registration-table td,
+.registration-table th {
+  border-right: 1px solid #98a4b8;
+  border-bottom: 1px solid #98a4b8;
+  padding: 10px 8px;
+  vertical-align: middle;
+}
+.registration-table td:last-child,
+.registration-table th:last-child {
+  border-right: 0;
+}
+.registration-table td:first-child {
+  text-align: center;
+  background: #f7f8fa;
+}
+.registration-table input,
+.registration-table select {
+  color: #072957;
+  border: 1px solid #9ba7bb;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 0;
+  font-size: 12px;
+  height: 30px;
+  min-width: 0;
+}
+.registration-table input::placeholder {
+  color: #909caf;
+}
+.registration-table td:last-child {
+  position: relative;
+  padding-right: 22px;
+}
+.registration-remove {
+  position: absolute;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #9b3434;
+  border: 0;
+  padding: 0 2px;
+  font-size: 16px;
+}
+.registration-empty-row {
+  background: #fffdeb;
+}
+.registration-saved-row input,
+.registration-saved-row select {
+  border-color: transparent;
+  background: transparent;
+}
+.registration-saved-row input:focus,
+.registration-saved-row select:focus {
+  border-color: #285ded;
+  background: white;
+}
+.registration-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccd4e1;
+  border-radius: 3px;
+  background: #fafbfe;
+  margin-top: 12px;
+}
+.registration-bottom .registration-add {
+  background: transparent;
+  color: #2459ee;
+  border: 0;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+.registration-bottom strong {
+  border: 1px solid #ccd4e1;
+  border-radius: 3px;
+  padding: 6px 12px;
+  font-size: 14px;
+  background: white;
+}
+.registration-bottom strong span {
+  color: #2459ee;
+}
+.registration-help {
+  font-size: 13px;
+  margin: 12px 0 0;
+}
+.registration-save {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 16px;
+}
+.registration-save span {
+  color: #63748e;
+  font-size: 12px;
+}
+.registration-save button {
+  background: #285ded;
+  border: 0;
+  border-radius: 3px;
+  font-size: 13px;
+  padding: 8px 16px;
+}
+@media (max-width: 760px) {
+  .registration-mode {
+    margin: 0;
+    padding: 24px 26px;
+  }
+  .registration-title h1 {
+    font-size: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .registration-mode {
+    padding: 18px 12px;
+  }
+  .registration-title h1 {
+    font-size: 20px;
+  }
+  .registration-school {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .registration-bottom {
+    padding: 8px 4px;
+  }
+  .registration-bottom strong {
+    padding: 6px;
+    font-size: 12px;
+  }
+  .registration-save {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -43,6 +43,9 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 function school(name = "Trường A", edition = "Kỳ giải 2026") {
+  document
+    .querySelector("details.registration-tools")
+    ?.setAttribute("open", "");
   fireEvent.change(screen.getByLabelText("Tên kỳ giải"), {
     target: { value: edition },
   });
@@ -142,7 +145,9 @@ describe("School registration drafts", () => {
     fireEvent.click(screen.getByText("Xuất phiếu đăng ký"));
     expect(createUrl).toHaveBeenCalledOnce();
     expect(click).toHaveBeenCalledOnce();
-    const input = document.querySelector('input[type="file"]')!;
+    const input = document.querySelector(
+      'input[accept="application/json,.json"]',
+    )!;
     const file = {
       text: async () =>
         JSON.stringify({ ...emptySheet, schoolName: "Trường B" }),
@@ -168,9 +173,12 @@ describe("School registration drafts", () => {
     const pending = new Promise<string>((resolve) => {
       finish = resolve;
     });
-    fireEvent.change(document.querySelector('input[type="file"]')!, {
-      target: { files: [{ text: () => pending }] },
-    });
+    fireEvent.change(
+      document.querySelector('input[accept="application/json,.json"]')!,
+      {
+        target: { files: [{ text: () => pending }] },
+      },
+    );
     school("Trường B");
     athlete("Trần Lan");
     finish(JSON.stringify({ ...emptySheet, schoolName: "Trường C" }));

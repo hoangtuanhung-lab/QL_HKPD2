@@ -9,10 +9,11 @@
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
-    "@hkpd/ui": "0.1.0",
     "@hkpd/competition": "0.1.0",
+    "@hkpd/offline": "0.1.0",
     "@hkpd/registration": "0.1.0",
     "@hkpd/results": "0.1.0",
-    "@hkpd/offline": "0.1.0"
+    "@hkpd/ui": "0.1.0",
+    "exceljs": "4.4.0"
   }
 }
