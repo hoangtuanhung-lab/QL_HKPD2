@@ -20,18 +20,25 @@ export function assertWindow(state: Registry, now: Date) {
     "Đăng ký đã đóng hoặc hết hạn.",
   );
 }
+function assertVersion(actual: number, expected: number) {
+  ensure(
+    Number.isSafeInteger(actual) &&
+      actual > 0 &&
+      actual < Number.MAX_SAFE_INTEGER &&
+      Number.isSafeInteger(expected) &&
+      expected > 0 &&
+      actual === expected,
+    "VERSION_CONFLICT",
+    "Đăng ký đã thay đổi hoặc phiên bản không hợp lệ; tải lại bản mới.",
+  );
+}
 export function reviseRegistration(
   registration: Registration,
   id: string,
   participant: Participant,
   expectedVersion: number,
 ): Registration {
-  ensure(
-    registration.version === expectedVersion &&
-      registration.version < Number.MAX_SAFE_INTEGER,
-    "VERSION_CONFLICT",
-    "Đăng ký đã thay đổi; tải lại bản mới.",
-  );
+  assertVersion(registration.version, expectedVersion);
   ensure(
     currentRevision(registration).status !== "submitted",
     "INVALID_STATE",
@@ -64,12 +71,7 @@ export function transitionRegistration(
   now: Date,
   reason?: string,
 ): Registration {
-  ensure(
-    registration.version === expectedVersion &&
-      registration.version < Number.MAX_SAFE_INTEGER,
-    "VERSION_CONFLICT",
-    "Đăng ký đã thay đổi; tải lại bản mới.",
-  );
+  assertVersion(registration.version, expectedVersion);
   const current = currentRevision(registration);
   if (action === "submit") {
     assertWindow(state, now);

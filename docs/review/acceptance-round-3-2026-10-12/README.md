@@ -1,5 +1,7 @@
 # Sửa M-01–M-05 và năm vấn đề tiếp theo
 
+> P-01–P-05 đã được xử lý trong [bản sửa P](../acceptance-p01-p05-2026-10-12/README.md). Bằng chứng dưới đây giữ như lịch sử trước sửa; script tái hiện P sẽ fail trên mã đã sửa.
+
 Ngày 12/10/2026 (Asia/Saigon). Phạm vi theo yêu cầu: sửa năm vấn đề của vòng trước, rà soát năm vấn đề mới; không kết nối SQL, Google/Drive hoặc Netlify. Nhánh tiếp nối commit `63c6527da93957dddfd750f54f21d3cfb10f2884` của PR #17, đang OPEN tại thời điểm bắt đầu. PR vòng này đặt base là nhánh PR #17 để không lặp phần diff đã bàn giao; cần merge #17 trước khi đưa vòng này vào main.
 
 ## Năm vấn đề đã xử lý

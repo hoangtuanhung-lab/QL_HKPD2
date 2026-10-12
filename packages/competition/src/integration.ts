@@ -52,6 +52,21 @@ export function drawFromApproved(
   },
   options: DrawOptions = {},
 ): Promise<CompetitionSnapshot> {
+  // Capture command data before the transaction can suspend authorization.
+  input = structuredClone(input);
+  ensure(
+    [input.actorId, input.editionId, input.eventId].every(
+      (id) => typeof id === "string" && id.trim(),
+    ) &&
+      Number.isSafeInteger(input.baseVersion) &&
+      input.baseVersion > 0,
+    "Thiếu phạm vi hoặc phiên bản lệnh tạo vòng đấu.",
+  );
+  // Keep the trusted random callback; copy caller-owned configuration and seeds.
+  options = {
+    ...options,
+    ...(options.seedIds ? { seedIds: [...options.seedIds] } : {}),
+  };
   return store.transaction(async (tx) => {
     ensure(
       await tx.canManage(input.actorId, input.editionId, input.eventId),
@@ -181,6 +196,29 @@ export async function transferFromOfficial(
   },
   options: DrawOptions = {},
 ): Promise<TransferOutcome> {
+  // Capture command data before the transaction can suspend authorization.
+  input = structuredClone(input);
+  ensure(
+    [
+      input.actorId,
+      input.editionId,
+      input.sourceEventId,
+      input.destinationEventId,
+      input.entrantId,
+    ].every((id) => typeof id === "string" && id.trim()) &&
+      Number.isSafeInteger(input.sourceVersion) &&
+      input.sourceVersion > 0 &&
+      Number.isSafeInteger(input.destinationVersion) &&
+      input.destinationVersion > 0 &&
+      typeof input.reason === "string" &&
+      input.reason.trim(),
+    "Thiếu phạm vi, phiên bản hoặc lý do chuyển hạng.",
+  );
+  // Keep the trusted random callback; copy caller-owned configuration and seeds.
+  options = {
+    ...options,
+    ...(options.seedIds ? { seedIds: [...options.seedIds] } : {}),
+  };
   return store.transaction(async (tx) => {
     ensure(
       (await tx.canManage(
