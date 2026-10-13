@@ -161,7 +161,14 @@ it("C08 distributes entrants into lanes and rejects a duplicate lane edit", () =
 it("routes the main app to C previews while registration remains a draft", () => {
   localStorage.clear();
   render(createElement(App));
-  fireEvent.click(screen.getByRole("button", { name: "Sơ đồ thi đấu" }));
+  fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
+    target: { value: "admin" },
+  });
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: "Các luồng chức năng" }),
+    ).getByRole("button", { name: "Sơ đồ thi đấu" }),
+  );
   expect(screen.getByText("Sơ đồ và hạt giống")).toBeTruthy();
   fireEvent.click(screen.getByRole("button", { name: "Lịch và phân làn" }));
   expect(screen.getByText("Lịch và phân lượt/làn")).toBeTruthy();

@@ -246,7 +246,7 @@ describe("Athlete row actions and sport registration", () => {
       },
     });
     expect((await screen.findByRole("alert")).textContent).toMatch(/JPG, PNG/);
-    expect(screen.queryByRole("img")).toBeNull();
+    expect(screen.queryByRole("img", { name: /^Ảnh hồ sơ/ })).toBeNull();
   });
   it("does not offer football to girls or THCS content to a primary pupil", () => {
     const female = { ...initial.athletes[0]!, gender: "female" as const };

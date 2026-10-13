@@ -62,9 +62,21 @@ try {
       );
       assert.equal(app.status, 200);
       code = await app.text();
+      assert.ok(code.includes("RoleLayout"));
+      const workspace = await fetch(
+        `http://127.0.0.1:${values.WEB_PORT}/src/role-workspaces.tsx`,
+      );
+      assert.equal(workspace.status, 200);
+      code += await workspace.text();
     }
     assert.ok(code.includes("Hệ thống đang được xây dựng"));
     assert.ok(code.includes("Thêm VĐV"));
+    assert.ok(code.includes("/branding/hkpd-quang-phu-2026.jpeg"));
+    const logo = await fetch(
+      `http://127.0.0.1:${values.WEB_PORT}/branding/hkpd-quang-phu-2026.jpeg`,
+    );
+    assert.equal(logo.status, 200);
+    assert.ok(logo.headers.get("content-type")?.includes("image/jpeg"));
     assert.ok(output.get(target).includes('"status":"idle"'));
     console.log(`${target}: managed API/web/worker verified.`);
   }

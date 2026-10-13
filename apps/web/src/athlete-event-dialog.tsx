@@ -1,3 +1,4 @@
+import { HkpdLogo } from "./role-workspaces.js";
 import { useEffect, useRef, useState } from "react";
 import {
   blankCatalogRow,
@@ -221,6 +222,7 @@ export function AthleteEventDialog({
       }}
     >
       <header className="event-dialog-header">
+        <HkpdLogo className="workspace-heading-logo" />
         <div>
           <p>HỘI KHỎE PHÙ ĐỔNG · QUẢNG PHÚ 2026</p>
           <h2 id="athlete-event-title">Đăng ký môn thi đấu</h2>

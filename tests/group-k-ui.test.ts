@@ -35,7 +35,14 @@ function scores(a: string, b: string) {
 }
 it("K08 opens an empty trial instead of static confirmation outline", () => {
   render(createElement(App));
-  fireEvent.click(screen.getByRole("button", { name: "Xác nhận kết quả" }));
+  fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
+    target: { value: "chief" },
+  });
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: "Các luồng chức năng" }),
+    ).getByRole("button", { name: "Xác nhận kết quả" }),
+  );
   expect(screen.getByText("Nhập và xác nhận kết quả — bản thử")).toBeTruthy();
   expect(screen.getByText("Chưa có bản nào được xác nhận thử.")).toBeTruthy();
 });
