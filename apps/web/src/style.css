@@ -13,6 +13,27 @@
   border-radius: 10px;
   flex-shrink: 0;
 }
+.tournament-workspace form {
+  margin-top: 28px;
+  border-top: 1px solid #e1e7f1;
+  padding-top: 22px;
+}
+.carry-options {
+  border: 1px solid #d7e0ed;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  padding: 14px;
+}
+.carry-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 20px 8px 0;
+}
+.carry-options input {
+  width: auto;
+  margin: 0;
+}
 .role-shell {
   display: grid;
   grid-template-columns: 245px minmax(0, 1fr);

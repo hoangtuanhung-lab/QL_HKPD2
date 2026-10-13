@@ -10,6 +10,7 @@ export const roles = {
 } as const;
 export type WorkspaceRole = keyof typeof roles;
 export type WorkspacePage =
+  | "Quản lý giải"
   | "Tổng quan"
   | "Danh mục môn thi"
   | "Đăng ký VĐV"
@@ -24,6 +25,7 @@ export type WorkspacePage =
 export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
   admin: [
     "Tổng quan",
+    "Quản lý giải",
     "Đăng ký VĐV",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
@@ -102,6 +104,8 @@ export function RoleLayout({
   onPage,
   children,
   availableRoles = Object.keys(roles) as WorkspaceRole[],
+  editionName = "2026",
+  editionYear = 2026,
 }: {
   role: WorkspaceRole;
   page: WorkspacePage;
@@ -109,6 +113,8 @@ export function RoleLayout({
   onPage: (page: WorkspacePage) => void;
   children: ReactNode;
   availableRoles?: readonly WorkspaceRole[];
+  editionName?: string;
+  editionYear?: number;
 }) {
   return (
     <div className={`role-shell role-${role}`}>
@@ -116,7 +122,7 @@ export function RoleLayout({
         <div className="role-brand">
           <HkpdLogo />
           <strong>
-            HKPĐ QUẢNG PHÚ<span>Năm 2026</span>
+            HKPĐ QUẢNG PHÚ<span>Năm {editionYear}</span>
           </strong>
         </div>
         <p className="role-menu-caption">BÀN LÀM VIỆC · {roles[role]}</p>
@@ -143,9 +149,9 @@ export function RoleLayout({
       <div className="role-body">
         <header className="role-topbar">
           <div>
-            <strong>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ 2026</strong>
+            <strong>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ {editionYear}</strong>
             <span>
-              {roles[role]} · {page}
+              {roles[role]} · {page} · {editionName}
             </span>
           </div>
           <label className="role-selector">
@@ -231,21 +237,32 @@ export function RoleOverview({
   drafts,
   onPage,
   sportCodes = [],
+  catalogCodes,
+  editionName = "2026",
 }: {
   role: WorkspaceRole;
   sportCodes?: readonly string[];
+  catalogCodes?: readonly string[];
+  editionName?: string;
   drafts: SchoolDraft[];
   onPage: (page: WorkspacePage) => void;
 }) {
   const [query, setQuery] = useState("");
   const [heading, description] = roleHeadings[role];
   const staff = role === "chief" || role === "referee";
+  const editionCatalog =
+    catalogCodes === undefined
+      ? athleteCatalog
+      : athleteCatalog.filter((e) => catalogCodes.includes(e.code));
+  const editionSports = [
+    ...new Map(editionCatalog.map((e) => [e.sportCode, e.sportName])).entries(),
+  ];
   const visibleSports = staff
-    ? sports.filter(([code]) => sportCodes.includes(code))
-    : sports;
+    ? editionSports.filter(([code]) => sportCodes.includes(code))
+    : editionSports;
   const scopedEvents = staff
-    ? athleteCatalog.filter((e) => sportCodes.includes(e.sportCode))
-    : athleteCatalog;
+    ? editionCatalog.filter((e) => sportCodes.includes(e.sportCode))
+    : editionCatalog;
   const visible = drafts.filter((d) =>
     `${d.schoolName} ${d.editionName}`
       .toLocaleLowerCase("vi")
@@ -259,7 +276,7 @@ export function RoleOverview({
           <h1>{heading}</h1>
           <p>{description}</p>
         </div>
-        <span className="role-edition">Kỳ giải 2026</span>
+        <span className="role-edition">Giải hiện tại: {editionName}</span>
       </div>
       <div className="role-metrics">
         {(role === "admin" || role === "school"
@@ -417,14 +434,16 @@ export function RoleOverview({
 }
 export function CatalogWorkspace({
   sportCodes,
-}: { sportCodes?: readonly string[] } = {}) {
+  catalogCodes,
+}: { sportCodes?: readonly string[]; catalogCodes?: readonly string[] } = {}) {
   const [query, setQuery] = useState("");
   const [level, setLevel] = useState("");
   const [gender, setGender] = useState("");
-  const scoped =
-    sportCodes === undefined
-      ? athleteCatalog
-      : athleteCatalog.filter((e) => sportCodes.includes(e.sportCode));
+  const scoped = athleteCatalog.filter(
+    (e) =>
+      (sportCodes === undefined || sportCodes.includes(e.sportCode)) &&
+      (catalogCodes === undefined || catalogCodes.includes(e.code)),
+  );
   const events = scoped.filter(
     (e) =>
       (!level || e.level === level) &&

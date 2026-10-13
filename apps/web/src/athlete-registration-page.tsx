@@ -62,6 +62,8 @@ export function AthleteRegistrationPage({
   onSave,
   onDirty,
   storageStatus = "saved",
+  year = 2026,
+  catalogCodes,
 }: {
   schools: SchoolDraft[];
   activeId: string;
@@ -69,6 +71,8 @@ export function AthleteRegistrationPage({
   onSave: (school: SchoolDraft) => void;
   onDirty: (dirty: boolean) => void;
   storageStatus?: "saving" | "error" | "saved";
+  year?: number;
+  catalogCodes?: readonly string[];
 }) {
   const active = schools.find((s) => s.draftId === activeId);
   const [edited, setEdited] = useState<Record<string, AthleteDraft[]>>({});
@@ -268,7 +272,7 @@ export function AthleteRegistrationPage({
     >
       <header className="registration-title">
         <HkpdLogo className="workspace-heading-logo" />
-        <h1>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ NĂM 2026</h1>
+        <h1>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ NĂM {year}</h1>
         <p>Danh sách đăng ký vận động viên tham gia thi đấu</p>
       </header>
       <div className="registration-school">
@@ -587,6 +591,8 @@ export function AthleteRegistrationPage({
         rows.find((a) => a.draftId === openedAthleteId) && (
           <AthleteEventDialog
             key={openedAthleteId}
+            year={year}
+            catalogCodes={catalogCodes}
             athlete={rows.find((a) => a.draftId === openedAthleteId)!}
             school={active}
             onClose={() => setOpenedAthleteId(null)}
