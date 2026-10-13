@@ -1,7 +1,14 @@
 import {
+  assignedSportCodes,
+  sessionRoles,
+  type WorkspaceSession,
+} from "./staff-scope.js";
+import {
   RoleLayout,
   RoleOverview,
   CatalogWorkspace,
+  StaffObservation,
+  rolePages,
   type WorkspaceRole,
   type WorkspacePage,
 } from "./role-workspaces.js";
@@ -74,7 +81,9 @@ function initialDrafts() {
     };
   }
 }
-export function App() {
+export function App({ session }: { session?: WorkspaceSession }) {
+  const sessionBound = useRef(Boolean(session));
+  if (session) sessionBound.current = true;
   const [initial] = useState(initialDrafts);
   const [drafts, setDrafts] = useState(initial.drafts);
   const [writer] = useState(
@@ -85,8 +94,26 @@ export function App() {
       }),
   );
   const [activeId, setActiveId] = useState(initial.drafts[0]?.draftId ?? "");
-  const [role, setRole] = useState<WorkspaceRole>("school");
-  const [step, setStep] = useState<Step>("Đăng ký VĐV");
+  const [requestedRole, setRole] = useState<WorkspaceRole>(
+    session ? (sessionRoles(session)[0] ?? "referee") : "school",
+  );
+  const [requestedStep, setStep] = useState<Step>(
+    session ? "Tổng quan" : "Đăng ký VĐV",
+  );
+  const availableRoles = session
+    ? sessionRoles(session)
+    : sessionBound.current
+      ? []
+      : undefined;
+  const role =
+    availableRoles && !availableRoles.includes(requestedRole)
+      ? (availableRoles[0] ?? "referee")
+      : requestedRole;
+  const step = rolePages[role].includes(requestedStep)
+    ? requestedStep
+    : "Tổng quan";
+  const staff = role === "chief" || role === "referee";
+  const staffSports = assignedSportCodes(session, role);
   const [tableDirty, setTableDirty] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(initial.error);
@@ -125,7 +152,12 @@ export function App() {
     setStep(next);
   }
   function changeRole(next: WorkspaceRole) {
-    if (next === role || !mayLeave()) return;
+    if (
+      next === role ||
+      (availableRoles && !availableRoles.includes(next)) ||
+      !mayLeave()
+    )
+      return;
     setRole(next);
     setStep(next === "school" ? "Đăng ký VĐV" : "Tổng quan");
   }
@@ -246,7 +278,13 @@ export function App() {
     setMessage("Đã xuất phiếu nháp để bàn giao. Phiếu chưa được gửi duyệt.");
   }
   return (
-    <RoleLayout role={role} page={step} onRole={changeRole} onPage={changePage}>
+    <RoleLayout
+      role={role}
+      page={step}
+      onRole={changeRole}
+      onPage={changePage}
+      availableRoles={availableRoles}
+    >
       {step === "Đăng ký VĐV" && (
         <AthleteRegistrationPage
           schools={drafts}
@@ -537,9 +575,16 @@ export function App() {
           </div>
         </details>
       ) : step === "Tổng quan" ? (
-        <RoleOverview role={role} drafts={drafts} onPage={changePage} />
+        <RoleOverview
+          role={role}
+          drafts={drafts}
+          onPage={changePage}
+          sportCodes={staffSports}
+        />
       ) : step === "Danh mục môn thi" ? (
-        <CatalogWorkspace />
+        <CatalogWorkspace sportCodes={staff ? staffSports : undefined} />
+      ) : staff ? (
+        <StaffObservation page={step} sportCodes={staffSports} />
       ) : step === "Ngoại tuyến" ? (
         <OfflineWorkspace />
       ) : step === "Xác nhận kết quả" ? (

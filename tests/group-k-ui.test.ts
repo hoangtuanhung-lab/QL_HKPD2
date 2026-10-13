@@ -36,7 +36,7 @@ function scores(a: string, b: string) {
 it("K08 opens an empty trial instead of static confirmation outline", () => {
   render(createElement(App));
   fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
-    target: { value: "chief" },
+    target: { value: "admin" },
   });
   fireEvent.click(
     within(
