@@ -1,3 +1,10 @@
+import {
+  RoleLayout,
+  RoleOverview,
+  CatalogWorkspace,
+  type WorkspaceRole,
+  type WorkspacePage,
+} from "./role-workspaces.js";
 import { AthleteRegistrationPage } from "./athlete-registration-page.js";
 import { OfflineWorkspace } from "./offline-ui.js";
 import { CompetitionWorkspace } from "./competition-ui.js";
@@ -19,21 +26,12 @@ import {
   type SchoolDraft,
 } from "./registration-draft.js";
 
-const steps = [
-  "Đăng ký VĐV",
-  "Kiểm tra đăng ký",
-  "Phân công",
-  "Sơ đồ thi đấu",
-  "Vòng tròn",
-  "Lịch và phân làn",
-  "Ngoại tuyến",
-  "Xác nhận kết quả",
-  "Công khai",
-] as const;
-type Step = (typeof steps)[number];
+type Step = WorkspacePage;
 const outlines: Record<
   Exclude<
     Step,
+    | "Tổng quan"
+    | "Danh mục môn thi"
     | "Đăng ký VĐV"
     | "Kiểm tra đăng ký"
     | "Ngoại tuyến"
@@ -87,6 +85,7 @@ export function App() {
       }),
   );
   const [activeId, setActiveId] = useState(initial.drafts[0]?.draftId ?? "");
+  const [role, setRole] = useState<WorkspaceRole>("school");
   const [step, setStep] = useState<Step>("Đăng ký VĐV");
   const [tableDirty, setTableDirty] = useState(false);
   const [message, setMessage] = useState("");
@@ -113,10 +112,23 @@ export function App() {
   const fileInput = useRef<HTMLInputElement>(null);
   const draftsRef = useRef(drafts);
   const active = drafts.find((school) => school.draftId === activeId);
-  const totalAthletes = drafts.reduce(
-    (count, school) => count + school.athletes.length,
-    0,
-  );
+  function mayLeave() {
+    return (
+      !tableDirty ||
+      window.confirm(
+        "Bảng đăng ký có thay đổi chưa lưu. Chuyển màn hình sẽ bỏ các thay đổi này. Bạn muốn tiếp tục?",
+      )
+    );
+  }
+  function changePage(next: WorkspacePage) {
+    if (next === step || !mayLeave()) return;
+    setStep(next);
+  }
+  function changeRole(next: WorkspaceRole) {
+    if (next === role || !mayLeave()) return;
+    setRole(next);
+    setStep(next === "school" ? "Đăng ký VĐV" : "Tổng quan");
+  }
   function commit(next: SchoolDraft[]) {
     draftsRef.current = next;
     setDrafts(next);
@@ -234,7 +246,7 @@ export function App() {
     setMessage("Đã xuất phiếu nháp để bàn giao. Phiếu chưa được gửi duyệt.");
   }
   return (
-    <main className={step === "Đăng ký VĐV" ? "registration-mode" : ""}>
+    <RoleLayout role={role} page={step} onRole={changeRole} onPage={changePage}>
       {step === "Đăng ký VĐV" && (
         <AthleteRegistrationPage
           schools={drafts}
@@ -253,67 +265,6 @@ export function App() {
           }
         />
       )}
-      <header className="topbar">
-        <div className="brand">
-          <span className="brand-mark" aria-hidden="true">
-            HK
-          </span>
-          <div>
-            <strong>HỘI KHỎE PHÙ ĐỔNG</strong>
-            <span>Quảng Phú · Bàn làm việc đăng ký</span>
-          </div>
-        </div>
-        <span className="badge">Bản cơ bản · Lưu nháp</span>
-      </header>
-      <section className="intro">
-        <p className="eyebrow">NHÀ TRƯỜNG CHỦ ĐỘNG ĐĂNG KÝ</p>
-        <h1>Chuẩn bị danh sách tham gia</h1>
-        <p>
-          Tạo phiếu của trường, nhập VĐV theo thực tế và xuất danh sách để bàn
-          giao.
-        </p>
-        <p className="draft-note">
-          Hệ thống đang được xây dựng. Bản nháp lưu trên trình duyệt này; chức
-          năng gửi duyệt và lưu chính thức sẽ được bổ sung.
-        </p>
-      </section>
-      <div className="stats">
-        <div>
-          <strong>{drafts.length}</strong>
-          <span>Phiếu trường theo kỳ giải</span>
-        </div>
-        <div>
-          <strong>{totalAthletes}</strong>
-          <span>VĐV trong các bản nháp</span>
-        </div>
-        <div>
-          <strong>{active?.athletes.length ?? 0}</strong>
-          <span>VĐV trong phiếu đang mở</span>
-        </div>
-      </div>
-      <nav className="flow-nav" aria-label="Các luồng chức năng">
-        {steps.map((item) => (
-          <button
-            key={item}
-            type="button"
-            aria-current={step === item ? "page" : undefined}
-            className={step === item ? "selected" : ""}
-            onClick={() => {
-              if (
-                item !== step &&
-                tableDirty &&
-                !window.confirm(
-                  "Bảng đăng ký có thay đổi chưa lưu. Chuyển màn hình sẽ bỏ các thay đổi này. Bạn muốn tiếp tục?",
-                )
-              )
-                return;
-              setStep(item);
-            }}
-          >
-            {item}
-          </button>
-        ))}
-      </nav>
       {error && (
         <p className="notice error" role="alert">
           {error}
@@ -332,6 +283,25 @@ export function App() {
       {step === "Đăng ký VĐV" ? (
         <details className="registration-tools">
           <summary>Thiết lập phiếu trường và công cụ bổ sung</summary>
+          <div className="stats">
+            <div>
+              <strong>{drafts.length}</strong>
+              <span>Phiếu trường theo kỳ giải</span>
+            </div>
+            <div>
+              <strong>
+                {drafts.reduce(
+                  (count, school) => count + school.athletes.length,
+                  0,
+                )}
+              </strong>
+              <span>VĐV trong các bản nháp</span>
+            </div>
+            <div>
+              <strong>{active?.athletes.length ?? 0}</strong>
+              <span>VĐV trong phiếu đang mở</span>
+            </div>
+          </div>
           <div className="workspace">
             <aside className="card">
               <h2>Phiếu của nhà trường</h2>
@@ -566,6 +536,10 @@ export function App() {
             </section>
           </div>
         </details>
+      ) : step === "Tổng quan" ? (
+        <RoleOverview role={role} drafts={drafts} onPage={changePage} />
+      ) : step === "Danh mục môn thi" ? (
+        <CatalogWorkspace />
       ) : step === "Ngoại tuyến" ? (
         <OfflineWorkspace />
       ) : step === "Xác nhận kết quả" ? (
@@ -600,6 +574,6 @@ export function App() {
       <footer>
         Hội khỏe Phù Đổng Quảng Phú · Thông tin nháp chưa được công bố
       </footer>
-    </main>
+    </RoleLayout>
   );
 }

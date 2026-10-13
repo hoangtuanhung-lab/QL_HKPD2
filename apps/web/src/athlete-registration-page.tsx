@@ -1,3 +1,4 @@
+import { HkpdLogo } from "./role-workspaces.js";
 import { AthleteEventDialog } from "./athlete-event-dialog.js";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -266,6 +267,7 @@ export function AthleteRegistrationPage({
       aria-label="Đăng ký vận động viên theo bảng"
     >
       <header className="registration-title">
+        <HkpdLogo className="workspace-heading-logo" />
         <h1>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ NĂM 2026</h1>
         <p>Danh sách đăng ký vận động viên tham gia thi đấu</p>
       </header>

@@ -73,15 +73,30 @@ it("two saved revisions remain after unmount/reopen with identical operation IDs
 });
 it("opens via App navigation and preserves local queue across tabs", async () => {
   render(createElement(App));
-  fireEvent.click(screen.getByRole("button", { name: "Ngoại tuyến" }));
+  fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
+    target: { value: "referee" },
+  });
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: "Các luồng chức năng" }),
+    ).getByRole("button", { name: "Ngoại tuyến" }),
+  );
   await ready();
   scores("0", "1");
   fireEvent.click(
     screen.getByRole("button", { name: "Lưu bản ngoại tuyến thử" }),
   );
   await waitFor(() => expect(screen.getByText("Bản đã lưu: 1")).toBeTruthy());
-  fireEvent.click(screen.getByRole("button", { name: "Xác nhận kết quả" }));
-  fireEvent.click(screen.getByRole("button", { name: "Ngoại tuyến" }));
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: "Các luồng chức năng" }),
+    ).getByRole("button", { name: "Xác nhận kết quả" }),
+  );
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: "Các luồng chức năng" }),
+    ).getByRole("button", { name: "Ngoại tuyến" }),
+  );
   await ready();
   expect(screen.getByText("Bản đã lưu: 1")).toBeTruthy();
   expect(screen.getByText("0–1")).toBeTruthy();
