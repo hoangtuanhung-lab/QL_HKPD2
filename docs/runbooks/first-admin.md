@@ -8,7 +8,7 @@ Tài khoản chủ dự án đã chọn: **hoangtuanhung@gmail.com**. Đây là 
 2. Mở `https://hkpd.netlify.app`, đăng nhập Google bằng đúng email trên ít nhất một lần. Trong Supabase project `sflnbtnwsafncdzhkdix`, vào **Authentication → Users**, kiểm tra tài khoản đã xuất hiện.
 3. Vào **SQL Editor → New query**. Mở file [`001_admin_access.sql`](../../infra/supabase/001_admin_access.sql) trên GitHub, sao chép toàn bộ nội dung vào trình soạn thảo và bấm **Run**. Phải chạy thành công trước bước sau.
 4. Tạo query mới, sao chép toàn bộ [`002_first_admin.sql`](../../infra/supabase/002_first_admin.sql), kiểm tra email `hoangtuanhung@gmail.com`, rồi **Run**. Script yêu cầu đúng một tài khoản đã xác minh email và có Google identity; thiếu tài khoản thì hủy transaction, không tự tạo hay cấp quyền cho tài khoản khác.
-5. Quay lại website, bấm **Kiểm tra quyền** hoặc tải lại trang. Phải thấy thông báo đã xác minh quản trị và màn tổng quan. Nếu báo không đọc được quyền, kiểm tra query bước 3 và đúng project; nếu vẫn chờ cấp quyền, kiểm tra bước 4 và email đang đăng nhập.
+5. Quay lại website, kiểm tra dòng **Tài khoản** đúng email đã cấp quyền, rồi bấm **Kiểm tra quyền** hoặc tải lại trang. Nút chuyển sang **Đang kiểm tra…**, sau đó hiển thị kết quả kể cả khi quyền chưa thay đổi. Nếu quá 20 giây sẽ có thông báo để thử lại. Phải thấy thông báo đã xác minh quản trị và màn tổng quan. Nếu báo không đọc được quyền, kiểm tra query bước 3 và đúng project; nếu vẫn chờ cấp quyền, kiểm tra bước 4 và email đang đăng nhập.
 
 Có thể chạy lại hai script theo thứ tự. Không sửa migration đã áp dụng để thay đổi cấu trúc: dùng migration mới cho các thay đổi tiếp theo.
 
@@ -38,3 +38,16 @@ Dữ liệu đăng ký, phân công, kết quả đang là bản nháp trên tr�
 - `npm run check`: kiểm tra hợp đồng, lint, typecheck, test và build.
 
 Các kiểm tra tự động không thay thế bước xác nhận trên Supabase/Netlify thật của chủ project.
+
+## SQL thành công nhưng giao diện vẫn chờ quyền
+
+Chạy query **chỉ đọc** trong đúng project Supabase:
+
+```sql
+select u.email, a.approved, a.edition_id
+from auth.users u
+left join public.hkpd_admin_access a on a.user_id = u.id
+where lower(u.email) = 'hoangtuanhung@gmail.com';
+```
+
+Kết quả mong đợi: `hoangtuanhung@gmail.com`, `true`, `edition-2026`. Không có dòng: kiểm tra project hoặc email Google đã đăng nhập. `approved` trống/false: bản ghi cấp quyền chưa có hoặc đã thu hồi; kiểm tra query bootstrap. Khi bản ghi đúng, đối chiếu dòng **Tài khoản** trên website, thử đăng xuất/đăng nhập đúng email và kiểm tra Netlify đang dùng URL project `https://sflnbtnwsafncdzhkdix.supabase.co`. Không chia sẻ token, khóa bí mật hoặc URL callback có code để chẩn đoán.
