@@ -74,7 +74,7 @@ it("two saved revisions remain after unmount/reopen with identical operation IDs
 it("opens via App navigation and preserves local queue across tabs", async () => {
   render(createElement(App));
   fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
-    target: { value: "referee" },
+    target: { value: "admin" },
   });
   fireEvent.click(
     within(

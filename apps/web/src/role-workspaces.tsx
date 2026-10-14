@@ -10,6 +10,7 @@ export const roles = {
 } as const;
 export type WorkspaceRole = keyof typeof roles;
 export type WorkspacePage =
+  | "Quản lý giải"
   | "Tổng quan"
   | "Danh mục môn thi"
   | "Đăng ký VĐV"
@@ -24,6 +25,7 @@ export type WorkspacePage =
 export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
   admin: [
     "Tổng quan",
+    "Quản lý giải",
     "Đăng ký VĐV",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
@@ -101,12 +103,18 @@ export function RoleLayout({
   onRole,
   onPage,
   children,
+  availableRoles = Object.keys(roles) as WorkspaceRole[],
+  editionName = "2026",
+  editionYear = 2026,
 }: {
   role: WorkspaceRole;
   page: WorkspacePage;
   onRole: (role: WorkspaceRole) => void;
   onPage: (page: WorkspacePage) => void;
   children: ReactNode;
+  availableRoles?: readonly WorkspaceRole[];
+  editionName?: string;
+  editionYear?: number;
 }) {
   return (
     <div className={`role-shell role-${role}`}>
@@ -114,7 +122,7 @@ export function RoleLayout({
         <div className="role-brand">
           <HkpdLogo />
           <strong>
-            HKPĐ QUẢNG PHÚ<span>Năm 2026</span>
+            HKPĐ QUẢNG PHÚ<span>Năm {editionYear}</span>
           </strong>
         </div>
         <p className="role-menu-caption">BÀN LÀM VIỆC · {roles[role]}</p>
@@ -141,9 +149,9 @@ export function RoleLayout({
       <div className="role-body">
         <header className="role-topbar">
           <div>
-            <strong>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ 2026</strong>
+            <strong>HỘI KHỎE PHÙ ĐỔNG XÃ QUẢNG PHÚ {editionYear}</strong>
             <span>
-              {roles[role]} · {page}
+              {roles[role]} · {page} · {editionName}
             </span>
           </div>
           <label className="role-selector">
@@ -152,11 +160,15 @@ export function RoleLayout({
               value={role}
               onChange={(e) => onRole(e.target.value as WorkspaceRole)}
             >
-              {Object.entries(roles).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
+              {Object.entries(roles)
+                .filter(([value]) =>
+                  availableRoles.includes(value as WorkspaceRole),
+                )
+                .map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
             </select>
           </label>
         </header>
@@ -224,13 +236,33 @@ export function RoleOverview({
   role,
   drafts,
   onPage,
+  sportCodes = [],
+  catalogCodes,
+  editionName = "2026",
 }: {
   role: WorkspaceRole;
+  sportCodes?: readonly string[];
+  catalogCodes?: readonly string[];
+  editionName?: string;
   drafts: SchoolDraft[];
   onPage: (page: WorkspacePage) => void;
 }) {
   const [query, setQuery] = useState("");
   const [heading, description] = roleHeadings[role];
+  const staff = role === "chief" || role === "referee";
+  const editionCatalog =
+    catalogCodes === undefined
+      ? athleteCatalog
+      : athleteCatalog.filter((e) => catalogCodes.includes(e.code));
+  const editionSports = [
+    ...new Map(editionCatalog.map((e) => [e.sportCode, e.sportName])).entries(),
+  ];
+  const visibleSports = staff
+    ? editionSports.filter(([code]) => sportCodes.includes(code))
+    : editionSports;
+  const scopedEvents = staff
+    ? editionCatalog.filter((e) => sportCodes.includes(e.sportCode))
+    : editionCatalog;
   const visible = drafts.filter((d) =>
     `${d.schoolName} ${d.editionName}`
       .toLocaleLowerCase("vi")
@@ -244,7 +276,7 @@ export function RoleOverview({
           <h1>{heading}</h1>
           <p>{description}</p>
         </div>
-        <span className="role-edition">Kỳ giải 2026</span>
+        <span className="role-edition">Giải hiện tại: {editionName}</span>
       </div>
       <div className="role-metrics">
         {(role === "admin" || role === "school"
@@ -254,14 +286,14 @@ export function RoleOverview({
                 "VĐV trong bản nháp",
                 drafts.reduce((n, d) => n + d.athletes.length, 0),
               ],
-              ["Môn thi đấu", sports.length],
-              ["Nội dung thi đấu", athleteCatalog.length],
+              ["Môn thi đấu", visibleSports.length],
+              ["Nội dung thi đấu", scopedEvents.length],
             ]
           : [
               ["Phân công chính thức", "—"],
               ["Trận được giao", "—"],
-              ["Môn thi đấu", sports.length],
-              ["Nội dung thi đấu", athleteCatalog.length],
+              ["Môn thi đấu", visibleSports.length],
+              ["Nội dung thi đấu", scopedEvents.length],
             ]
         ).map(([label, value], index) => (
           <article key={label} className={`role-metric metric-${index}`}>
@@ -349,10 +381,14 @@ export function RoleOverview({
           ) : (
             <div className="role-empty">
               <WorkspaceIcon page="Lịch và phân làn" />
-              <h3>Chưa có phân công chính thức</h3>
+              <h3>
+                {visibleSports.length
+                  ? "Các môn được phân công"
+                  : "Chưa có phân công chính thức"}
+              </h3>
               <p>
-                Lịch và trận được giao sẽ hiển thị sau khi tài khoản được phân
-                công. Có thể mở công cụ thử nghiệm bên cạnh.
+                Chỉ hiển thị dữ liệu thuộc môn được giao trong kỳ giải. Chưa có
+                dữ liệu lịch/trận từ hệ thống.
               </p>
             </div>
           )}
@@ -377,11 +413,11 @@ export function RoleOverview({
             type="button"
             onClick={() => onPage("Danh mục môn thi")}
           >
-            Xem 133 nội dung →
+            Xem {scopedEvents.length} nội dung →
           </button>
         </div>
         <div className="role-sport-chips">
-          {sports.map(([code, name]) => (
+          {visibleSports.map(([code, name]) => (
             <button
               type="button"
               key={code}
@@ -396,11 +432,19 @@ export function RoleOverview({
     </section>
   );
 }
-export function CatalogWorkspace() {
+export function CatalogWorkspace({
+  sportCodes,
+  catalogCodes,
+}: { sportCodes?: readonly string[]; catalogCodes?: readonly string[] } = {}) {
   const [query, setQuery] = useState("");
   const [level, setLevel] = useState("");
   const [gender, setGender] = useState("");
-  const events = athleteCatalog.filter(
+  const scoped = athleteCatalog.filter(
+    (e) =>
+      (sportCodes === undefined || sportCodes.includes(e.sportCode)) &&
+      (catalogCodes === undefined || catalogCodes.includes(e.code)),
+  );
+  const events = scoped.filter(
     (e) =>
       (!level || e.level === level) &&
       (!gender || e.gender === gender || e.gender === "Nam - nữ") &&
@@ -412,8 +456,12 @@ export function CatalogWorkspace() {
     <section className="role-panel catalog-workspace">
       <h1>Danh mục môn thi</h1>
       <p>
-        9 môn · 133 nội dung từ danh mục được cung cấp. Bảng tra cứu không thay
-        điều kiện đăng ký của từng VĐV.
+        {new Set(scoped.map((e) => e.sportCode)).size} môn · {scoped.length} nội
+        dung{" "}
+        {sportCodes === undefined
+          ? "từ danh mục được cung cấp."
+          : "thuộc phân công của bạn."}{" "}
+        Bảng tra cứu không thay điều kiện đăng ký của từng VĐV.
       </p>
       <div className="role-catalog-filters">
         <label>
@@ -475,6 +523,48 @@ export function CatalogWorkspace() {
           <div className="role-empty">Không tìm thấy nội dung phù hợp.</div>
         )}
       </div>
+    </section>
+  );
+}
+
+export function StaffObservation({
+  page,
+  sportCodes,
+}: {
+  page: WorkspacePage;
+  sportCodes: readonly string[];
+}) {
+  const assigned = sports.filter(([code]) => sportCodes.includes(code));
+  return (
+    <section className="role-panel staff-observation">
+      <h1>{page === "Phân công" ? "Phân công của tôi" : page}</h1>
+      <p>Chỉ quan sát môn được phân công trong kỳ giải hiện tại.</p>
+      {assigned.length ? (
+        <>
+          <div className="role-sport-chips">
+            {assigned.map(([code, name]) => (
+              <div className="role-draft-tag" key={code}>
+                {name}
+              </div>
+            ))}
+          </div>
+          <div className="role-empty">
+            <h3>
+              Chưa có dữ liệu {page.toLocaleLowerCase("vi")} của các môn được
+              giao
+            </h3>
+            <p>
+              Dữ liệu sẽ hiển thị khi kết nối hệ thống. Công cụ thử nghiệm chung
+              không được mở trong bàn làm việc trọng tài.
+            </p>
+          </div>
+        </>
+      ) : (
+        <div className="role-empty">
+          <h3>Chưa có môn được phân công</h3>
+          <p>Liên hệ Ban tổ chức để được phân công môn thi đấu.</p>
+        </div>
+      )}
     </section>
   );
 }

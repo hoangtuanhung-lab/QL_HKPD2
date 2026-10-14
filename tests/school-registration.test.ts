@@ -123,6 +123,14 @@ describe("School registration drafts", () => {
     athlete();
     school("  TRƯỜNG A  ");
     await waitFor(() => expect(loadDrafts(localStorage)).toHaveLength(1));
+    fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
+      target: { value: "admin" },
+    });
+    fireEvent.click(
+      within(screen.getByRole("navigation")).getByRole("button", {
+        name: "Đăng ký VĐV",
+      }),
+    );
     school("Trường A", "2027");
     await waitFor(() => expect(loadDrafts(localStorage)).toHaveLength(2));
     expect(screen.getByText("Chưa có VĐV trong phiếu")).toBeTruthy();

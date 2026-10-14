@@ -1,5 +1,9 @@
 import { eventByCode } from "./athlete-catalog.js";
 import {
+  validateTournamentState,
+  type TournamentState,
+} from "./tournament-state.js";
+import {
   eventOptions,
   sportNames,
   type EventPreference,
@@ -269,6 +273,7 @@ export function fromSheet(value: unknown): SchoolDraft {
   };
 }
 export interface DraftSnapshot {
+  tournaments?: TournamentState;
   revision: number;
   token: string | null;
   drafts: SchoolDraft[];
@@ -354,16 +359,20 @@ export function readDraftSnapshot(
   }
   if (
     !object(value) ||
-    !hasOnly(value, ["formatVersion", "revision", "drafts"]) ||
+    !hasOnly(value, ["formatVersion", "revision", "drafts", "tournaments"]) ||
     value.formatVersion !== 2 ||
     !Number.isSafeInteger(value.revision) ||
     Number(value.revision) < 1
   )
     throw new Error("Dữ liệu nháp đã lưu không đúng định dạng.");
+  const drafts = validateStored(value.drafts);
   return {
     revision: Number(value.revision),
     token: raw,
-    drafts: validateStored(value.drafts),
+    drafts,
+    ...(value.tournaments === undefined
+      ? {}
+      : { tournaments: validateTournamentState(value.tournaments, drafts) }),
   };
 }
 export const loadDrafts = (storage: Pick<Storage, "getItem">) =>
@@ -374,8 +383,13 @@ export async function saveDrafts(
   drafts: SchoolDraft[],
   expected: Pick<DraftSnapshot, "revision" | "token">,
   locks: DraftLocks | undefined = globalThis.navigator?.locks,
+  tournaments?: TournamentState,
 ): Promise<DraftSnapshot> {
   const captured = validateStored(structuredClone(drafts));
+  const capturedTournaments =
+    tournaments === undefined
+      ? undefined
+      : validateTournamentState(tournaments, captured);
   const expectedRevision = expected.revision;
   const expectedToken = expected.token;
   if (
@@ -396,13 +410,21 @@ export async function saveDrafts(
     )
       throw new DraftConflict();
     const revision = current.revision + 1;
+    const nextTournaments = capturedTournaments ?? current.tournaments;
+    if (nextTournaments) validateTournamentState(nextTournaments, captured);
     const token = JSON.stringify({
       formatVersion: 2,
       revision,
       drafts: captured,
+      ...(nextTournaments ? { tournaments: nextTournaments } : {}),
     });
     storage.setItem(storageKey, token);
-    return { revision, token, drafts: captured };
+    return {
+      revision,
+      token,
+      drafts: captured,
+      ...(nextTournaments ? { tournaments: nextTournaments } : {}),
+    };
   });
 }
 /** Serializes this tab's own writes, but stops after conflict/quota errors without rebasing stale data. */
@@ -418,8 +440,10 @@ export class DraftWriter {
   ) {
     this.expected = { revision: expected.revision, token: expected.token };
   }
-  save(drafts: SchoolDraft[]): Promise<void> {
+  save(drafts: SchoolDraft[], tournaments?: TournamentState): Promise<void> {
     const captured = structuredClone(drafts);
+    const capturedTournaments =
+      tournaments === undefined ? undefined : structuredClone(tournaments);
     const operation = this.tail.then(async () => {
       if (this.stopped) throw this.failure;
       try {
@@ -428,6 +452,7 @@ export class DraftWriter {
           captured,
           this.expected,
           this.locks,
+          capturedTournaments,
         );
       } catch (error) {
         this.stopped = true;

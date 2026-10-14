@@ -24,7 +24,11 @@ export function AthleteEventDialog({
   school,
   onApply,
   onClose,
+  year = 2026,
+  catalogCodes,
 }: {
+  year?: number;
+  catalogCodes?: readonly string[];
   athlete: AthleteDraft;
   school: SchoolDraft;
   onApply: (patch: Partial<AthleteDraft>) => void;
@@ -43,9 +47,11 @@ export function AthleteEventDialog({
     level,
     gender: athlete.gender ?? "",
     birthYear,
-    year: 2026,
+    year,
   };
-  const available = eligibleCatalog(scope);
+  const available = eligibleCatalog(scope).filter(
+    (e) => catalogCodes === undefined || catalogCodes.includes(e.code),
+  );
   const sports = catalogSports(available);
   const [initial] = useState(() =>
     athlete.catalogSelections !== undefined
@@ -224,7 +230,7 @@ export function AthleteEventDialog({
       <header className="event-dialog-header">
         <HkpdLogo className="workspace-heading-logo" />
         <div>
-          <p>HỘI KHỎE PHÙ ĐỔNG · QUẢNG PHÚ 2026</p>
+          <p>HỘI KHỎE PHÙ ĐỔNG · QUẢNG PHÚ {year}</p>
           <h2 id="athlete-event-title">Đăng ký môn thi đấu</h2>
           <span>Hồ sơ vận động viên · {athlete.fullName}</span>
         </div>
@@ -624,9 +630,9 @@ export function AthleteEventDialog({
             </button>
           </div>
           <p className="event-reference-note">
-            Danh mục: 133 nội dung từ tệp Excel đã cung cấp. Tuổi = 2026 − năm
-            sinh. Thêm nội dung kế thừa môn và phân nhóm của dòng cuối; lưu toàn
-            bộ bằng nút Lưu đăng ký môn.
+            Danh mục: {catalogCodes?.length ?? 133} nội dung của giải. Tuổi ={" "}
+            {year} − năm sinh. Thêm nội dung kế thừa môn và phân nhóm của dòng
+            cuối; lưu toàn bộ bằng nút Lưu đăng ký môn.
           </p>
           <p className="event-reference-note">
             Đăng ký đang lưu nháp; quota trường, đội/đôi và duyệt chính thức sẽ

@@ -1,7 +1,22 @@
+import { athleteCatalog } from "./athlete-catalog.generated.js";
+import { TournamentWorkspace } from "./tournament-workspace.js";
+import {
+  initialTournaments,
+  linkDrafts,
+  validateTournamentState,
+  type TournamentState,
+} from "./tournament-state.js";
+import {
+  assignedSportCodes,
+  sessionRoles,
+  type WorkspaceSession,
+} from "./staff-scope.js";
 import {
   RoleLayout,
   RoleOverview,
   CatalogWorkspace,
+  StaffObservation,
+  rolePages,
   type WorkspaceRole,
   type WorkspacePage,
 } from "./role-workspaces.js";
@@ -30,6 +45,7 @@ type Step = WorkspacePage;
 const outlines: Record<
   Exclude<
     Step,
+    | "Quản lý giải"
     | "Tổng quan"
     | "Danh mục môn thi"
     | "Đăng ký VĐV"
@@ -74,9 +90,21 @@ function initialDrafts() {
     };
   }
 }
-export function App() {
+export function App({ session }: { session?: WorkspaceSession }) {
+  const sessionBound = useRef(Boolean(session));
+  if (session) sessionBound.current = true;
   const [initial] = useState(initialDrafts);
   const [drafts, setDrafts] = useState(initial.drafts);
+  const [tournaments, setTournaments] = useState<TournamentState>(
+    () => initial.tournaments ?? initialTournaments(initial.drafts),
+  );
+  const tournamentsRef = useRef(tournaments);
+  const currentEdition = tournaments.editions.find(
+    (e) => e.id === tournaments.currentId,
+  )!;
+  const currentSession = session
+    ? { ...session, editionId: currentEdition.id }
+    : undefined;
   const [writer] = useState(
     () =>
       new DraftWriter(localStorage, {
@@ -85,8 +113,33 @@ export function App() {
       }),
   );
   const [activeId, setActiveId] = useState(initial.drafts[0]?.draftId ?? "");
-  const [role, setRole] = useState<WorkspaceRole>("school");
-  const [step, setStep] = useState<Step>("Đăng ký VĐV");
+  const [requestedRole, setRole] = useState<WorkspaceRole>(
+    session ? (sessionRoles(currentSession!)[0] ?? "referee") : "school",
+  );
+  const [requestedStep, setStep] = useState<Step>(
+    session ? "Tổng quan" : "Đăng ký VĐV",
+  );
+  const availableRoles = session
+    ? sessionRoles(currentSession!)
+    : sessionBound.current
+      ? []
+      : undefined;
+  const role =
+    availableRoles && !availableRoles.includes(requestedRole)
+      ? (availableRoles[0] ?? "referee")
+      : requestedRole;
+  const step = rolePages[role].includes(requestedStep)
+    ? requestedStep
+    : "Tổng quan";
+  const viewRef = useRef({ role, currentId: currentEdition.id });
+  viewRef.current = { role, currentId: currentEdition.id };
+  const staff = role === "chief" || role === "referee";
+  const staffSports = assignedSportCodes(currentSession, role).filter((code) =>
+    currentEdition.catalogCodes.some(
+      (eventCode) =>
+        athleteCatalog.find((e) => e.code === eventCode)?.sportCode === code,
+    ),
+  );
   const [tableDirty, setTableDirty] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(initial.error);
@@ -111,7 +164,22 @@ export function App() {
   });
   const fileInput = useRef<HTMLInputElement>(null);
   const draftsRef = useRef(drafts);
-  const active = drafts.find((school) => school.draftId === activeId);
+  const visibleDrafts =
+    role === "school"
+      ? drafts.filter(
+          (d) => tournaments.draftEditions[d.draftId] === currentEdition.id,
+        )
+      : drafts;
+  const visibleActiveId = visibleDrafts.some((d) => d.draftId === activeId)
+    ? activeId
+    : (visibleDrafts[0]?.draftId ?? "");
+  const active = visibleDrafts.find(
+    (school) => school.draftId === visibleActiveId,
+  );
+  const registrationEdition =
+    tournaments.editions.find(
+      (e) => e.id === tournaments.draftEditions[visibleActiveId],
+    ) ?? currentEdition;
   function mayLeave() {
     return (
       !tableDirty ||
@@ -125,12 +193,20 @@ export function App() {
     setStep(next);
   }
   function changeRole(next: WorkspaceRole) {
-    if (next === role || !mayLeave()) return;
+    if (
+      next === role ||
+      (availableRoles && !availableRoles.includes(next)) ||
+      !mayLeave()
+    )
+      return;
     setRole(next);
     setStep(next === "school" ? "Đăng ký VĐV" : "Tổng quan");
   }
   function commit(next: SchoolDraft[]) {
     draftsRef.current = next;
+    const nextTournaments = linkDrafts(tournamentsRef.current, next);
+    tournamentsRef.current = nextTournaments;
+    setTournaments(nextTournaments);
     setDrafts(next);
     if (initial.error) {
       setStorageError(
@@ -140,7 +216,7 @@ export function App() {
     }
     setPendingWrites((count) => count + 1);
     void writer
-      .save(next)
+      .save(next, nextTournaments)
       .catch((failure: unknown) => {
         setStorageError(
           failure instanceof Error
@@ -149,6 +225,27 @@ export function App() {
         );
       })
       .finally(() => setPendingWrites((count) => count - 1));
+  }
+  async function saveTournaments(
+    next: TournamentState,
+    nextDrafts: SchoolDraft[],
+  ) {
+    if (pendingWrites || initial.error || storageError)
+      throw Error("Chờ lưu xong hoặc xử lý lỗi lưu trước khi thay đổi giải.");
+    const validated = validateTournamentState(next, nextDrafts);
+    setPendingWrites((count) => count + 1);
+    try {
+      await writer.save(nextDrafts, validated);
+      tournamentsRef.current = validated;
+      draftsRef.current = nextDrafts;
+      setTournaments(validated);
+      setDrafts(nextDrafts);
+    } catch (failure) {
+      setStorageError((failure as Error).message);
+      throw failure;
+    } finally {
+      setPendingWrites((count) => count - 1);
+    }
   }
   function resetAthlete() {
     setAthlete({
@@ -159,6 +256,16 @@ export function App() {
     });
   }
   function selectSchool(id: string) {
+    if (
+      !draftsRef.current.some(
+        (d) =>
+          d.draftId === id &&
+          (role !== "school" ||
+            tournamentsRef.current.draftEditions[d.draftId] ===
+              currentEdition.id),
+      )
+    )
+      return;
     setActiveId(id);
     resetAthlete();
     setError("");
@@ -168,7 +275,7 @@ export function App() {
     event.preventDefault();
     const next: SchoolDraft = {
       draftId: newDraftId(),
-      editionName: clean(editionName),
+      editionName: role === "school" ? currentEdition.name : clean(editionName),
       schoolName: clean(schoolName),
       athletes: [],
     };
@@ -212,7 +319,22 @@ export function App() {
   async function importSheet(file?: File) {
     if (!file) return;
     try {
-      const imported = fromSheet(JSON.parse(await file.text()) as unknown);
+      const started = { ...viewRef.current };
+      const contents = await file.text();
+      if (
+        viewRef.current.role !== started.role ||
+        viewRef.current.currentId !== started.currentId
+      )
+        throw Error(
+          "Vai trò hoặc giải hiện tại đã đổi trong lúc đọc tệp. Vui lòng nhập lại.",
+        );
+      const imported = fromSheet(JSON.parse(contents) as unknown);
+      if (
+        role === "school" &&
+        clean(imported.editionName).toLocaleLowerCase("vi") !==
+          clean(currentEdition.name).toLocaleLowerCase("vi")
+      )
+        throw Error("Nhà trường chỉ được nhập phiếu của giải hiện tại.");
       if (draftsRef.current.some((school) => sameSchool(school, imported))) {
         throw new Error(
           "Đã có phiếu nháp của trường và kỳ giải này. Phiếu nhập chưa được lưu để tránh ghi đè; hãy xuất bản hiện có và rà soát trước.",
@@ -246,17 +368,35 @@ export function App() {
     setMessage("Đã xuất phiếu nháp để bàn giao. Phiếu chưa được gửi duyệt.");
   }
   return (
-    <RoleLayout role={role} page={step} onRole={changeRole} onPage={changePage}>
+    <RoleLayout
+      role={role}
+      page={step}
+      onRole={changeRole}
+      onPage={changePage}
+      availableRoles={availableRoles}
+      editionName={currentEdition.name}
+      editionYear={currentEdition.year}
+    >
+      {step === "Đăng ký VĐV" && registrationEdition.sourceId && (
+        <p className="notice">
+          Giải có dữ liệu kế thừa. Rà soát lớp, tuổi và nội dung theo năm{" "}
+          {registrationEdition.year} trước khi đăng ký.
+        </p>
+      )}
       {step === "Đăng ký VĐV" && (
         <AthleteRegistrationPage
-          schools={drafts}
-          activeId={activeId}
+          key={role === "school" ? currentEdition.id : "admin-registration"}
+          schools={visibleDrafts}
+          activeId={visibleActiveId}
+          year={registrationEdition.year}
+          catalogCodes={registrationEdition.catalogCodes}
           onSelect={selectSchool}
           onDirty={setTableDirty}
           storageStatus={
             storageError ? "error" : pendingWrites ? "saving" : "saved"
           }
           onSave={(updated) =>
+            visibleDrafts.some((d) => d.draftId === updated.draftId) &&
             commit(
               draftsRef.current.map((s) =>
                 s.draftId === updated.draftId ? updated : s,
@@ -285,12 +425,12 @@ export function App() {
           <summary>Thiết lập phiếu trường và công cụ bổ sung</summary>
           <div className="stats">
             <div>
-              <strong>{drafts.length}</strong>
+              <strong>{visibleDrafts.length}</strong>
               <span>Phiếu trường theo kỳ giải</span>
             </div>
             <div>
               <strong>
-                {drafts.reduce(
+                {visibleDrafts.reduce(
                   (count, school) => count + school.athletes.length,
                   0,
                 )}
@@ -313,7 +453,8 @@ export function App() {
                 <FormField
                   label="Tên kỳ giải"
                   required
-                  value={editionName}
+                  value={role === "school" ? currentEdition.name : editionName}
+                  readOnly={role === "school"}
                   onChange={(event) => setEditionName(event.target.value)}
                   placeholder="Nhập kỳ giải muốn tham gia"
                 />
@@ -327,7 +468,7 @@ export function App() {
                 <button type="submit">Tạo / mở phiếu nháp</button>
               </form>
               <div className="school-list">
-                {drafts.map((school) => (
+                {visibleDrafts.map((school) => (
                   <button
                     key={school.draftId}
                     className={
@@ -536,10 +677,29 @@ export function App() {
             </section>
           </div>
         </details>
+      ) : step === "Quản lý giải" ? (
+        <TournamentWorkspace
+          state={tournaments}
+          drafts={drafts}
+          busy={Boolean(pendingWrites)}
+          onSave={saveTournaments}
+        />
       ) : step === "Tổng quan" ? (
-        <RoleOverview role={role} drafts={drafts} onPage={changePage} />
+        <RoleOverview
+          role={role}
+          drafts={visibleDrafts}
+          onPage={changePage}
+          sportCodes={staffSports}
+          catalogCodes={currentEdition.catalogCodes}
+          editionName={currentEdition.name}
+        />
       ) : step === "Danh mục môn thi" ? (
-        <CatalogWorkspace />
+        <CatalogWorkspace
+          sportCodes={staff ? staffSports : undefined}
+          catalogCodes={currentEdition.catalogCodes}
+        />
+      ) : staff ? (
+        <StaffObservation page={step} sportCodes={staffSports} />
       ) : step === "Ngoại tuyến" ? (
         <OfflineWorkspace />
       ) : step === "Xác nhận kết quả" ? (

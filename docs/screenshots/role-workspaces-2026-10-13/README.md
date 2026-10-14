@@ -1,5 +1,7 @@
 # Giao diện bốn vai trò
 
+Ảnh lịch sử của PR #28. Bàn tổ trưởng/trọng tài hiện đã được sửa để chỉ thấy môn theo phân công; xem [ảnh và quy tắc mới](../staff-assigned-sports-2026-10-13/README.md).
+
 Ngày 13/10/2026 (Asia/Saigon). Ảnh chụp ứng dụng thực tế trên Chromium từ mã nguồn của nhánh này, dùng một phiếu trường/VĐV minh họa trong trình duyệt thử nghiệm. Logo là ảnh nguyên bản người dùng gửi trong ZIP; đây không phải bản render sinh ảnh của PR #27.
 
 | Vai trò             | Ảnh                                         |
