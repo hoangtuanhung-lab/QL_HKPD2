@@ -283,6 +283,20 @@ export class DraftConflict extends Error {
     );
   }
 }
+export class DraftStorageFull extends Error {
+  constructor() {
+    super(
+      "Bộ nhớ trình duyệt đã đầy nên bản nháp mới nhất chưa được lưu. Hãy xuất phiếu, bớt ảnh hoặc xóa phiếu cũ rồi lưu lại.",
+    );
+  }
+}
+function quotaExceeded(error: unknown) {
+  return (
+    error instanceof DOMException &&
+    (error.name === "QuotaExceededError" ||
+      error.name === "NS_ERROR_DOM_QUOTA_REACHED")
+  );
+}
 function validateStored(drafts: unknown): SchoolDraft[] {
   if (!Array.isArray(drafts)) throw new Error("Dữ liệu nháp không hợp lệ.");
   const schoolIds = new Set<string>(),
@@ -401,11 +415,17 @@ export async function saveDrafts(
       revision,
       drafts: captured,
     });
-    storage.setItem(storageKey, token);
+    try {
+      storage.setItem(storageKey, token);
+    } catch (error) {
+      if (quotaExceeded(error)) throw new DraftStorageFull();
+      throw error;
+    }
     return { revision, token, drafts: captured };
   });
 }
-/** Serializes this tab's own writes, but stops after conflict/quota errors without rebasing stale data. */
+/** Serializes this tab's own writes and stops after conflict/corrupt errors without rebasing stale data.
+ * A full storage leaves the stored revision untouched, so the next user save may try again under the same CAS. */
 export class DraftWriter {
   private tail = Promise.resolve();
   private failure: unknown;
@@ -430,8 +450,10 @@ export class DraftWriter {
           this.locks,
         );
       } catch (error) {
-        this.stopped = true;
-        this.failure = error;
+        if (!(error instanceof DraftStorageFull)) {
+          this.stopped = true;
+          this.failure = error;
+        }
         throw error;
       }
     });

@@ -4,7 +4,7 @@ import {
   executeRegistration,
   sealIdentity,
   openIdentity,
-  schoolIdentityView,
+  identityView,
   validReferees,
   canViewFile,
   canUploadMatchEvidence,
@@ -383,19 +383,20 @@ describe("R03 encrypted identity and R08/R09 access rules", () => {
       ),
     ).toThrow();
   });
-  it("only returns masked identity to the assigned school, rejects admin and foreign school", () => {
+  it("shows full identity to the registering school and admin, rejects a foreign school", () => {
     const key = randomBytes(32),
-      sealed = sealIdentity("000000000123", key, "test-key", scope);
-    expect(
-      schoolIdentityView(schoolActor, scope, sealed, key, "test-key"),
-    ).toBe("********0123");
+      viewScope = { ...scope, sportIds: ["sport-a"] },
+      sealed = sealIdentity("001000000123", key, "test-key", scope);
+    expect(identityView(schoolActor, viewScope, sealed, key, "test-key")).toBe(
+      "001000000123",
+    );
+    expect(identityView(adminActor, viewScope, sealed, key, "test-key")).toBe(
+      "001000000123",
+    );
     expect(() =>
-      schoolIdentityView(adminActor, scope, sealed, key, "test-key"),
-    ).toThrow();
-    expect(() =>
-      schoolIdentityView(
+      identityView(
         schoolActor,
-        { ...scope, schoolId: "other" },
+        { ...viewScope, schoolId: "other" },
         sealed,
         key,
         "test-key",

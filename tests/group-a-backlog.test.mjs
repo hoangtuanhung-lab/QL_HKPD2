@@ -1,17 +1,10 @@
 import { afterEach, expect, it } from "vitest";
-import {
-  cp,
-  mkdir,
-  mkdtemp,
-  readFile,
-  rm,
-  symlink,
-  writeFile,
-} from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { linkFixture } from "./link-fixture.mjs";
 
 const repository = fileURLToPath(new URL("../", import.meta.url));
 const temporary = [];
@@ -31,14 +24,17 @@ async function fixture() {
     join(repository, "scripts/group-a.mjs"),
     join(root, "scripts/group-a.mjs"),
   );
-  await symlink(
+  await linkFixture(
     join(repository, "scripts/contracts-schema.mjs"),
     join(root, "scripts/contracts-schema.mjs"),
   );
   for (const entry of ["packages", "node_modules"])
-    await symlink(join(repository, entry), join(root, entry));
+    await linkFixture(join(repository, entry), join(root, entry));
   for (const entry of ["business", "api"])
-    await symlink(join(repository, "docs", entry), join(root, "docs", entry));
+    await linkFixture(
+      join(repository, "docs", entry),
+      join(root, "docs", entry),
+    );
   await cp(join(repository, "docs/planning"), join(root, "docs/planning"), {
     recursive: true,
   });
