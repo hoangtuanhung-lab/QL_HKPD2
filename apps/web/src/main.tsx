@@ -4,10 +4,13 @@ import { App } from "./App.js";
 import { createClient } from "@supabase/supabase-js";
 import { readAuthConfig } from "./auth-config.js";
 import { GoogleAuthController } from "./google-auth.js";
+import { loadWorkspaceAccess } from "./workspace-access.js";
+import type { AccessLoader } from "./auth-entry.js";
 import { SiteEntry } from "./auth-entry.js";
 import "./style.css";
 let config = readAuthConfig(import.meta.env);
 let controller: GoogleAuthController | undefined;
+let loadAccess: AccessLoader | undefined;
 try {
   if (config.mode === "configured") {
     const client = createClient(config.url, config.key, {
@@ -18,6 +21,7 @@ try {
         autoRefreshToken: true,
       },
     });
+    loadAccess = (userId) => loadWorkspaceAccess(client, userId);
     controller = new GoogleAuthController(
       client.auth,
       {
@@ -36,7 +40,11 @@ createRoot(document.getElementById("root")!).render(
     {config.mode === "preview" ? (
       <App />
     ) : (
-      <SiteEntry config={config} controller={controller} />
+      <SiteEntry
+        config={config}
+        controller={controller}
+        loadAccess={loadAccess}
+      />
     )}
   </React.StrictMode>,
 );

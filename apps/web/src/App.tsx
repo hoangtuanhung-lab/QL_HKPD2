@@ -1,3 +1,4 @@
+import { accountStorage } from "./workspace-access.js";
 import { athleteCatalog } from "./athlete-catalog.generated.js";
 import { TournamentWorkspace } from "./tournament-workspace.js";
 import {
@@ -77,9 +78,9 @@ const outlines: Record<
     handoff: "Chưa có kết quả được công bố. Phiếu nháp không hiển thị tại đây.",
   },
 };
-function initialDrafts() {
+function initialDrafts(storage: Pick<Storage, "getItem">) {
   try {
-    return { ...readDraftSnapshot(localStorage), error: "" };
+    return { ...readDraftSnapshot(storage), error: "" };
   } catch {
     return {
       drafts: [] as SchoolDraft[],
@@ -93,21 +94,29 @@ function initialDrafts() {
 export function App({ session }: { session?: WorkspaceSession }) {
   const sessionBound = useRef(Boolean(session));
   if (session) sessionBound.current = true;
-  const [initial] = useState(initialDrafts);
+  const liveSession = session?.source === "supabase";
+  const [storage] = useState(() =>
+    accountStorage(localStorage, liveSession ? session.actor.id : undefined),
+  );
+  const [initial] = useState(() => initialDrafts(storage));
   const [drafts, setDrafts] = useState(initial.drafts);
-  const [tournaments, setTournaments] = useState<TournamentState>(
-    () => initial.tournaments ?? initialTournaments(initial.drafts),
+  const [tournaments, setTournaments] = useState<TournamentState>(() =>
+    liveSession
+      ? { ...initialTournaments(initial.drafts), currentId: session.editionId }
+      : (initial.tournaments ?? initialTournaments(initial.drafts)),
   );
   const tournamentsRef = useRef(tournaments);
   const currentEdition = tournaments.editions.find(
-    (e) => e.id === tournaments.currentId,
+    (e) => e.id === (liveSession ? session.editionId : tournaments.currentId),
   )!;
   const currentSession = session
-    ? { ...session, editionId: currentEdition.id }
+    ? liveSession
+      ? session
+      : { ...session, editionId: currentEdition.id }
     : undefined;
   const [writer] = useState(
     () =>
-      new DraftWriter(localStorage, {
+      new DraftWriter(storage, {
         revision: initial.revision,
         token: initial.token,
       }),
@@ -677,6 +686,11 @@ export function App({ session }: { session?: WorkspaceSession }) {
             </section>
           </div>
         </details>
+      ) : step === "Quản lý giải" && liveSession ? (
+        <p className="notice">
+          Giải hiện tại: {currentEdition.name}. Thay đổi giải và kết chuyển trực
+          tuyến sẽ được mở khi API lưu dữ liệu nghiệp vụ hoàn tất.
+        </p>
       ) : step === "Quản lý giải" ? (
         <TournamentWorkspace
           state={tournaments}

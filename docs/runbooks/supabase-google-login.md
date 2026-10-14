@@ -35,6 +35,10 @@ App gọi SDK Supabase `signInWithOAuth(provider: google)`, PKCE, redirect về 
 
 SDK 2.117.3 được pin trong lockfile. Khởi tạo `flowType: pkce`, `detectSessionInUrl: false`; controller trao đổi code đúng một lần cả trong React StrictMode, xóa code/lỗi khỏi thanh địa chỉ trước exchange, từ chối implicit tokens trong hash và không hiển thị raw provider error. Refresh token và PKCE verifier do SDK quản lý; không tự in/chép token vào log, tài liệu hoặc state UI. Callback/session lỗi có thông báo chung và nút đăng nhập/đăng xuất lại. Sự kiện auth được xử lý ngoài auth lock để tránh deadlock; phiên cũ đang tải không khôi phục identity sau SIGNED_OUT.
 
+## Cập nhật cấp quản trị đầu tiên
+
+Để mở workspace cho tài khoản quản trị được chỉ định, làm theo [Cấp quản trị đầu tiên](first-admin.md). Các mô tả màn chờ bên dưới ghi lại trạng thái ban đầu của PR #29; PR cấp quyền bổ sung RPC đọc quyền và RLS riêng, chưa kết nối dữ liệu nghiệp vụ.
+
 ## Danh tính và quyền vào giải
 
 Browser dùng `getSession()` chỉ để phát hiện có phiên; phải gọi `getUser()` tới Supabase để xác minh danh tính trước hiển thị đăng nhập thành công. Không tin cached user, email admin hoặc `user_metadata.role` để cấp quyền. Tài khoản xác thực hiện dừng ở **Chưa được cấp quyền vào giải**, không mount `App`, không đọc các phiếu nháp và không có bộ chọn vai trò. Đăng xuất cục bộ không xóa dữ liệu phiếu đã lưu.

@@ -4,6 +4,8 @@ import type { WorkspaceRole } from "./role-workspaces.js";
 
 /** Adapter input from a verified session, never localStorage, URL or role selector. */
 export interface WorkspaceSession {
+  /** Supabase RPC sessions pin the server edition and isolate account drafts. */
+  source?: "supabase";
   actor: Actor;
   editionId: string;
   /** Trusted mapping from database sport UUIDs to this edition's catalog codes. */
