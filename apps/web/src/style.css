@@ -5,6 +5,74 @@
   line-height: 1.55;
   font-synthesis: none;
 }
+.auth-page {
+  min-height: 100vh;
+  max-width: none;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #eef4ff, #f8fafc);
+  padding: 28px 16px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 530px;
+  padding: 38px;
+  text-align: center;
+  border: 1px solid #dce6f5;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 18px 55px #19345e10;
+}
+.auth-card > .hkpd-logo {
+  width: 108px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+.auth-card .eyebrow {
+  color: #4469c7;
+  font-size: 0.72rem;
+}
+.auth-card h1 {
+  font-size: 1.8rem;
+  color: #19345e;
+}
+.auth-card h2 {
+  font-size: 1.05rem;
+}
+.auth-card .notice {
+  text-align: left;
+  margin: 22px 0;
+}
+.auth-google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  background: #2155dc;
+  border-color: #2155dc;
+  margin: 24px 0;
+}
+.auth-google-button span {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.auth-email {
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+.auth-footer {
+  font-size: 0.75rem;
+  color: #71809b;
+  margin: 28px 0 0;
+  border-top: 1px solid #e1e7f1;
+  padding-top: 20px;
+}
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 20px;
+  }
+}
 .hkpd-logo {
   width: 62px;
   height: 62px;

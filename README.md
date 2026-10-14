@@ -2,7 +2,7 @@
 
 Nền tảng phát triển theo plan nhóm 28 người, phiên bản 1.4. Phạm vi bàn giao hiện tại: **A02 (kiến trúc), B01 (repository/CI), B07 (môi trường)** do Codex đảm nhận ở vị trí O01 và phụ trách bổ sung A02.
 
-**Theo yêu cầu mới của người dùng, toàn bộ tích hợp Netlify, SQL và Google được thực hiện ở bước cuối dự án.** Bản hiện tại có phiếu đăng ký nháp của trường trên trình duyệt, API kiểm tra tiến trình và worker nhàn rỗi; chưa đăng nhập, lưu hồ sơ lên máy chủ hoặc lưu kết quả chính thức.
+Người dùng đã bắt đầu cấu hình Netlify/Supabase/Google. Mã frontend có đăng nhập Google qua Supabase PKCE; production yêu cầu cấu hình đăng nhập và tài khoản xác thực chưa tự được cấp quyền vào giải. Xem [thiết lập và kiểm tra đăng nhập](docs/runbooks/supabase-google-login.md). Phiếu đăng ký và kết chuyển vẫn là bản nháp trên trình duyệt; API hiện kiểm tra tiến trình, worker nhàn rỗi. Chưa nối quyền nghiệp vụ, lưu hồ sơ lên máy chủ, Google Drive hoặc kết quả chính thức.
 
 ## Cài đặt
 
