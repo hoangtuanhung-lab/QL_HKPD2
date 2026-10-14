@@ -31,7 +31,9 @@ it("initializes isolated configurations and preserves user edits on repeat", () 
   initialize(directory);
   expect(loadEnvironments(directory)).toEqual(defaults);
   const path = join(directory, "dev.env");
-  expect(statSync(path).mode & 0o777).toBe(0o600);
+  // Windows has no POSIX mode bits; files there rely on the directory ACL.
+  if (process.platform !== "win32")
+    expect(statSync(path).mode & 0o777).toBe(0o600);
   writeFileSync(path, "APP_ENV=dev\nAPI_PORT=3011\nWEB_PORT=5183\n");
   const before = readFileSync(path, "utf8");
   initialize(directory);

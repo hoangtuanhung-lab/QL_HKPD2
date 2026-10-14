@@ -6,7 +6,9 @@ Nền tảng phát triển theo plan nhóm 28 người, phiên bản 1.4. Phạm
 
 ## Cài đặt
 
-Yêu cầu Node.js 24.x và npm 11.x; không cần Docker, SQL hay tài khoản dịch vụ ở bước này.
+Yêu cầu Node.js 24.x và npm 11.x hoặc 12.x; không cần Docker, SQL hay tài khoản dịch vụ ở bước này.
+
+Trên Windows: `.gitattributes` giữ xuống dòng LF nên `prettier --check` chạy được; nếu đã clone trước đó, chạy `git add --renormalize .` rồi checkout lại tệp chưa sửa. `npm run db:check` và các script `infra/db` cần Bash/Postgres kiểu Linux, hãy chạy trong WSL; test symlink dùng junction/copy, test POSIX mode/SIGTERM và cụm Postgres cục bộ được bỏ qua có ghi lý do.
 
 ```bash
 npm ci --cache /workspace/.npm-cache

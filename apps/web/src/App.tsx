@@ -141,6 +141,7 @@ export function App() {
     setPendingWrites((count) => count + 1);
     void writer
       .save(next)
+      .then(() => setStorageError(""))
       .catch((failure: unknown) => {
         setStorageError(
           failure instanceof Error

@@ -29,6 +29,7 @@ export async function registrationWorkbook(athletes: AthleteDraft[] = []) {
   });
   sheet.getRow(1).font = { bold: true, color: { argb: "FF1643A2" } };
   sheet.getColumn(3).numFmt = "@";
+  sheet.getColumn(7).numFmt = "@";
   for (const [index, a] of athletes.entries()) {
     sheet.addRow([
       index + 1,
@@ -43,12 +44,50 @@ export async function registrationWorkbook(athletes: AthleteDraft[] = []) {
   }
   return new Uint8Array(await book.xlsx.writeBuffer());
 }
-function cellText(value: CellValue, label: string): string {
+/** Shared match key: Unicode NFC/NFD-safe, case-insensitive, without diacritics or extra spaces. */
+export function matchKey(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[đĐ]/g, "d")
+    .toLocaleLowerCase("vi")
+    .replace(/\s+/g, "")
+    .trim();
+}
+const genders: Record<string, "male" | "female"> = {
+  nam: "male",
+  nu: "female",
+};
+function cellText(
+  value: CellValue,
+  label: string,
+  allowNumber = false,
+): string {
   if (value === null || value === undefined) return "";
-  if (typeof value === "string") return value.trim();
-  throw new Error(
-    `${label}: phải là ô văn bản, không dùng công thức hoặc số thay cho mã định danh.`,
-  );
+  if (typeof value === "string") return value.normalize("NFC").trim();
+  if (allowNumber && typeof value === "number" && Number.isSafeInteger(value))
+    return String(value);
+  if (
+    typeof value === "object" &&
+    "richText" in value &&
+    Array.isArray(value.richText)
+  )
+    return value.richText
+      .map((part) => part.text)
+      .join("")
+      .normalize("NFC")
+      .trim();
+  if (
+    typeof value === "object" &&
+    "hyperlink" in value &&
+    typeof value.text === "string"
+  )
+    return value.text.normalize("NFC").trim();
+  if (typeof value === "number")
+    throw new Error(
+      `${label}: phải là ô văn bản. Excel bỏ số 0 ở đầu khi lưu dạng số; hãy định dạng cột là Văn bản rồi nhập lại.`,
+    );
+  throw new Error(`${label}: phải là ô văn bản, không dùng công thức.`);
 }
 export async function readRegistrationWorkbook(
   bytes: ArrayBuffer,
@@ -66,17 +105,22 @@ export async function readRegistrationWorkbook(
     );
   excelHeaders.slice(0, 6).forEach((header, index) => {
     if (
-      cellText(sheet.getRow(1).getCell(index + 1).value, "Tiêu đề") !== header
+      matchKey(
+        cellText(sheet.getRow(1).getCell(index + 1).value, "Tiêu đề"),
+      ) !== matchKey(header)
     )
       throw new Error("Tiêu đề không đúng biểu mẫu. Hãy tải biểu mẫu mới.");
   });
   for (let index = 6; index < 8; index++) {
-    const header = cellText(
-      sheet.getRow(1).getCell(index + 1).value,
-      "Tiêu đề",
+    const header = matchKey(
+      cellText(sheet.getRow(1).getCell(index + 1).value, "Tiêu đề"),
     );
     const legacyHeader = index === 6 ? "LỚP/NHÓM" : "NỘI DUNG DỰ KIẾN";
-    if (header && header !== excelHeaders[index] && header !== legacyHeader)
+    if (
+      header &&
+      header !== matchKey(excelHeaders[index]!) &&
+      header !== matchKey(legacyHeader)
+    )
       throw new Error("Cột bổ sung không đúng biểu mẫu.");
   }
   const athletes: AthleteDraft[] = [];
@@ -88,22 +132,24 @@ export async function readRegistrationWorkbook(
     const values = cells.map((v, i) =>
       i === 2 && v instanceof Date
         ? v.toISOString().slice(0, 10)
-        : cellText(v, `Dòng ${index}, ${excelHeaders[i + 1]}`),
+        : cellText(v, `Dòng ${index}, ${excelHeaders[i + 1]}`, i >= 4),
     );
     const [
       fullName,
-      identityNumber,
+      rawIdentity,
       birth,
-      gender,
+      genderText,
       note,
       className,
       requestedEvent,
     ] = values as [string, string, string, string, string, string, string];
     if (!fullName) throw new Error(`Dòng ${index}: thiếu họ và tên.`);
+    const identityNumber = rawIdentity.replace(/[\s.-]/g, "");
     const birthDate = /^\d{2}\/\d{2}\/\d{4}$/.test(birth)
       ? birth.split("/").reverse().join("-")
       : birth;
-    if (gender && gender !== "Nam" && gender !== "Nữ")
+    const gender = genderText ? genders[matchKey(genderText)] : undefined;
+    if (genderText && !gender)
       throw new Error(`Dòng ${index}: giới tính phải là Nam hoặc Nữ.`);
     if (identityNumber && identities.has(identityNumber))
       throw new Error(`Dòng ${index}: trùng mã định danh trong tệp.`);
@@ -116,7 +162,7 @@ export async function readRegistrationWorkbook(
       ...athleteDetails({
         identityNumber,
         birthDate,
-        ...(gender ? { gender: gender === "Nam" ? "male" : "female" } : {}),
+        ...(gender ? { gender } : {}),
         note,
       }),
     });

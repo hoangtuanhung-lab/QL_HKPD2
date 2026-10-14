@@ -19,6 +19,7 @@ import {
   type StudentScope,
 } from "./athlete-catalog.js";
 import type { AthleteDraft, SchoolDraft } from "./registration-draft.js";
+import { resizePhoto } from "./photo-resize.js";
 export function AthleteEventDialog({
   athlete,
   school,
@@ -92,9 +93,9 @@ export function AthleteEventDialog({
     try {
       if (
         !["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
-        file.size > 500 * 1024
+        file.size > 10 * 1024 * 1024
       )
-        throw Error("Chọn ảnh JPG, PNG hoặc WebP không quá 500 KB.");
+        throw Error("Chọn ảnh JPG, PNG hoặc WebP không quá 10 MB.");
       const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer());
       const signature =
         file.type === "image/png"
@@ -111,17 +112,18 @@ export function AthleteEventDialog({
         reader.onerror = () => reject(Error("Không đọc được ảnh."));
         reader.readAsDataURL(file);
       });
-      await new Promise<void>((resolve, reject) => {
+      const image = await new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
         img.onload = () =>
-          img.naturalWidth > 4000 || img.naturalHeight > 4000
-            ? reject(Error("Ảnh tối đa 4.000 × 4.000 pixel."))
-            : resolve();
+          img.naturalWidth > 8000 || img.naturalHeight > 8000
+            ? reject(Error("Ảnh tối đa 8.000 × 8.000 pixel."))
+            : resolve(img);
         img.onerror = () => reject(Error("Tệp không phải ảnh hợp lệ."));
         img.src = url;
       });
+      const resized = resizePhoto(image);
       if (alive.current) {
-        setPhoto(url);
+        setPhoto(resized);
         setDirty(true);
       }
     } catch (e) {
@@ -305,7 +307,7 @@ export function AthleteEventDialog({
               </button>
             )}
             <small>
-              JPG, PNG, WebP · tối đa 500 KB
+              JPG, PNG, WebP · tối đa 10 MB, tự thu nhỏ
               <br />
               Ảnh lưu cùng bản nháp trên trình duyệt.
             </small>

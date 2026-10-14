@@ -193,6 +193,9 @@ it("B02 sensitive scanner detects fake test secrets without printing values and 
   writeFileSync(join(input, "candidate.txt"), `${candidate} # scan-allow`);
   expect(scan().status).toBe(1);
   writeFileSync(join(input, "candidate.txt"), "safe");
+  expect(scan().status).toBe(0);
+  // File symlinks need administrator rights on Windows.
+  if (process.platform === "win32") return;
   const outside = join(root, "outside.txt");
   writeFileSync(outside, candidate);
   symlinkSync(outside, join(input, "linked.txt"));
@@ -241,43 +244,49 @@ it("B02 handles migration directories with spaces without splitting file paths",
     "migrations with spaces/20260101000001_core_foundation.up.sql",
   );
 });
-it("B02 keeps optional role passwords out of argv and suppresses database error details", () => {
-  const root = workspace();
-  const cluster = mkdtempSync(join(tmpdir(), "hkpd-pg-intake-"));
-  temporary.push(cluster);
-  const calls = join(root, "calls");
-  const stdin = join(root, "stdin");
-  for (const [name, body] of Object.entries({
-    id: "echo 1000",
-    initdb: "exit 0",
-    pg_isready: "exit 0",
-    psql: 'printf "%s\\n" "$*" >> "$B02_CALLS"; cat >> "$B02_STDIN"; if [ "$B02_FAIL_PASSWORD" = 1 ]; then echo "$HKPD_APP_RW_PASSWORD" >&2; exit 1; fi',
-  }))
-    writeFileSync(join(root, name), `#!/bin/bash\n${body}\n`, { mode: 0o755 });
-  const value = "synthetic 'quote' \\ value";
-  const env = {
-    PATH: `${root}:${process.env.PATH}`,
-    HKPD_ENABLE_DEFERRED_DB: "1",
-    APP_ENV: "test",
-    HKPD_PG_DIR: cluster,
-    HKPD_APP_RW_PASSWORD: value,
-    B02_CALLS: calls,
-    B02_STDIN: stdin,
-  };
-  const result = run(`${scripts}/pg_local.sh`, ["start"], env);
-  expect(result.status).toBe(0);
-  expect(readFileSync(calls, "utf8")).not.toContain(value);
-  expect(readFileSync(stdin, "utf8")).toContain(
-    "PASSWORD 'synthetic ''quote'' \\ value'",
-  );
-  // Fail only password commands so that initial role setup succeeds.
-  writeFileSync(
-    join(root, "psql"),
-    '#!/bin/bash\ninput="$(cat)"\nif [[ "$input" == *"ALTER ROLE"* ]]; then echo "$HKPD_APP_RW_PASSWORD" >&2; exit 1; fi\n',
-    { mode: 0o755 },
-  );
-  const failure = run(`${scripts}/pg_local.sh`, ["start"], env);
-  expect(failure.status).not.toBe(0);
-  expect(failure.stderr).toContain("không đặt được mật khẩu");
-  expect(failure.stderr).not.toContain(value);
-});
+// pg_local.sh only accepts clusters under /tmp/hkpd-pg (Linux/WSL); Windows temp paths are rejected by design.
+it.skipIf(process.platform === "win32")(
+  "B02 keeps optional role passwords out of argv and suppresses database error details",
+  () => {
+    const root = workspace();
+    const cluster = mkdtempSync(join(tmpdir(), "hkpd-pg-intake-"));
+    temporary.push(cluster);
+    const calls = join(root, "calls");
+    const stdin = join(root, "stdin");
+    for (const [name, body] of Object.entries({
+      id: "echo 1000",
+      initdb: "exit 0",
+      pg_isready: "exit 0",
+      psql: 'printf "%s\\n" "$*" >> "$B02_CALLS"; cat >> "$B02_STDIN"; if [ "$B02_FAIL_PASSWORD" = 1 ]; then echo "$HKPD_APP_RW_PASSWORD" >&2; exit 1; fi',
+    }))
+      writeFileSync(join(root, name), `#!/bin/bash\n${body}\n`, {
+        mode: 0o755,
+      });
+    const value = "synthetic 'quote' \\ value";
+    const env = {
+      PATH: `${root}:${process.env.PATH}`,
+      HKPD_ENABLE_DEFERRED_DB: "1",
+      APP_ENV: "test",
+      HKPD_PG_DIR: cluster,
+      HKPD_APP_RW_PASSWORD: value,
+      B02_CALLS: calls,
+      B02_STDIN: stdin,
+    };
+    const result = run(`${scripts}/pg_local.sh`, ["start"], env);
+    expect(result.status).toBe(0);
+    expect(readFileSync(calls, "utf8")).not.toContain(value);
+    expect(readFileSync(stdin, "utf8")).toContain(
+      "PASSWORD 'synthetic ''quote'' \\ value'",
+    );
+    // Fail only password commands so that initial role setup succeeds.
+    writeFileSync(
+      join(root, "psql"),
+      '#!/bin/bash\ninput="$(cat)"\nif [[ "$input" == *"ALTER ROLE"* ]]; then echo "$HKPD_APP_RW_PASSWORD" >&2; exit 1; fi\n',
+      { mode: 0o755 },
+    );
+    const failure = run(`${scripts}/pg_local.sh`, ["start"], env);
+    expect(failure.status).not.toBe(0);
+    expect(failure.stderr).toContain("không đặt được mật khẩu");
+    expect(failure.stderr).not.toContain(value);
+  },
+);

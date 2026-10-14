@@ -63,7 +63,8 @@ it("starts the documented mock CLI, responds over HTTP and releases its port on 
     child.kill("SIGTERM");
     const code = await done;
     clearTimeout(watchdog);
-    expect(code).toBe(0);
+    // Windows cannot deliver SIGTERM to a handler; the process is terminated without an exit code.
+    expect(code).toBe(process.platform === "win32" ? null : 0);
   }
   const probe = createServer();
   try {

@@ -6,13 +6,13 @@ import {
   readFile,
   readdir,
   rm,
-  symlink,
   writeFile,
 } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { linkFixture } from "./link-fixture.mjs";
 
 const repository = fileURLToPath(new URL("../", import.meta.url));
 const temporary = [];
@@ -39,7 +39,7 @@ async function fixture() {
     ".github",
     "node_modules",
   ])
-    await symlink(join(repository, entry), join(root, entry));
+    await linkFixture(join(repository, entry), join(root, entry));
   for (const entry of [
     "api",
     "architecture",
@@ -50,12 +50,15 @@ async function fixture() {
     "group-k",
     "group-i",
   ])
-    await symlink(join(repository, "docs", entry), join(root, "docs", entry));
+    await linkFixture(
+      join(repository, "docs", entry),
+      join(root, "docs", entry),
+    );
   for (const entry of await readdir(join(repository, "scripts"))) {
     const target = join(root, "scripts", entry);
     if (entry === "business-baseline.mjs")
       await cp(join(repository, "scripts", entry), target);
-    else await symlink(join(repository, "scripts", entry), target);
+    else await linkFixture(join(repository, "scripts", entry), target);
   }
   const path = join(root, "docs/business/requirements.json");
   const data = JSON.parse(await readFile(path, "utf8"));
