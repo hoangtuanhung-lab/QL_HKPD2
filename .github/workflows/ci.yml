@@ -49,3 +49,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run secret:scan
+  supabase-access:
+    name: supabase-access
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash infra/supabase/tests/run.sh
