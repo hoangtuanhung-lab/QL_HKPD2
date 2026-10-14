@@ -7,10 +7,12 @@ import type { WorkspaceSession } from "./staff-scope.js";
 export type AccessLoader = (userId: string) => Promise<WorkspaceSession | null>;
 function AccountWorkspace({
   userId,
+  email,
   loadAccess,
   controller,
 }: {
   userId: string;
+  email?: string;
   loadAccess: AccessLoader;
   controller: GoogleAuthController;
 }) {
@@ -18,26 +20,55 @@ function AccountWorkspace({
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
+  const [checking, setChecking] = useState(true);
+  const [feedback, setFeedback] = useState("");
   useEffect(() => {
     let active = true;
     let sequence = 0;
+    let inFlight = false;
+    let deadline: number | undefined;
     async function check() {
+      if (inFlight) return;
+      inFlight = true;
       const request = ++sequence;
+      let timedOut = false;
+      setChecking(true);
+      setFeedback("Đang kiểm tra quyền vào giải…");
       try {
-        const next = await loadAccess(userId);
+        const timeout = new Promise<never>((_resolve, reject) => {
+          deadline = window.setTimeout(() => {
+            timedOut = true;
+            reject(new Error("timeout"));
+          }, 20000);
+        });
+        const next = await Promise.race([loadAccess(userId), timeout]);
         if (!active || request !== sequence) return;
         setAccess((previous) =>
           JSON.stringify(previous) === JSON.stringify(next) ? previous : next,
         );
         setError("");
+        setFeedback(
+          next
+            ? "Đã kiểm tra: tài khoản có quyền quản trị giải 2026."
+            : "Đã kiểm tra: tài khoản đang đăng nhập chưa có quyền quản trị giải 2026. Nếu bạn đã chạy SQL cấp quyền, hãy kiểm tra đúng tài khoản Google và đúng project Supabase.",
+        );
       } catch {
         if (!active || request !== sequence) return;
         setAccess(null);
         setError(
-          "Không đọc được quyền từ Supabase. Kiểm tra cấu hình cấp quyền hoặc thử lại.",
+          timedOut
+            ? "Kiểm tra quyền quá 20 giây chưa có kết quả. Kiểm tra kết nối mạng rồi bấm Kiểm tra quyền để thử lại."
+            : "Không đọc được quyền từ Supabase. Kiểm tra cấu hình cấp quyền hoặc thử lại.",
         );
+        setFeedback("");
+      } finally {
+        window.clearTimeout(deadline);
+        inFlight = false;
+        if (active && request === sequence) {
+          setChecked(true);
+          setChecking(false);
+        }
       }
-      if (active && request === sequence) setChecked(true);
     }
     const refresh = () => {
       void check();
@@ -47,6 +78,7 @@ function AccountWorkspace({
     const timer = window.setInterval(refresh, 60000);
     return () => {
       active = false;
+      window.clearTimeout(deadline);
       window.clearInterval(timer);
       window.removeEventListener("focus", refresh);
     };
@@ -64,14 +96,20 @@ function AccountWorkspace({
         <button
           type="button"
           className="secondary"
+          disabled={checking}
+          aria-busy={checking}
           onClick={() => setRetry((n) => n + 1)}
         >
-          Kiểm tra quyền
+          {checking ? "Đang kiểm tra…" : "Kiểm tra quyền"}
         </button>
       </div>
-      {!checked ? (
-        <p role="status">Đang kiểm tra quyền vào giải…</p>
-      ) : error ? (
+      <p className="auth-email">Tài khoản: {email ?? userId}</p>
+      {feedback && (
+        <p role="status" aria-live="polite">
+          {feedback}
+        </p>
+      )}
+      {!checked ? null : error ? (
         <p role="alert">{error}</p>
       ) : access ? (
         <>
@@ -116,6 +154,7 @@ export function AuthGate({
       <AccountWorkspace
         key={state.user.id}
         userId={state.user.id}
+        email={state.user.email}
         loadAccess={loadAccess}
         controller={controller}
       />

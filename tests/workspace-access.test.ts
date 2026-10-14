@@ -172,3 +172,78 @@ it("pins the live edition despite a locally selected tournament and blocks local
     next.target.id,
   );
 });
+
+it("acknowledges repeated checks, disables duplicate requests and reports an unchanged denial", async () => {
+  let finish!: (value: null) => void;
+  const loadAccess = vi
+    .fn<() => Promise<null>>()
+    .mockResolvedValueOnce(null)
+    .mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          finish = resolve;
+        }),
+    );
+  render(createElement(AuthGate, { controller: controller(), loadAccess }));
+  await screen.findByText(
+    /Đã kiểm tra: tài khoản đang đăng nhập chưa có quyền/,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "Kiểm tra quyền" }));
+  expect(
+    (
+      screen.getByRole("button", {
+        name: "Đang kiểm tra…",
+      }) as HTMLButtonElement
+    ).disabled,
+  ).toBe(true);
+  expect(screen.getByRole("status").textContent).toBe(
+    "Đang kiểm tra quyền vào giải…",
+  );
+  fireEvent.focus(window);
+  expect(loadAccess).toHaveBeenCalledTimes(2);
+  await act(async () => finish(null));
+  expect(screen.getByRole("status").textContent).toContain("Đã kiểm tra:");
+  expect(
+    (
+      screen.getByRole("button", {
+        name: "Kiểm tra quyền",
+      }) as HTMLButtonElement
+    ).disabled,
+  ).toBe(false);
+});
+
+it("times out a hanging check, ignores its late grant, and allows retry", async () => {
+  vi.useFakeTimers();
+  try {
+    let finish!: (
+      value: Awaited<ReturnType<typeof loadWorkspaceAccess>>,
+    ) => void;
+    const loadAccess = vi
+      .fn<() => Promise<Awaited<ReturnType<typeof loadWorkspaceAccess>>>>()
+      .mockImplementationOnce(
+        () =>
+          new Promise((resolve) => {
+            finish = resolve;
+          }),
+      )
+      .mockResolvedValue(null);
+    render(createElement(AuthGate, { controller: controller(), loadAccess }));
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(20000);
+    });
+    expect(screen.getByRole("alert").textContent).toContain("quá 20 giây");
+    await act(async () =>
+      finish(await loadWorkspaceAccess(rpc(grant), "user-A")),
+    );
+    expect(screen.queryByText(/Đã xác minh quyền quản trị/)).toBeNull();
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: "Kiểm tra quyền" }));
+    });
+    expect(screen.getByRole("status").textContent).toContain(
+      "chưa có quyền quản trị",
+    );
+    expect(screen.queryByRole("alert")).toBeNull();
+  } finally {
+    vi.useRealTimers();
+  }
+});
