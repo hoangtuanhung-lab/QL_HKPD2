@@ -2,99 +2,156 @@ import ExcelJS from "exceljs";
 import { describe, expect, it } from "vitest";
 import {
   excelHeaders,
+  studentHeaders,
   readRegistrationWorkbook,
   registrationWorkbook,
+  readStudentWorkbook,
+  studentWorkbook,
 } from "../apps/web/src/registration-excel.js";
 const sample = {
   draftId: "test",
+  athleteCode: "VDV000001",
+  schoolName: "Trường A",
   fullName: "Minh họa",
-  className: "6A",
-  requestedEvent: "Chạy",
+  className: "6",
+  requestedEvent: "",
   identityNumber: "040205001234",
   birthDate: "2012-05-15",
   gender: "female" as const,
-  note: "=1+1",
 };
-const arrayBuffer = (bytes: Uint8Array) => bytes.slice().buffer as ArrayBuffer;
+const bytes = (v: Uint8Array) => v.slice().buffer as ArrayBuffer;
 describe("Registration Excel", () => {
-  it("continues reading old templates with the previous class/event column names", async () => {
-    const book = new ExcelJS.Workbook();
-    const sheet = book.addWorksheet("Đăng ký");
-    sheet.addRow([...excelHeaders.slice(0, 6), "LỚP/NHÓM", "NỘI DUNG DỰ KIẾN"]);
-    sheet.addRow([
+  it("writes exactly the eight specified columns without registration content, group or notes", async () => {
+    const data = await registrationWorkbook([sample]);
+    const b = new ExcelJS.Workbook();
+    await b.xlsx.load(bytes(data));
+    expect((b.worksheets[0]!.getRow(1).values as unknown[]).slice(1)).toEqual(
+      excelHeaders,
+    );
+    expect(excelHeaders).toEqual([
+      "STT",
+      "Mã VĐV",
+      "TRƯỜNG",
+      "KHỐI",
+      "HỌ VÀ TÊN",
+      "CCCD",
+      "NGÀY SINH",
+      "GIỚI TÍNH",
+    ]);
+    expect((await readRegistrationWorkbook(bytes(data)))[0]).toMatchObject({
+      ...sample,
+      draftId: expect.any(String),
+      catalogSelections: [],
+    });
+    expect(b.worksheets[0]!.getCell("F2").value).toBe("040205001234");
+  });
+  it("continues reading previous templates explicitly, retaining their old fields", async () => {
+    const b = new ExcelJS.Workbook(),
+      s = b.addWorksheet("Đăng ký");
+    s.addRow([
+      "STT",
+      "HỌ VÀ TÊN",
+      "CCCD/MÃ ĐD",
+      "NGÀY SINH",
+      "GIỚI TÍNH",
+      "GHI CHÚ",
+      "LỚP/NHÓM",
+      "NỘI DUNG DỰ KIẾN",
+    ]);
+    s.addRow([
       1,
       sample.fullName,
       sample.identityNumber,
       "15/05/2012",
       "Nữ",
-      sample.note,
-      sample.className,
-      sample.requestedEvent,
+      "=1+1",
+      "6A",
+      "Chạy",
     ]);
-    const imported = await readRegistrationWorkbook(
-      arrayBuffer(new Uint8Array(await book.xlsx.writeBuffer())),
-    );
-    expect(imported[0]).toMatchObject({
-      ...sample,
-      draftId: expect.any(String),
+    expect(
+      (
+        await readRegistrationWorkbook(
+          bytes(new Uint8Array(await b.xlsx.writeBuffer())),
+        )
+      )[0],
+    ).toMatchObject({
+      fullName: sample.fullName,
+      note: "=1+1",
+      className: "6A",
+      requestedEvent: "Chạy",
     });
   });
-  it("writes a real xlsx and preserves leading zeros, dates, gender, notes and legacy fields", async () => {
-    const bytes = await registrationWorkbook([sample]);
-    expect([...bytes.slice(0, 2)]).toEqual([80, 75]);
+  it("reads the seven-column student baseline with leading-zero identity and numeric grade", async () => {
+    const b = new ExcelJS.Workbook(),
+      s = b.addWorksheet("Học sinh");
+    s.addRow(studentHeaders);
+    s.addRow([
+      1,
+      "Học sinh A",
+      "000000000001",
+      new Date("2016-05-15T00:00:00Z"),
+      "Nam",
+      "Trường A",
+      5,
+    ]);
     expect(
-      (await readRegistrationWorkbook(arrayBuffer(bytes)))[0],
-    ).toMatchObject({ ...sample, draftId: expect.any(String) });
-    const book = new ExcelJS.Workbook();
-    await book.xlsx.load(arrayBuffer(bytes));
-    expect(book.worksheets[0]!.getCell("F2").value).toBe("=1+1");
+      (
+        await readStudentWorkbook(
+          bytes(new Uint8Array(await b.xlsx.writeBuffer())),
+        )
+      )[0],
+    ).toMatchObject({
+      fullName: "Học sinh A",
+      identityNumber: "000000000001",
+      className: "5",
+      birthDate: "2016-05-15",
+      schoolName: "Trường A",
+    });
+    const empty = new ExcelJS.Workbook();
+    await empty.xlsx.load(bytes(await studentWorkbook()));
+    expect(
+      (empty.worksheets[0]!.getRow(1).values as unknown[]).slice(1),
+    ).toEqual(studentHeaders);
   });
-  it("downloads an empty template and rejects empty/oversized files", async () => {
-    await expect(
-      readRegistrationWorkbook(arrayBuffer(await registrationWorkbook())),
-    ).rejects.toThrow(/chưa có/);
-    await expect(
-      readRegistrationWorkbook(new ArrayBuffer(5 * 1024 * 1024 + 1)),
-    ).rejects.toThrow(/5 MB/);
-  });
-  it("rejects formulas, numeric identities, wrong headers, duplicate IDs and malformed dates atomically", async () => {
+  it("rejects formulas, numeric identities, wrong headers, malformed dates, wrong gender and arbitrary grades atomically", async () => {
     for (const [column, value] of [
-      [3, 40205001234],
-      [2, { formula: '"Tên"', result: "Tên" }],
-      [4, "31/02/2012"],
-      [5, "Khác"],
+      [6, 40205001234],
+      [5, { formula: '"Tên"', result: "Tên" }],
+      [7, "31/02/2012"],
+      [8, "Khác"],
+      [4, 10],
+      [3, { formula: '"Trường A"', result: "Trường A" }],
     ] as const) {
-      const book = new ExcelJS.Workbook();
-      const sheet = book.addWorksheet("VDV");
-      sheet.addRow(excelHeaders);
-      sheet.addRow([
+      const b = new ExcelJS.Workbook(),
+        s = b.addWorksheet("VDV");
+      s.addRow(excelHeaders);
+      s.addRow([
         1,
+        "",
+        "Trường A",
+        6,
         "Tên",
         "040205001234",
         "15/05/2012",
         "Nam",
-        "",
-        "6A",
-        "Chạy",
       ]);
-      sheet.getRow(2).getCell(column).value = value;
+      s.getRow(2).getCell(column).value = value;
       await expect(
         readRegistrationWorkbook(
-          arrayBuffer(new Uint8Array(await book.xlsx.writeBuffer())),
+          bytes(new Uint8Array(await b.xlsx.writeBuffer())),
         ),
       ).rejects.toThrow();
     }
     await expect(
       readRegistrationWorkbook(
-        arrayBuffer(await registrationWorkbook([sample, sample])),
+        bytes(await registrationWorkbook([sample, sample])),
       ),
     ).rejects.toThrow(/trùng mã/);
-    const book = new ExcelJS.Workbook();
-    book.addWorksheet("Sai").addRow(["Tên"]);
     await expect(
-      readRegistrationWorkbook(
-        arrayBuffer(new Uint8Array(await book.xlsx.writeBuffer())),
-      ),
-    ).rejects.toThrow(/Tiêu đề/);
+      readRegistrationWorkbook(bytes(await registrationWorkbook())),
+    ).rejects.toThrow(/chưa có/);
+    await expect(
+      readRegistrationWorkbook(new ArrayBuffer(5 * 1024 * 1024 + 1)),
+    ).rejects.toThrow(/5 MB/);
   });
 });

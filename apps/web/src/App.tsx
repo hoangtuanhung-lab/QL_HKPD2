@@ -68,13 +68,23 @@ const outlines: Record<
     | "Đăng ký VĐV"
     | "Kiểm tra đăng ký"
     | "Ngoại tuyến"
-    | "Xác nhận kết quả"
+    | "Kết quả"
     | "Loại trực tiếp"
     | "Vòng tròn"
     | "Lịch thi đấu"
   >,
   { role: string; steps: string[]; handoff: string }
 > = {
+  "Dữ liệu học sinh": {
+    role: "Quản trị",
+    steps: ["Import học sinh nền ở workspace trực tuyến"],
+    handoff: "Chỉ mở khi đã kết nối Supabase.",
+  },
+  "Nhập đăng ký": {
+    role: "Quản trị",
+    steps: ["Nhập Excel đăng ký đúng trường ở workspace trực tuyến"],
+    handoff: "Chỉ mở khi đã kết nối Supabase.",
+  },
   "Phân công": {
     role: "Quản trị / điều phối",
     steps: [
@@ -860,7 +870,7 @@ export function App({ session }: { session?: WorkspaceSession }) {
         <StaffObservation page={step} sportCodes={staffSports} />
       ) : step === "Ngoại tuyến" ? (
         <OfflineWorkspace />
-      ) : step === "Xác nhận kết quả" ? (
+      ) : step === "Kết quả" ? (
         <ResultsWorkspace />
       ) : step === "Kiểm tra đăng ký" ? (
         <RegistrationWorkspace />

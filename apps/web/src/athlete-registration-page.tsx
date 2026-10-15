@@ -1,3 +1,8 @@
+import {
+  mergeRegistrationRows,
+  normalizedSchool,
+} from "./registration-import.js";
+import { eventByCode } from "./athlete-catalog.js";
 import { HkpdLogo } from "./role-workspaces.js";
 import { AthleteEventDialog } from "./athlete-event-dialog.js";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -65,14 +70,16 @@ export function AthleteRegistrationPage({
   year = 2026,
   catalogCodes,
   onlineFiles = false,
+  onLookup,
 }: {
+  onLookup?: (identity: string) => Promise<Partial<AthleteDraft> | null>;
   onlineFiles?: boolean;
   schools: SchoolDraft[];
   activeId: string;
   onSelect: (id: string) => void;
   onSave: (school: SchoolDraft) => void;
   onDirty: (dirty: boolean) => void;
-  storageStatus?: "saving" | "error" | "saved";
+  storageStatus?: "saving" | "error" | "saved" | "pending";
   year?: number;
   catalogCodes?: readonly string[];
 }) {
@@ -221,7 +228,7 @@ export function AthleteRegistrationPage({
     setBusy(true);
     setError("");
     try {
-      const bytes = await registrationWorkbook();
+      const bytes = await registrationWorkbook([], active?.schoolName ?? "");
       const url = URL.createObjectURL(
         new Blob([bytes as BlobPart], {
           type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -250,15 +257,28 @@ export function AthleteRegistrationPage({
       const imported = await readRegistrationWorkbook(
         await selected.arrayBuffer(),
       );
+      if (
+        imported.some(
+          (a) =>
+            a.schoolName &&
+            normalizedSchool(a.schoolName) !==
+              normalizedSchool(active.schoolName),
+        )
+      )
+        throw Error(
+          "Excel có học sinh thuộc trường khác. Chọn đúng phiếu trường.",
+        );
       captureBase(active);
       setEdited((current) => ({
         ...current,
         [target]: [
-          ...(current[target] ?? active.athletes).filter(
-            (a) =>
-              a.fullName.trim() || a.identityNumber || a.birthDate || a.note,
+          ...mergeRegistrationRows(
+            (current[target] ?? active.athletes).filter(
+              (a) =>
+                a.fullName.trim() || a.identityNumber || a.birthDate || a.note,
+            ),
+            imported,
           ),
-          ...imported,
           blank(),
         ],
       }));
@@ -349,26 +369,22 @@ export function AthleteRegistrationPage({
       <div className="registration-table-scroll">
         <table className="registration-table">
           <colgroup>
-            <col className="registration-number" />
-            <col className="registration-name" />
-            <col />
-            <col />
-            <col className="registration-gender" />
-            <col />
-            <col className="registration-class" />
-            <col />
-            <col className="registration-state-col" />
+            {[45, 90, 140, 60, 150, 120, 130, 80, 125, 180, 200].map((w, i) => (
+              <col key={i} style={{ width: w }} />
+            ))}
           </colgroup>
           <thead>
             <tr>
               {[
                 "STT",
+                "Mã VĐV",
+                "TRƯỜNG",
+                "KHỐI",
                 "HỌ VÀ TÊN",
-                "CCCD/MÃ ĐD",
+                "CCCD",
                 "NGÀY SINH",
                 "GIỚI TÍNH",
-                "GHI CHÚ",
-                "LỚP / NHÓM",
+                "Phân nhóm",
                 "NỘI DUNG THI ĐẤU",
                 "TRẠNG THÁI",
               ].map((h) => (
@@ -387,6 +403,20 @@ export function AthleteRegistrationPage({
                 }
               >
                 <td>{i + 1}</td>
+                <td>{a.athleteCode || "Chưa cấp"}</td>
+                <td>{active?.schoolName ?? "—"}</td>
+                <td>
+                  <input
+                    aria-label={`Lớp / nhóm dòng ${i + 1}`}
+                    placeholder="Khối 1–9"
+                    value={a.className.match(/^\d+/)?.[0] ?? a.className}
+                    disabled={!active || busy}
+                    readOnly={locked(a)}
+                    onChange={(e) =>
+                      change(a.draftId, { className: e.target.value })
+                    }
+                  />
+                </td>
                 <td>
                   <input
                     aria-label={`Họ tên dòng ${i + 1}`}
@@ -443,47 +473,26 @@ export function AthleteRegistrationPage({
                     <option value="female">Nữ</option>
                   </select>
                 </td>
-                <td className="registration-note">
-                  <input
-                    aria-label={`Ghi chú dòng ${i + 1}`}
-                    placeholder="Ghi chú..."
-                    maxLength={2000}
-                    value={a.note ?? ""}
-                    disabled={!active || busy}
-                    readOnly={locked(a)}
-                    onChange={(e) =>
-                      change(a.draftId, { note: e.target.value })
-                    }
-                  />
-                </td>
                 <td>
-                  <input
-                    aria-label={`Lớp / nhóm dòng ${i + 1}`}
-                    placeholder="Nhập lớp..."
-                    value={a.className}
-                    disabled={!active || busy}
-                    readOnly={locked(a)}
-                    onChange={(e) =>
-                      change(a.draftId, { className: e.target.value })
-                    }
-                  />
+                  {[
+                    ...new Set(
+                      (a.catalogSelections ?? []).map(
+                        (code) => eventByCode(code)?.group ?? "Cả cấp",
+                      ),
+                    ),
+                  ].join("; ") || "—"}
                 </td>
                 <td>
                   <input
                     aria-label={`Nội dung thi đấu dòng ${i + 1}`}
-                    placeholder="Nhập nội dung..."
-                    value={a.requestedEvent}
-                    disabled={!active || busy}
-                    readOnly={
-                      locked(a) ||
-                      Boolean(
-                        a.catalogSelections?.length ||
-                        a.eventSelections?.length,
+                    readOnly
+                    value={(a.catalogSelections ?? [])
+                      .map(
+                        (code) =>
+                          `${code} — ${eventByCode(code)?.name ?? code}`,
                       )
-                    }
-                    onChange={(e) =>
-                      change(a.draftId, { requestedEvent: e.target.value })
-                    }
+                      .join("; ")}
+                    placeholder="Chọn qua Đăng ký môn"
                   />
                 </td>
                 <td className="registration-state">
@@ -492,14 +501,64 @@ export function AthleteRegistrationPage({
                       ? "Chưa lưu an toàn"
                       : storageStatus === "saving"
                         ? "Đang lưu…"
-                        : (a.catalogSelections?.length ??
-                            a.eventSelections?.length)
-                          ? `${a.catalogSelections?.length ?? a.eventSelections?.length ?? 0} nội dung nháp`
-                          : locked(a)
-                            ? "Đã lưu nháp"
-                            : "Đang sửa"}
+                        : storageStatus === "pending"
+                          ? "Chờ lưu lên hệ thống"
+                          : (a.catalogSelections?.length ??
+                              a.eventSelections?.length)
+                            ? `${a.catalogSelections?.length ?? a.eventSelections?.length ?? 0} nội dung nháp`
+                            : locked(a)
+                              ? "Đã lưu nháp"
+                              : "Đang sửa"}
                   </span>
                   <div className="registration-row-buttons">
+                    {onLookup && !locked(a) && (
+                      <button
+                        type="button"
+                        disabled={busy || a.identityNumber?.length !== 12}
+                        onClick={async () => {
+                          setBusy(true);
+                          setError("");
+                          try {
+                            const found = await onLookup(a.identityNumber!);
+                            if (!found) {
+                              setNotice(
+                                "Không tìm thấy học sinh nền của trường theo CCCD này.",
+                              );
+                              return;
+                            }
+                            const differs = [
+                              "fullName",
+                              "birthDate",
+                              "gender",
+                              "className",
+                            ].some((k) => {
+                              const key = k as keyof AthleteDraft;
+                              return a[key] && a[key] !== found[key];
+                            });
+                            if (
+                              differs &&
+                              !window.confirm(
+                                "Thông tin đang nhập khác dữ liệu học sinh nền. Điền thông tin từ dữ liệu nền?",
+                              )
+                            )
+                              return;
+                            change(a.draftId, found);
+                            setNotice(
+                              "Đã điền thông tin học sinh nền. Đối chiếu rồi lưu hàng.",
+                            );
+                          } catch {
+                            setError(
+                              "Không tra cứu được học sinh nền. Kiểm tra quyền và kết nối.",
+                            );
+                          } finally {
+                            setBusy(false);
+                          }
+                        }}
+                      >
+                        Tra cứu học sinh
+                      </button>
+                    )}
+
                     {locked(a) ? (
                       <button
                         type="button"
@@ -595,7 +654,11 @@ export function AthleteRegistrationPage({
         </p>
       )}
       <div className="registration-save">
-        <span>Bản nháp lưu trên trình duyệt; chưa gửi duyệt.</span>
+        <span>
+          {onlineFiles
+            ? "Lưu hàng để cập nhật bảng, sau đó bấm Lưu lên hệ thống để gửi dữ liệu."
+            : "Bản nháp lưu trên trình duyệt; chưa gửi duyệt."}
+        </span>
         <button type="button" disabled={!active || busy} onClick={() => save()}>
           Lưu danh sách
         </button>

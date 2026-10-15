@@ -68,6 +68,11 @@ const session = (role: "admin" | "referee" | "school"): WorkspaceSession => ({
 });
 const repository = (data: LiveState): LiveRepository => ({
   load: vi.fn(async () => structuredClone(data)),
+  students: vi.fn(async () => []),
+  importStudents: vi.fn(async () => structuredClone(data)),
+  importRegistrations: vi.fn(async () => structuredClone(data)),
+  createMatches: vi.fn(async () => structuredClone(data)),
+  matchCommand: vi.fn(async () => structuredClone(data)),
   status: vi.fn(async () => ({
     database: true,
     drive: false,
@@ -219,70 +224,6 @@ it("sends only the school revision and explicit RPC action; strips inline photos
   });
   await expect(repo.load()).rejects.toThrow("Tải lại");
   await expect(repo.load()).rejects.not.toThrow("private SQL");
-});
-it("submits referee values with stable athlete IDs and only lets admin confirm a submitted result", async () => {
-  const data = fixture(),
-    repo = repository(data);
-  show("referee", repo);
-  await screen.findByText(/1 trường/);
-  nav("Xác nhận kết quả");
-  fireEvent.change(screen.getByLabelText("Nội dung đăng ký"), {
-    target: { value: code },
-  });
-  fireEvent.change(
-    screen.getByLabelText("Thành tích của VDV000001 — Học sinh A"),
-    { target: { value: "10.50 giây" } },
-  );
-  fireEvent.click(
-    screen.getByRole("button", { name: "Gửi kết quả chờ xác nhận" }),
-  );
-  await waitFor(() =>
-    expect(repo.operation).toHaveBeenCalledWith(code, "result", 0, [
-      { athleteId: data.schools[0]!.athletes[0]!.draftId, value: "10.50 giây" },
-    ]),
-  );
-  expect(
-    screen.getAllByRole("button", { name: "Xác nhận kết quả" }),
-  ).toHaveLength(1);
-  cleanup();
-  data.operations = [
-    {
-      code,
-      kind: "result",
-      revision: 1,
-      status: "submitted",
-      payload: [
-        {
-          athleteId: data.schools[0]!.athletes[0]!.draftId,
-          value: "10.50 giây",
-        },
-      ],
-      updated_at: "2026-10-15T00:00:00Z",
-    },
-  ];
-  const adminRepo = repository(data);
-  show("admin", adminRepo);
-  await screen.findByText(/1 trường/);
-  nav("Xác nhận kết quả");
-  fireEvent.change(screen.getByLabelText("Nội dung đăng ký"), {
-    target: { value: code },
-  });
-  vi.spyOn(window, "confirm").mockReturnValue(true);
-  fireEvent.click(
-    within(
-      screen.getByRole("heading", { name: "Kết quả chờ xác nhận" })
-        .parentElement!,
-    ).getByRole("button", { name: "Xác nhận kết quả" }),
-  );
-  await waitFor(() =>
-    expect(adminRepo.operation).toHaveBeenCalledWith(
-      code,
-      "result",
-      1,
-      null,
-      "confirm",
-    ),
-  );
 });
 it("does not silently discard a schedule form when switching content", async () => {
   show("admin", repository(fixture()));

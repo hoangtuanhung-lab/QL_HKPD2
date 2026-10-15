@@ -1929,3 +1929,48 @@ fieldset:disabled {
 .account-workspace td button + button {
   margin-left: 8px;
 }
+/* Registration identity columns follow the same eleven-column layout in every role. */
+.registration-table {
+  min-width: 1420px;
+}
+.registration-table th:nth-child(3),
+.registration-table th:nth-child(5) {
+  min-width: 170px;
+  text-align: left;
+}
+.registration-table th:nth-child(4) {
+  min-width: 70px;
+}
+.registration-table th:nth-child(10) {
+  min-width: 260px;
+}
+.registration-table th:last-child {
+  min-width: 220px;
+}
+
+.card button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.registration-table th:nth-child(4) {
+  min-width: 60px;
+}
+.registration-table th:nth-child(10) {
+  min-width: 180px;
+}
+.registration-table th:last-child {
+  min-width: 200px;
+}
+.registration-table td:last-child,
+.registration-table th:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background: #fff;
+  box-shadow: -3px 0 5px #dce5f0;
+}
+.registration-table th:last-child {
+  background: #eff5ff;
+  z-index: 2;
+}

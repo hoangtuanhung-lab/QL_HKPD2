@@ -41,7 +41,7 @@ it("K08 opens an empty trial instead of static confirmation outline", () => {
   fireEvent.click(
     within(
       screen.getByRole("navigation", { name: "Các luồng chức năng" }),
-    ).getByRole("button", { name: "Xác nhận kết quả" }),
+    ).getByRole("button", { name: "Kết quả" }),
   );
   expect(screen.getByText("Nhập và xác nhận kết quả — bản thử")).toBeTruthy();
   expect(screen.getByText("Chưa có bản nào được xác nhận thử.")).toBeTruthy();

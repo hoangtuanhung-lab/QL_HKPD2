@@ -1,3 +1,6 @@
+import { StudentImportWorkspace } from "./student-import-workspace.js";
+import { MatchResultsWorkspace } from "./match-results-workspace.js";
+import { eventByCode } from "./athlete-catalog.js";
 import {
   useCallback,
   useContext,
@@ -108,8 +111,12 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
   }, [dirty, busy]);
-  async function run(action: () => Promise<LiveState>, clearSchool?: string) {
-    if (writing.current) return;
+  async function run(
+    action: () => Promise<LiveState>,
+    clearSchool?: string,
+    preserveDirty = false,
+  ) {
+    if (writing.current) return false;
     writing.current = true;
     generation.current++;
     setBusy(true);
@@ -117,9 +124,9 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
     setMessage("");
     try {
       const next = await action();
-      if (!alive.current) return;
+      if (!alive.current) return false;
       setData(next);
-      setInnerDirty(false);
+      if (!preserveDirty) setInnerDirty(false);
       if (clearSchool)
         setWorking((w) => {
           const copy = { ...w };
@@ -129,6 +136,7 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
       setMessage(
         "Đã lưu lên hệ thống. Các tài khoản được phép có thể Tải lại để thấy dữ liệu mới.",
       );
+      return true;
     } catch (e) {
       if (alive.current)
         setError(
@@ -136,6 +144,7 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
             ? e.message
             : "Không lưu được. Dữ liệu đang nhập vẫn được giữ.",
         );
+      return false;
     } finally {
       writing.current = false;
       if (alive.current) setBusy(false);
@@ -211,8 +220,21 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
         </p>
       )}
       {message && <p role="status">{message}</p>}
-      {page === "Quản lý tài khoản" ||
-      (page === "Phân công" && role === "admin") ? (
+      {(page === "Dữ liệu học sinh" || page === "Nhập đăng ký") &&
+      role === "admin" &&
+      data ? (
+        <fieldset disabled={busy}>
+          <StudentImportWorkspace
+            key={page}
+            base={page === "Dữ liệu học sinh"}
+            data={data}
+            repository={repository}
+            onDirty={onDirty}
+            save={(action) => run(action, undefined, true)}
+          />
+        </fieldset>
+      ) : page === "Quản lý tài khoản" ||
+        (page === "Phân công" && role === "admin") ? (
         <AccountWorkspace
           currentUserId={session.actor.id}
           schools={admin.snapshot?.schools ?? []}
@@ -287,9 +309,13 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
                   }}
                   onDirty={onDirty}
                   catalogCodes={catalogCodes}
+                  onLookup={async (identity) => {
+                    const rows = await repository.students([identity]);
+                    return rows[0] ?? null;
+                  }}
                   onlineFiles
                   storageStatus={
-                    error ? "error" : working[school.id] ? "saving" : "saved"
+                    error ? "error" : working[school.id] ? "pending" : "saved"
                   }
                 />
               </fieldset>
@@ -377,13 +403,21 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
           ))}
           <AthleteFiles schools={schools} repository={repository} />
         </section>
-      ) : [
-          "Lịch thi đấu",
-          "Xác nhận kết quả",
-          "Công khai",
-          "Loại trực tiếp",
-          "Vòng tròn",
-        ].includes(page) ? (
+      ) : page === "Kết quả" || page === "Công khai" ? (
+        <MatchResultsWorkspace
+          key={`${role}:matches`}
+          role={role}
+          readOnly={page === "Công khai"}
+          sports={sports}
+          data={data}
+          repository={repository}
+          busy={busy}
+          save={(action) => run(action, undefined, true)}
+          onDirty={onDirty}
+        />
+      ) : ["Lịch thi đấu", "Công khai", "Loại trực tiếp", "Vòng tròn"].includes(
+          page,
+        ) ? (
         <EventOperations
           key={`${role}:${page}`}
           page={page}
@@ -393,7 +427,9 @@ export function LiveWorkspace({ session }: { session: WorkspaceSession }) {
           dirty={dirty}
           busy={busy}
           onDirty={onDirty}
-          save={(...args) => run(() => repository.operation(...args))}
+          save={async (...args) => {
+            await run(() => repository.operation(...args));
+          }}
         />
       ) : (
         <p className="notice">
@@ -422,11 +458,21 @@ function RosterTable({
         <caption>Danh sách VĐV theo nội dung đăng ký</caption>
         <thead>
           <tr>
-            {["STT", "Mã VĐV", "Tên VĐV", "Mã trường", "Tên trường"].map(
-              (s) => (
-                <th key={s}>{s}</th>
-              ),
-            )}
+            {[
+              "STT",
+              "Mã VĐV",
+              "TRƯỜNG",
+              "KHỐI",
+              "HỌ VÀ TÊN",
+              "CCCD",
+              "NGÀY SINH",
+              "GIỚI TÍNH",
+              "Phân nhóm",
+              "NỘI DUNG THI ĐẤU",
+              "TRẠNG THÁI",
+            ].map((h) => (
+              <th key={h}>{h}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
@@ -434,9 +480,33 @@ function RosterTable({
             <tr key={a.draftId}>
               <td>{i + 1}</td>
               <td>{a.athleteCode}</td>
-              <td>{a.fullName}</td>
-              <td>{s.code}</td>
               <td>{s.name}</td>
+              <td>{a.className.match(/^\d+/)?.[0] ?? a.className}</td>
+              <td>{a.fullName}</td>
+              <td>{a.identityNumber ?? "—"}</td>
+              <td>{a.birthDate?.split("-").reverse().join("/")}</td>
+              <td>
+                {a.gender === "male"
+                  ? "Nam"
+                  : a.gender === "female"
+                    ? "Nữ"
+                    : "—"}
+              </td>
+              <td>
+                {[
+                  ...new Set(
+                    (a.catalogSelections ?? []).map(
+                      (c) => eventByCode(c)?.group ?? "Cả cấp",
+                    ),
+                  ),
+                ].join("; ")}
+              </td>
+              <td>
+                {(a.catalogSelections ?? [])
+                  .map((c) => `${c} — ${eventByCode(c)?.name ?? c}`)
+                  .join("; ")}
+              </td>
+              <td>{statuses[s.status]}</td>
             </tr>
           ))}
         </tbody>
@@ -576,13 +646,6 @@ function EventEditor({
     [end, setEnd] = useState(localTime(existing.end));
   const entrants = schools.flatMap((s) =>
     s.athletes.filter((a) => a.catalogSelections?.includes(code)),
-  );
-  const [values, setValues] = useState<Record<string, string>>(() =>
-    Object.fromEntries(
-      ((result?.payload ?? []) as { athleteId: string; value: string }[]).map(
-        (r) => [r.athleteId, r.value],
-      ),
-    ),
   );
   const [laneValues, setLaneValues] = useState<
     Record<string, { heat: number; lane: number }>
@@ -729,49 +792,6 @@ function EventEditor({
           <button disabled={busy || !entrants.length}>Lưu phân làn</button>
         </form>
       )}
-      {page === "Xác nhận kết quả" &&
-        event.form === "CA_NHAN" &&
-        staff &&
-        result?.status !== "confirmed" && (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              void save(
-                code,
-                "result",
-                result?.revision ?? 0,
-                entrants.map((a) => ({
-                  athleteId: a.draftId,
-                  value: values[a.draftId] ?? "",
-                })),
-              );
-            }}
-          >
-            <h2>Gửi thành tích theo biên bản</h2>
-            <p>
-              Nhập thành tích/tỷ số kèm đơn vị theo biên bản của nội dung. Ban
-              tổ chức kiểm tra trước khi xác nhận; hệ thống chưa tự xếp hạng
-              hoặc trao huy chương.
-            </p>
-            {entrants.map((a) => (
-              <label key={a.draftId}>
-                Thành tích của {a.athleteCode} — {a.fullName}
-                <input
-                  required
-                  maxLength={100}
-                  value={values[a.draftId] ?? ""}
-                  onChange={(e) => {
-                    setValues((v) => ({ ...v, [a.draftId]: e.target.value }));
-                    onDirty(true);
-                  }}
-                />
-              </label>
-            ))}
-            <button disabled={busy || !entrants.length}>
-              Gửi kết quả chờ xác nhận
-            </button>
-          </form>
-        )}
       {result && (page !== "Công khai" || result.status === "confirmed") && (
         <section>
           <h2>
@@ -790,27 +810,10 @@ function EventEditor({
               ),
             )}
           </ul>
-          {role === "admin" &&
-            page === "Xác nhận kết quả" &&
-            result.status === "submitted" && (
-              <button
-                disabled={busy}
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      "Đã đối chiếu biên bản và xác nhận thành tích? Kết quả được khóa sau khi xác nhận.",
-                    )
-                  )
-                    void save(code, "result", result.revision, null, "confirm");
-                }}
-              >
-                Xác nhận kết quả
-              </button>
-            )}
         </section>
       )}
       {event.form !== "CA_NHAN" &&
-        ["Lịch thi đấu", "Xác nhận kết quả"].includes(page) && (
+        ["Lịch thi đấu", "Kết quả"].includes(page) && (
           <p>
             Nội dung đội/đôi/tiếp sức/đối kháng cần danh sách đội hoặc trận đã
             xác nhận. Chưa mở nhập kết quả hoặc ghép đội tự động tại đây.

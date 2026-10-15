@@ -2,7 +2,7 @@
 
 Nền tảng phát triển theo plan nhóm 28 người, phiên bản 1.4. Phạm vi bàn giao hiện tại: **A02 (kiến trúc), B01 (repository/CI), B07 (môi trường)** do Codex đảm nhận ở vị trí O01 và phụ trách bổ sung A02.
 
-Mã nguồn có đăng nhập Google qua Supabase PKCE, quản lý trường/tài khoản/danh mục và luồng đăng ký, lịch, phân làn, thành tích cá nhân dùng dữ liệu máy chủ. Tệp VĐV đi qua Netlify Functions tới Drive. Cần áp dụng migration và cấu hình dịch vụ trước khi sử dụng; **chưa xác nhận đã triển khai hoặc nghiệm thu trên dịch vụ thật**. Xem [hướng dẫn kết nối vận hành, cấu hình và các giới hạn còn lại](docs/runbooks/live-operations.md). Chưa nối toàn bộ nghiệp vụ đội/trận, kết chuyển giải, huy chương và ngoại tuyến; không coi bản thử cũ là chức năng online đã hoàn tất.
+Mã nguồn có đăng nhập Google qua Supabase PKCE, quản lý trường/tài khoản/danh mục, import học sinh nền và đăng ký, lịch thi đấu, phân làn, kết quả theo vòng/trận và duyệt/nhập lại. Tổ trưởng cấu hình điểm theo nội dung trước khi tạo trận; bảng vòng tròn chỉ cộng trận đã xác nhận. Tệp VĐV đi qua Netlify Functions tới Drive. Xem [hướng dẫn nhập dữ liệu và kết quả mới (SQL 007–008)](docs/runbooks/student-import-match-results.md) và [cấu hình kết nối dịch vụ (SQL 001–006)](docs/runbooks/live-operations.md). **Chưa áp dụng SQL mới hoặc triển khai/nghiệm thu phiên bản này trên dịch vụ thật.** Kết chuyển giải, huy chương, tie-break và đồng bộ ngoại tuyến chưa hoàn tất.
 
 ## Cài đặt
 

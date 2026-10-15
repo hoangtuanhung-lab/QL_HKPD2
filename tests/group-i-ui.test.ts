@@ -90,7 +90,7 @@ it("opens via App navigation and preserves local queue across tabs", async () =>
   fireEvent.click(
     within(
       screen.getByRole("navigation", { name: "Các luồng chức năng" }),
-    ).getByRole("button", { name: "Xác nhận kết quả" }),
+    ).getByRole("button", { name: "Kết quả" }),
   );
   fireEvent.click(
     within(

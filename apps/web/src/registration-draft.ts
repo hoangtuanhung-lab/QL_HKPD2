@@ -10,6 +10,8 @@ import {
   type SportId,
 } from "./athlete-event-options.js";
 export interface AthleteDraft {
+  athleteCode?: string;
+  schoolName?: string;
   draftId: string;
   fullName: string;
   className: string;
