@@ -1,6 +1,6 @@
 import { HkpdLogo } from "./role-workspaces.js";
 import { AthleteEventDialog } from "./athlete-event-dialog.js";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   athleteDetails,
   clean,
@@ -86,9 +86,14 @@ export function AthleteRegistrationPage({
   function captureBase(school: SchoolDraft) {
     bases.current[school.draftId] ??= JSON.stringify(school.athletes);
   }
-  const rows = active
-    ? (edited[active.draftId] ?? [...active.athletes, blank()])
-    : [];
+  const [placeholderRow] = useState(blank);
+  const trailingRow = useMemo(blank, [active?.draftId, active?.athletes]);
+  const editedRows = active ? edited[active.draftId] : undefined;
+  const rows = editedRows?.length
+    ? editedRows
+    : active
+      ? [...active.athletes, trailingRow]
+      : [placeholderRow];
   const dirty = Object.keys(edited).length > 0;
   useEffect(() => {
     onDirty(dirty);
@@ -297,6 +302,12 @@ export function AthleteRegistrationPage({
           ))}
         </select>
       </div>
+      {!active && (
+        <p className="notice">
+          Chọn trường để nhập vào hàng trống bên dưới. Nếu chưa có phiếu trường,
+          tạo phiếu tại phần Thiết lập phiếu trường.
+        </p>
+      )}
       <div className="registration-excel">
         <button
           type="button"
@@ -379,7 +390,7 @@ export function AthleteRegistrationPage({
                     aria-label={`Họ tên dòng ${i + 1}`}
                     placeholder="Nhập họ và tên..."
                     value={a.fullName}
-                    disabled={busy}
+                    disabled={!active || busy}
                     readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { fullName: e.target.value })
@@ -393,7 +404,7 @@ export function AthleteRegistrationPage({
                     inputMode="numeric"
                     maxLength={12}
                     value={a.identityNumber ?? ""}
-                    disabled={busy}
+                    disabled={!active || busy}
                     readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { identityNumber: e.target.value })
@@ -405,7 +416,7 @@ export function AthleteRegistrationPage({
                     aria-label={`Ngày sinh dòng ${i + 1}`}
                     type="date"
                     value={a.birthDate ?? ""}
-                    disabled={busy}
+                    disabled={!active || busy}
                     readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { birthDate: e.target.value })
@@ -416,7 +427,7 @@ export function AthleteRegistrationPage({
                   <select
                     aria-label={`Giới tính dòng ${i + 1}`}
                     value={a.gender ?? ""}
-                    disabled={busy || locked(a)}
+                    disabled={!active || busy || locked(a)}
                     onChange={(e) =>
                       change(a.draftId, {
                         gender: e.target.value as "male" | "female",
@@ -436,7 +447,7 @@ export function AthleteRegistrationPage({
                     placeholder="Ghi chú..."
                     maxLength={2000}
                     value={a.note ?? ""}
-                    disabled={busy}
+                    disabled={!active || busy}
                     readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { note: e.target.value })
@@ -448,7 +459,7 @@ export function AthleteRegistrationPage({
                     aria-label={`Lớp / nhóm dòng ${i + 1}`}
                     placeholder="Nhập lớp..."
                     value={a.className}
-                    disabled={busy}
+                    disabled={!active || busy}
                     readOnly={locked(a)}
                     onChange={(e) =>
                       change(a.draftId, { className: e.target.value })
@@ -460,7 +471,7 @@ export function AthleteRegistrationPage({
                     aria-label={`Nội dung thi đấu dòng ${i + 1}`}
                     placeholder="Nhập nội dung..."
                     value={a.requestedEvent}
-                    disabled={busy}
+                    disabled={!active || busy}
                     readOnly={
                       locked(a) ||
                       Boolean(
@@ -493,7 +504,7 @@ export function AthleteRegistrationPage({
                         className="row-edit"
                         aria-label={`Sửa VĐV dòng ${i + 1}`}
                         title="Sửa hồ sơ"
-                        disabled={busy}
+                        disabled={!active || busy}
                         onClick={() =>
                           setEditingIds(
                             (current) => new Set([...current, a.draftId]),
@@ -519,15 +530,16 @@ export function AthleteRegistrationPage({
                       className="row-delete"
                       aria-label={`Xóa dòng ${i + 1}`}
                       title="Xóa VĐV khỏi bản đang nhập"
-                      disabled={busy}
+                      disabled={!active || busy}
                       onClick={() =>
                         active &&
                         (captureBase(active),
                         setEdited((current) => ({
                           ...current,
-                          [active.draftId]: rows.filter(
-                            (r) => r.draftId !== a.draftId,
-                          ),
+                          [active.draftId]:
+                            rows.length === 1
+                              ? [blank()]
+                              : rows.filter((r) => r.draftId !== a.draftId),
                         })))
                       }
                     >

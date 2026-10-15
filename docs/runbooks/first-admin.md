@@ -51,3 +51,5 @@ where lower(u.email) = 'hoangtuanhung@gmail.com';
 ```
 
 Kết quả mong đợi: `hoangtuanhung@gmail.com`, `true`, `edition-2026`. Không có dòng: kiểm tra project hoặc email Google đã đăng nhập. `approved` trống/false: bản ghi cấp quyền chưa có hoặc đã thu hồi; kiểm tra query bootstrap. Khi bản ghi đúng, đối chiếu dòng **Tài khoản** trên website, thử đăng xuất/đăng nhập đúng email và kiểm tra Netlify đang dùng URL project `https://sflnbtnwsafncdzhkdix.supabase.co`. Không chia sẻ token, khóa bí mật hoặc URL callback có code để chẩn đoán.
+
+Để bổ sung quản lý trường và chọn môn/nội dung lưu Supabase, xem [migration 003 và hướng dẫn quản trị danh mục](admin-schools-catalog.md).

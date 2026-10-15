@@ -9,6 +9,10 @@ import {
   within,
   waitFor,
 } from "@testing-library/react";
+import {
+  carryTournament,
+  initialTournaments,
+} from "../apps/web/src/tournament-state.js";
 import { App } from "../apps/web/src/App.js";
 import {
   fromSheet,
@@ -118,19 +122,31 @@ describe("School registration drafts", () => {
     expect(screen.getByText(/Chưa có kết quả được công bố/)).toBeTruthy();
   });
   it("opens an existing normalized profile, while a different edition remains separate", async () => {
-    render(createElement(App));
+    const view = render(createElement(App));
     school();
     athlete();
     school("  TRƯỜNG A  ");
     await waitFor(() => expect(loadDrafts(localStorage)).toHaveLength(1));
-    fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
-      target: { value: "admin" },
-    });
-    fireEvent.click(
-      within(screen.getByRole("navigation")).getByRole("button", {
-        name: "Đăng ký VĐV",
-      }),
+    view.unmount();
+    const snapshot = readDraftSnapshot(localStorage);
+    const state = snapshot.tournaments ?? initialTournaments(snapshot.drafts);
+    const next = carryTournament(
+      state,
+      snapshot.drafts,
+      state.currentId,
+      "2027",
+      2027,
+      { catalog: true, staff: false, registrations: false },
     );
+    next.state.currentId = next.target.id;
+    await saveDrafts(
+      localStorage,
+      next.drafts,
+      snapshot,
+      navigator.locks,
+      next.state,
+    );
+    render(createElement(App));
     school("Trường A", "2027");
     await waitFor(() => expect(loadDrafts(localStorage)).toHaveLength(2));
     expect(screen.getByText("Chưa có VĐV trong phiếu")).toBeTruthy();

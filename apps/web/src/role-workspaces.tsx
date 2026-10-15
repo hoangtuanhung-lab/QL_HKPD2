@@ -10,6 +10,7 @@ export const roles = {
 } as const;
 export type WorkspaceRole = keyof typeof roles;
 export type WorkspacePage =
+  | "Quản lý trường"
   | "Quản lý giải"
   | "Tổng quan"
   | "Danh mục môn thi"
@@ -26,7 +27,7 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
   admin: [
     "Tổng quan",
     "Quản lý giải",
-    "Đăng ký VĐV",
+    "Quản lý trường",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Phân công",
@@ -106,6 +107,7 @@ export function RoleLayout({
   availableRoles = Object.keys(roles) as WorkspaceRole[],
   editionName = "2026",
   editionYear = 2026,
+  online = false,
 }: {
   role: WorkspaceRole;
   page: WorkspacePage;
@@ -115,6 +117,7 @@ export function RoleLayout({
   availableRoles?: readonly WorkspaceRole[];
   editionName?: string;
   editionYear?: number;
+  online?: boolean;
 }) {
   return (
     <div className={`role-shell role-${role}`}>
@@ -173,8 +176,9 @@ export function RoleLayout({
           </label>
         </header>
         <div className="role-preview-note">
-          Hệ thống đang được xây dựng · Dữ liệu nháp trên trình duyệt. Chọn vai
-          trò để xem bố cục, chưa phải đăng nhập hoặc cấp quyền.
+          {online
+            ? "Phiên đăng nhập đã xác thực · Danh mục trường/môn lưu Supabase. Hồ sơ VĐV và kết quả hiện là bản nháp trên trình duyệt."
+            : "Hệ thống đang được xây dựng · Dữ liệu nháp trên trình duyệt. Chọn vai trò để xem bố cục, chưa phải đăng nhập hoặc cấp quyền."}
         </div>
         <main
           className={`role-content ${page === "Đăng ký VĐV" ? "registration-mode" : ""}`}
@@ -205,6 +209,7 @@ const roleHeadings: Record<WorkspaceRole, [string, string]> = {
 };
 const quickPages: Record<WorkspaceRole, WorkspacePage[]> = {
   admin: [
+    "Quản lý trường",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Lịch và phân làn",
@@ -239,8 +244,10 @@ export function RoleOverview({
   sportCodes = [],
   catalogCodes,
   editionName = "2026",
+  schoolCount,
 }: {
   role: WorkspaceRole;
+  schoolCount?: number;
   sportCodes?: readonly string[];
   catalogCodes?: readonly string[];
   editionName?: string;
@@ -281,7 +288,12 @@ export function RoleOverview({
       <div className="role-metrics">
         {(role === "admin" || role === "school"
           ? [
-              ["Phiếu trường nháp", drafts.length],
+              [
+                role === "admin" && schoolCount !== undefined
+                  ? "Trường trong danh mục"
+                  : "Phiếu trường nháp",
+                schoolCount ?? drafts.length,
+              ],
               [
                 "VĐV trong bản nháp",
                 drafts.reduce((n, d) => n + d.athletes.length, 0),
@@ -306,11 +318,13 @@ export function RoleOverview({
               <span>{label}</span>
               <strong>{value}</strong>
               <small>
-                {index > 1
-                  ? "Theo danh mục đã nhập"
-                  : role === "admin" || role === "school"
-                    ? "Lưu trên trình duyệt này"
-                    : "Chưa có phân công từ hệ thống"}
+                {index === 0 && role === "admin" && schoolCount !== undefined
+                  ? "Theo danh mục trường"
+                  : index > 1
+                    ? "Theo danh mục đã nhập"
+                    : role === "admin" || role === "school"
+                      ? "Lưu trên trình duyệt này"
+                      : "Chưa có phân công từ hệ thống"}
               </small>
             </div>
           </article>
@@ -372,8 +386,15 @@ export function RoleOverview({
                   <p>
                     Danh sách cập nhật khi tạo hoặc nhập phiếu của nhà trường.
                   </p>
-                  <button type="button" onClick={() => onPage("Đăng ký VĐV")}>
-                    Mở đăng ký VĐV
+                  <button
+                    type="button"
+                    onClick={() =>
+                      onPage(
+                        role === "admin" ? "Quản lý trường" : "Đăng ký VĐV",
+                      )
+                    }
+                  >
+                    {role === "admin" ? "Mở quản lý trường" : "Mở đăng ký VĐV"}
                   </button>
                 </div>
               )}

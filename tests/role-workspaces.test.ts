@@ -84,8 +84,8 @@ describe("Role workspaces and supplied logo", () => {
       target: { value: "không tồn tại" },
     });
     expect(screen.getByText("Không tìm thấy phiếu phù hợp")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Mở đăng ký VĐV" }));
-    expect(onPage).toHaveBeenCalledWith("Đăng ký VĐV");
+    fireEvent.click(screen.getByRole("button", { name: "Mở quản lý trường" }));
+    expect(onPage).toHaveBeenCalledWith("Quản lý trường");
   });
   it("filters the real catalog and excludes THCS 1500 m from a primary lookup", () => {
     render(createElement(CatalogWorkspace));

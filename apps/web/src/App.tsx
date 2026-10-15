@@ -1,3 +1,9 @@
+import { AdminWorkspace } from "./admin-workspace.js";
+import {
+  AdminRepositoryContext,
+  localAdminRepository,
+  useAdminSettings,
+} from "./admin-settings.js";
 import { accountStorage } from "./workspace-access.js";
 import { athleteCatalog } from "./athlete-catalog.generated.js";
 import { TournamentWorkspace } from "./tournament-workspace.js";
@@ -28,7 +34,14 @@ import { ResultsWorkspace } from "./results-ui.js";
 import { RegistrationWorkspace } from "./registration-ui.js";
 import { ScheduleWorkspace } from "./schedule-ui.js";
 import { FormField } from "@hkpd/ui";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  useContext,
+  useMemo,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import {
   clean,
   fromSheet,
@@ -46,6 +59,7 @@ type Step = WorkspacePage;
 const outlines: Record<
   Exclude<
     Step,
+    | "Quản lý trường"
     | "Quản lý giải"
     | "Tổng quan"
     | "Danh mục môn thi"
@@ -106,9 +120,30 @@ export function App({ session }: { session?: WorkspaceSession }) {
       : (initial.tournaments ?? initialTournaments(initial.drafts)),
   );
   const tournamentsRef = useRef(tournaments);
-  const currentEdition = tournaments.editions.find(
+  const baseEdition = tournaments.editions.find(
     (e) => e.id === (liveSession ? session.editionId : tournaments.currentId),
   )!;
+  const onlineRepository = useContext(AdminRepositoryContext);
+  const baseCatalogKey = JSON.stringify(baseEdition.catalogCodes);
+  const previewRepository = useMemo(
+    () =>
+      localAdminRepository(
+        storage,
+        baseEdition.id,
+        JSON.parse(baseCatalogKey) as string[],
+      ),
+    [storage, baseEdition.id, baseCatalogKey],
+  );
+  const isAdmin = session ? sessionRoles(session).includes("admin") : true;
+  const admin = useAdminSettings(
+    isAdmin ? (liveSession ? onlineRepository : previewRepository) : null,
+  );
+  const currentEdition = {
+    ...baseEdition,
+    catalogCodes:
+      admin.snapshot?.catalogCodes ??
+      (liveSession && isAdmin ? [] : baseEdition.catalogCodes),
+  };
   const currentSession = session
     ? liveSession
       ? session
@@ -173,27 +208,45 @@ export function App({ session }: { session?: WorkspaceSession }) {
   });
   const fileInput = useRef<HTMLInputElement>(null);
   const draftsRef = useRef(drafts);
+  const currentDrafts = drafts.filter(
+    (d) => tournaments.draftEditions[d.draftId] === currentEdition.id,
+  );
+  const managedDrafts: SchoolDraft[] = (admin.snapshot?.schools ?? [])
+    .filter(
+      (school) =>
+        !currentDrafts.some(
+          (d) =>
+            d.draftId === `managed-school:${school.id}` ||
+            clean(d.schoolName).toLocaleLowerCase("vi") ===
+              clean(school.name).toLocaleLowerCase("vi"),
+        ),
+    )
+    .map((school) => ({
+      draftId: `managed-school:${school.id}`,
+      schoolName: school.name,
+      editionName: currentEdition.name,
+      athletes: [],
+    }));
   const visibleDrafts =
-    role === "school"
-      ? drafts.filter(
-          (d) => tournaments.draftEditions[d.draftId] === currentEdition.id,
-        )
-      : drafts;
+    role === "school" ? [...currentDrafts, ...managedDrafts] : drafts;
   const visibleActiveId = visibleDrafts.some((d) => d.draftId === activeId)
     ? activeId
     : (visibleDrafts[0]?.draftId ?? "");
   const active = visibleDrafts.find(
     (school) => school.draftId === visibleActiveId,
   );
+  const draftEdition = tournaments.editions.find(
+    (e) => e.id === tournaments.draftEditions[visibleActiveId],
+  );
   const registrationEdition =
-    tournaments.editions.find(
-      (e) => e.id === tournaments.draftEditions[visibleActiveId],
-    ) ?? currentEdition;
+    !draftEdition || draftEdition.id === currentEdition.id
+      ? currentEdition
+      : draftEdition;
   function mayLeave() {
     return (
       !tableDirty ||
       window.confirm(
-        "Bảng đăng ký có thay đổi chưa lưu. Chuyển màn hình sẽ bỏ các thay đổi này. Bạn muốn tiếp tục?",
+        "Màn hình có thay đổi chưa lưu. Chuyển màn hình sẽ bỏ các thay đổi này. Bạn muốn tiếp tục?",
       )
     );
   }
@@ -272,7 +325,8 @@ export function App({ session }: { session?: WorkspaceSession }) {
           (role !== "school" ||
             tournamentsRef.current.draftEditions[d.draftId] ===
               currentEdition.id),
-      )
+      ) &&
+      !managedDrafts.some((d) => d.draftId === id)
     )
       return;
     setActiveId(id);
@@ -314,9 +368,11 @@ export function App({ session }: { session?: WorkspaceSession }) {
         draftId: athlete.draftId || newDraftId(),
       });
       commit(
-        drafts.map((school) =>
-          school.draftId === active.draftId ? updated : school,
-        ),
+        drafts.some((school) => school.draftId === active.draftId)
+          ? drafts.map((school) =>
+              school.draftId === active.draftId ? updated : school,
+            )
+          : [...drafts, updated],
       );
       resetAthlete();
       setError("");
@@ -379,6 +435,7 @@ export function App({ session }: { session?: WorkspaceSession }) {
   return (
     <RoleLayout
       role={role}
+      online={liveSession}
       page={step}
       onRole={changeRole}
       onPage={changePage}
@@ -386,6 +443,17 @@ export function App({ session }: { session?: WorkspaceSession }) {
       editionName={currentEdition.name}
       editionYear={currentEdition.year}
     >
+      {role === "admin" &&
+        admin.error &&
+        step !== "Quản lý trường" &&
+        step !== "Danh mục môn thi" && (
+          <div className="notice error" role="alert">
+            {admin.error}{" "}
+            <button type="button" className="secondary" onClick={admin.refresh}>
+              Tải lại danh mục quản trị
+            </button>
+          </div>
+        )}
       {step === "Đăng ký VĐV" && registrationEdition.sourceId && (
         <p className="notice">
           Giải có dữ liệu kế thừa. Rà soát lớp, tuổi và nội dung theo năm{" "}
@@ -407,9 +475,11 @@ export function App({ session }: { session?: WorkspaceSession }) {
           onSave={(updated) =>
             visibleDrafts.some((d) => d.draftId === updated.draftId) &&
             commit(
-              draftsRef.current.map((s) =>
-                s.draftId === updated.draftId ? updated : s,
-              ),
+              draftsRef.current.some((s) => s.draftId === updated.draftId)
+                ? draftsRef.current.map((s) =>
+                    s.draftId === updated.draftId ? updated : s,
+                  )
+                : [...draftsRef.current, updated],
             )
           }
         />
@@ -430,7 +500,7 @@ export function App({ session }: { session?: WorkspaceSession }) {
         </p>
       )}
       {step === "Đăng ký VĐV" ? (
-        <details className="registration-tools">
+        <details className="registration-tools" open={!visibleDrafts.length}>
           <summary>Thiết lập phiếu trường và công cụ bổ sung</summary>
           <div className="stats">
             <div>
@@ -686,6 +756,16 @@ export function App({ session }: { session?: WorkspaceSession }) {
             </section>
           </div>
         </details>
+      ) : step === "Quản lý trường" ||
+        (step === "Danh mục môn thi" && role === "admin") ? (
+        <AdminWorkspace
+          key={currentEdition.id}
+          page={step as "Quản lý trường" | "Danh mục môn thi"}
+          model={admin}
+          online={liveSession}
+          drafts={drafts}
+          onDirty={setTableDirty}
+        />
       ) : step === "Quản lý giải" && liveSession ? (
         <p className="notice">
           Giải hiện tại: {currentEdition.name}. Thay đổi giải và kết chuyển trực
@@ -693,14 +773,22 @@ export function App({ session }: { session?: WorkspaceSession }) {
         </p>
       ) : step === "Quản lý giải" ? (
         <TournamentWorkspace
-          state={tournaments}
+          state={{
+            ...tournaments,
+            editions: tournaments.editions.map((e) =>
+              e.id === currentEdition.id ? currentEdition : e,
+            ),
+          }}
           drafts={drafts}
-          busy={Boolean(pendingWrites)}
+          busy={Boolean(pendingWrites) || admin.busy || Boolean(admin.error)}
           onSave={saveTournaments}
         />
       ) : step === "Tổng quan" ? (
         <RoleOverview
           role={role}
+          schoolCount={
+            role === "admin" ? admin.snapshot?.schools.length : undefined
+          }
           drafts={visibleDrafts}
           onPage={changePage}
           sportCodes={staffSports}

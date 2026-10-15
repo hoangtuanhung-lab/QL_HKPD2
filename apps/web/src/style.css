@@ -1870,3 +1870,31 @@ fieldset:disabled {
     flex-direction: column;
   }
 }
+
+.admin-school-form fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 14px;
+  border: 0;
+  padding: 0;
+  margin: 16px 0 24px;
+}
+.admin-school-form label {
+  display: grid;
+  gap: 6px;
+  flex: 1 1 200px;
+}
+.admin-catalog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+.admin-workspace td button + button {
+  margin-left: 8px;
+}
+.admin-workspace input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}

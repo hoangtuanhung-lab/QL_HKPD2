@@ -195,14 +195,13 @@ describe("Tournament carry-forward and current edition", () => {
     fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
       target: { value: "admin" },
     });
-    fireEvent.click(
-      within(screen.getByRole("navigation")).getByRole("button", {
+    expect(
+      within(screen.getByRole("navigation")).queryByRole("button", {
         name: "Đăng ký VĐV",
       }),
-    );
-    expect(screen.getByLabelText("Trường đăng ký:").textContent).toContain(
-      "2026",
-    );
+    ).toBeNull();
+    expect(screen.getByRole("table").textContent).toContain("2026");
+    expect(screen.getByRole("table").textContent).toContain("2027");
     cleanup();
     render(
       createElement(App, {
@@ -242,6 +241,15 @@ describe("Tournament carry-forward and current edition", () => {
       within(screen.getByRole("navigation")).getByRole("button", {
         name: "Quản lý giải",
       }),
+    );
+    await waitFor(() =>
+      expect(
+        (
+          screen.getByRole("button", {
+            name: "Xem trước kết chuyển",
+          }) as HTMLButtonElement
+        ).disabled,
+      ).toBe(false),
     );
     fireEvent.change(screen.getByLabelText("Tên giải mới"), {
       target: { value: "2027" },
