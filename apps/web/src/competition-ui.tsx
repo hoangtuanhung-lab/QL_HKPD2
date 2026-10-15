@@ -1,3 +1,8 @@
+import { athleteCatalog } from "./athlete-catalog.generated.js";
+import {
+  competitionRegistrationRows,
+  type CompetitionRegistrationSource,
+} from "./competition-registration.js";
 import { useState, type FormEvent } from "react";
 import { DataGrid, FormField } from "@hkpd/ui";
 import {
@@ -245,8 +250,10 @@ export function RoundRobinView({
 }
 export function CompetitionWorkspace({
   mode,
+  source,
 }: {
   mode: "knockout" | "round_robin";
+  source?: CompetitionRegistrationSource;
 }) {
   const [kind, setKind] = useState<EventKind>("individual_combat");
   const [roster, setRoster] = useState("");
@@ -260,7 +267,38 @@ export function CompetitionWorkspace({
   const [reason, setReason] = useState("");
   const [error, setError] = useState("");
   const [status, setStatus] = useState("");
-  const [snapshot, setSnapshot] = useState<CompetitionSnapshot | null>(null);
+  const [storedSnapshot, setSnapshot] = useState<CompetitionSnapshot | null>(
+    null,
+  );
+  const [drawSource, setDrawSource] = useState("");
+  const events = athleteCatalog.filter((e) =>
+    source?.catalogCodes.includes(e.code),
+  );
+  const selectedEvent = events.find((e) => e.code === eventId);
+  const registeredRows = source
+    ? competitionRegistrationRows(source, eventId)
+    : [];
+  const sourceKey = source
+    ? JSON.stringify({
+        editionId: source.editionId,
+        mode,
+        year: source.year,
+        eventId,
+        registeredRows,
+        active: Boolean(selectedEvent),
+      })
+    : "manual";
+  const snapshot = source && drawSource !== sourceKey ? null : storedSnapshot;
+  function chooseEvent(code: string) {
+    setEventId(code);
+    setSnapshot(null);
+    setDrawSource("");
+    setSeedText("");
+    setHasSeeds(false);
+    setManualPositions("");
+    setError("");
+    setStatus("");
+  }
   function generate(event: FormEvent) {
     event.preventDefault();
     setError("");
@@ -268,7 +306,38 @@ export function CompetitionWorkspace({
     try {
       if (snapshot?.status === "draw_confirmed")
         throw new Error("Đã chốt bản thử; sơ đồ bị khóa.");
-      const entrants = parseRoster(roster);
+      if (source) {
+        if (!selectedEvent)
+          throw new Error("Chọn nội dung đăng ký trước khi xếp vòng đấu.");
+        if (["DOI", "DONG_DOI", "TIEP_SUC"].includes(selectedEvent.form))
+          throw new Error(
+            "Nội dung theo đội cần danh sách đội và thành viên đã xác nhận; không xếp từng VĐV thành một đội.",
+          );
+        if (
+          ["DK", "BOI"].includes(selectedEvent.sportCode) ||
+          (selectedEvent.sportCode === "VNM" &&
+            selectedEvent.form !== "DOI_KHANG")
+        )
+          throw new Error(
+            "Nội dung thi thành tích hoặc biểu diễn dùng phân lượt/làn hoặc chấm điểm, không xếp nhánh đối kháng.",
+          );
+        if (registeredRows.some((row) => row.issue))
+          throw new Error(
+            "Danh sách có hồ sơ không phù hợp nội dung. Rà soát cấp học, giới tính và tuổi trước khi xếp vòng đấu.",
+          );
+        if (registeredRows.some((row) => !row.schoolCode))
+          throw new Error(
+            "Danh sách có trường chưa xác định mã. Bổ sung hoặc đối chiếu danh mục trong Quản lý trường trước khi xếp vòng đấu.",
+          );
+      }
+      const entrants = source
+        ? registeredRows.map((row) => ({
+            id: row.athleteId,
+            label: row.athleteName,
+            schoolId: row.schoolId,
+            personIds: [row.athleteId],
+          }))
+        : parseRoster(roster);
       if (!eligible(entrants, kind))
         throw new Error(
           "Chưa đủ VĐV/đội hoặc số trường: cá nhân cần 3 người/2 trường, đội cần 3 đội/3 trường.",
@@ -309,10 +378,11 @@ export function CompetitionWorkspace({
           .map((s) => s.trim() || null);
         draw = manualKnockout(eventId.trim(), entrants, positions, options);
       } else draw = automaticKnockout(eventId.trim(), entrants, options);
+      setDrawSource(sourceKey);
       setSnapshot({
         eventId: eventId.trim(),
-        editionId: "local-preview",
-        sportId: "local-preview",
+        editionId: source?.editionId ?? "local-preview",
+        sportId: selectedEvent?.sportCode ?? "local-preview",
         kind,
         version: (snapshot?.version ?? 0) + 1,
         status: "draft",
@@ -337,27 +407,103 @@ export function CompetitionWorkspace({
         {mode === "knockout" ? "Sơ đồ và hạt giống" : "Vòng tròn một lượt"}
       </h2>
       <p className="notice">
-        Bản thử trên trình duyệt. Nhập danh sách để xem bố trí; danh sách này
-        chưa được kiểm duyệt và không thay danh sách thi đấu chính thức.
+        {source
+          ? "Danh sách lấy từ các phiếu đăng ký đã lưu của giải hiện tại. Mã VĐV là mã bản nháp. Vòng đấu tạo tại đây vẫn là bản thử, chưa thay danh sách thi đấu chính thức."
+          : "Bản thử trên trình duyệt. Nhập danh sách để xem bố trí; danh sách này chưa được kiểm duyệt và không thay danh sách thi đấu chính thức."}
       </p>
+      {source && (
+        <section className="card competition-registration-list">
+          <label>
+            Nội dung đăng ký
+            <select
+              value={selectedEvent ? eventId : ""}
+              onChange={(e) => chooseEvent(e.target.value)}
+            >
+              <option value="">-- Chọn nội dung đăng ký --</option>
+              {events.map((e) => (
+                <option key={e.code} value={e.code}>
+                  {e.code} · {e.sportName} · {e.level} · {e.gender} ·{" "}
+                  {e.group ?? "Cả cấp"} · {e.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p role="status">
+            {registeredRows.length} VĐV đăng ký
+            {selectedEvent
+              ? ` · ${selectedEvent.code}`
+              : " · Chưa chọn nội dung"}
+          </p>
+          <div className="table-scroll">
+            <table>
+              <caption>Danh sách VĐV theo nội dung đăng ký</caption>
+              <thead>
+                <tr>
+                  {["STT", "Mã VĐV", "Tên VĐV", "Mã trường", "Tên trường"].map(
+                    (label) => (
+                      <th key={label}>{label}</th>
+                    ),
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {registeredRows.map((row, index) => (
+                  <tr key={row.athleteId}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <code>{row.athleteId}</code>
+                    </td>
+                    <td title={row.issue || undefined}>{row.athleteName}</td>
+                    <td>{row.schoolCode ?? "Chưa có mã"}</td>
+                    <td>{row.schoolName}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {!registeredRows.length && (
+            <p>
+              {selectedEvent
+                ? "Chưa có VĐV đăng ký nội dung này trong các phiếu đã lưu."
+                : "Chọn nội dung để xem danh sách VĐV."}
+            </p>
+          )}
+          {registeredRows.some((row) => row.issue) && (
+            <p className="notice error">
+              Có hồ sơ cần rà soát cấp học, giới tính hoặc tuổi; chưa thể xếp
+              vòng đấu.
+            </p>
+          )}
+          {storedSnapshot && !snapshot && (
+            <p className="notice">
+              Nguồn đăng ký hoặc cấu hình nội dung đã thay đổi. Tạo lại vòng đấu
+              trước khi chốt.
+            </p>
+          )}
+        </section>
+      )}
       <form className="card draw-form" onSubmit={generate}>
         <fieldset disabled={locked}>
           <legend>Danh sách và cách bốc thăm</legend>
-          <FormField
-            label="Mã nội dung thử"
-            required
-            value={eventId}
-            onChange={(e) => setEventId(e.target.value)}
-          />
-          <label>
-            Danh sách thử (mỗi dòng: Mã;Tên;Mã trường;Mã người nếu là đội)
-            <textarea
-              required
-              rows={6}
-              value={roster}
-              onChange={(e) => setRoster(e.target.value)}
-            />
-          </label>
+          {!source && (
+            <>
+              <FormField
+                label="Mã nội dung thử"
+                required
+                value={eventId}
+                onChange={(e) => setEventId(e.target.value)}
+              />
+              <label>
+                Danh sách thử (mỗi dòng: Mã;Tên;Mã trường;Mã người nếu là đội)
+                <textarea
+                  required
+                  rows={6}
+                  value={roster}
+                  onChange={(e) => setRoster(e.target.value)}
+                />
+              </label>
+            </>
+          )}
           {mode === "round_robin" && (
             <label>
               Loại nội dung
@@ -368,7 +514,7 @@ export function CompetitionWorkspace({
                 <option value="individual_combat">
                   Cá nhân đối kháng (3–5 người)
                 </option>
-                <option value="team">Đội (vòng tròn)</option>
+                {!source && <option value="team">Đội (vòng tròn)</option>}
               </select>
             </label>
           )}
@@ -431,7 +577,10 @@ export function CompetitionWorkspace({
               />
             </>
           )}
-          <button type="submit" disabled={locked}>
+          <button
+            type="submit"
+            disabled={locked || Boolean(source && !selectedEvent)}
+          >
             Tạo vòng đấu thử
           </button>
         </fieldset>

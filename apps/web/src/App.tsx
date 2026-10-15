@@ -812,6 +812,13 @@ export function App({ session }: { session?: WorkspaceSession }) {
         <CompetitionWorkspace
           key={step}
           mode={step === "Sơ đồ thi đấu" ? "knockout" : "round_robin"}
+          source={{
+            editionId: currentEdition.id,
+            year: currentEdition.year,
+            schools: currentDrafts,
+            directory: admin.snapshot?.schools ?? [],
+            catalogCodes: currentEdition.catalogCodes,
+          }}
         />
       ) : step === "Lịch và phân làn" ? (
         <ScheduleWorkspace />
