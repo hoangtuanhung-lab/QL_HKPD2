@@ -20,7 +20,7 @@ export type WorkspacePage =
   | "Phân công"
   | "Loại trực tiếp"
   | "Vòng tròn"
-  | "Lịch và phân làn"
+  | "Lịch thi đấu"
   | "Ngoại tuyến"
   | "Xác nhận kết quả"
   | "Công khai";
@@ -33,7 +33,7 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Phân công",
-    "Lịch và phân làn",
+    "Lịch thi đấu",
     "Xác nhận kết quả",
     "Ngoại tuyến",
     "Công khai",
@@ -45,13 +45,13 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Danh mục môn thi",
     "Loại trực tiếp",
     "Vòng tròn",
-    "Lịch và phân làn",
+    "Lịch thi đấu",
     "Xác nhận kết quả",
     "Ngoại tuyến",
   ],
   referee: [
     "Tổng quan",
-    "Lịch và phân làn",
+    "Lịch thi đấu",
     "Danh mục môn thi",
     "Xác nhận kết quả",
     "Ngoại tuyến",
@@ -61,7 +61,7 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Đăng ký VĐV",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
-    "Lịch và phân làn",
+    "Lịch thi đấu",
     "Công khai",
   ],
 };
@@ -69,7 +69,7 @@ const glyphs: Partial<Record<WorkspacePage, string>> = {
   "Tổng quan": "M3 10 12 3l9 7v11h-6v-7H9v7H3Z",
   "Đăng ký VĐV": "M8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0ZM4 21v-2a8 8 0 0 1 16 0v2",
   "Danh mục môn thi": "M4 4h16v16H4ZM8 8h8M8 12h8M8 16h5",
-  "Lịch và phân làn": "M4 5h16v16H4ZM8 2v6M16 2v6M4 10h16M8 14h2M14 14h2",
+  "Lịch thi đấu": "M4 5h16v16H4ZM8 2v6M16 2v6M4 10h16M8 14h2M14 14h2",
   "Xác nhận kết quả": "M6 20V9h3v11M11 20V4h3v16M16 20v-8h3v8",
 };
 export function WorkspaceIcon({ page }: { page: WorkspacePage }) {
@@ -212,17 +212,12 @@ const quickPages: Record<WorkspaceRole, WorkspacePage[]> = {
     "Quản lý trường",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
-    "Lịch và phân làn",
+    "Lịch thi đấu",
     "Xác nhận kết quả",
   ],
-  chief: [
-    "Phân công",
-    "Kiểm tra đăng ký",
-    "Lịch và phân làn",
-    "Xác nhận kết quả",
-  ],
+  chief: ["Phân công", "Kiểm tra đăng ký", "Lịch thi đấu", "Xác nhận kết quả"],
   referee: [
-    "Lịch và phân làn",
+    "Lịch thi đấu",
     "Xác nhận kết quả",
     "Ngoại tuyến",
     "Danh mục môn thi",
@@ -231,7 +226,7 @@ const quickPages: Record<WorkspaceRole, WorkspacePage[]> = {
     "Đăng ký VĐV",
     "Danh mục môn thi",
     "Kiểm tra đăng ký",
-    "Lịch và phân làn",
+    "Lịch thi đấu",
   ],
 };
 const sports = [
@@ -401,7 +396,7 @@ export function RoleOverview({
             </div>
           ) : (
             <div className="role-empty">
-              <WorkspaceIcon page="Lịch và phân làn" />
+              <WorkspaceIcon page="Lịch thi đấu" />
               <h3>
                 {visibleSports.length
                   ? "Các môn được phân công"
