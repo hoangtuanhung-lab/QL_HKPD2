@@ -1,5 +1,7 @@
 # Đăng nhập Google qua Supabase
 
+> Cập nhật tích hợp: sau migration 005/006 và frontend mới, dữ liệu nghiệp vụ dùng Supabase và tệp dùng Netlify Functions/Drive. Xem [hướng dẫn vận hành trực tuyến và giới hạn hiện tại](live-operations.md). Các mô tả bản nháp bên dưới áp dụng cho phiên bản cũ hoặc công cụ thử độc lập.
+
 Ngày 15/10/2026 (Asia/Saigon). Người dùng đã tạo project Supabase, Google client, cấu hình URL và xác nhận mở được website Netlify. Đây là bước bắt đầu tích hợp được người dùng cho phép, thay phạm vi hoãn Google/Netlify trước đây cho phần đăng nhập này. Database nghiệp vụ, API phân quyền và Drive vẫn chưa được kết nối.
 
 ## Cấu hình Netlify

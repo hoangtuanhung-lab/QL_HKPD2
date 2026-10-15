@@ -1,5 +1,6 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { App } from "./App.js";
+import { LiveWorkspace } from "./live-workspace.js";
 import { HkpdLogo } from "./role-workspaces.js";
 import type { AuthConfig } from "./auth-config.js";
 import type { GoogleAuthController } from "./google-auth.js";
@@ -123,10 +124,9 @@ function AccountWorkspace({
               : `Đã xác minh quyền ${sessionRoles(access)
                   .map((r) => roles[r])
                   .join(", ")}.`}{" "}
-            Dữ liệu VĐV và kết quả hiện là bản nháp trên trình duyệt này; chưa
-            đồng bộ đăng ký, kết quả hoặc Drive.
+            Dữ liệu nghiệp vụ được tải từ hệ thống theo quyền tài khoản.
           </p>
-          <App
+          <LiveWorkspace
             key={JSON.stringify({
               actor: access.actor,
               editionId: access.editionId,

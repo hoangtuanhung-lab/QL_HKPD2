@@ -177,7 +177,7 @@ export function RoleLayout({
         </header>
         <div className="role-preview-note">
           {online
-            ? "Phiên đăng nhập đã xác thực · Danh mục trường/môn lưu Supabase. Hồ sơ VĐV và kết quả hiện là bản nháp trên trình duyệt."
+            ? "Phiên đăng nhập đã xác thực · Dữ liệu hiển thị theo quyền của tài khoản và giải hiện tại."
             : "Hệ thống đang được xây dựng · Dữ liệu nháp trên trình duyệt. Chọn vai trò để xem bố cục, chưa phải đăng nhập hoặc cấp quyền."}
         </div>
         <main

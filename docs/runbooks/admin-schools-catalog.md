@@ -1,5 +1,7 @@
 # Quản lý trường và danh mục môn/nội dung của giải 2026
 
+> Cập nhật tích hợp: sau migration 005/006 và frontend mới, dữ liệu nghiệp vụ dùng Supabase và tệp dùng Netlify Functions/Drive. Xem [hướng dẫn vận hành trực tuyến và giới hạn hiện tại](live-operations.md). Các mô tả bản nháp bên dưới áp dụng cho phiên bản cũ hoặc công cụ thử độc lập.
+
 ## Áp dụng trên website
 
 1. Merge PR chứa chức năng này, đợi Netlify deploy thành công.

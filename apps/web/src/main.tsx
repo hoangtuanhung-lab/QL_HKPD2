@@ -1,4 +1,9 @@
 import {
+  LiveRepositoryContext,
+  supabaseLiveRepository,
+  type LiveRepository,
+} from "./live-repository.js";
+import {
   AccountRepositoryContext,
   supabaseAccountRepository,
   type AccountRepository,
@@ -23,6 +28,7 @@ let controller: GoogleAuthController | undefined;
 let loadAccess: AccessLoader | undefined;
 let adminRepository: AdminRepository | null = null;
 let accountRepository: AccountRepository | null = null;
+let liveRepository: LiveRepository | null = null;
 try {
   if (config.mode === "configured") {
     const client = createClient(config.url, config.key, {
@@ -35,6 +41,7 @@ try {
     });
     adminRepository = supabaseAdminRepository(client);
     accountRepository = supabaseAccountRepository(client);
+    liveRepository = supabaseLiveRepository(client);
     loadAccess = (userId) => loadWorkspaceAccess(client, userId);
     controller = new GoogleAuthController(
       client.auth,
@@ -51,18 +58,20 @@ try {
 }
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AccountRepositoryContext.Provider value={accountRepository}>
-      <AdminRepositoryContext.Provider value={adminRepository}>
-        {config.mode === "preview" ? (
-          <App />
-        ) : (
-          <SiteEntry
-            config={config}
-            controller={controller}
-            loadAccess={loadAccess}
-          />
-        )}
-      </AdminRepositoryContext.Provider>
-    </AccountRepositoryContext.Provider>
+    <LiveRepositoryContext.Provider value={liveRepository}>
+      <AccountRepositoryContext.Provider value={accountRepository}>
+        <AdminRepositoryContext.Provider value={adminRepository}>
+          {config.mode === "preview" ? (
+            <App />
+          ) : (
+            <SiteEntry
+              config={config}
+              controller={controller}
+              loadAccess={loadAccess}
+            />
+          )}
+        </AdminRepositoryContext.Provider>
+      </AccountRepositoryContext.Provider>
+    </LiveRepositoryContext.Provider>
   </React.StrictMode>,
 );

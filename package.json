@@ -47,7 +47,7 @@
     "offline:schema": "node scripts/offline-schema.mjs",
     "offline:check": "node scripts/offline-schema.mjs --check",
     "catalog:generate": "node scripts/import-athlete-catalog.mjs",
-    "catalog:check": "node scripts/import-athlete-catalog.mjs --check"
+    "catalog:check": "node scripts/import-athlete-catalog.mjs --check && node scripts/live-catalog.mjs --check"
   },
   "dependencies": {
     "fastify": "5.12.5",

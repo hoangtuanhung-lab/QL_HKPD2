@@ -26,7 +26,9 @@ export function AthleteEventDialog({
   onClose,
   year = 2026,
   catalogCodes,
+  onlineFiles = false,
 }: {
+  onlineFiles?: boolean;
   year?: number;
   catalogCodes?: readonly string[];
   athlete: AthleteDraft;
@@ -279,7 +281,7 @@ export function AthleteEventDialog({
             <button
               type="button"
               className="event-upload-button"
-              disabled={busy}
+              disabled={busy || onlineFiles}
               onClick={() => photoFile.current?.click()}
             >
               {busy ? "Đang đọc ảnh…" : "↑ Tải ảnh VĐV"}
@@ -290,7 +292,7 @@ export function AthleteEventDialog({
               type="file"
               accept="image/png,image/jpeg,image/webp"
               aria-label="Ảnh hồ sơ VĐV"
-              disabled={busy}
+              disabled={busy || onlineFiles}
               onChange={(e) => {
                 const selected = e.target.files?.[0];
                 e.target.value = "";
@@ -313,7 +315,9 @@ export function AthleteEventDialog({
             <small>
               JPG, PNG, WebP · tối đa 500 KB
               <br />
-              Ảnh lưu cùng bản nháp trên trình duyệt.
+              {onlineFiles
+                ? "Lưu hồ sơ lên hệ thống, rồi tải ảnh tại mục Hồ sơ và biên bản VĐV — Google Drive bên dưới bảng."
+                : "Ảnh lưu cùng bản nháp trên trình duyệt."}
             </small>
           </section>
           <section className="event-identity">
