@@ -69,7 +69,7 @@ const outlines: Record<
     | "Kiểm tra đăng ký"
     | "Ngoại tuyến"
     | "Xác nhận kết quả"
-    | "Sơ đồ thi đấu"
+    | "Loại trực tiếp"
     | "Vòng tròn"
     | "Lịch và phân làn"
   >,
@@ -864,10 +864,10 @@ export function App({ session }: { session?: WorkspaceSession }) {
         <ResultsWorkspace />
       ) : step === "Kiểm tra đăng ký" ? (
         <RegistrationWorkspace />
-      ) : step === "Sơ đồ thi đấu" || step === "Vòng tròn" ? (
+      ) : step === "Loại trực tiếp" || step === "Vòng tròn" ? (
         <CompetitionWorkspace
           key={step}
-          mode={step === "Sơ đồ thi đấu" ? "knockout" : "round_robin"}
+          mode={step === "Loại trực tiếp" ? "knockout" : "round_robin"}
           source={{
             editionId: currentEdition.id,
             year: currentEdition.year,

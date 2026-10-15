@@ -9,12 +9,6 @@ import {
 } from "@testing-library/react";
 import { afterEach, expect, it } from "vitest";
 import { App } from "../apps/web/src/App.js";
-import { localAdminRepository } from "../apps/web/src/admin-settings.js";
-import {
-  readDraftSnapshot,
-  saveDrafts,
-} from "../apps/web/src/registration-draft.js";
-import { initialTournaments } from "../apps/web/src/tournament-state.js";
 import { CompetitionWorkspace } from "../apps/web/src/competition-ui.js";
 import {
   competitionRegistrationRows,
@@ -279,61 +273,50 @@ it("preserves unambiguous legacy selections but never restores an explicitly rem
     competitionRegistrationRows(data, content).map((r) => r.athleteId),
   ).not.toContain("VDV_A1");
 });
-it("connects both app pages to current-edition drafts and the managed school codes", async () => {
-  const data = source();
-  const previous = {
-    ...data.schools[0]!,
-    draftId: "school-old",
-    editionName: "2025",
-    athletes: [
-      {
-        ...data.schools[0]!.athletes[0]!,
-        draftId: "VDV_OLD",
-        fullName: "VĐV giải cũ",
-        identityNumber: undefined,
-      },
-    ],
-  };
-  const drafts = [...data.schools, previous];
-  await saveDrafts(
-    localStorage,
-    drafts,
-    readDraftSnapshot(localStorage),
-    { request: async (_name, action) => action() },
-    initialTournaments(drafts),
-  );
-  const repository = localAdminRepository(
-    localStorage,
-    data.editionId,
-    data.catalogCodes,
-  );
-  await repository.update(0, "school.save", {
-    code: "THCS_A",
-    name: "Trường A",
-    level: "THCS",
-  });
-  await repository.update(1, "school.save", {
-    code: "THCS_B",
-    name: "Trường B",
-    level: "THCS",
-  });
+it("keeps renamed competition pages read-only for chief and removes them from admin", () => {
   render(createElement(App));
   fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
     target: { value: "admin" },
   });
-  for (const page of ["Sơ đồ thi đấu", "Vòng tròn"]) {
-    fireEvent.click(
-      within(screen.getByRole("navigation")).getByRole("button", {
-        name: page,
-      }),
-    );
-    pick();
-    const table = screen.getByRole("table", {
-      name: "Danh sách VĐV theo nội dung đăng ký",
-    });
-    expect(within(table).getAllByRole("row")).toHaveLength(4);
-    expect(within(table).queryByText("VDV_OLD")).toBeNull();
-    expect(within(table).queryByText("VDV_KHAC")).toBeNull();
-    expect(await within(table).findAllByText("THCS_A")).toHaveLength(2);
+  for (const name of ["Sơ đồ thi đấu", "Loại trực tiếp", "Vòng tròn"]) {
+    expect(screen.queryByRole("button", { name })).toBeNull();
   }
+  fireEvent.change(screen.getByLabelText("Xem giao diện vai trò"), {
+    target: { value: "chief" },
+  });
+  expect(screen.queryByRole("button", { name: "Sơ đồ thi đấu" })).toBeNull();
+  for (const name of ["Loại trực tiếp", "Vòng tròn"]) {
+    fireEvent.click(
+      within(screen.getByRole("navigation")).getByRole("button", { name }),
+    );
+    expect(document.querySelector(".staff-observation")).toBeTruthy();
+    expect(
+      screen.queryByRole("button", { name: "Tạo vòng đấu thử" }),
+    ).toBeNull();
+  }
+});
+it("splits a multi-sport athlete into each selected content without mixing rosters or merging names", () => {
+  const data = source();
+  const running = "DK_THCS_NAM_TC_100M";
+  const swimming = "BOI_THCS_NAM_1213_TUDO50";
+  const otherSwimming = "BOI_THCS_NAM_1213_TUDO100";
+  data.catalogCodes = [...data.catalogCodes, running, swimming, otherSwimming];
+  const athlete = data.schools[0]!.athletes[0]!;
+  athlete.catalogSelections = [content, running, swimming, otherSwimming];
+  data.schools[0]!.athletes[1]!.fullName = athlete.fullName;
+  const before = JSON.stringify(data);
+  for (const code of [running, swimming, otherSwimming]) {
+    const rows = competitionRegistrationRows(data, code);
+    expect(rows.map((row) => row.athleteId)).toEqual([athlete.draftId]);
+    expect(rows[0]!.issue).toBe("");
+  }
+  expect(
+    competitionRegistrationRows(data, content).map((row) => row.athleteId),
+  ).toEqual(["VDV_A1", "VDV_A2", "VDV_B1"]);
+  expect(competitionRegistrationRows(data, "BD_TH")).toEqual([]);
+  expect(JSON.stringify(data)).toBe(before);
+  athlete.catalogSelections = [content, running];
+  expect(competitionRegistrationRows(data, swimming)).toEqual([]);
+  expect(competitionRegistrationRows(data, otherSwimming)).toEqual([]);
+  expect(competitionRegistrationRows(data, running)).toHaveLength(1);
 });

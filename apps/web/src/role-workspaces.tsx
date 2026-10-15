@@ -18,7 +18,7 @@ export type WorkspacePage =
   | "Đăng ký VĐV"
   | "Kiểm tra đăng ký"
   | "Phân công"
-  | "Sơ đồ thi đấu"
+  | "Loại trực tiếp"
   | "Vòng tròn"
   | "Lịch và phân làn"
   | "Ngoại tuyến"
@@ -33,8 +33,6 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Phân công",
-    "Sơ đồ thi đấu",
-    "Vòng tròn",
     "Lịch và phân làn",
     "Xác nhận kết quả",
     "Ngoại tuyến",
@@ -45,7 +43,7 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Phân công",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
-    "Sơ đồ thi đấu",
+    "Loại trực tiếp",
     "Vòng tròn",
     "Lịch và phân làn",
     "Xác nhận kết quả",

@@ -118,7 +118,7 @@ describe("Assigned sport visibility", () => {
     for (const name of [
       "Phân công",
       "Kiểm tra đăng ký",
-      "Sơ đồ thi đấu",
+      "Loại trực tiếp",
       "Vòng tròn",
       "Lịch và phân làn",
       "Xác nhận kết quả",
