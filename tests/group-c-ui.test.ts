@@ -12,7 +12,10 @@ import {
   CompetitionWorkspace,
   RoundRobinView,
 } from "../apps/web/src/competition-ui.js";
-import { ScheduleWorkspace } from "../apps/web/src/schedule-ui.js";
+import {
+  ScheduleWorkspace,
+  LaneWorkspace,
+} from "../apps/web/src/schedule-ui.js";
 import { App } from "../apps/web/src/App.js";
 import { roundRobin } from "../packages/competition/src/index.js";
 import { roster } from "./group-c-fixtures.js";
@@ -139,7 +142,7 @@ it("C08 warns across sports, blocks confirmation and proposes a conflict-free re
   expect(screen.getByRole("status").textContent).toContain("schedule.changed");
 });
 it("C08 distributes entrants into lanes and rejects a duplicate lane edit", () => {
-  render(createElement(ScheduleWorkspace));
+  render(createElement(LaneWorkspace));
   fireEvent.change(screen.getByLabelText(/Mã VĐV phân làn/), {
     target: { value: "a,b,c" },
   });
@@ -170,6 +173,11 @@ it("keeps competition draw pages out of admin navigation while retaining schedul
   for (const name of ["Sơ đồ thi đấu", "Loại trực tiếp", "Vòng tròn"]) {
     expect(navigation.queryByRole("button", { name })).toBeNull();
   }
-  fireEvent.click(navigation.getByRole("button", { name: "Lịch và phân làn" }));
-  expect(screen.getByText("Lịch và phân lượt/làn")).toBeTruthy();
+  fireEvent.click(navigation.getByRole("button", { name: "Lịch thi đấu" }));
+  expect(screen.getByRole("heading", { name: "Lịch thi đấu" })).toBeTruthy();
+  expect(screen.queryByLabelText(/Mã VĐV phân làn/)).toBeNull();
+  expect(screen.queryByLabelText("Số làn khả dụng")).toBeNull();
+  expect(
+    screen.queryByRole("button", { name: "Đề xuất lượt / làn thử" }),
+  ).toBeNull();
 });

@@ -71,7 +71,7 @@ const outlines: Record<
     | "Xác nhận kết quả"
     | "Loại trực tiếp"
     | "Vòng tròn"
-    | "Lịch và phân làn"
+    | "Lịch thi đấu"
   >,
   { role: string; steps: string[]; handoff: string }
 > = {
@@ -876,7 +876,7 @@ export function App({ session }: { session?: WorkspaceSession }) {
             catalogCodes: currentEdition.catalogCodes,
           }}
         />
-      ) : step === "Lịch và phân làn" ? (
+      ) : step === "Lịch thi đấu" ? (
         <ScheduleWorkspace />
       ) : (
         <section className="card outline">

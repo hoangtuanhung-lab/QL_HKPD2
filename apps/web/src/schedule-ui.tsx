@@ -46,9 +46,6 @@ export function ScheduleWorkspace() {
   const [referees, setReferees] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const [laneIds, setLaneIds] = useState("");
-  const [laneCount, setLaneCount] = useState("");
-  const [lanes, setLanes] = useState<readonly LaneAssignment[]>([]);
   const conflicts = scheduleConflicts(items);
   function add(event: FormEvent) {
     event.preventDefault();
@@ -103,27 +100,14 @@ export function ScheduleWorkspace() {
     setParticipants(item.participantPersonIds.join(","));
     setReferees(item.refereePersonIds.join(","));
   }
-  function editLane(index: number, field: "heat" | "lane", value: number) {
-    try {
-      const updated = lanes.map((row, rowIndex) =>
-        rowIndex === index ? { ...row, [field]: value } : row,
-      );
-      validateLanes(ids(laneIds), updated, Number(laneCount));
-      setLanes(updated);
-      setError("");
-    } catch (failure) {
-      setError(
-        failure instanceof Error ? failure.message : "Phân làn không hợp lệ.",
-      );
-    }
-  }
   return (
     <section className="competition-workspace">
-      <h2>Lịch và phân lượt/làn</h2>
+      <h2>Lịch thi đấu</h2>
       <p className="notice">
-        Bản thử trên trình duyệt. Chưa kiểm phân công tổ trưởng/trọng tài và
-        chưa gửi thông báo hệ thống. Mã người cần dùng thống nhất giữa các môn,
-        gồm mọi thành viên đội.
+        Quản trị quản lý lịch thi đấu các môn. Phân làn chạy/bơi thuộc trọng tài
+        được phân công môn tương ứng. Bản thử trên trình duyệt. Chưa kiểm phân
+        công tổ trưởng/trọng tài và chưa gửi thông báo hệ thống. Mã người cần
+        dùng thống nhất giữa các môn, gồm mọi thành viên đội.
       </p>
       <form className="card schedule-form" onSubmit={add}>
         <FormField
@@ -310,11 +294,44 @@ export function ScheduleWorkspace() {
         Chốt lịch thử
       </button>
       <p>Phiên bản lịch đã chốt trên trình duyệt: {snapshot.version}</p>
+    </section>
+  );
+}
+
+// Standalone preview only. Live referee access must use current-edition,
+// assigned-sport registrations; do not mount this unrestricted tool in App.
+export function LaneWorkspace() {
+  const [laneIds, setLaneIds] = useState("");
+  const [laneCount, setLaneCount] = useState("");
+  const [lanes, setLanes] = useState<readonly LaneAssignment[]>([]);
+  const [error, setError] = useState("");
+  function editLane(index: number, field: "heat" | "lane", value: number) {
+    try {
+      const updated = lanes.map((row, rowIndex) =>
+        rowIndex === index ? { ...row, [field]: value } : row,
+      );
+      validateLanes(ids(laneIds), updated, Number(laneCount));
+      setLanes(updated);
+      setError("");
+    } catch (failure) {
+      setError(
+        failure instanceof Error ? failure.message : "Phân làn không hợp lệ.",
+      );
+    }
+  }
+  return (
+    <section className="competition-workspace">
+      {error && (
+        <p role="alert" className="notice error">
+          {error}
+        </p>
+      )}
       <section className="card">
         <h3>Phân lượt / làn chạy, bơi</h3>
         <p>
-          Tổ trưởng sẽ rà soát và điều chỉnh khi nối tài khoản thật. Chưa chọn
-          VĐV vào vòng sau hoặc xác nhận kết quả.
+          Bản thử độc lập cho nghiệp vụ trọng tài. Khi tích hợp trực tuyến, chỉ
+          trọng tài được phân công Điền kinh hoặc Bơi trong giải hiện tại được
+          phân làn cho nội dung tương ứng. Chưa lưu lên máy chủ.
         </p>
         <form
           onSubmit={(e) => {

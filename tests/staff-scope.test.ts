@@ -120,7 +120,7 @@ describe("Assigned sport visibility", () => {
       "Kiểm tra đăng ký",
       "Loại trực tiếp",
       "Vòng tròn",
-      "Lịch và phân làn",
+      "Lịch thi đấu",
       "Xác nhận kết quả",
       "Ngoại tuyến",
     ]) {

@@ -22,3 +22,11 @@ Nội dung đội/đôi/tiếp sức vẫn hiển thị từng VĐV đăng ký, 
 **Giới hạn hiện tại:** nguồn VĐV là các phiếu bản nháp đã lưu trên trình duyệt theo tài khoản, chưa phải đăng ký chính thức đồng bộ Supabase. Vì vậy trường đăng ký trên máy/tài khoản của trường **chưa tự động gửi danh sách** đến quản trị hoặc trọng tài. Hiện chưa có danh sách tổng hợp theo môn trong màn hình quan sát của tổ trưởng; bộ lọc theo nội dung chỉ có trong thành phần thử độc lập khi được cấp nguồn. Cần bổ sung luồng lưu/gửi đăng ký dùng chung và truy vấn theo giải, môn được phân công trước khi nghiệm thu khả năng đồng bộ thực tế. Công cụ nhập danh sách thủ công vẫn phục vụ kiểm thử độc lập.
 
 Không cần SQL hoặc biến môi trường mới; danh mục trường dùng migration 003 đã có. Theo yêu cầu chủ dự án, Netlify ở **Stopped builds**: chỉ đẩy mã/tạo PR và chạy kiểm tra; không gọi triển khai hoặc bật lại build.
+
+## Lịch thi đấu và phân làn
+
+Menu dùng tên **Lịch thi đấu**. Quản trị chỉ có công cụ quản lý lịch các môn (thời gian, địa điểm, kiểm tra trùng lịch và thời gian nghỉ); không có biểu mẫu, nút đề xuất hay bảng điều chỉnh làn.
+
+Phân lượt/làn chạy, bơi thuộc nghiệp vụ trọng tài được phân công môn Điền kinh hoặc Bơi trong giải hiện tại. `LaneWorkspace` đã tách khỏi `ScheduleWorkspace` và chỉ được dùng kiểm thử độc lập. Chưa mở công cụ nhập danh sách thủ công này cho tài khoản trọng tài thật: cần nối nguồn đăng ký dùng chung, kiểm quyền theo môn/nội dung và lưu phân làn ở máy chủ trước. Giao diện trọng tài hiện vẫn quan sát theo phân công.
+
+Kiểm thử xác nhận quản trị vẫn xếp lịch và phát hiện xung đột, không truy cập thao tác phân làn; thuật toán phân làn độc lập vẫn chặn trùng làn.
