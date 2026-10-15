@@ -2,7 +2,7 @@
 
 Nền tảng phát triển theo plan nhóm 28 người, phiên bản 1.4. Phạm vi bàn giao hiện tại: **A02 (kiến trúc), B01 (repository/CI), B07 (môi trường)** do Codex đảm nhận ở vị trí O01 và phụ trách bổ sung A02.
 
-Người dùng đã bắt đầu cấu hình Netlify/Supabase/Google. Mã frontend có đăng nhập Google qua Supabase PKCE; production yêu cầu cấu hình đăng nhập và tài khoản xác thực chưa tự được cấp quyền vào giải. Xem [thiết lập và kiểm tra đăng nhập](docs/runbooks/supabase-google-login.md). Phiếu đăng ký và kết chuyển vẫn là bản nháp trên trình duyệt; API hiện kiểm tra tiến trình, worker nhàn rỗi. Chưa nối quyền nghiệp vụ, lưu hồ sơ lên máy chủ, Google Drive hoặc kết quả chính thức.
+Mã nguồn có đăng nhập Google qua Supabase PKCE, quản lý trường/tài khoản/danh mục và luồng đăng ký, lịch, phân làn, thành tích cá nhân dùng dữ liệu máy chủ. Tệp VĐV đi qua Netlify Functions tới Drive. Cần áp dụng migration và cấu hình dịch vụ trước khi sử dụng; **chưa xác nhận đã triển khai hoặc nghiệm thu trên dịch vụ thật**. Xem [hướng dẫn kết nối vận hành, cấu hình và các giới hạn còn lại](docs/runbooks/live-operations.md). Chưa nối toàn bộ nghiệp vụ đội/trận, kết chuyển giải, huy chương và ngoại tuyến; không coi bản thử cũ là chức năng online đã hoàn tất.
 
 ## Cài đặt
 

@@ -13,6 +13,7 @@ psql_test() { docker exec -i "$container" psql -X -q -v ON_ERROR_STOP=1 -U postg
 psql_test <<'SQL'
 create role anon;
 create role authenticated;
+create role service_role bypassrls;
 create schema auth;
 create table auth.users(id uuid primary key, email text, email_confirmed_at timestamptz);
 create table auth.identities(user_id uuid, provider text);
@@ -50,4 +51,9 @@ psql_test < infra/supabase/004_account_management.sql
 psql_test < infra/supabase/004_account_management.sql
 psql_test < infra/supabase/tests/accounts.sql
 source infra/supabase/tests/accounts_concurrency.sh
-echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts'
+psql_test < infra/supabase/005_live_operations.sql
+psql_test < infra/supabase/005_live_operations.sql
+psql_test < infra/supabase/006_drive_files.sql
+psql_test < infra/supabase/006_drive_files.sql
+psql_test < infra/supabase/tests/live.sql
+echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts, shared registrations, live schedules/lanes/results, Drive authorization'

@@ -1,5 +1,7 @@
 # Danh sách đăng ký dùng cho xếp nhánh và vòng tròn
 
+> Cập nhật tích hợp: sau migration 005/006 và frontend mới, dữ liệu nghiệp vụ dùng Supabase và tệp dùng Netlify Functions/Drive. Xem [hướng dẫn vận hành trực tuyến và giới hạn hiện tại](live-operations.md). Các mô tả bản nháp bên dưới áp dụng cho phiên bản cũ hoặc công cụ thử độc lập.
+
 Tên trang **Sơ đồ thi đấu** đã đổi thành **Loại trực tiếp**. Theo yêu cầu chủ dự án, **Loại trực tiếp** và **Vòng tròn** đã được bỏ khỏi menu quản trị và không thể mở qua điều hướng của vai trò này. Tổ trưởng trọng tài vẫn thấy hai mục này ở chế độ quan sát theo phân công; chưa mở công cụ tạo vòng đấu cho trọng tài.
 
 Thành phần `CompetitionWorkspace` được giữ để phát triển và kiểm thử độc lập. Khi truyền nguồn đăng ký, thành phần có bộ chọn **Nội dung đăng ký** và cùng một bảng:

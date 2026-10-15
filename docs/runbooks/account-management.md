@@ -1,5 +1,7 @@
 # Quản lý tài khoản và phân quyền giải 2026
 
+> Cập nhật tích hợp: sau migration 005/006 và frontend mới, dữ liệu nghiệp vụ dùng Supabase và tệp dùng Netlify Functions/Drive. Xem [hướng dẫn vận hành trực tuyến và giới hạn hiện tại](live-operations.md). Các mô tả bản nháp bên dưới áp dụng cho phiên bản cũ hoặc công cụ thử độc lập.
+
 ## Chuẩn bị và áp dụng
 
 Mục **Quản lý tài khoản** nằm trong menu quản trị. Chỉ tài khoản quản trị đã được duyệt được tải danh sách và lưu phân quyền; người dùng mới đăng nhập Google vẫn chờ cấp quyền.

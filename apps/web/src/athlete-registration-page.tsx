@@ -64,7 +64,9 @@ export function AthleteRegistrationPage({
   storageStatus = "saved",
   year = 2026,
   catalogCodes,
+  onlineFiles = false,
 }: {
+  onlineFiles?: boolean;
   schools: SchoolDraft[];
   activeId: string;
   onSelect: (id: string) => void;
@@ -603,6 +605,7 @@ export function AthleteRegistrationPage({
         rows.find((a) => a.draftId === openedAthleteId) && (
           <AthleteEventDialog
             key={openedAthleteId}
+            onlineFiles={onlineFiles}
             year={year}
             catalogCodes={catalogCodes}
             athlete={rows.find((a) => a.draftId === openedAthleteId)!}
