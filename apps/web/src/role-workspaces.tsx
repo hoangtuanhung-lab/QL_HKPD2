@@ -10,6 +10,7 @@ export const roles = {
 } as const;
 export type WorkspaceRole = keyof typeof roles;
 export type WorkspacePage =
+  | "Quản lý tài khoản"
   | "Quản lý trường"
   | "Quản lý giải"
   | "Tổng quan"
@@ -17,7 +18,7 @@ export type WorkspacePage =
   | "Đăng ký VĐV"
   | "Kiểm tra đăng ký"
   | "Phân công"
-  | "Sơ đồ thi đấu"
+  | "Loại trực tiếp"
   | "Vòng tròn"
   | "Lịch và phân làn"
   | "Ngoại tuyến"
@@ -28,11 +29,10 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Tổng quan",
     "Quản lý giải",
     "Quản lý trường",
+    "Quản lý tài khoản",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Phân công",
-    "Sơ đồ thi đấu",
-    "Vòng tròn",
     "Lịch và phân làn",
     "Xác nhận kết quả",
     "Ngoại tuyến",
@@ -43,7 +43,7 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Phân công",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
-    "Sơ đồ thi đấu",
+    "Loại trực tiếp",
     "Vòng tròn",
     "Lịch và phân làn",
     "Xác nhận kết quả",

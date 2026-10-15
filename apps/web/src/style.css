@@ -1907,3 +1907,25 @@ fieldset:disabled {
   max-width: 28ch;
   overflow-wrap: anywhere;
 }
+
+.account-edit-form {
+  margin-top: 24px;
+}
+.account-edit-form > fieldset {
+  display: grid;
+  gap: 16px;
+  border: 0;
+  padding: 0;
+}
+.account-edit-form label:not(.checkbox) {
+  display: grid;
+  gap: 6px;
+}
+.account-edit-form fieldset fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.account-workspace td button + button {
+  margin-left: 8px;
+}

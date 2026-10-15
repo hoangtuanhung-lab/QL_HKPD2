@@ -403,9 +403,7 @@ export function CompetitionWorkspace({
   const locked = snapshot?.status === "draw_confirmed";
   return (
     <section className="competition-workspace">
-      <h2>
-        {mode === "knockout" ? "Sơ đồ và hạt giống" : "Vòng tròn một lượt"}
-      </h2>
+      <h2>{mode === "knockout" ? "Loại trực tiếp" : "Vòng tròn một lượt"}</h2>
       <p className="notice">
         {source
           ? "Danh sách lấy từ các phiếu đăng ký đã lưu của giải hiện tại. Mã VĐV là mã bản nháp. Vòng đấu tạo tại đây vẫn là bản thử, chưa thay danh sách thi đấu chính thức."

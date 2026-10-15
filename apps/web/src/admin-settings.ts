@@ -72,11 +72,13 @@ export function supabaseAdminRepository(port: {
       throw Error(
         code === "40001"
           ? "Danh mục đã được thay đổi ở nơi khác. Bấm Tải lại trước khi lưu."
-          : code === "23505"
-            ? "Mã trường đã tồn tại."
-            : code === "42501"
-              ? "Tài khoản không còn quyền quản trị. Hãy kiểm tra quyền."
-              : "Không đọc hoặc lưu được danh mục Supabase. Kiểm tra kết nối và migration 003.",
+          : code === "23503"
+            ? "Trường đang gắn với tài khoản. Đổi phân công tài khoản trước khi xóa trường."
+            : code === "23505"
+              ? "Mã trường đã tồn tại."
+              : code === "42501"
+                ? "Tài khoản không còn quyền quản trị. Hãy kiểm tra quyền."
+                : "Không đọc hoặc lưu được danh mục Supabase. Kiểm tra kết nối và migration 003.",
       );
     }
     return validateAdminSettings(result.data);

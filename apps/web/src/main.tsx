@@ -1,4 +1,9 @@
 import {
+  AccountRepositoryContext,
+  supabaseAccountRepository,
+  type AccountRepository,
+} from "./account-management.js";
+import {
   AdminRepositoryContext,
   supabaseAdminRepository,
   type AdminRepository,
@@ -17,6 +22,7 @@ let config = readAuthConfig(import.meta.env);
 let controller: GoogleAuthController | undefined;
 let loadAccess: AccessLoader | undefined;
 let adminRepository: AdminRepository | null = null;
+let accountRepository: AccountRepository | null = null;
 try {
   if (config.mode === "configured") {
     const client = createClient(config.url, config.key, {
@@ -28,6 +34,7 @@ try {
       },
     });
     adminRepository = supabaseAdminRepository(client);
+    accountRepository = supabaseAccountRepository(client);
     loadAccess = (userId) => loadWorkspaceAccess(client, userId);
     controller = new GoogleAuthController(
       client.auth,
@@ -44,16 +51,18 @@ try {
 }
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <AdminRepositoryContext.Provider value={adminRepository}>
-      {config.mode === "preview" ? (
-        <App />
-      ) : (
-        <SiteEntry
-          config={config}
-          controller={controller}
-          loadAccess={loadAccess}
-        />
-      )}
-    </AdminRepositoryContext.Provider>
+    <AccountRepositoryContext.Provider value={accountRepository}>
+      <AdminRepositoryContext.Provider value={adminRepository}>
+        {config.mode === "preview" ? (
+          <App />
+        ) : (
+          <SiteEntry
+            config={config}
+            controller={controller}
+            loadAccess={loadAccess}
+          />
+        )}
+      </AdminRepositoryContext.Provider>
+    </AccountRepositoryContext.Provider>
   </React.StrictMode>,
 );

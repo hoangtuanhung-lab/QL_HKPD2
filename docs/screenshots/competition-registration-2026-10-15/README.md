@@ -1,5 +1,7 @@
 # Bảng VĐV theo nội dung đăng ký
 
+> Ảnh lưu của phiên bản trước: hai mục xếp nhánh/vòng tròn đã được bỏ khỏi menu quản trị theo yêu cầu mới. Tên trang hiện là **Loại trực tiếp**. Các ảnh dưới đây không mô tả menu hiện tại; xem [phạm vi và giới hạn mới](../../runbooks/competition-registration-table.md).
+
 Ảnh chụp Chromium từ bản preview của mã nguồn, dùng dữ liệu minh họa; không phải số liệu VĐV thật. Không triển khai Netlify để chụp ảnh.
 
 - [Màn xếp nhánh: danh sách 5 cột](xep-nhanh-danh-sach.png)
