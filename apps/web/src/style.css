@@ -1898,3 +1898,12 @@ fieldset:disabled {
   width: 20px;
   height: 20px;
 }
+
+.competition-registration-list select {
+  width: 100%;
+  max-width: 100%;
+}
+.competition-registration-list td:nth-child(2) {
+  max-width: 28ch;
+  overflow-wrap: anywhere;
+}
