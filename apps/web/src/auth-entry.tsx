@@ -3,6 +3,8 @@ import { App } from "./App.js";
 import { HkpdLogo } from "./role-workspaces.js";
 import type { AuthConfig } from "./auth-config.js";
 import type { GoogleAuthController } from "./google-auth.js";
+import { sessionRoles } from "./staff-scope.js";
+import { roles } from "./role-workspaces.js";
 import type { WorkspaceSession } from "./staff-scope.js";
 export type AccessLoader = (userId: string) => Promise<WorkspaceSession | null>;
 function AccountWorkspace({
@@ -49,8 +51,10 @@ function AccountWorkspace({
         setError("");
         setFeedback(
           next
-            ? "Đã kiểm tra: tài khoản có quyền quản trị giải 2026."
-            : "Đã kiểm tra: tài khoản đang đăng nhập chưa có quyền quản trị giải 2026. Nếu bạn đã chạy SQL cấp quyền, hãy kiểm tra đúng tài khoản Google và đúng project Supabase.",
+            ? `Đã kiểm tra: tài khoản có quyền ${sessionRoles(next)
+                .map((r) => roles[r])
+                .join(", ")} giải 2026.`
+            : "Đã kiểm tra: tài khoản đang đăng nhập chưa có quyền truy cập giải 2026. Nếu bạn đã chạy SQL cấp quyền, hãy kiểm tra đúng tài khoản Google và đúng project Supabase.",
         );
       } catch {
         if (!active || request !== sequence) return;
@@ -114,10 +118,22 @@ function AccountWorkspace({
       ) : access ? (
         <>
           <p className="notice">
-            Đã xác minh quyền quản trị. Dữ liệu nghiệp vụ hiện là bản nháp trên
-            trình duyệt này; chưa đồng bộ đăng ký, kết quả hoặc Drive.
+            {sessionRoles(access).includes("admin")
+              ? "Đã xác minh quyền quản trị."
+              : `Đã xác minh quyền ${sessionRoles(access)
+                  .map((r) => roles[r])
+                  .join(", ")}.`}{" "}
+            Dữ liệu VĐV và kết quả hiện là bản nháp trên trình duyệt này; chưa
+            đồng bộ đăng ký, kết quả hoặc Drive.
           </p>
-          <App key={JSON.stringify(access)} session={access} />
+          <App
+            key={JSON.stringify({
+              actor: access.actor,
+              editionId: access.editionId,
+              schoolId: access.school?.id,
+            })}
+            session={access}
+          />
         </>
       ) : (
         <div className="auth-page">

@@ -16,7 +16,7 @@ Danh mục trường và lựa chọn nội dung của quản trị thật đư�
 
 Bản preview dùng dữ liệu riêng trên trình duyệt và ghi rõ trạng thái đó. Trong preview, trường đã thêm xuất hiện trong bộ chọn trường đăng ký; chọn trường có thể nhập ngay vào hàng trống. Lưu VĐV đầu tiên tạo phiếu bản nháp tương ứng; các phiếu có sẵn được giữ, không tự sinh VĐV. Đổi tên danh mục không tự đổi tên các phiếu cũ. Xóa trường không xóa các phiếu nháp; UI chặn xóa khi phát hiện bản nháp VĐV gắn trường trên trình duyệt hiện tại.
 
-**Chưa mở tài khoản nhà trường/trọng tài thật hoặc đồng bộ danh sách VĐV/kết quả lên Supabase.** Thêm trường là quản lý danh mục, không tự cấp quyền cho một email. Việc liên kết tài khoản nhà trường với ID trường và dữ liệu đăng ký trực tuyến vẫn cần API/RLS nghiệp vụ tương ứng; không coi danh mục mới là hoàn tất luồng đăng ký chính thức. Google Drive không thay đổi.
+**Danh sách VĐV/kết quả chưa đồng bộ lên Supabase.** Thêm trường là quản lý danh mục, không tự cấp quyền cho một email. Để mở vai trò nhà trường/trọng tài, xem [Quản lý tài khoản với migration 004](account-management.md). Việc liên kết tài khoản nhà trường với ID trường và dữ liệu đăng ký trực tuyến vẫn cần API/RLS nghiệp vụ tương ứng; không coi danh mục mới là hoàn tất luồng đăng ký chính thức. Google Drive không thay đổi.
 
 ## Hàng trống đăng ký VĐV
 

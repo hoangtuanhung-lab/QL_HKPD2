@@ -1,3 +1,4 @@
+import type { ManagedSchool } from "./admin-settings.js";
 import type { Actor } from "@hkpd/foundation";
 import { athleteCatalog } from "./athlete-catalog.generated.js";
 import type { WorkspaceRole } from "./role-workspaces.js";
@@ -7,6 +8,8 @@ export interface WorkspaceSession {
   /** Supabase RPC sessions pin the server edition and isolate account drafts. */
   source?: "supabase";
   actor: Actor;
+  school?: ManagedSchool;
+  catalogCodes?: readonly string[];
   editionId: string;
   /** Trusted mapping from database sport UUIDs to this edition's catalog codes. */
   sportCodeById?: Readonly<Record<string, string>>;

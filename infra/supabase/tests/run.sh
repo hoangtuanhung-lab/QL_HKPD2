@@ -45,4 +45,9 @@ psql_test < infra/supabase/002_first_admin.sql
 psql_test < infra/supabase/003_admin_schools_catalog.sql
 psql_test < infra/supabase/003_admin_schools_catalog.sql
 psql_test < infra/supabase/tests/settings.sql
-echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD and revision conflicts'
+psql_test < infra/supabase/002_first_admin.sql
+psql_test < infra/supabase/004_account_management.sql
+psql_test < infra/supabase/004_account_management.sql
+psql_test < infra/supabase/tests/accounts.sql
+source infra/supabase/tests/accounts_concurrency.sh
+echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts'

@@ -1,3 +1,4 @@
+import { AccountWorkspace } from "./account-workspace.js";
 import { AdminWorkspace } from "./admin-workspace.js";
 import {
   AdminRepositoryContext,
@@ -59,6 +60,7 @@ type Step = WorkspacePage;
 const outlines: Record<
   Exclude<
     Step,
+    | "Quản lý tài khoản"
     | "Quản lý trường"
     | "Quản lý giải"
     | "Tổng quan"
@@ -140,9 +142,12 @@ export function App({ session }: { session?: WorkspaceSession }) {
   );
   const currentEdition = {
     ...baseEdition,
-    catalogCodes:
-      admin.snapshot?.catalogCodes ??
-      (liveSession && isAdmin ? [] : baseEdition.catalogCodes),
+    catalogCodes: [
+      ...(admin.snapshot?.catalogCodes ??
+        (liveSession
+          ? (session.catalogCodes ?? (isAdmin ? [] : baseEdition.catalogCodes))
+          : baseEdition.catalogCodes)),
+    ],
   };
   const currentSession = session
     ? liveSession
@@ -211,14 +216,24 @@ export function App({ session }: { session?: WorkspaceSession }) {
   const currentDrafts = drafts.filter(
     (d) => tournaments.draftEditions[d.draftId] === currentEdition.id,
   );
-  const managedDrafts: SchoolDraft[] = (admin.snapshot?.schools ?? [])
+  const boundSchool =
+    liveSession && role === "school" ? session.school : undefined;
+  const boundDraftId = boundSchool ? `managed-school:${boundSchool.id}` : "";
+  const directory =
+    liveSession && role === "school"
+      ? boundSchool
+        ? [boundSchool]
+        : []
+      : (admin.snapshot?.schools ?? []);
+  const managedDrafts: SchoolDraft[] = directory
     .filter(
       (school) =>
         !currentDrafts.some(
           (d) =>
             d.draftId === `managed-school:${school.id}` ||
-            clean(d.schoolName).toLocaleLowerCase("vi") ===
-              clean(school.name).toLocaleLowerCase("vi"),
+            (!liveSession &&
+              clean(d.schoolName).toLocaleLowerCase("vi") ===
+                clean(school.name).toLocaleLowerCase("vi")),
         ),
     )
     .map((school) => ({
@@ -228,7 +243,16 @@ export function App({ session }: { session?: WorkspaceSession }) {
       athletes: [],
     }));
   const visibleDrafts =
-    role === "school" ? [...currentDrafts, ...managedDrafts] : drafts;
+    role === "school"
+      ? liveSession
+        ? [
+            ...currentDrafts
+              .filter((d) => d.draftId === boundDraftId)
+              .map((d) => ({ ...d, schoolName: boundSchool!.name })),
+            ...managedDrafts,
+          ]
+        : [...currentDrafts, ...managedDrafts]
+      : drafts;
   const visibleActiveId = visibleDrafts.some((d) => d.draftId === activeId)
     ? activeId
     : (visibleDrafts[0]?.draftId ?? "");
@@ -318,6 +342,7 @@ export function App({ session }: { session?: WorkspaceSession }) {
     });
   }
   function selectSchool(id: string) {
+    if (liveSession && role === "school" && id !== boundDraftId) return;
     if (
       !draftsRef.current.some(
         (d) =>
@@ -336,6 +361,13 @@ export function App({ session }: { session?: WorkspaceSession }) {
   }
   function addSchool(event: FormEvent) {
     event.preventDefault();
+    if (liveSession && role === "school") {
+      if (boundSchool) {
+        setActiveId(boundDraftId);
+        setMessage("Đã mở phiếu của trường được phân công.");
+      } else setError("Tài khoản chưa được phân công trường.");
+      return;
+    }
     const next: SchoolDraft = {
       draftId: newDraftId(),
       editionName: role === "school" ? currentEdition.name : clean(editionName),
@@ -394,13 +426,29 @@ export function App({ session }: { session?: WorkspaceSession }) {
           "Vai trò hoặc giải hiện tại đã đổi trong lúc đọc tệp. Vui lòng nhập lại.",
         );
       const imported = fromSheet(JSON.parse(contents) as unknown);
+      if (liveSession && role === "school") {
+        if (
+          !boundSchool ||
+          clean(imported.schoolName).toLocaleLowerCase("vi") !==
+            clean(boundSchool.name).toLocaleLowerCase("vi")
+        )
+          throw Error("Chỉ nhập phiếu của trường được phân công.");
+        imported.draftId = boundDraftId;
+        imported.schoolName = boundSchool.name;
+      }
       if (
         role === "school" &&
         clean(imported.editionName).toLocaleLowerCase("vi") !==
           clean(currentEdition.name).toLocaleLowerCase("vi")
       )
         throw Error("Nhà trường chỉ được nhập phiếu của giải hiện tại.");
-      if (draftsRef.current.some((school) => sameSchool(school, imported))) {
+      if (
+        draftsRef.current.some((school) =>
+          liveSession && role === "school"
+            ? school.draftId === boundDraftId
+            : sameSchool(school, imported),
+        )
+      ) {
         throw new Error(
           "Đã có phiếu nháp của trường và kỳ giải này. Phiếu nhập chưa được lưu để tránh ghi đè; hãy xuất bản hiện có và rà soát trước.",
         );
@@ -540,7 +588,8 @@ export function App({ session }: { session?: WorkspaceSession }) {
                 <FormField
                   label="Tên trường"
                   required
-                  value={schoolName}
+                  value={boundSchool?.name ?? schoolName}
+                  readOnly={liveSession && role === "school"}
                   onChange={(event) => setSchoolName(event.target.value)}
                   placeholder="Nhập tên trường"
                 />
@@ -756,6 +805,13 @@ export function App({ session }: { session?: WorkspaceSession }) {
             </section>
           </div>
         </details>
+      ) : step === "Quản lý tài khoản" ? (
+        <AccountWorkspace
+          currentUserId={session?.actor.id ?? ""}
+          schools={admin.snapshot?.schools ?? []}
+          online={liveSession}
+          onDirty={setTableDirty}
+        />
       ) : step === "Quản lý trường" ||
         (step === "Danh mục môn thi" && role === "admin") ? (
         <AdminWorkspace

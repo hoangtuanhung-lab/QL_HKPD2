@@ -240,7 +240,7 @@ it("times out a hanging check, ignores its late grant, and allows retry", async 
       fireEvent.click(screen.getByRole("button", { name: "Kiểm tra quyền" }));
     });
     expect(screen.getByRole("status").textContent).toContain(
-      "chưa có quyền quản trị",
+      "chưa có quyền truy cập",
     );
     expect(screen.queryByRole("alert")).toBeNull();
   } finally {
