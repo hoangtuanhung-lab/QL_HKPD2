@@ -11,6 +11,8 @@ Sau khi 001–006 đã áp dụng thành công, chủ dự án chạy lần lư�
 
 Mỗi file là một transaction. Chạy đúng thứ tự; không chạy lại các migration cũ hơn để sửa lỗi mà không đối chiếu phiên bản. Cả hai có lệnh thông báo làm mới schema cho PostgREST. Không xóa hồ sơ, mã VĐV, thư mục Drive hoặc kết quả cũ. Các giá trị đã xác nhận theo luồng cũ được giữ và hiển thị chỉ đọc, không tự chuyển chuỗi thành tích cũ thành tỷ số trận.
 
+Sau khi áp dụng 008, bổ sung [009_roster_grade_guard.sql](../../infra/supabase/009_roster_grade_guard.sql) để chặn khối không hợp lệ ở RPC lưu/gửi phiếu. Không cần chạy lại 007/008; xem [báo cáo rà soát sau merge](../review/post-merge-2026-10-16/README.md).
+
 Cấu hình Google/Supabase/Netlify của [luồng vận hành trước](live-operations.md) giữ nguyên; không thêm secret. Cần triển khai đúng phiên bản sau khi review và chủ dự án chọn thời điểm. Giữ Stopped builds trong lúc kiểm tra.
 
 ## Quản trị: import học sinh nền

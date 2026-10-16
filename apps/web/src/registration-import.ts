@@ -9,7 +9,9 @@ export function mergeRegistrationRows(
   const athletes = [...existing];
   for (const row of imported) {
     const identity = athletes.find(
-        (a) => a.identityNumber === row.identityNumber,
+        (a) =>
+          Boolean(row.identityNumber) &&
+          a.identityNumber === row.identityNumber,
       ),
       code = row.athleteCode
         ? athletes.find((a) => a.athleteCode === row.athleteCode)
@@ -27,6 +29,7 @@ export function mergeRegistrationRows(
       ...row,
       draftId: before?.draftId ?? row.draftId,
       athleteCode: before?.athleteCode,
+      note: before ? before.note : row.note,
       catalogSelections: before?.catalogSelections ?? [],
       eventSelections: before?.eventSelections,
       requestedEvent: "",

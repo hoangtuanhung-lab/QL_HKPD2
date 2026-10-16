@@ -631,7 +631,15 @@ function DrawBuilder({
     ),
     individual = ["CA_NHAN", "DOI_KHANG"].includes(event.form);
   const dirty = Boolean(
-    unit || win || tie || loss || entries.length || members.length || label,
+    unit ||
+    win ||
+    tie ||
+    loss ||
+    entries.length ||
+    members.length ||
+    label ||
+    mode !== (performance ? "performance" : "round_robin") ||
+    allowDraw,
   );
   useEffect(() => {
     onDirty(dirty);
@@ -785,6 +793,12 @@ function DrawBuilder({
         disabled={disabled}
         onClick={async () => {
           setError("");
+          if (!individual && (label.trim() || members.length)) {
+            setError(
+              "Đội/cặp đang soạn chưa được thêm. Bấm Thêm đội/cặp hoặc xóa tên và bỏ chọn thành viên trước khi tạo trận.",
+            );
+            return;
+          }
           const entrants = individual
             ? eligible.map((a) => ({
                 id: a.draftId,

@@ -63,4 +63,7 @@ psql_test < infra/supabase/008_match_results.sql
 psql_test < infra/supabase/tests/matches.sql
 psql_test < infra/supabase/007_student_imports.sql
 psql_test < infra/supabase/008_match_results.sql
-echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts, shared registrations, live schedules/lanes/results, Drive authorization, baseline import, atomic registration batches, match review/re-entry, downstream invalidation'
+psql_test < infra/supabase/009_roster_grade_guard.sql
+psql_test < infra/supabase/009_roster_grade_guard.sql
+psql_test < infra/supabase/tests/roster_grades.sql
+echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts, shared registrations, live schedules/lanes/results, Drive authorization, baseline import, atomic registration batches, match review/re-entry, downstream invalidation, roster grade bypass denial'
