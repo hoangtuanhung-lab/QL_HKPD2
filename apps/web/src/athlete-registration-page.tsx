@@ -268,19 +268,18 @@ export function AthleteRegistrationPage({
         throw Error(
           "Excel có học sinh thuộc trường khác. Chọn đúng phiếu trường.",
         );
+      // Validate before scheduling a React updater: errors thrown during render
+      // bypass this try/catch and would unmount the registration screen.
+      const merged = mergeRegistrationRows(
+        (edited[target] ?? active.athletes).filter(
+          (a) => a.fullName.trim() || a.identityNumber || a.birthDate || a.note,
+        ),
+        imported,
+      );
       captureBase(active);
       setEdited((current) => ({
         ...current,
-        [target]: [
-          ...mergeRegistrationRows(
-            (current[target] ?? active.athletes).filter(
-              (a) =>
-                a.fullName.trim() || a.identityNumber || a.birthDate || a.note,
-            ),
-            imported,
-          ),
-          blank(),
-        ],
+        [target]: [...merged, blank()],
       }));
       setNotice(
         `Đã thêm ${imported.length} dòng từ Excel vào phiếu đang nhập. Bấm Lưu danh sách để kiểm tra và lưu.`,

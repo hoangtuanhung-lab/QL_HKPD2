@@ -423,3 +423,95 @@ it("keeps one-sided running/swimming/performance results operational with an exp
     }),
   );
 });
+it("warns before abandoning a mode-only or allow-draw-only configuration change", () => {
+  const state = data();
+  state.draws = [];
+  state.matches = [];
+  const { props } = show("chief", state);
+  fireEvent.change(screen.getByLabelText("Thể thức"), {
+    target: { value: "knockout" },
+  });
+  expect(props.onDirty).toHaveBeenLastCalledWith(true);
+  const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
+  fireEvent.change(screen.getByLabelText("Nội dung thi đấu"), {
+    target: { value: "" },
+  });
+  expect(confirm).toHaveBeenCalled();
+  expect(
+    (screen.getByLabelText("Nội dung thi đấu") as HTMLSelectElement).value,
+  ).toBe(code);
+  fireEvent.change(screen.getByLabelText("Thể thức"), {
+    target: { value: "round_robin" },
+  });
+  fireEvent.click(screen.getByLabelText("Cho phép hòa"));
+  expect(props.onDirty).toHaveBeenLastCalledWith(true);
+});
+it("requires adding or clearing an unfinished team before creating otherwise valid fixtures", async () => {
+  const state = data(),
+    pairCode = "CL_THCS_NAM_1213_DOINAM";
+  state.catalogCodes = [pairCode];
+  state.draws = [];
+  state.matches = [];
+  state.schools.push({
+    ...state.schools[0]!,
+    id: "s3",
+    code: "S3",
+    name: "Trường C",
+  });
+  state.schools.forEach((school, index) => {
+    school.athletes = [1, 2].map((member) => ({
+      draftId: `p${index}${member}`,
+      athleteCode: `V${index}${member}`,
+      fullName: `VĐV ${index}${member}`,
+      className: "7",
+      requestedEvent: "",
+      catalogSelections: [pairCode],
+    }));
+  });
+  const { create } = show("chief", state);
+  vi.spyOn(window, "confirm").mockReturnValue(true);
+  fireEvent.change(screen.getByLabelText("Nội dung thi đấu"), {
+    target: { value: pairCode },
+  });
+  for (const index of [0, 1, 2]) {
+    fireEvent.change(screen.getByLabelText("Tên đội/cặp"), {
+      target: { value: `Cặp ${index}` },
+    });
+    for (const member of [1, 2])
+      fireEvent.click(
+        screen.getByRole("checkbox", {
+          name: new RegExp(`V${index}${member} —`),
+        }),
+      );
+    fireEvent.click(screen.getByRole("button", { name: "Thêm đội/cặp" }));
+  }
+  for (const [label, value] of [
+    ["Điểm thắng", "2"],
+    ["Điểm hòa", "1"],
+    ["Điểm thua", "0"],
+  ])
+    fireEvent.change(screen.getByLabelText(label!), { target: { value } });
+  fireEvent.change(screen.getByLabelText("Tên đội/cặp"), {
+    target: { value: "Đội chưa thêm" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Tạo danh sách trận" }));
+  expect((await screen.findByRole("alert")).textContent).toMatch(
+    /Đội\/cặp đang soạn/,
+  );
+  expect(create).not.toHaveBeenCalled();
+  fireEvent.change(screen.getByLabelText("Tên đội/cặp"), {
+    target: { value: "" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Tạo danh sách trận" }));
+  await waitFor(() =>
+    expect(create).toHaveBeenCalledWith(
+      pairCode,
+      0,
+      expect.objectContaining({
+        entrants: expect.arrayContaining([
+          expect.objectContaining({ label: "Cặp 2" }),
+        ]),
+      }),
+    ),
+  );
+});

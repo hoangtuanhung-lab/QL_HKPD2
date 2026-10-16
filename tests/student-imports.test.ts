@@ -176,3 +176,56 @@ it("renders exactly eleven registration columns and fills baseline identity fiel
       .readOnly,
   ).toBe(true);
 });
+it("does not match legacy pupils by an empty identity and preserves hidden fields of known pupils", () => {
+  const empty = {
+    ...athlete,
+    athleteCode: undefined,
+    identityNumber: "",
+    draftId: "old",
+  };
+  const next = {
+    ...empty,
+    draftId: "next",
+    fullName: "Học sinh mới",
+    note: "",
+  };
+  expect(mergeRegistrationRows([empty], [next])).toHaveLength(2);
+  expect(
+    mergeRegistrationRows(
+      [athlete],
+      [{ ...athlete, draftId: "new", note: "" }],
+    )[0]?.note,
+  ).toBe("Ghi chú cũ");
+});
+it("shows a school Excel code mismatch as an alert and keeps the original table usable", async () => {
+  const saved = vi.fn();
+  render(
+    h(AthleteRegistrationPage, {
+      schools: [
+        {
+          draftId: "s1",
+          schoolName: "Trường A",
+          editionName: "2026",
+          athletes: [athlete],
+        },
+      ],
+      activeId: "s1",
+      onSelect: () => {},
+      onSave: saved,
+      onDirty: () => {},
+    }),
+  );
+  const raw = await registrationWorkbook([
+    { ...athlete, athleteCode: "VDV999999" },
+  ]);
+  const file = new File([raw as BlobPart], "sai-ma.xlsx");
+  Object.defineProperty(file, "arrayBuffer", {
+    value: async () => raw.slice().buffer,
+  });
+  const input = document.querySelector('input[type="file"]')!;
+  fireEvent.change(input, { target: { files: [file] } });
+  await screen.findByRole("alert");
+  expect(screen.getByRole("alert").textContent).toMatch(/Mã VĐV không khớp/);
+  expect(screen.getByLabelText("Họ tên dòng 1")).toBeTruthy();
+  expect(saved).not.toHaveBeenCalled();
+});
