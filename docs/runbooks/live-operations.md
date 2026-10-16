@@ -2,6 +2,8 @@
 
 Ngày 15/10/2026 (Asia/Saigon). Repository `hoangtuanhung-lab/QL_HKPD2`, website `https://hkpd.netlify.app`, Supabase `https://sflnbtnwsafncdzhkdix.supabase.co`.
 
+> Luồng kết quả trong tài liệu này mô tả bản 001–006. Phiên bản mới dùng [học sinh nền, import đăng ký và kết quả vòng/trận (007–008)](student-import-match-results.md), thay cách nhập/duyệt kết quả cũ và bổ sung đội/cặp. Giữ phần cấu hình dịch vụ bên dưới; xem tài liệu mới để vận hành kết quả.
+
 ## Mã nguồn đã nối
 
 Bản production có cấu hình Supabase dùng `LiveWorkspace`, không lấy bản nháp `localStorage` làm dữ liệu chính thức. Bản preview dev và các công cụ thử cũ vẫn độc lập. Thiếu backend, mất quyền, lỗi migration hoặc mất mạng sẽ báo lỗi; không mở dữ liệu thử thay thế.

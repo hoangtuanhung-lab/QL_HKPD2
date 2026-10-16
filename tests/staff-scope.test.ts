@@ -121,7 +121,7 @@ describe("Assigned sport visibility", () => {
       "Loại trực tiếp",
       "Vòng tròn",
       "Lịch thi đấu",
-      "Xác nhận kết quả",
+      "Kết quả",
       "Ngoại tuyến",
     ]) {
       nav(name);

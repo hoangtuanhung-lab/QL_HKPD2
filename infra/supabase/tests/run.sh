@@ -56,4 +56,11 @@ psql_test < infra/supabase/005_live_operations.sql
 psql_test < infra/supabase/006_drive_files.sql
 psql_test < infra/supabase/006_drive_files.sql
 psql_test < infra/supabase/tests/live.sql
-echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts, shared registrations, live schedules/lanes/results, Drive authorization'
+psql_test < infra/supabase/007_student_imports.sql
+psql_test < infra/supabase/007_student_imports.sql
+psql_test < infra/supabase/008_match_results.sql
+psql_test < infra/supabase/008_match_results.sql
+psql_test < infra/supabase/tests/matches.sql
+psql_test < infra/supabase/007_student_imports.sql
+psql_test < infra/supabase/008_match_results.sql
+echo 'PASS: bootstrap, repeat application, RLS isolation, self-promotion denial, revocation, anonymous denial, school/catalog CRUD, account roles/scopes, audit, revision conflicts, shared registrations, live schedules/lanes/results, Drive authorization, baseline import, atomic registration batches, match review/re-entry, downstream invalidation'

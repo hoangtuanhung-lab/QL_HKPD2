@@ -1,6 +1,20 @@
+import type {
+  EventDraw,
+  ResultMatch,
+  MatchCommand,
+  DrawSetup,
+} from "./match-results.js";
 import { createContext } from "react";
 import type { AthleteDraft } from "./registration-draft.js";
 import type { ManagedSchool } from "./admin-settings.js";
+export interface StudentRecord extends Partial<AthleteDraft> {
+  identityNumber: string;
+  schoolId: string;
+  fullName: string;
+  className: string;
+  birthDate: string;
+  gender: "male" | "female";
+}
 export interface LiveAthlete extends AthleteDraft {
   athleteCode: string;
 }
@@ -19,6 +33,10 @@ export interface LiveOperation {
   updated_at: string;
 }
 export interface LiveState {
+  draws?: EventDraw[];
+  matches?: ResultMatch[];
+  registryRevision?: number;
+  studentCount?: number;
   editionId: string;
   catalogCodes: string[];
   schools: LiveSchool[];
@@ -26,6 +44,18 @@ export interface LiveState {
 }
 export interface LiveRepository {
   load(): Promise<LiveState>;
+  createMatches(
+    code: string,
+    revision: number,
+    draw: DrawSetup,
+  ): Promise<LiveState>;
+  matchCommand(match: ResultMatch, command: MatchCommand): Promise<LiveState>;
+  students(identities: string[]): Promise<StudentRecord[]>;
+  importStudents(revision: number, rows: StudentRecord[]): Promise<LiveState>;
+  importRegistrations(
+    rosters: { schoolId: string; revision: number; athletes: AthleteDraft[] }[],
+  ): Promise<LiveState>;
+
   status(): Promise<{
     database: boolean;
     drive: boolean;
@@ -85,7 +115,7 @@ export function supabaseLiveRepository(
   },
   request: typeof fetch = fetch,
 ): LiveRepository {
-  async function call(name: string, args?: Record<string, unknown>) {
+  async function rawCall(name: string, args?: Record<string, unknown>) {
     let timer: ReturnType<typeof setTimeout> | undefined;
     try {
       const result = await Promise.race([
@@ -93,7 +123,7 @@ export function supabaseLiveRepository(
           .then(() => port.rpc(name, args))
           .catch(() => {
             throw Error(
-              "Không kết nối được dữ liệu nghiệp vụ. Kiểm tra mạng và migration 005.",
+              "Không kết nối được dữ liệu nghiệp vụ. Kiểm tra mạng và migration 005–008.",
             );
           }),
         new Promise<never>((_, reject) => {
@@ -119,14 +149,16 @@ export function supabaseLiveRepository(
                 ? "Trùng mã định danh hoặc VĐV đã tồn tại."
                 : code === "22023"
                   ? "Hồ sơ, trạng thái hoặc dữ liệu thi đấu chưa hợp lệ. Kiểm tra điều kiện, nội dung và xung đột."
-                  : "Không kết nối được dữ liệu nghiệp vụ. Kiểm tra mạng và migration 005.",
+                  : "Không kết nối được dữ liệu nghiệp vụ. Kiểm tra mạng và migration 005–008.",
         );
       }
-      return validateLiveState(result.data);
+      return result.data;
     } finally {
       clearTimeout(timer);
     }
   }
+  const call = async (name: string, args?: Record<string, unknown>) =>
+    validateLiveState(await rawCall(name, args));
   async function drive(
     athleteId: string,
     method: string,
@@ -154,6 +186,32 @@ export function supabaseLiveRepository(
   }
   return {
     load: () => call("hkpd_online_state"),
+    createMatches: (code, revision, draw) =>
+      call("hkpd_create_event_matches", {
+        p_code: code,
+        p_revision: revision,
+        p_draw: draw,
+      }),
+    matchCommand: (match, command) =>
+      call("hkpd_match_command", {
+        p_match_id: match.id,
+        p_revision: match.revision,
+        p_action: command.action,
+        p_score1: command.score1 ?? null,
+        p_score2: command.score2 ?? null,
+        p_reason: command.reason ?? "",
+      }),
+    students: async (identities) => {
+      const value = await rawCall("hkpd_lookup_students", {
+        p_identities: identities,
+      });
+      if (!Array.isArray(value)) throw Error("Dữ liệu nền không hợp lệ.");
+      return value as StudentRecord[];
+    },
+    importStudents: (revision, rows) =>
+      call("hkpd_import_students", { p_revision: revision, p_rows: rows }),
+    importRegistrations: (rosters) =>
+      call("hkpd_import_registrations", { p_rosters: rosters }),
     status: async () => {
       const session = (await port.auth.getSession()).data.session;
       if (!session) throw Error("Đăng nhập lại.");

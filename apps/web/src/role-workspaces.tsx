@@ -10,6 +10,8 @@ export const roles = {
 } as const;
 export type WorkspaceRole = keyof typeof roles;
 export type WorkspacePage =
+  | "Dữ liệu học sinh"
+  | "Nhập đăng ký"
   | "Quản lý tài khoản"
   | "Quản lý trường"
   | "Quản lý giải"
@@ -22,19 +24,21 @@ export type WorkspacePage =
   | "Vòng tròn"
   | "Lịch thi đấu"
   | "Ngoại tuyến"
-  | "Xác nhận kết quả"
+  | "Kết quả"
   | "Công khai";
 export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
   admin: [
     "Tổng quan",
     "Quản lý giải",
     "Quản lý trường",
+    "Dữ liệu học sinh",
+    "Nhập đăng ký",
     "Quản lý tài khoản",
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Phân công",
     "Lịch thi đấu",
-    "Xác nhận kết quả",
+    "Kết quả",
     "Ngoại tuyến",
     "Công khai",
   ],
@@ -46,14 +50,14 @@ export const rolePages: Record<WorkspaceRole, readonly WorkspacePage[]> = {
     "Loại trực tiếp",
     "Vòng tròn",
     "Lịch thi đấu",
-    "Xác nhận kết quả",
+    "Kết quả",
     "Ngoại tuyến",
   ],
   referee: [
     "Tổng quan",
     "Lịch thi đấu",
     "Danh mục môn thi",
-    "Xác nhận kết quả",
+    "Kết quả",
     "Ngoại tuyến",
   ],
   school: [
@@ -70,7 +74,7 @@ const glyphs: Partial<Record<WorkspacePage, string>> = {
   "Đăng ký VĐV": "M8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0ZM4 21v-2a8 8 0 0 1 16 0v2",
   "Danh mục môn thi": "M4 4h16v16H4ZM8 8h8M8 12h8M8 16h5",
   "Lịch thi đấu": "M4 5h16v16H4ZM8 2v6M16 2v6M4 10h16M8 14h2M14 14h2",
-  "Xác nhận kết quả": "M6 20V9h3v11M11 20V4h3v16M16 20v-8h3v8",
+  "Kết quả": "M6 20V9h3v11M11 20V4h3v16M16 20v-8h3v8",
 };
 export function WorkspaceIcon({ page }: { page: WorkspacePage }) {
   return (
@@ -213,15 +217,10 @@ const quickPages: Record<WorkspaceRole, WorkspacePage[]> = {
     "Kiểm tra đăng ký",
     "Danh mục môn thi",
     "Lịch thi đấu",
-    "Xác nhận kết quả",
+    "Kết quả",
   ],
-  chief: ["Phân công", "Kiểm tra đăng ký", "Lịch thi đấu", "Xác nhận kết quả"],
-  referee: [
-    "Lịch thi đấu",
-    "Xác nhận kết quả",
-    "Ngoại tuyến",
-    "Danh mục môn thi",
-  ],
+  chief: ["Phân công", "Kiểm tra đăng ký", "Lịch thi đấu", "Kết quả"],
+  referee: ["Lịch thi đấu", "Kết quả", "Ngoại tuyến", "Danh mục môn thi"],
   school: [
     "Đăng ký VĐV",
     "Danh mục môn thi",
